@@ -45,24 +45,23 @@ project(":desktop") {
             resources {
                 srcDirs = []
             }
-            test {
-                java {
-                    srcDirs = ['src/test/']
-                }
-                resources {
-                    srcDirs = ['src/test/']
-                }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/']
+            }
+            resources {
+                srcDirs = []
             }
         }
     }
-
-
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-        
+        testCompile 'junit:junit:4.12'
+        compile 'junit:junit:4.12'
     }
 }
 
@@ -77,23 +76,28 @@ project(":core") {
             resources {
                 srcDirs = ['assets/']
             }
-            test {
-                java {
-                    srcDirs = ['src/test/']
-                }
-                resources {
-                    srcDirs = ['src/test/']
-                }
+        }
+        test {
+            java {
+                srcDirs = ['src/test/']
+            }
+            resources {
+                srcDirs = ['assets/']
             }
         }
     }
-
-
     dependencies {
+
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        compile 'junit:junit:4.12'
+        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+
+        testCompile 'junit:junit:4.12'
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         
     }
 }
-
 
