@@ -1,0 +1,99 @@
+buildscript {
+    
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+    }
+    dependencies {
+        
+
+    }
+}
+
+allprojects {
+    apply plugin: "idea"
+
+    version = '1.0'
+    ext {
+        appName = "Arcturus"
+        gdxVersion = '1.9.6'
+        roboVMVersion = '2.3.1'
+        box2DLightsVersion = '1.4'
+        ashleyVersion = '1.7.0'
+        aiVersion = '1.8.0'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":desktop") {
+    apply plugin: "java"
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/']
+            }
+            resources {
+                srcDirs = []
+            }
+            test {
+                java {
+                    srcDirs = ['src/test/']
+                }
+                resources {
+                    srcDirs = ['src/test/']
+                }
+            }
+        }
+    }
+
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        
+    }
+}
+
+project(":core") {
+    apply plugin: "java"
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/']
+            }
+            resources {
+                srcDirs = ['assets/']
+            }
+            test {
+                java {
+                    srcDirs = ['src/test/']
+                }
+                resources {
+                    srcDirs = ['src/test/']
+                }
+            }
+        }
+    }
+
+
+    dependencies {
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        
+    }
+}
+
+
