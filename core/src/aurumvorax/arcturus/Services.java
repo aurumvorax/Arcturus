@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-public enum Resources{
+public enum Services{
     INSTANCE;
 
     public static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
@@ -23,7 +23,5 @@ public enum Resources{
     public static boolean loadAssets(){ return assetManager.update(); }
     public static float loadProgress(){ return assetManager.getProgress(); }
 
-    public static Sprite createSprite(String name){
-        return assetManager.get(SPRITE_ATLAS_PATH, TextureAtlas.class).createSprite(name);
-    }
+    public static TextureAtlas getSpriteAtlas(){ return assetManager.get(SPRITE_ATLAS_PATH); }
 }
