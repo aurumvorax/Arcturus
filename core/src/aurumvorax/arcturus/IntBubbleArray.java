@@ -14,13 +14,14 @@ public class IntBubbleArray{
     private transient int size;
     private transient IDComparator comparator;
 
-    public IntBubbleArray(){ this(DEFAULT_SIZE); }
+    public IntBubbleArray(){ this(new DefaultComparator(), DEFAULT_SIZE); }
+    public IntBubbleArray(IDComparator comparator){ this(comparator, DEFAULT_SIZE); }
 
-    public IntBubbleArray(int initialSize){
+    public IntBubbleArray(IDComparator comparator, int initialSize){
         if (initialSize <= 0)
             throw new IllegalArgumentException("Illegal Array Size: " + initialSize);
         this.data = new int[initialSize];
-        comparator = new DefaultComparator();
+        this.comparator = comparator;
     }
 
     public void setComparator(IDComparator comparator){ this.comparator = comparator; }
