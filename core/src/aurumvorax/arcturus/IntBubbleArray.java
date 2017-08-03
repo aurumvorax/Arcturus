@@ -14,6 +14,7 @@ public class IntBubbleArray{
     private transient int size;
     private transient IDComparator comparator;
 
+
     public IntBubbleArray(){ this(new DefaultComparator(), DEFAULT_SIZE); }
     public IntBubbleArray(IDComparator comparator){ this(comparator, DEFAULT_SIZE); }
 
