@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.systems.SpriteRenderer;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
@@ -17,7 +18,9 @@ public class GameScreen extends ScreenAdapter{
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
                 new SpriteRenderer()
-             ).build();
+            ).register(
+                new GameInvocationStrategy()
+            ).build();
 
         world = new World(config);
 

@@ -1,5 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.IDComparator;
+import aurumvorax.arcturus.IntBubbleArray;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.Position;
 import aurumvorax.arcturus.artemis.components.Sprite;
@@ -17,9 +19,10 @@ public class SpriteRenderer extends IteratingSystem{
     ComponentMapper<Position> pm;
     ComponentMapper<Sprite> sm;
 
-    private Map<String, TextureAtlas.AtlasRegion> loadRegions;
+    private Map<String, TextureAtlas.AtlasRegion> regions;
     private TextureAtlas atlas;
     private Bag<TextureAtlas.AtlasRegion> regionsByID;
+    private IntBubbleArray sortedIDs;
 
     public SpriteRenderer(){
         super(Aspect.all(Sprite.class, Position.class));
@@ -27,8 +30,16 @@ public class SpriteRenderer extends IteratingSystem{
 
     @Override
     protected void initialize() {
-        loadRegions = new HashMap<>();
+        regions = new HashMap<>();
         atlas = Services.getSpriteAtlas();
+        regionsByID = new Bag<>();
+        for (TextureAtlas.AtlasRegion r : atlas.getRegions())
+            regions.put(r.name, r);
+        sortedIDs = new IntBubbleArray(new IDComparator(){
+            @Override public int compare(int a, int b){ return(sm.get(a).layer.ordinal() - sm.get(b).layer.ordinal()); }
+            @Override public boolean equals(int a, int b){ return(a == b); }
+        });
+
     }
 
     @Override
