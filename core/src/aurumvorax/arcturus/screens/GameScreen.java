@@ -29,9 +29,10 @@ public class GameScreen extends ScreenAdapter{
         world = new World(config);
 
         int ship = world.create();
-        world.getMapper(Position.class).create(ship);
+        world.getMapper(Position.class).create(ship).theta = 0;
         world.getMapper((Position.class)).get(ship).position = new Vector2();
         world.getMapper(Sprite.class).create(ship).name = Services.SHIP_IMG_PATH + "TestShip";
+        world.getMapper(Sprite.class).get(ship).offsetX = 32;
     }
 
     @Override
