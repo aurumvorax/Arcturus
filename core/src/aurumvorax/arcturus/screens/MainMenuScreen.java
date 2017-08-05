@@ -18,6 +18,7 @@ public class MainMenuScreen extends ScreenAdapter{
 
     @Override
     public void show(){
+        core.switchScreen(Core.ScreenType.Game);
     }
 
     @Override

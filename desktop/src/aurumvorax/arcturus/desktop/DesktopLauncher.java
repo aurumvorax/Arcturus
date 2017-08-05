@@ -17,6 +17,7 @@ public class DesktopLauncher {
         settings.combineSubdirectories = true;
         TexturePacker.process(settings, "img/sprites", "img", "SpriteAtlas");
 
+        // TODO - change prefs directory to local path and add run icon for game
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "SpaceGame";
         config.useGL30 = false;

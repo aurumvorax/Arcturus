@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis;
 
+import aurumvorax.arcturus.Services;
 import com.artemis.BaseSystem;
 import com.artemis.SystemInvocationStrategy;
 import com.artemis.utils.BitVector;
@@ -60,12 +61,16 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
                 }
             }
         }
+
+        // Render call
+        Services.getBatch().begin();
         for(int i = 0; i < renderSystems.size; i ++){
             if(!disabledRenderSystems.get(i)){
                 renderSystems.get(i).process();
                 updateEntityStates();
             }
         }
+        Services.getBatch().end();
         // TODO set alpha to accumulator / 1000000000
     }
 
@@ -87,9 +92,10 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
         BitVector checkDisabled = (target instanceof RenderMarker) ? disabledRenderSystems : disabledLogicSystems;
         Class targetClass = target.getClass();
         for(int i = 0; i < checkSystems.size; i++){
-            if(targetClass == checkSystems.get(i).getClass())
+            if(targetClass == checkSystems.get(i).getClass()){
                 checkDisabled.set(i, value);
-            return;
+                return;
+            }
         }
         throw new RuntimeException("System not found - " + target);
     }

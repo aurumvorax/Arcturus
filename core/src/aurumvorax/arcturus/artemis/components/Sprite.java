@@ -3,6 +3,7 @@ package aurumvorax.arcturus.artemis.components;
 import com.artemis.Component;
 
 public class Sprite extends Component{
+
     public enum Layer{
         DEFAULT,
         BACKGROUND,
@@ -14,5 +15,7 @@ public class Sprite extends Component{
     }
 
     public String name;
+    public float offsetX;
+    public float offsetY;
     public Layer layer = Layer.DEFAULT;
 }
