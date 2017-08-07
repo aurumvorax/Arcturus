@@ -63,14 +63,14 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
         }
 
         // Render call
-        Services.getBatch().begin();
+        Services.batch.begin();
         for(int i = 0; i < renderSystems.size; i ++){
             if(!disabledRenderSystems.get(i)){
                 renderSystems.get(i).process();
                 updateEntityStates();
             }
         }
-        Services.getBatch().end();
+        Services.batch.end();
         // TODO set alpha to accumulator / 1000000000
     }
 

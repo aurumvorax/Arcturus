@@ -1,16 +1,14 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
-import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.Sprite;
-import aurumvorax.arcturus.artemis.systems.SpriteRenderer;
+import aurumvorax.arcturus.artemis.systems.MotionSystem;
+import aurumvorax.arcturus.artemis.systems.SpriteRenderingSystem;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter{
 
@@ -21,18 +19,16 @@ public class GameScreen extends ScreenAdapter{
         this.core = core;
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
-                new SpriteRenderer()
+                new SpriteRenderingSystem(),
+                new MotionSystem()
             ).register(
                 new GameInvocationStrategy()
             ).build();
 
         world = new World(config);
 
-        int ship = world.create();
-        world.getMapper(Position.class).create(ship).theta = 0;
-        world.getMapper((Position.class)).get(ship).position = new Vector2();
-        world.getMapper(Sprite.class).create(ship).name = Services.SHIP_IMG_PATH + "TestShip";
-        world.getMapper(Sprite.class).get(ship).offsetX = 32;
+        EntityFactory.init(world);
+        EntityFactory.createShip(200,200,75);
     }
 
     @Override

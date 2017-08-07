@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class SpriteRenderer extends BaseEntitySystem implements RenderMarker{
+public class SpriteRenderingSystem extends BaseEntitySystem implements RenderMarker{
 
     private ComponentMapper<Position> pm;
     private ComponentMapper<Sprite> sm;
@@ -26,7 +26,7 @@ public class SpriteRenderer extends BaseEntitySystem implements RenderMarker{
     private Bag<TextureAtlas.AtlasRegion> regionsByID;
     private IntBubbleArray sortedIDs;
 
-    public SpriteRenderer(){
+    public SpriteRenderingSystem(){
         super(Aspect.all(Sprite.class, Position.class));
     }
 
@@ -58,7 +58,7 @@ public class SpriteRenderer extends BaseEntitySystem implements RenderMarker{
         Position p = pm.get(entityId);
         Sprite s = sm.get(entityId);
 
-        Services.getBatch().draw(region, p.position.x, p.position.y, s.offsetX, s.offsetY,
+        Services.batch.draw(region, p.position.x, p.position.y, s.offsetX, s.offsetY,
                 region.getRegionWidth(), region.getRegionHeight(), 1, 1, p.theta);
     }
 
