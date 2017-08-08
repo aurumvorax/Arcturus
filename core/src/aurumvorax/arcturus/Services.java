@@ -20,6 +20,7 @@ public enum Services{
 
     public static final SpriteBatch batch = new SpriteBatch();
     public static final Json json = new Json();
+    public static final Keys keys = new Keys();
     
     
     public static void queueTextureAssets(){

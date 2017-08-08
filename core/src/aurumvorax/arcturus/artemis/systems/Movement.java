@@ -6,21 +6,22 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 
-public class MotionSystem extends IteratingSystem{
+public class Movement extends IteratingSystem{
 
     ComponentMapper<Position> pm;
     ComponentMapper<Velocity> vm;
 
-    public MotionSystem(){
+    public Movement(){
         super(Aspect.all(Position.class, Velocity.class));
     }
 
     @Override
     protected void process(int entityId){
-        Position p = pm.get(entityId);
-        Velocity v = vm.get(entityId);
-
-        p.position.mulAdd(v.velocity, world.delta);
-        p.theta += v.omega * world.delta;
+        Position position = pm.get(entityId);
+        Velocity velocity = vm.get(entityId);
+        float  delta = world.delta;
+        position.x += velocity.dx * delta;
+        position.y += velocity.dy * delta;
+        position.theta += velocity.omega * delta;
     }
 }

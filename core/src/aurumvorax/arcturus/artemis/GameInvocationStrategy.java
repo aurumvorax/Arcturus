@@ -4,6 +4,8 @@ import aurumvorax.arcturus.Services;
 import com.artemis.BaseSystem;
 import com.artemis.SystemInvocationStrategy;
 import com.artemis.utils.BitVector;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Array;
 
 public class GameInvocationStrategy extends SystemInvocationStrategy{
@@ -66,6 +68,9 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
         Services.batch.begin();
         for(int i = 0; i < renderSystems.size; i ++){
             if(!disabledRenderSystems.get(i)){
+
+                Gdx.gl.glClearColor(0, 0, 0, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 renderSystems.get(i).process();
                 updateEntityStates();
             }

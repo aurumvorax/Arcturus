@@ -31,11 +31,13 @@ public class Keys{
         keybinds.put(Input.Keys.C, Command.BRAKE);
     }
 
-    public void saveKeybinds(){
+    public boolean saveKeybinds(){
         if(Gdx.files.isLocalStorageAvailable()) {
             FileHandle file = Gdx.files.local(Services.KEY_PATH);
             file.writeString(Services.json.prettyPrint(Services.json.toJson(keybinds)), false);
+            return true;
         }
+        return false;
     }
 
     @SuppressWarnings("unchecked")

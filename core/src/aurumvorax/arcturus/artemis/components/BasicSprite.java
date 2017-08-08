@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.components;
 
 import com.artemis.Component;
 
-public class Sprite extends Component{
+public class BasicSprite extends Component{
 
     public enum Layer{
         DEFAULT,

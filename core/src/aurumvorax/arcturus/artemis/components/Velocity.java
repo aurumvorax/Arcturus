@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Velocity extends Component{
 
-    public Vector2 velocity = new Vector2();
+    public float dx;
+    public float dy;
     public float omega;
 }

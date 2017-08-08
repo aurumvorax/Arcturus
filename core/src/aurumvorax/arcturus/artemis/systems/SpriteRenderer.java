@@ -5,7 +5,7 @@ import aurumvorax.arcturus.IntBubbleArray;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.RenderMarker;
 import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.Sprite;
+import aurumvorax.arcturus.artemis.components.BasicSprite;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -17,17 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class SpriteRenderingSystem extends BaseEntitySystem implements RenderMarker{
+public class SpriteRenderer extends BaseEntitySystem implements RenderMarker{
 
     private ComponentMapper<Position> pm;
-    private ComponentMapper<Sprite> sm;
+    private ComponentMapper<BasicSprite> sm;
 
     private Map<String, TextureAtlas.AtlasRegion> regionsByName;
     private Bag<TextureAtlas.AtlasRegion> regionsByID;
     private IntBubbleArray sortedIDs;
 
-    public SpriteRenderingSystem(){
-        super(Aspect.all(Sprite.class, Position.class));
+    public SpriteRenderer(){
+        super(Aspect.all(BasicSprite.class, Position.class));
     }
 
     @Override
@@ -55,11 +55,11 @@ public class SpriteRenderingSystem extends BaseEntitySystem implements RenderMar
     private void process(int entityId){
 
         TextureRegion region = regionsByID.get(entityId);
-        Position p = pm.get(entityId);
-        Sprite s = sm.get(entityId);
+        Position position = pm.get(entityId);
+        BasicSprite s = sm.get(entityId);
 
-        Services.batch.draw(region, p.position.x, p.position.y, s.offsetX, s.offsetY,
-                region.getRegionWidth(), region.getRegionHeight(), 1, 1, p.theta);
+        Services.batch.draw(region, position.x, position.y, s.offsetX, s.offsetY,
+                region.getRegionWidth(), region.getRegionHeight(), 1, 1, position.theta);
     }
 
     @Override
