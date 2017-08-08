@@ -5,8 +5,9 @@ import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.systems.Movement;
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
-import aurumvorax.arcturus.artemis.systems.PlayerInput;
+import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.SpriteRenderer;
+import aurumvorax.arcturus.artemis.systems.WorldCam;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -20,17 +21,21 @@ public class GameScreen extends ScreenAdapter{
     private World world;
     private PlayerInput input;
     private PlayerControl playerControl;
+    private WorldCam worldCam;
 
     public GameScreen(Core core){
         this.core = core;
-        input = new PlayerInput(core, playerControl = new PlayerControl());
+        worldCam = new WorldCam();
+        playerControl = new PlayerControl();
+        input = new PlayerInput(core, playerControl, worldCam);
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
                 new EntityLinkManager(),
                 new SpriteRenderer(),
                 new Movement(),
-                playerControl
+                playerControl,
+                worldCam
             ).register(
                 new GameInvocationStrategy()
             ).build();
@@ -38,12 +43,18 @@ public class GameScreen extends ScreenAdapter{
         world = new World(config);
 
         EntityFactory.init(world);
-        EntityFactory.createShip(200, 200, 75);
+        int ship = EntityFactory.createShip(200,200,70);
+        worldCam.setTarget(ship);
     }
 
     @Override
     public void show(){
         Gdx.input.setInputProcessor(input);
+    }
+
+    @Override
+    public void resize(int width, int height){
+        worldCam.resize(width, height);
     }
 
     @Override

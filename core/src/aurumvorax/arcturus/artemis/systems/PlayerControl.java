@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.components.Player;
+import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Position;
 import aurumvorax.arcturus.artemis.components.Velocity;
 import com.artemis.Aspect;
@@ -9,6 +9,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
 import com.badlogic.gdx.math.Vector2;
 
+@SuppressWarnings("WeakerAccess")
 public class PlayerControl extends BaseEntitySystem{
 
     @EntityId private int playerShip;
@@ -22,7 +23,7 @@ public class PlayerControl extends BaseEntitySystem{
     ComponentMapper<Position> mPosition;
 
     public PlayerControl(){
-        super(Aspect.all(Player.class, Velocity.class, Position.class));
+        super(Aspect.all(PlayerShip.class, Velocity.class, Position.class));
     }
 
 
@@ -33,15 +34,21 @@ public class PlayerControl extends BaseEntitySystem{
 
     @Override
     protected void processSystem(){
-        Velocity v = mVelocity.get(playerShip);
-        Position p = mPosition.get(playerShip);
+        Velocity velocity = mVelocity.get(playerShip);
+        Position position = mPosition.get(playerShip);
         float delta = world.delta;
-        accel.set(thrust, strafe);
-        if(!accel.isZero())
-            accel.rotate(p.theta).scl(300);
-        v.dx += accel.x * delta;
-        v.dy += accel.y * delta;
-        v.omega += helm * 100 * delta;
+        if(!brake){
+            accel.set(thrust, strafe);
+            if(!accel.isZero())
+                accel.rotate(position.theta).setLength(300);
+        }else{
+            if((velocity.v.len2()) > 300 * delta)
+                accel.set(velocity.v).scl(-1).setLength(300);
+            else
+                accel.set(velocity.v).scl(-1);
+        }
+        velocity.v.mulAdd(accel, delta);
+        velocity.omega += helm * 100 * delta;
     }
 
     @Override

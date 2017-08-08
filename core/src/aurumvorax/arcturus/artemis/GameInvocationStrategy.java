@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.systems.WorldCam;
 import com.artemis.BaseSystem;
 import com.artemis.SystemInvocationStrategy;
 import com.artemis.utils.BitVector;
@@ -65,6 +66,7 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
         }
 
         // Render call
+        Services.batch.setProjectionMatrix(WorldCam.getMatrix());
         Services.batch.begin();
         for(int i = 0; i < renderSystems.size; i ++){
             if(!disabledRenderSystems.get(i)){

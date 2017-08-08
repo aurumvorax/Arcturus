@@ -1,20 +1,21 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus;
 
-import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.Keys;
-import aurumvorax.arcturus.Services;
-import com.artemis.BaseSystem;
+import aurumvorax.arcturus.artemis.systems.PlayerControl;
+import aurumvorax.arcturus.artemis.systems.WorldCam;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 
 public class PlayerInput extends InputAdapter{
 
     private Core core;
     private PlayerControl player;
+    private WorldCam cam;
 
-    public PlayerInput(Core core, PlayerControl player){
+    private static final float SCROLLRATE = 0.1f;
+
+    public PlayerInput(Core core, PlayerControl player, WorldCam cam){
         this.core = core;
         this.player = player;
+        this.cam = cam;
     }
 
     @Override
@@ -84,6 +85,7 @@ public class PlayerInput extends InputAdapter{
 
     @Override
     public boolean mouseMoved(int x, int y){
+        cam.setMouse(x, y);
         return true;
     }
 
@@ -99,11 +101,13 @@ public class PlayerInput extends InputAdapter{
 
     @Override
     public boolean touchDragged(int x, int y, int pointer){
+        cam.setMouse(x, y);
         return true;
     }
 
     @Override
     public boolean scrolled(int amount){
+        cam.Zoom(amount * SCROLLRATE);
         return false;
     }
 }

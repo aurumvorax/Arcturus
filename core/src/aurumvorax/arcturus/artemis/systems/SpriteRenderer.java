@@ -58,7 +58,7 @@ public class SpriteRenderer extends BaseEntitySystem implements RenderMarker{
         Position position = pm.get(entityId);
         BasicSprite s = sm.get(entityId);
 
-        Services.batch.draw(region, position.x, position.y, s.offsetX, s.offsetY,
+        Services.batch.draw(region, position.p.x - s.offsetX, position.p.y - s.offsetY, s.offsetX, s.offsetY,
                 region.getRegionWidth(), region.getRegionHeight(), 1, 1, position.theta);
     }
 

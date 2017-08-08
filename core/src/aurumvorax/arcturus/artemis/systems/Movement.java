@@ -6,6 +6,7 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 
+@SuppressWarnings("WeakerAccess")
 public class Movement extends IteratingSystem{
 
     ComponentMapper<Position> pm;
@@ -20,8 +21,7 @@ public class Movement extends IteratingSystem{
         Position position = pm.get(entityId);
         Velocity velocity = vm.get(entityId);
         float  delta = world.delta;
-        position.x += velocity.dx * delta;
-        position.y += velocity.dy * delta;
+        position.p.mulAdd(velocity.v, delta);
         position.theta += velocity.omega * delta;
     }
 }
