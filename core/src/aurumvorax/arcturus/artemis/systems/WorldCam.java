@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
 
 public class WorldCam extends BaseSystem{
 
@@ -22,6 +24,7 @@ public class WorldCam extends BaseSystem{
     private Vector2 unprojected;
     private float halfWidth;
     private float halfHeight;
+    private Vector3 lerpMatrix;
 
     private static final float ZMIN = 0.2f;
     private static final float ZMAX = 2.0f;
@@ -38,9 +41,9 @@ public class WorldCam extends BaseSystem{
         velocity = new Vector2();
         mouseS = new Vector2();
         unprojected = new Vector2();
+        lerpMatrix = new Vector3();
     }
 
-    public static Matrix4 getMatrix(){ return cam.combined; }
     public void Zoom(float zoom){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + zoom), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
 
@@ -61,6 +64,13 @@ public class WorldCam extends BaseSystem{
         this.halfHeight = height * 0.5f;
     }
 
+    public Matrix4 getMatrix(float alpha){
+        cam.position.set(position, 0);
+        lerpMatrix.set(velocity, 0);
+        cam.position.mulAdd(lerpMatrix, alpha);
+        cam.update();
+        return cam.combined;
+    }
 
     @Override
     protected void processSystem(){
@@ -74,11 +84,7 @@ public class WorldCam extends BaseSystem{
         if(velocity.len2() < MINSPEED2 * cam.zoom)
             velocity.set(targetV);
         position.mulAdd(velocity, world.delta);
-        cam.position.set(position, 0);
-        cam.update();
-
     }
-
 
     public Vector2 unproject(Vector2 screen){
         unprojected.set(position.x + ((screen.x - halfWidth) * cam.zoom), position.y + ((-screen.y + halfHeight) * cam.zoom));

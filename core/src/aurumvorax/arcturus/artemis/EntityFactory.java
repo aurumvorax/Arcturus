@@ -3,7 +3,7 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.BasicSprite;
+import aurumvorax.arcturus.artemis.components.SimpleSprite;
 import aurumvorax.arcturus.artemis.components.Velocity;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
@@ -14,14 +14,14 @@ public enum EntityFactory{
     private static World world;
     private static ComponentMapper<Position> mPosition;
     private static ComponentMapper<Velocity> mVelocity;
-    private static ComponentMapper<BasicSprite> mSprite;
+    private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<PlayerShip> mPlayer;
 
     public static void init(World world){
         EntityFactory.world = world;
         mPosition = world.getMapper(Position.class);
         mVelocity = world.getMapper(Velocity.class);
-        mSprite = world.getMapper(BasicSprite.class);
+        mSprite = world.getMapper(SimpleSprite.class);
         mPlayer = world.getMapper(PlayerShip.class);
     }
 

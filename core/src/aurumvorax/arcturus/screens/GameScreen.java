@@ -3,11 +3,8 @@ package aurumvorax.arcturus.screens;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
-import aurumvorax.arcturus.artemis.systems.Movement;
-import aurumvorax.arcturus.artemis.systems.PlayerControl;
+import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
-import aurumvorax.arcturus.artemis.systems.SpriteRenderer;
-import aurumvorax.arcturus.artemis.systems.WorldCam;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -22,22 +19,24 @@ public class GameScreen extends ScreenAdapter{
     private PlayerInput input;
     private PlayerControl playerControl;
     private WorldCam worldCam;
+    private RenderBatcher batcher;
 
     public GameScreen(Core core){
         this.core = core;
         worldCam = new WorldCam();
         playerControl = new PlayerControl();
         input = new PlayerInput(core, playerControl, worldCam);
+        batcher = new RenderBatcher(worldCam);
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
                 new EntityLinkManager(),
-                new SpriteRenderer(),
+                new SpriteRenderer(batcher),
                 new Movement(),
                 playerControl,
                 worldCam
             ).register(
-                new GameInvocationStrategy()
+                new GameInvocationStrategy(batcher)
             ).build();
 
         world = new World(config);
