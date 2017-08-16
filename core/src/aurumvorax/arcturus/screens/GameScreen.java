@@ -9,6 +9,7 @@ import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.link.EntityLinkManager;
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 
@@ -30,7 +31,6 @@ public class GameScreen extends ScreenAdapter{
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
-                new EntityLinkManager(),
                 new SpriteRenderer(batcher),
                 new Movement(),
                 playerControl,
