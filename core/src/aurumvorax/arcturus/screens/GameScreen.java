@@ -3,8 +3,13 @@ package aurumvorax.arcturus.screens;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
+import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
+import aurumvorax.arcturus.artemis.systems.collision.CCTest;
+import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.artemis.systems.collision.NullHandler;
+import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -33,6 +38,7 @@ public class GameScreen extends ScreenAdapter{
             .with(
                 new SpriteRenderer(batcher),
                 new Movement(),
+                new Collision(),
                 playerControl,
                 worldCam
             ).register(
@@ -43,7 +49,11 @@ public class GameScreen extends ScreenAdapter{
 
         EntityFactory.init(world);
         int ship = EntityFactory.createShip(200,200,70);
+        int bob = EntityFactory.createShip(400,400,160);
         worldCam.setTarget(ship);
+
+        ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
+        mPlayer.create(ship);
     }
 
     @Override

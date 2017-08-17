@@ -1,10 +1,8 @@
 package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.components.PlayerShip;
-import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.SimpleSprite;
-import aurumvorax.arcturus.artemis.components.Velocity;
+import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 
@@ -15,14 +13,14 @@ public enum EntityFactory{
     private static ComponentMapper<Position> mPosition;
     private static ComponentMapper<Velocity> mVelocity;
     private static ComponentMapper<SimpleSprite> mSprite;
-    private static ComponentMapper<PlayerShip> mPlayer;
+    private static ComponentMapper<Collidable> mCollidable;
 
     public static void init(World world){
         EntityFactory.world = world;
         mPosition = world.getMapper(Position.class);
         mVelocity = world.getMapper(Velocity.class);
         mSprite = world.getMapper(SimpleSprite.class);
-        mPlayer = world.getMapper(PlayerShip.class);
+        mCollidable = world.getMapper(Collidable.class);
     }
 
     public static int createShip(float x, float y, float theta){
@@ -33,7 +31,8 @@ public enum EntityFactory{
         mSprite.create(ship).name = Services.SHIP_IMG_PATH + "TestShip";
         mSprite.get(ship).offsetX = 64;
         mSprite.get(ship).offsetY = 32;
-        mPlayer.create(ship);
+        mCollidable.create(ship).radius = 70;
+
 
 
 
