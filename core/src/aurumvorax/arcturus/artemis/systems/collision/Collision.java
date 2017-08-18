@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-import aurumvorax.arcturus.artemis.components.Collidable;
+import aurumvorax.arcturus.artemis.components.CollisionSimple;
 import aurumvorax.arcturus.artemis.components.Position;
 import aurumvorax.arcturus.artemis.components.Velocity;
 import com.artemis.Aspect;
@@ -16,10 +16,8 @@ public class Collision extends BaseEntitySystem{
     private Bag<CollisionPair> collisionPairs;
     private static Manifold manifold = new Manifold();
 
-    private EntitySubscription ships;
-
     public Collision(){
-        super(Aspect.all(Collidable.class, Position.class));
+        super(Aspect.all(CollisionSimple.class, Position.class));
     }
 
     @Override
@@ -27,14 +25,15 @@ public class Collision extends BaseEntitySystem{
         world.inject(BroadPhaseTest.INSTANCE);
         world.inject(CCTest.INSTANCE);
         world.inject(NullHandler.INSTANCE);
+        world.inject(BounceHandler.INSTANCE);
 
-        ships = world.getAspectSubscriptionManager().get(Aspect.all(
+        EntitySubscription ships = world.getAspectSubscriptionManager().get(Aspect.all(
                 Position.class,
                 Velocity.class,
-                Collidable.class));
+                CollisionSimple.class));
 
         collisionPairs = new Bag<>();
-        collisionPairs.add(new CollisionPair(ships, ships, NullHandler.INSTANCE));
+        collisionPairs.add(new CollisionPair(ships, ships, BounceHandler.INSTANCE));
     }
 
     @Override
@@ -55,15 +54,16 @@ public class Collision extends BaseEntitySystem{
             this.handler = handler;
         }
 
-        void runPair(){
+        private void runPair(){
             if(group1 == group2){
                 IntBag list1 = group1.getEntities();
                 for(int i = 0; i < list1.size(); i++){
                     for(int j = i; j < list1.size(); j++){
-
-                        if(BroadPhaseTest.test(list1.get(i), list1.get(j)))
-                            // narrowphase test goes here
-                        handler.onCollide(list1.get(i), list1.get(j), manifold);
+                        if(!BroadPhaseTest.test(list1.get(i), list1.get(j)))
+                            continue;
+                        checkCollision(list1.get(i), list1.get(j));
+                        if(manifold.contacts != 0)
+                            handler.onCollide(list1.get(i), list1.get(j), manifold);
                     }
                 }
             }else{
@@ -71,12 +71,25 @@ public class Collision extends BaseEntitySystem{
                 IntBag list2 = group2.getEntities();
                 for(int i = 0; i < list1.size(); i++){
                     for(int j = 0; j < list2.size(); j++){
-
-                        // Test for collision
-                        handler.onCollide(list1.get(i), list2.get(j), manifold);
+                        if(!BroadPhaseTest.test(list1.get(i), list1.get(j)))
+                            continue;
+                        checkCollision(list1.get(i), list2.get(j));
+                        if(manifold.contacts != 0)
+                            handler.onCollide(list1.get(i), list2.get(j), manifold);
                     }
                 }
             }
+        }
+
+        private void checkCollision(int entityA, int entityB){
+            manifold.reset();
+
+            // if CC
+            CCTest.test(entityA, entityB, manifold);
+
+
+            // if CP, PC, or PP
+
         }
     }
 

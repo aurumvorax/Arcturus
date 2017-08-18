@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-import aurumvorax.arcturus.artemis.components.Collidable;
+import aurumvorax.arcturus.artemis.components.CollisionSimple;
 import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +9,7 @@ public enum CCTest{
     INSTANCE;
 
     private static ComponentMapper<Position> mPosition;
-    private static ComponentMapper<Collidable> mCollidable;
+    private static ComponentMapper<CollisionSimple> mCollidable;
 
     private static Vector2 contact = new Vector2();
 

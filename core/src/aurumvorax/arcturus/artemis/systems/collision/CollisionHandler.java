@@ -3,5 +3,5 @@ package aurumvorax.arcturus.artemis.systems.collision;
 public interface CollisionHandler{
 
 
-    void onCollide(int entity1, int entity2, Collision.Manifold m);
+    void onCollide(int entityA, int entityB, Collision.Manifold m);
 }

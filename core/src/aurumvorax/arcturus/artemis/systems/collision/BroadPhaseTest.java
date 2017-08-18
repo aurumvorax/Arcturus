@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-import aurumvorax.arcturus.artemis.components.Collidable;
+import aurumvorax.arcturus.artemis.components.CollisionSimple;
 import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 
@@ -8,7 +8,7 @@ public enum BroadPhaseTest{
     INSTANCE;
 
     private static ComponentMapper<Position> mPosition;
-    private static ComponentMapper<Collidable> mCollidable;
+    private static ComponentMapper<CollisionSimple> mCollidable;
 
     public static boolean test(int entityA, int entityB){
         if(entityA == entityB)
