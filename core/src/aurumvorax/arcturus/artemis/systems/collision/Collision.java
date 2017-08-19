@@ -24,6 +24,7 @@ public class Collision extends BaseEntitySystem{
     public void initialize(){
         world.inject(BroadPhaseTest.INSTANCE);
         world.inject(CCTest.INSTANCE);
+        world.inject(PPTest.INSTANCE);
         world.inject(NullHandler.INSTANCE);
         world.inject(BounceHandler.INSTANCE);
 
@@ -85,8 +86,8 @@ public class Collision extends BaseEntitySystem{
             manifold.reset();
 
             // if CC
-            CCTest.test(entityA, entityB, manifold);
-
+            //CCTest.test(entityA, entityB, manifold);
+            PPTest.test(entityA, entityB, manifold);
 
             // if CP, PC, or PP
 

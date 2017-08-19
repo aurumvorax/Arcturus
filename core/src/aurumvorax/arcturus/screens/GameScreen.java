@@ -49,7 +49,8 @@ public class GameScreen extends ScreenAdapter{
 
         EntityFactory.init(world);
         int ship = EntityFactory.createShip(200,200,70);
-        int bob = EntityFactory.createShip(400,400,160);
+        EntityFactory.createShip(400,400,160);
+        EntityFactory.createShip(0,0,0);
         worldCam.setTarget(ship);
 
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
