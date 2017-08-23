@@ -4,8 +4,7 @@ import aurumvorax.arcturus.artemis.components.CollisionSimple;
 import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 
-public enum BroadPhaseTest{
-    INSTANCE;
+public class BroadPhaseTest{
 
     private static ComponentMapper<Position> mPosition;
     private static ComponentMapper<CollisionSimple> mCollidable;

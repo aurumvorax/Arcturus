@@ -1,0 +1,26 @@
+
+
+PHASE 1
+
+Fix EntityFactory
+Weapons
+Bullets
+Collision
+    - CPTest
+    - Projectile Detonation Handler
+
+
+
+PHASE 2
+
+
+Beams
+Collision
+    - BeamTest
+    - Beam Handler
+
+
+
+PHASE 3
+
+AI

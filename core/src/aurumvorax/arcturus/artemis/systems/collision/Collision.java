@@ -1,10 +1,12 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
+import aurumvorax.arcturus.artemis.components.CollisionPolygon;
 import aurumvorax.arcturus.artemis.components.CollisionSimple;
 import aurumvorax.arcturus.artemis.components.Position;
 import aurumvorax.arcturus.artemis.components.Velocity;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
+import com.artemis.ComponentMapper;
 import com.artemis.EntitySubscription;
 import com.artemis.utils.Bag;
 import com.artemis.utils.IntBag;
@@ -13,8 +15,10 @@ import com.badlogic.gdx.utils.Array;
 
 public class Collision extends BaseEntitySystem{
 
-    private Bag<CollisionPair> collisionPairs;
+    private Bag<CollisionPair> collisionPairs = new Bag<>();
     private static Manifold manifold = new Manifold();
+
+    ComponentMapper<CollisionPolygon> mPolygon;
 
     public Collision(){
         super(Aspect.all(CollisionSimple.class, Position.class));
@@ -22,19 +26,19 @@ public class Collision extends BaseEntitySystem{
 
     @Override
     public void initialize(){
-        world.inject(BroadPhaseTest.INSTANCE);
-        world.inject(CCTest.INSTANCE);
-        world.inject(PPTest.INSTANCE);
+        world.inject(new BroadPhaseTest());
+        world.inject(new CCTest());
+        world.inject(new CPTest());
+        world.inject(new PPTest());
         world.inject(NullHandler.INSTANCE);
         world.inject(BounceHandler.INSTANCE);
 
-        EntitySubscription ships = world.getAspectSubscriptionManager().get(Aspect.all(
+        EntitySubscription actors = world.getAspectSubscriptionManager().get(Aspect.all(
                 Position.class,
                 Velocity.class,
                 CollisionSimple.class));
 
-        collisionPairs = new Bag<>();
-        collisionPairs.add(new CollisionPair(ships, ships, BounceHandler.INSTANCE));
+        collisionPairs.add(new CollisionPair(actors, actors, BounceHandler.INSTANCE));
     }
 
     @Override
@@ -85,11 +89,12 @@ public class Collision extends BaseEntitySystem{
         private void checkCollision(int entityA, int entityB){
             manifold.reset();
 
-            // if CC
-            //CCTest.test(entityA, entityB, manifold);
-            PPTest.test(entityA, entityB, manifold);
+            if(!mPolygon.has(entityA) && !mPolygon.has(entityB))    // Circle - Circle
+                CCTest.test(entityA, entityB, manifold);
 
-            // if CP, PC, or PP
+            else if(mPolygon.has(entityA) && mPolygon.has(entityB))       // Polygon - Polygon
+                PPTest.test(entityA, entityB, manifold);
+
 
         }
     }
@@ -106,3 +111,15 @@ public class Collision extends BaseEntitySystem{
         }
     }
 }
+
+// Actor - Actor - Newtonian + Damage(impact)
+// Actor - Missile - Detonation + Damage(projectile)
+// Actor - Bullet - Detonation + Damage(projectile)
+// Actor - Beam - Beam terminus + Damage(beam)
+// Missile - Bullet - detonation + damage(projectile)
+// Missile - Beam - beam terminus + damage(beam)
+
+//Resolvers needed
+// Newtonian + impact damage = Crash(actor, actor)
+// projectile detonation + damage = Boom(actor/missile, projectile)
+// beam impact - damage = PewPew(actor/missile, beam)

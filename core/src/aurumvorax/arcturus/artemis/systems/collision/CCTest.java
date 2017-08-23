@@ -5,8 +5,7 @@ import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
-public enum CCTest{
-    INSTANCE;
+public class CCTest{
 
     private static ComponentMapper<Position> mPosition;
     private static ComponentMapper<CollisionSimple> mCollidable;

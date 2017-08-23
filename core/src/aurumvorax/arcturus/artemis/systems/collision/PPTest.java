@@ -6,11 +6,8 @@ import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public enum PPTest{
-    INSTANCE;
+public class PPTest{
 
-    private static Array<Array<Vector2>> polygonsA;
-    private static Array<Array<Vector2>> polygonsB;
     private static Vector2 axis = new Vector2();
     private static Vector2 left = new Vector2();
     private static Vector2 right = new Vector2();
@@ -25,10 +22,9 @@ public enum PPTest{
     private static ComponentMapper<CollisionPolygon> mPolygon;
     private static ComponentMapper<Position> mPosition;
 
-
     public static void test(int entityA, int entityB, Collision.Manifold m){
-        polygonsA = mPolygon.get(entityA).getVertices(mPosition.get(entityA));
-        polygonsB = mPolygon.get(entityB).getVertices(mPosition.get(entityB));
+        Array<Array<Vector2>> polygonsA = mPolygon.get(entityA).getVertices(mPosition.get(entityA));
+        Array<Array<Vector2>> polygonsB = mPolygon.get(entityB).getVertices(mPosition.get(entityB));
         int bestI = -1;
         int bestJ = -1;
         m.penetration[0] = -Float.MAX_VALUE;
