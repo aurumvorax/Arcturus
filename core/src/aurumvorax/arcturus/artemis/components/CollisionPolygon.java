@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 // This component MUST be initialized with setVertices before use
 public class CollisionPolygon extends Component{
 
-    public Array<Array<Vector2>> vertices;
+    private Array<Array<Vector2>> vertices;
     private Array<Array<Vector2>> orientedVertices = new Array<>();
 
     public void setVertices(Array<Array<Vector2>> vertices){

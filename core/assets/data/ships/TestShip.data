@@ -1,0 +1,20 @@
+{
+name: "TestShip",
+    data: {
+	    imgName: "TestShip",
+	    imgCenter: {x: 64, y: 32},
+	    collisionRadius: 70,
+	    vertices: [[
+            {class: Vector2, x: 60, y: 28},
+          	{class: Vector2, x: 60, y: -28},
+            {class: Vector2, x: -60, y: -28},
+        	{class: Vector2, x: -60, y: 28}
+        ]],
+	    variants: {
+	        "Standard" : {
+        	    weapons: {
+        	    }
+   		    }
+	    }
+	}
+}

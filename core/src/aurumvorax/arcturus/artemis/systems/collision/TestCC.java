@@ -1,18 +1,18 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-import aurumvorax.arcturus.artemis.components.CollisionSimple;
+import aurumvorax.arcturus.artemis.components.CollisionRadius;
 import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
-public class CCTest{
+class TestCC{
 
     private static ComponentMapper<Position> mPosition;
-    private static ComponentMapper<CollisionSimple> mCollidable;
+    private static ComponentMapper<CollisionRadius> mCollidable;
 
     private static Vector2 contact = new Vector2();
 
-    public static void test(int entityA, int entityB, Collision.Manifold m){
+    static void test(int entityA, int entityB, Collision.Manifold m){
         int radiusA = mCollidable.get(entityA).radius;
         float radii = radiusA + mCollidable.get(entityB).radius;
         Vector2 positionA = mPosition.get(entityA).p;

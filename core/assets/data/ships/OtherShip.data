@@ -1,0 +1,30 @@
+{
+name: "OtherShip",
+data: {
+		imgName: "ConcaveTest"
+		collisionRadius: 70,
+		imgCenter: {x: 62, y: 48},
+		vertices: [[
+        	    {class: Vector2, x: -47, y: 33},
+        		{class: Vector2, x: -29, y: 33},
+        		{class: Vector2, x: -29, y: -33},
+        		{class: Vector2, x: -47, y: -33}
+            ],[
+                {class: Vector2, x: -29, y: 17},
+                {class: Vector2, x: 34, y: 17},
+                {class: Vector2, x: 34, y: -16},
+                {class: Vector2, x: -29, y: -16}
+            ],[
+                {class: Vector2, x: 34, y: 33},
+                {class: Vector2, x: 51, y: 33},
+                {class: Vector2, x: 51, y: -33},
+                {class: Vector2, x: 34, y: -33}
+            ]],
+		variants: {
+			"Standard": {
+			    weapons: {
+                }
+			}
+		}
+	}
+}

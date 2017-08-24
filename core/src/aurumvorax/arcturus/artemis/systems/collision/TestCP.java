@@ -1,23 +1,23 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
-import aurumvorax.arcturus.artemis.components.CollisionSimple;
+import aurumvorax.arcturus.artemis.components.CollisionRadius;
 import aurumvorax.arcturus.artemis.components.Position;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class CPTest{
+class TestCP{
 
     private static Vector2 axis = new Vector2();
     private static Vector2 contact = new Vector2();
     private static Vector2 normal = new Vector2();
 
     private static ComponentMapper<Position> mPosition;
-    private static ComponentMapper<CollisionSimple> mCollidable;
+    private static ComponentMapper<CollisionRadius> mCollidable;
     private static ComponentMapper<CollisionPolygon> mPolygon;
 
-    public static void test(int entityA, int entityB, Collision.Manifold m){
+    static void test(int entityA, int entityB, Collision.Manifold m){
         m.penetration[0] = -Float.MAX_VALUE;
         for(Array<Vector2> polygon : mPolygon.get(entityB).getVertices(mPosition.get(entityB))){
             float poly = solvePoly(entityA, polygon);

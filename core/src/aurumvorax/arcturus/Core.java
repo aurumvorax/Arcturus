@@ -31,13 +31,13 @@ public class Core extends Game{
     public void switchScreen(ScreenType screen){ setScreen(screens.get(screen)); }
 	
 	@Override
-	public void create(){           // Only initialize the loading screen, then let it load assets
+	public void create(){           // Switch to the splash screen for asset loading
         screens = new EnumMap<>(ScreenType.class);
         screens.put(ScreenType.Splash, new SplashScreen(this));
         setScreen(screens.get(ScreenType.Splash));
 	}
 
-	public void initialize(){           // Initialize everything else AFTER asset loading
+	public void initialize(){           // Called by LoadingScreen AFTER asset loading
 	    screens.put(ScreenType.MainMenu, new MainMenuScreen(this));
 	    screens.put(ScreenType.Game, new GameScreen(this));
     }

@@ -6,7 +6,7 @@ import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class PPTest{
+class TestPP{
 
     private static Vector2 axis = new Vector2();
     private static Vector2 left = new Vector2();
@@ -22,7 +22,7 @@ public class PPTest{
     private static ComponentMapper<CollisionPolygon> mPolygon;
     private static ComponentMapper<Position> mPosition;
 
-    public static void test(int entityA, int entityB, Collision.Manifold m){
+    static void test(int entityA, int entityB, Collision.Manifold m){
         Array<Array<Vector2>> polygonsA = mPolygon.get(entityA).getVertices(mPosition.get(entityA));
         Array<Array<Vector2>> polygonsB = mPolygon.get(entityB).getVertices(mPosition.get(entityB));
         int bestI = -1;

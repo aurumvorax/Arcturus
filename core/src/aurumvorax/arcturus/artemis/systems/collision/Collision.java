@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
-import aurumvorax.arcturus.artemis.components.CollisionSimple;
+import aurumvorax.arcturus.artemis.components.CollisionRadius;
 import aurumvorax.arcturus.artemis.components.Position;
 import aurumvorax.arcturus.artemis.components.Velocity;
 import com.artemis.Aspect;
@@ -18,25 +18,25 @@ public class Collision extends BaseEntitySystem{
     private Bag<CollisionPair> collisionPairs = new Bag<>();
     private static Manifold manifold = new Manifold();
 
-    ComponentMapper<CollisionPolygon> mPolygon;
+    private ComponentMapper<CollisionPolygon> mPolygon;
 
     public Collision(){
-        super(Aspect.all(CollisionSimple.class, Position.class));
+        super(Aspect.all(CollisionRadius.class, Position.class));
     }
 
     @Override
     public void initialize(){
-        world.inject(new BroadPhaseTest());
-        world.inject(new CCTest());
-        world.inject(new CPTest());
-        world.inject(new PPTest());
+        world.inject(new TestBroadPhase());
+        world.inject(new TestCC());
+        world.inject(new TestCP());
+        world.inject(new TestPP());
         world.inject(NullHandler.INSTANCE);
         world.inject(BounceHandler.INSTANCE);
 
         EntitySubscription actors = world.getAspectSubscriptionManager().get(Aspect.all(
                 Position.class,
                 Velocity.class,
-                CollisionSimple.class));
+                CollisionRadius.class));
 
         collisionPairs.add(new CollisionPair(actors, actors, BounceHandler.INSTANCE));
     }
@@ -64,7 +64,7 @@ public class Collision extends BaseEntitySystem{
                 IntBag list1 = group1.getEntities();
                 for(int i = 0; i < list1.size(); i++){
                     for(int j = i; j < list1.size(); j++){
-                        if(!BroadPhaseTest.test(list1.get(i), list1.get(j)))
+                        if(!TestBroadPhase.test(list1.get(i), list1.get(j)))
                             continue;
                         checkCollision(list1.get(i), list1.get(j));
                         if(manifold.contacts != 0)
@@ -76,7 +76,7 @@ public class Collision extends BaseEntitySystem{
                 IntBag list2 = group2.getEntities();
                 for(int i = 0; i < list1.size(); i++){
                     for(int j = 0; j < list2.size(); j++){
-                        if(!BroadPhaseTest.test(list1.get(i), list1.get(j)))
+                        if(!TestBroadPhase.test(list1.get(i), list1.get(j)))
                             continue;
                         checkCollision(list1.get(i), list2.get(j));
                         if(manifold.contacts != 0)
@@ -90,10 +90,10 @@ public class Collision extends BaseEntitySystem{
             manifold.reset();
 
             if(!mPolygon.has(entityA) && !mPolygon.has(entityB))    // Circle - Circle
-                CCTest.test(entityA, entityB, manifold);
+                TestCC.test(entityA, entityB, manifold);
 
             else if(mPolygon.has(entityA) && mPolygon.has(entityB))       // Polygon - Polygon
-                PPTest.test(entityA, entityB, manifold);
+                TestPP.test(entityA, entityB, manifold);
 
 
         }

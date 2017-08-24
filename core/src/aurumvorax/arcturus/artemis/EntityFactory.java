@@ -14,7 +14,7 @@ public enum EntityFactory{
     private static ComponentMapper<Position> mPosition;
     private static ComponentMapper<Velocity> mVelocity;
     private static ComponentMapper<SimpleSprite> mSprite;
-    private static ComponentMapper<CollisionSimple> mCollidable;
+    private static ComponentMapper<CollisionRadius> mCollidable;
     private static ComponentMapper<Inertia>  mInertia;
     private static ComponentMapper<CollisionPolygon> mPolygon;
 
@@ -23,7 +23,7 @@ public enum EntityFactory{
         mPosition = world.getMapper(Position.class);
         mVelocity = world.getMapper(Velocity.class);
         mSprite = world.getMapper(SimpleSprite.class);
-        mCollidable = world.getMapper(CollisionSimple.class);
+        mCollidable = world.getMapper(CollisionRadius.class);
         mInertia = world.getMapper(Inertia.class);
         mPolygon = world.getMapper(CollisionPolygon.class);
     }

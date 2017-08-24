@@ -3,18 +3,15 @@ package aurumvorax.arcturus.screens;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
+import aurumvorax.arcturus.artemis.ShipFactory;
 import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
-import aurumvorax.arcturus.artemis.systems.collision.CCTest;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
-import aurumvorax.arcturus.artemis.systems.collision.NullHandler;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
-import com.artemis.link.EntityLinkManager;
-import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 
@@ -46,11 +43,11 @@ public class GameScreen extends ScreenAdapter{
             ).build();
 
         world = new World(config);
+        world.inject(new ShipFactory(world));
 
-        EntityFactory.init(world);
-        int ship = EntityFactory.createShip(200,200,70);
-        EntityFactory.createShip(400,400,160);
-        EntityFactory.createShip(0,0,0);
+        int ship = ShipFactory.create("TestShip", "Standard", 200, 200, 0);
+        ShipFactory.create("TestShip", "Standard", 0,0,45);
+        ShipFactory.create("OtherShip", "Standard", 400, 400, 135);
         worldCam.setTarget(ship);
 
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
