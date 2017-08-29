@@ -2,8 +2,7 @@ package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
 import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.Velocity;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -21,7 +20,7 @@ public class Collision extends BaseEntitySystem{
     private ComponentMapper<CollisionPolygon> mPolygon;
 
     public Collision(){
-        super(Aspect.all(CollisionRadius.class, Position.class));
+        super(Aspect.all(CollisionRadius.class, Physics2D.class));
     }
 
     @Override
@@ -34,8 +33,7 @@ public class Collision extends BaseEntitySystem{
         world.inject(BounceHandler.INSTANCE);
 
         EntitySubscription actors = world.getAspectSubscriptionManager().get(Aspect.all(
-                Position.class,
-                Velocity.class,
+                Physics2D.class,
                 CollisionRadius.class));
 
         collisionPairs.add(new CollisionPair(actors, actors, BounceHandler.INSTANCE));

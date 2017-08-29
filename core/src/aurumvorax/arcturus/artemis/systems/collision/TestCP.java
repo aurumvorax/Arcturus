@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
 import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Position;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -13,7 +13,7 @@ class TestCP{
     private static Vector2 contact = new Vector2();
     private static Vector2 normal = new Vector2();
 
-    private static ComponentMapper<Position> mPosition;
+    private static ComponentMapper<Physics2D> mPosition;
     private static ComponentMapper<CollisionRadius> mCollidable;
     private static ComponentMapper<CollisionPolygon> mPolygon;
 

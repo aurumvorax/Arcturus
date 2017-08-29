@@ -21,7 +21,7 @@ public class CollisionPolygon extends Component{
     }
 
     // Returns objects vertices in world coordinates
-    public Array<Array<Vector2>> getVertices(Position p){
+    public Array<Array<Vector2>> getVertices(Physics2D p){
         for(int i = 0; i < vertices.size; i ++)
             for(int j = 0; j < vertices.get(i).size; j++)
                 orientedVertices.get(i).get(j).set(vertices.get(i).get(j)).rotate(p.theta).add(p.p);

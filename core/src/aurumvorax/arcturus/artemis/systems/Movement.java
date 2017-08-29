@@ -1,27 +1,23 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.Velocity;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 
-@SuppressWarnings("WeakerAccess")
 public class Movement extends IteratingSystem{
 
-    ComponentMapper<Position> pm;
-    ComponentMapper<Velocity> vm;
+    private ComponentMapper<Physics2D> pm;
 
     public Movement(){
-        super(Aspect.all(Position.class, Velocity.class));
+        super(Aspect.all(Physics2D.class));
     }
 
     @Override
     protected void process(int entityId){
-        Position position = pm.get(entityId);
-        Velocity velocity = vm.get(entityId);
+        Physics2D physics2D = pm.get(entityId);
         float  delta = world.delta;
-        position.p.mulAdd(velocity.v, delta);
-        position.theta += velocity.omega * delta;
+        physics2D.p.mulAdd(physics2D.v, delta);
+        physics2D.theta += physics2D.omega * delta;
     }
 }

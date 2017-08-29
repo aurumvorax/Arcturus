@@ -3,6 +3,8 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.systems.Renderer;
+import com.artemis.Archetype;
+import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
@@ -10,24 +12,27 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-
 import java.util.HashMap;
 
 public class ShipFactory{
 
+    private static ShipFactory INSTANCE = new ShipFactory();
     private static World world;
     private static HashMap<String, ShipData> ships;
+    private static Archetype protoShip;
 
-    private static ComponentMapper<Position> mPosition;
-    private static ComponentMapper<Velocity> mVelocity;
+    private static ComponentMapper<Physics2D> mPosition;
     private static ComponentMapper<CollisionRadius> mCollision;
     private static ComponentMapper<CollisionPolygon> mPolygon;
     private static ComponentMapper<Inertia> mInertia;
     private static ComponentMapper<SimpleSprite> mSprite;
 
-    public ShipFactory(World world){
+    public static void init(World world){
         ShipFactory.world = world;
-        world.inject(ShipFactory.class);
+        world.inject(INSTANCE);
+        protoShip = new ArchetypeBuilder()
+                .add(Physics2D.class)
+                .build(world);
         ships = new HashMap<>();
         for(FileHandle entry : Services.SHIP_PATH.list()){
             Wrapper wrapper = Services.json.fromJson(Wrapper.class, entry);
@@ -45,11 +50,10 @@ public class ShipFactory{
         int ship = world.create();
         ShipData data = ships.get(type);
 
-        Position p = mPosition.create(ship);
+        Physics2D p = mPosition.create(ship);
         p.p.set(x, y);
         p.theta = t;
 
-        mVelocity.create(ship);
         mInertia.create(ship);
         mCollision.create(ship).radius = data.collisionRadius;
         mPolygon.create(ship).setVertices(data.vertices);

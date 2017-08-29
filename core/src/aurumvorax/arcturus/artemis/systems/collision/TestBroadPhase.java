@@ -1,12 +1,12 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Position;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.ComponentMapper;
 
 class TestBroadPhase{
 
-    private static ComponentMapper<Position> mPosition;
+    private static ComponentMapper<Physics2D> mPosition;
     private static ComponentMapper<CollisionRadius> mCollidable;
 
     static boolean test(int entityA, int entityB){

@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
-import aurumvorax.arcturus.artemis.components.Position;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -20,7 +20,7 @@ class TestPP{
     private static Vector2[] edgeB = {new Vector2(), new Vector2()};
 
     private static ComponentMapper<CollisionPolygon> mPolygon;
-    private static ComponentMapper<Position> mPosition;
+    private static ComponentMapper<Physics2D> mPosition;
 
     static void test(int entityA, int entityB, Collision.Manifold m){
         Array<Array<Vector2>> polygonsA = mPolygon.get(entityA).getVertices(mPosition.get(entityA));

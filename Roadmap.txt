@@ -1,6 +1,6 @@
 
+use archetypes in entity factories
 
-Fix EntityFactory
 Weapons
 Bullets
 Collision

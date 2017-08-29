@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.EntityFactory;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.ShipFactory;
 import aurumvorax.arcturus.artemis.components.PlayerShip;
@@ -43,7 +42,7 @@ public class GameScreen extends ScreenAdapter{
             ).build();
 
         world = new World(config);
-        world.inject(new ShipFactory(world));
+        ShipFactory.init(world);
 
         int ship = ShipFactory.create("TestShip", "Standard", 200, 200, 0);
         ShipFactory.create("TestShip", "Standard", 0,0,45);

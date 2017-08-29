@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.components.Position;
-import aurumvorax.arcturus.artemis.components.Velocity;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
@@ -32,8 +31,7 @@ public class WorldCam extends BaseSystem{
     private static final float FRAMESIZE = 0.8f;
     private static final float PANSPEED = 3;
 
-    ComponentMapper<Position> mPosition;
-    ComponentMapper<Velocity> mVelocity;
+    ComponentMapper<Physics2D> mPhysics;
 
     public WorldCam(){
         cam = new OrthographicCamera();
@@ -48,11 +46,11 @@ public class WorldCam extends BaseSystem{
     public void setMouse(float x, float y){ mouseS.set(x, y); }
 
     public void setTarget(int entityID){
-        if(mPosition.has(entityID) && mVelocity.has(entityID)){
+        if(mPhysics.has(entityID)){
             target = entityID;
-            this.position.set(mPosition.get(target).p);
-            targetP = mPosition.get(target).p;
-            targetV = mVelocity.get(target).v;
+            this.position.set(mPhysics.get(target).p);
+            targetP = mPhysics.get(target).p;
+            targetV = mPhysics.get(target).v;
         }else
             target = -1;
     }
