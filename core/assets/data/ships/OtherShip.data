@@ -20,9 +20,18 @@ data: {
                 {class: Vector2, x: 51, y: -33},
                 {class: Vector2, x: 34, y: -33}
             ]],
+        weaponMounts: [
+            {location:{x: 43, y: -25},
+                angle: 0,
+                arc: 90},
+            {location:{x: 43, y: 25},
+                angle: 0,
+                arc: 90},
+        ],
 		variants: {
 			"Standard": {
 			    weapons: {
+			        0: "TestCannon"
                 }
 			}
 		}

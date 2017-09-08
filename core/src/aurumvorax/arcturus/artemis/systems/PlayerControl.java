@@ -2,33 +2,39 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
 import com.badlogic.gdx.math.Vector2;
 
-@SuppressWarnings("WeakerAccess")
 public class PlayerControl extends BaseEntitySystem{
 
-    @EntityId private int playerShip;
-    private int thrust;
-    private int helm;
-    private int strafe;
-    private boolean brake;
-    private Vector2 accel = new Vector2();
+    private int playerShip;
+    private transient int thrust;
+    private transient int helm;
+    private transient int strafe;
+    private transient boolean brake;
+    private transient boolean fire;
+    private transient Vector2 accel = new Vector2();
+    private transient Vector2 mouse = new Vector2();
 
-    ComponentMapper<Physics2D> mPosition;
+    private ComponentMapper<Physics2D> mPosition;
+    private ComponentMapper<Weapons> mWeapons;
+    private WorldCam worldCam;
+
 
     public PlayerControl(){
         super(Aspect.all(PlayerShip.class, Physics2D.class));
     }
 
-
-    public void controlThrust(int thrust){ this.thrust += thrust; }
-    public void controlHelm(int helm){ this.helm += helm; }
-    public void controlStrafe(int strafe){ this.strafe += strafe; }
+    public void controlThrust(int thrust){ this.thrust = thrust; }
+    public void controlHelm(int helm){ this.helm = helm; }
+    public void controlStrafe(int strafe){ this.strafe = strafe; }
     public void controlBrake(boolean brake){ this.brake = brake; }
+    public void controlFire(boolean fire){ this.fire = fire; }
+    public void setMouse(int x, int y){ this.mouse.set(x, y); }
 
     @Override
     protected void processSystem(){
@@ -46,6 +52,9 @@ public class PlayerControl extends BaseEntitySystem{
         }
         physics2D.v.mulAdd(accel, delta);
         physics2D.omega += helm * 100 * delta;
+        Weapons w = mWeapons.get(playerShip);
+        w.target.set(worldCam.unproject(mouse));
+        w.fire = fire;
     }
 
     @Override

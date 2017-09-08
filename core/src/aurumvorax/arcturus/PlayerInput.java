@@ -59,22 +59,22 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case TURN_LEFT:
-                player.controlHelm(-1);
+                player.controlHelm(0);
                 break;
             case TURN_RIGHT:
-                player.controlHelm(1);
+                player.controlHelm(0);
                 break;
             case FORWARD:
-                player.controlThrust(-1);
+                player.controlThrust(0);
                 break;
             case BACK:
-                player.controlThrust(1);
+                player.controlThrust(0);
                 break;
             case STRAFE_LEFT:
-                player.controlStrafe(-1);
+                player.controlStrafe(0);
                 break;
             case STRAFE_RIGHT:
-                player.controlStrafe(1);
+                player.controlStrafe(0);
                 break;
             case BRAKE:
                 player.controlBrake(false);
@@ -86,22 +86,26 @@ public class PlayerInput extends InputAdapter{
     @Override
     public boolean mouseMoved(int x, int y){
         cam.setMouse(x, y);
+        player.setMouse(x, y);
         return true;
     }
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button){
+        player.controlFire(true);
         return true;
     }
 
     @Override
     public boolean touchUp (int x, int y, int pointer, int button){
+        player.controlFire(false);
         return true;
     }
 
     @Override
     public boolean touchDragged(int x, int y, int pointer){
         cam.setMouse(x, y);
+        player.setMouse(x, y);
         return true;
     }
 

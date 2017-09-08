@@ -110,6 +110,8 @@ public class Collision extends BaseEntitySystem{
     }
 }
 
+// Shield check for actors
+
 // Actor - Actor - Newtonian + Damage(impact)
 // Actor - Missile - Detonation + Damage(projectile)
 // Actor - Bullet - Detonation + Damage(projectile)

@@ -1,13 +1,16 @@
 
-use archetypes in entity factories
-
+    - add rotation damping to braking
 Weapons
+    - fix turret tracking bug
+    -
 Bullets
+    - add firing to weapon update system
 Collision
     - CPTest
     - Projectile Detonation Handler
-
 Beams
 Collision
     - BeamTest
     - Beam Handler
+Menu
+Load/Save

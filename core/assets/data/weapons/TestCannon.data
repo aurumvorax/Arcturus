@@ -1,0 +1,13 @@
+{
+	name: "TestCannon",
+	data: {
+	    type: CANNON,
+		imgName: "TestTurret",
+		imgCenter: {x: 7, y: 8},
+	    rotationSpeed: 200,
+		barrels: [{x: 8, y: 0}],
+		launches: "TestBullet",
+		delay: 0,
+		reload: 0.1
+	}
+}

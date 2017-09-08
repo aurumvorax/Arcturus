@@ -31,7 +31,7 @@ public class WorldCam extends BaseSystem{
     private static final float FRAMESIZE = 0.8f;
     private static final float PANSPEED = 3;
 
-    ComponentMapper<Physics2D> mPhysics;
+    private static ComponentMapper<Physics2D> mPhysics;
 
     public WorldCam(){
         cam = new OrthographicCamera();

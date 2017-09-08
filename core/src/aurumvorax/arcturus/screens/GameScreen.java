@@ -3,6 +3,7 @@ package aurumvorax.arcturus.screens;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.ShipFactory;
+import aurumvorax.arcturus.artemis.WeaponFactory;
 import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
@@ -33,8 +34,10 @@ public class GameScreen extends ScreenAdapter{
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
                 new SpriteRenderer(batcher),
+                new MountedRenderer(batcher),
                 new Movement(),
                 new Collision(),
+                new WeaponsUpdate(),
                 playerControl,
                 worldCam
             ).register(
@@ -43,6 +46,7 @@ public class GameScreen extends ScreenAdapter{
 
         world = new World(config);
         ShipFactory.init(world);
+        WeaponFactory.init(world);
 
         int ship = ShipFactory.create("TestShip", "Standard", 200, 200, 0);
         ShipFactory.create("TestShip", "Standard", 0,0,45);
