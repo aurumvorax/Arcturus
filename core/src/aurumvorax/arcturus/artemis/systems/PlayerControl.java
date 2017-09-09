@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
@@ -52,7 +53,7 @@ public class PlayerControl extends BaseEntitySystem{
             if(abs(physics2D.omega) < 100 * delta)
                 physics2D.omega = 0;
             else
-                physics2D.omega -= sign(physics2D.omega) * 100 * delta;
+                physics2D.omega -= Utils.sign(physics2D.omega) * 100 * delta;
             if((physics2D.v.len2()) > 300 * delta)
                 accel.set(physics2D.v).scl(-1).setLength(300);
             else
@@ -70,7 +71,5 @@ public class PlayerControl extends BaseEntitySystem{
         playerShip = entityID;
     }
 
-    private float sign(float number){
-        return (number < 0) ? -1f : 1f;
-    }
+
 }

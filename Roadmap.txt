@@ -1,9 +1,6 @@
 
-    - add rotation damping to braking
-Weapons
-    - fix turret tracking bug
-    -
 Bullets
+    - ephemeralsystem
     - add firing to weapon update system
 Collision
     - CPTest

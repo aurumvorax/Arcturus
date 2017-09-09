@@ -59,7 +59,6 @@ public class WeaponFactory{
             throw new IllegalArgumentException("Invalid projectile type - " + type);
 
         WeaponData data = weapons.get(type);
-
         switch(data.type){
             case CANNON:
                 int cannon = world.create(protoCannon);

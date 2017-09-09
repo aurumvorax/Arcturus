@@ -4,6 +4,7 @@ import aurumvorax.arcturus.artemis.components.Mounted;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Turret;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.Utils;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
@@ -24,7 +25,6 @@ public class WeaponsUpdate extends IteratingSystem{
     public WeaponsUpdate(){
         super(Aspect.all(Weapons.class));
     }
-
 
     @Override
     protected void process(int entityID){
@@ -54,18 +54,11 @@ public class WeaponsUpdate extends IteratingSystem{
 
         m.position.set(m.location).rotate(parent.theta).add(parent.p);
         float zeroAngle = parent.theta + t.arcMid;
-        float targetAngle = normalize(t.target - zeroAngle);
-        float thetaRelative = normalize(m.theta - zeroAngle);
+        float targetAngle = Utils.normalize(t.target - zeroAngle);
+        float thetaRelative = Utils.normalize(m.theta - zeroAngle);
         float omega = MathUtils.clamp((targetAngle - thetaRelative) * 10, -t.omegaMax, t.omegaMax);
         thetaRelative += omega * world.delta;
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;
-
-    }
-
-    private float normalize(float angle){
-        while(angle < -180) angle += 360;
-        while(angle > 180) angle -= 360;
-        return angle;
     }
 }

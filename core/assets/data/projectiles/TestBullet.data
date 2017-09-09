@@ -1,0 +1,11 @@
+{
+    name: "TestBullet",
+    data: {
+        type: "BULLET",
+        imgName: "TestBullet",
+        imgCenter: { x: 5, y : 4},
+        collisionRadius: 5,
+        duration: 2,
+        speed: 300
+    }
+}
