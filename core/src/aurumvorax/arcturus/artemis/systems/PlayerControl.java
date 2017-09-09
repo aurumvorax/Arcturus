@@ -7,7 +7,10 @@ import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+
+import static java.lang.Math.abs;
 
 public class PlayerControl extends BaseEntitySystem{
 
@@ -41,10 +44,15 @@ public class PlayerControl extends BaseEntitySystem{
         Physics2D physics2D = mPosition.get(playerShip);
         float delta = world.delta;
         if(!brake){
+            physics2D.omega = MathUtils.clamp(-300, physics2D.omega + helm * 100 * delta, 300);
             accel.set(thrust, strafe);
             if(!accel.isZero())
                 accel.rotate(physics2D.theta).setLength(300);
         }else{
+            if(abs(physics2D.omega) < 100 * delta)
+                physics2D.omega = 0;
+            else
+                physics2D.omega -= sign(physics2D.omega) * 100 * delta;
             if((physics2D.v.len2()) > 300 * delta)
                 accel.set(physics2D.v).scl(-1).setLength(300);
             else
@@ -60,5 +68,9 @@ public class PlayerControl extends BaseEntitySystem{
     @Override
     public void inserted(int entityID){
         playerShip = entityID;
+    }
+
+    private float sign(float number){
+        return (number < 0) ? -1f : 1f;
     }
 }

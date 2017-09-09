@@ -37,13 +37,12 @@ public class WeaponsUpdate extends IteratingSystem{
 
     private void updateActive(int weapon, Vector2 target, boolean fire){
         Turret t = mTurret.get(weapon);
-        Physics2D p = mPhysics.get(mMounted.get(weapon).parent);
         Mounted m = mMounted.get(weapon);
 
         if(target == null)
             t.target = t.arcMid;
         else{
-            targetVector.set(target).sub(p.p);
+            targetVector.set(target).sub(m.position);
             t.target = targetVector.angle();
         }
     }
