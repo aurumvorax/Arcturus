@@ -39,6 +39,7 @@ public class GameScreen extends ScreenAdapter{
                 new Movement(),
                 new Collision(),
                 new WeaponsUpdate(),
+                new EphemeralDecay(),
                 playerControl,
                 worldCam
             ).register(

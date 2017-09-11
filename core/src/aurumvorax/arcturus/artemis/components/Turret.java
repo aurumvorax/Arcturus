@@ -1,8 +1,6 @@
 package aurumvorax.arcturus.artemis.components;
 
 import com.artemis.Component;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 
 public class Turret extends Component{
 
@@ -14,7 +12,6 @@ public class Turret extends Component{
     public float omegaMax;
     public boolean fire;
     public float target;
-    public Array<Vector2> barrels;
 
     public void setArcs(float angle, float arc){
         arcMid = angle;

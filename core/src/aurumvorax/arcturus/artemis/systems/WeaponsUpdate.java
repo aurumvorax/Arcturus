@@ -1,5 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.artemis.ProjectileFactory;
+import aurumvorax.arcturus.artemis.components.Cannon;
 import aurumvorax.arcturus.artemis.components.Mounted;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Turret;
@@ -15,11 +17,13 @@ public class WeaponsUpdate extends IteratingSystem{
 
 
     private static transient Vector2 targetVector = new Vector2();
+    private static transient Vector2 firePoint = new Vector2();
 
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Mounted> mMounted;
     private static ComponentMapper<Turret> mTurret;
     private static ComponentMapper<Physics2D> mPhysics;
+    private static ComponentMapper<Cannon> mCannon;
 
 
     public WeaponsUpdate(){
@@ -45,6 +49,8 @@ public class WeaponsUpdate extends IteratingSystem{
             targetVector.set(target).sub(m.position);
             t.target = targetVector.angle();
         }
+        if(mCannon.has(weapon))
+            updateCannon(weapon, fire);
     }
 
     private void updateWeapon(int weapon){
@@ -60,5 +66,27 @@ public class WeaponsUpdate extends IteratingSystem{
         thetaRelative += omega * world.delta;
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;
+    }
+
+    private void updateCannon(int weapon, boolean fire){
+        Cannon cannon = mCannon.get(weapon);
+        cannon.timer -= world.delta;
+        if(fire && cannon.timer <= 0){
+            fire(weapon, cannon);
+            if(cannon.barrel == cannon.barrels.size - 1){  //last barrel in sequence
+                cannon.timer = cannon.reloadTime;
+                cannon.barrel = 0;
+            }else{
+                cannon.timer = cannon.burstTime;
+                cannon.barrel++;
+            }
+        }
+    }
+
+    private void fire(int weapon, Cannon cannon){
+        Mounted m = mMounted.get(weapon);
+        firePoint.set(cannon.barrels.get(cannon.barrel)).rotate(m.theta).add(m.position);
+        if(cannon.launches != null)
+            ProjectileFactory.create(cannon.launches, firePoint.x, firePoint.y, m.theta, m.parent);
     }
 }

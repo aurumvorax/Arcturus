@@ -1,7 +1,4 @@
 
-Bullets
-    - ephemeralsystem
-    - add firing to weapon update system
 Collision
     - CPTest
     - Projectile Detonation Handler

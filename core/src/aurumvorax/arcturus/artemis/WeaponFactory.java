@@ -65,8 +65,9 @@ public class WeaponFactory{
                 buildTurret(cannon, data, ship, mount);
                 Cannon c = mCannon.get(cannon);
                 c.launches = data.launches;
-                c.delay = data.delay;
-                c.reload = data.reload;
+                c.burstTime = data.delay;
+                c.reloadTime = data.reload;
+                c.barrels = data.barrels;
                 return cannon;
             case LAUNCHER:
 
@@ -93,8 +94,8 @@ public class WeaponFactory{
         s.layer = Renderer.Layer.ACTOR;
 
         Turret t = mTurret.get(entityID);
-        t.barrels = data.barrels;
-        t.omegaMax = data.rotationSpeed;t.setArcs(mount.angle, mount.arc);
+        t.omegaMax = data.rotationSpeed;
+        t.setArcs(mount.angle, mount.arc);
     }
 
     private static class Wrapper{

@@ -26,9 +26,9 @@ public class RenderBatcher{
     }
 
     public void unregister(int entityID, Renderer delegate, int layer){
-        final Job[] list = jobs.get(layer).getData();
+        final Object[] list = jobs.get(layer).getData();
         for(int i = 0; i< list.length; i++){
-            if(list[i].entityID == entityID && list[i].delegate == delegate){
+            if(((Job)list[i]).entityID == entityID && ((Job)list[i]).delegate == delegate){
                 jobs.get(layer).remove(i);
                 break;
             }

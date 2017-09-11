@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class ProjectileFactory{
 
-    private static final WeaponFactory INSTANCE = new WeaponFactory();
+    private static final ProjectileFactory INSTANCE = new ProjectileFactory();
     private static World world;
     private static HashMap<String, ProjectileData> projectiles;
     private static Archetype protoBullet;
