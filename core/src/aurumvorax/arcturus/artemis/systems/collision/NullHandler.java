@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-public enum NullHandler implements CollisionHandler{
-    INSTANCE;
+public class NullHandler implements CollisionHandler{
 
     @Override
     public void onCollide(int entity1, int entity2, Collision.Manifold m){

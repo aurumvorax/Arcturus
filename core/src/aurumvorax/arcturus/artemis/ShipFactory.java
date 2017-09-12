@@ -3,6 +3,7 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
+import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.Renderer;
 import com.artemis.Archetype;
@@ -35,6 +36,7 @@ public class ShipFactory{
         ShipFactory.world = world;
         world.inject(INSTANCE);
         protoShip = new ArchetypeBuilder()
+                .add(Ship.class)
                 .add(Physics2D.class)
                 .add(CollisionRadius.class)
                 .add(CollisionPolygon.class)

@@ -1,13 +1,12 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
-import aurumvorax.arcturus.artemis.components.PlayerShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
-import com.artemis.annotations.EntityId;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 

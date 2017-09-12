@@ -1,10 +1,22 @@
 
-Collision
-    - CPTest
-    - Projectile Detonation Handler
 Beams
+    - beam component
+    - beam system
+    - beam rendering
 Collision
     - BeamTest
     - Beam Handler
 Menu
+    - MenuScreen
+    - Scene2d setup
+    - menu key hook in playerinput
 Load/Save
+    - Observer setup
+    - Kryo functionality
+Damage
+    - damage component with armour model
+    - damage handler(not a system, but injected anyway);
+HUD
+    - hud camera system
+    - basic numerical display
+    - display selected target

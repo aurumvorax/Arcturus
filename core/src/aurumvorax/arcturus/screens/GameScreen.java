@@ -5,7 +5,7 @@ import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.ProjectileFactory;
 import aurumvorax.arcturus.artemis.ShipFactory;
 import aurumvorax.arcturus.artemis.WeaponFactory;
-import aurumvorax.arcturus.artemis.components.PlayerShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
