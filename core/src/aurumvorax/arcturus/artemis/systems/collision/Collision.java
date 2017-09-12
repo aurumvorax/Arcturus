@@ -1,8 +1,10 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
+import aurumvorax.arcturus.artemis.components.Projectile;
 import aurumvorax.arcturus.artemis.components.CollisionPolygon;
 import aurumvorax.arcturus.artemis.components.CollisionRadius;
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -14,10 +16,14 @@ import com.badlogic.gdx.utils.Array;
 
 public class Collision extends BaseEntitySystem{
 
-    private Bag<CollisionPair> collisionPairs = new Bag<>();
+    private static Bag<CollisionPair> collisionPairs = new Bag<>();
     private static Manifold manifold = new Manifold();
 
-    private ComponentMapper<CollisionPolygon> mPolygon;
+    private static CollisionHandler notify = new NullHandler();
+    private static CollisionHandler crash = new BounceHandler();
+    private static CollisionHandler boom = new BoomHandler();
+
+    private static ComponentMapper<CollisionPolygon> mPolygon;
 
     public Collision(){
         super(Aspect.all(CollisionRadius.class, Physics2D.class));
@@ -29,14 +35,22 @@ public class Collision extends BaseEntitySystem{
         world.inject(new TestCC());
         world.inject(new TestCP());
         world.inject(new TestPP());
-        world.inject(NullHandler.INSTANCE);
-        world.inject(BounceHandler.INSTANCE);
+        world.inject(notify);
+        world.inject(crash);
+        world.inject(boom);
 
         EntitySubscription actors = world.getAspectSubscriptionManager().get(Aspect.all(
+                Ship.class,
                 Physics2D.class,
                 CollisionRadius.class));
 
-        collisionPairs.add(new CollisionPair(actors, actors, BounceHandler.INSTANCE));
+        EntitySubscription bullets = world.getAspectSubscriptionManager().get(Aspect.all(
+                Projectile.class,
+                Physics2D.class,
+                CollisionRadius.class));
+
+        collisionPairs.add(new CollisionPair(actors, actors, crash));
+        collisionPairs.add(new CollisionPair(actors, bullets, boom));
     }
 
     @Override
@@ -74,7 +88,7 @@ public class Collision extends BaseEntitySystem{
                 IntBag list2 = group2.getEntities();
                 for(int i = 0; i < list1.size(); i++){
                     for(int j = 0; j < list2.size(); j++){
-                        if(!TestBroadPhase.test(list1.get(i), list1.get(j)))
+                        if(!TestBroadPhase.test(list1.get(i), list2.get(j)))
                             continue;
                         checkCollision(list1.get(i), list2.get(j));
                         if(manifold.contacts != 0)
@@ -89,6 +103,14 @@ public class Collision extends BaseEntitySystem{
 
             if(!mPolygon.has(entityA) && !mPolygon.has(entityB))    // Circle - Circle
                 TestCC.test(entityA, entityB, manifold);
+
+            else if(!mPolygon.has(entityA) && mPolygon.has(entityB))    // Circle - Polygon
+                TestCP.test(entityA, entityB, manifold);
+
+            else if(mPolygon.has(entityA) && !mPolygon.has(entityB)){   // Polygon - Circle
+                TestCP.test(entityB, entityA, manifold);
+                manifold.normal.scl(-1.0f);
+            }
 
             else if(mPolygon.has(entityA) && mPolygon.has(entityB))       // Polygon - Polygon
                 TestPP.test(entityA, entityB, manifold);
@@ -114,9 +136,9 @@ public class Collision extends BaseEntitySystem{
 
 // Actor - Actor - Newtonian + Damage(impact)
 // Actor - Missile - Detonation + Damage(projectile)
-// Actor - Bullet - Detonation + Damage(projectile)
+// Actor - Projectile - Detonation + Damage(projectile)
 // Actor - Beam - Beam terminus + Damage(beam)
-// Missile - Bullet - detonation + damage(projectile)
+// Missile - Projectile - detonation + damage(projectile)
 // Missile - Beam - beam terminus + damage(beam)
 
 //Resolvers needed

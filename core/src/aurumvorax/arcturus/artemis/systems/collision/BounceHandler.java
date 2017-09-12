@@ -1,12 +1,14 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
+// This is the collision handler for actor/actor collisions.  The objects will bounce off each other,
+// and, if appropriate, take damage proportional to the collision forces.
+
 import aurumvorax.arcturus.artemis.components.Inertia;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
-public enum BounceHandler implements CollisionHandler{
-    INSTANCE;
+public class BounceHandler implements CollisionHandler{
 
     private final static float RADS =  0.01745f;
     private final static float e = 0.6f;
@@ -20,19 +22,19 @@ public enum BounceHandler implements CollisionHandler{
     private ComponentMapper<Inertia> mInertia;
 
     @Override
-    public void onCollide(int entityA, int entityB, Collision.Manifold m){
+    public void onCollide(int actorA, int actorB, Collision.Manifold m){
 
         // Newtonian objects bounce, then get mass proportional position correction
-        if(mInertia.has(entityA) && mInertia.has(entityB)){
-            bounce(entityA, entityB, m);
-            float correction = m.penetration[0] / (mInertia.get(entityA).invMass + mInertia.get(entityB).invMass) * 0.5f;
-            mPhysics2D.get(entityA).p.mulAdd(m.normal, -mInertia.get(entityA).invMass * correction);
-            mPhysics2D.get(entityB).p.mulAdd(m.normal, mInertia.get(entityB).invMass * correction);
+        if(mInertia.has(actorA) && mInertia.has(actorB)){
+            bounce(actorA, actorB, m);
+            float correction = m.penetration[0] / (mInertia.get(actorA).invMass + mInertia.get(actorB).invMass) * 0.5f;
+            mPhysics2D.get(actorA).p.mulAdd(m.normal, -mInertia.get(actorA).invMass * correction);
+            mPhysics2D.get(actorB).p.mulAdd(m.normal, mInertia.get(actorB).invMass * correction);
 
         }else{      // Non Newtonian objects just get simple position correction
             Vector2 correction = new Vector2(m.normal).scl(m.penetration[0] * 0.5f);
-            mPhysics2D.get(entityA).p.sub(correction);
-            mPhysics2D.get(entityB).p.add(correction);
+            mPhysics2D.get(actorA).p.sub(correction);
+            mPhysics2D.get(actorB).p.add(correction);
         }
     }
 

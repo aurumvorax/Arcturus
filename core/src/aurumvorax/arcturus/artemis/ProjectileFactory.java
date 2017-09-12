@@ -1,10 +1,7 @@
 package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Ephemeral;
-import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.SimpleSprite;
+import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.systems.Renderer;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
@@ -23,6 +20,7 @@ public class ProjectileFactory{
     private static HashMap<String, ProjectileData> projectiles;
     private static Archetype protoBullet;
 
+    private static ComponentMapper<Projectile> mProjectile;
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Ephemeral> mEphemeral;
@@ -33,6 +31,7 @@ public class ProjectileFactory{
         world.inject(INSTANCE);
 
         protoBullet = new ArchetypeBuilder()
+                .add(Projectile.class)
                 .add(Physics2D.class)
                 .add(SimpleSprite.class)
                 .add(Ephemeral.class)
@@ -77,6 +76,7 @@ public class ProjectileFactory{
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
+        mProjectile.get(projectile).firedFrom = firedFrom;
         mEphemeral.get(projectile).lifespan = data.duration;
         mRadius.get(projectile).radius = data.collisionRadius;
     }

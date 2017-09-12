@@ -1,6 +1,7 @@
 
 Collision
-    - CPTest
+    - add firedFrom to projectiles
+    - eliminate collisions between projectiles and  ships that fired them - can put in handler
     - Projectile Detonation Handler
 Beams
 Collision
