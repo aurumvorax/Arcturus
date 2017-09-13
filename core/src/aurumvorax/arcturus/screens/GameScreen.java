@@ -52,19 +52,9 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void show(){
-        switch(core.getMode()){
-            case NEW:
-                newGame();
-                core.setMode(Core.GameMode.ACTIVE);
-            break;
-
-            case LOAD:
-                // TODO populate world from active save file
-                core.setMode(Core.GameMode.ACTIVE);
-            break;
-
-            case ACTIVE:
-            break;          // world already populated, just dive right in
+        if(!core.getActive()){
+            newGame();
+            core.setActive(true);
         }
         Gdx.input.setInputProcessor(input);
     }

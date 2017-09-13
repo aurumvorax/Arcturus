@@ -68,7 +68,7 @@ public class ProjectileFactory{
         Physics2D p = mPhysics.get(projectile);
         p.p.set(x, y);
         p.theta = t;
-        p.v.set(data.speed, 0).rotate(t);
+        p.v.set(data.speed, 0).rotate(t).add(mPhysics.get(firedFrom).v);
 
         SimpleSprite s = mSprite.get(projectile);
         s.name = Services.PROJECTILE_IMG_PATH + data.imgName;

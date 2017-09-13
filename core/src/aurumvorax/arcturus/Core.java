@@ -15,8 +15,7 @@ import java.util.EnumMap;
 
 public class Core extends Game{
 
-    public enum GameMode{ NEW, LOAD, ACTIVE }
-    private static GameMode mode = GameMode.NEW;
+    private static boolean gameActive = false;
 
     private EnumMap<ScreenType, Screen> screens;
     public enum ScreenType{
@@ -25,8 +24,8 @@ public class Core extends Game{
         Game
     }
 
-    public void setMode(GameMode mode){ Core.mode = mode; }
-    public GameMode getMode(){ return mode; }
+    public void setActive(boolean active){Core.gameActive = active; }
+    public boolean getActive(){ return gameActive; }
 
     public void switchScreen(ScreenType screen){ setScreen(screens.get(screen)); }
 	

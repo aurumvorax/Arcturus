@@ -47,14 +47,13 @@ public class MainMenuScreen extends ScreenAdapter{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Most recent save is the active one - stored in prefs
-                core.setMode(Core.GameMode.LOAD);
                 core.switchScreen(Core.ScreenType.Game);
             }
         });
         newButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                core.setMode(Core.GameMode.NEW);
+                core.setActive(false);
                 core.switchScreen(Core.ScreenType.Game);
             }
         });
@@ -89,7 +88,7 @@ public class MainMenuScreen extends ScreenAdapter{
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
-        if(core.getMode() == Core.GameMode.ACTIVE)
+        if(core.getActive())
             table.add(resumeButton).row();
         else if(Preferences.lastSave != null)
             table.add(continueButton).row();
