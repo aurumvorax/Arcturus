@@ -15,8 +15,8 @@ import java.util.EnumMap;
 
 public class Core extends Game{
 
-    private static GameMode mode;
     public enum GameMode{ NEW, LOAD, ACTIVE }
+    private static GameMode mode = GameMode.NEW;
 
     private EnumMap<ScreenType, Screen> screens;
     public enum ScreenType{

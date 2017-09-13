@@ -27,7 +27,7 @@ public class SplashScreen extends ScreenAdapter{
 
     private void finalLoad(){
         core.initialize();
-        core.switchScreen(Core.ScreenType.MainMenu);
+        core.switchScreen(Core.ScreenType.Game);
     }
 
 

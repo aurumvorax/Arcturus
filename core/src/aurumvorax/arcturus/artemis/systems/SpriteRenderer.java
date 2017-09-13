@@ -2,6 +2,7 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.RenderMarker;
+import aurumvorax.arcturus.artemis.components.MountedSprite;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.SimpleSprite;
 import com.artemis.Aspect;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.utils.IntMap;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("unused")
+
 public class SpriteRenderer extends Renderer implements RenderMarker{
 
     private ComponentMapper<Physics2D> mPhysics;
@@ -56,6 +57,9 @@ public class SpriteRenderer extends Renderer implements RenderMarker{
 
     @Override
     public void removed(int entityID){
-        principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+        if(mSprite.has(entityID)){
+            regionsByID.remove(entityID);
+            principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+        }
     }
 }

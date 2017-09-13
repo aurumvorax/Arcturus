@@ -91,7 +91,7 @@ public class WeaponFactory{
         s.name = Services.WEAPON_IMG_PATH + data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
-        s.layer = Renderer.Layer.ACTOR;
+        s.layer = Renderer.Layer.DETAIL;
 
         Turret t = mTurret.get(entityID);
         t.omegaMax = data.rotationSpeed;

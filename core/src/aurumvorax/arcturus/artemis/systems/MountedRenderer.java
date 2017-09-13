@@ -60,6 +60,9 @@ public class MountedRenderer extends Renderer implements RenderMarker{
 
     @Override
     public void removed(int entityID){
-        principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+        if(mSprite.has(entityID)){
+            regionsByID.remove(entityID);
+            principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+        }
     }
 }

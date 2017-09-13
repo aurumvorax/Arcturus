@@ -1,17 +1,19 @@
 package aurumvorax.arcturus;
 
-import aurumvorax.arcturus.artemis.IntMapSerializer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 
 public enum Services{
     INSTANCE;
+
+    private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
 
     public static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
     public static final String SHIP_IMG_PATH = "ships/";
@@ -22,6 +24,7 @@ public enum Services{
     public static final FileHandle SHIP_PATH = Gdx.files.local("data/ships/");
     public static final FileHandle PROJECTILE_PATH = Gdx.files.local("data/projectiles");
     public static final FileHandle WEAPON_PATH = Gdx.files.local("data/weapons");
+    public static final Skin MENUSKIN = new Skin(Gdx.files.internal(MENU_SKIN_PATH));
 
     private static final AssetManager assetManager = new AssetManager();
 
