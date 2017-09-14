@@ -10,8 +10,8 @@ Menu
     - OptionsScreen
     - LoadScreen
 Load/Save
-    - Observer setup
     - Kryo functionality
+    - Menu integration
 Damage
     - damage component with armour model
     - damage handler(not a system, but injected anyway);

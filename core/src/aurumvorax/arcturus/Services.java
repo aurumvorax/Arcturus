@@ -20,6 +20,7 @@ public enum Services{
     public static final String PROJECTILE_IMG_PATH = "projectiles/";
     public static final String WEAPON_IMG_PATH = "weapons/";
     public static final String KEY_PATH = "config/keys.cfg";
+    public static final String SAVE_PATH = "saves/";
 
     public static final FileHandle SHIP_PATH = Gdx.files.local("data/ships/");
     public static final FileHandle PROJECTILE_PATH = Gdx.files.local("data/projectiles");
