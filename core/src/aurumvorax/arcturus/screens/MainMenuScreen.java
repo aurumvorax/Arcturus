@@ -3,6 +3,7 @@ package aurumvorax.arcturus.screens;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Preferences;
 import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -68,11 +69,13 @@ public class MainMenuScreen extends ScreenAdapter{
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                SaveManager.getInstance().saveGame("Test");
             }
         });
         optionsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                SaveManager.getInstance().loadGame("Test");
             }
         });
         quitButton.addListener(new ChangeListener() {

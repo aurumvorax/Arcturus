@@ -13,6 +13,9 @@ import java.util.HashMap;
 
 public class SaveManager extends SaveSubject{
 
+    private static class Singleton{ static final SaveManager INSTANCE = new SaveManager(); }
+    public static SaveManager getInstance(){ return Singleton.INSTANCE; }
+
     private HashMap<String, FileHandle> allSaves;
     private ObjectMap<String, Object> thisSave = new ObjectMap<>();
     private Kryo kryo = new Kryo();
@@ -21,9 +24,8 @@ public class SaveManager extends SaveSubject{
 
     private SaveManager() {
         ArrayKryoSerializer.registerArraySerializer(kryo);
-        //kryo.register(SpriteRenderer.class);
         allSaves = new HashMap<>();
-        //readAllSaves();
+        readAllSaves();
     }
 
     public Array<String> getSaveList(){
