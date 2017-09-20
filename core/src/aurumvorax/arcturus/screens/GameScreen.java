@@ -88,6 +88,7 @@ public class GameScreen extends ScreenAdapter{
         for (int i = 0, s = entities.size(); s > i; i++) {
             world.delete(ids[i]);
         }
+        world.process();
         world.getEntityManager().reset();
     }
 }

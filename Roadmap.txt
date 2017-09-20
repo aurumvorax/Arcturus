@@ -10,8 +10,10 @@ Menu
     - OptionsScreen
     - LoadScreen
 Load/Save
-    - Kryo functionality
-    - Menu integration
+    - Serializer needs to process:
+        - list of entity transmuters (can't access entity lists directly
+        - components
+        - component vectors
 Damage
     - damage component with armour model
     - damage handler(not a system, but injected anyway);

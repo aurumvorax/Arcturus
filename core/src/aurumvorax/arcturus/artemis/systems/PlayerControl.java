@@ -23,6 +23,7 @@ public class PlayerControl extends BaseEntitySystem{
     private transient Vector2 accel = new Vector2();
     private transient Vector2 mouse = new Vector2();
 
+    private ComponentMapper<PlayerShip> mPlayer;
     private ComponentMapper<Physics2D> mPosition;
     private ComponentMapper<Weapons> mWeapons;
     private WorldCam worldCam;
@@ -41,6 +42,8 @@ public class PlayerControl extends BaseEntitySystem{
 
     @Override
     protected void processSystem(){
+        if(!mPlayer.has(playerShip))
+            return;
         Physics2D physics2D = mPosition.get(playerShip);
         float delta = world.delta;
         if(!brake){
