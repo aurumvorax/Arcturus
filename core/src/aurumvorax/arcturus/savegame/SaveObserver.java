@@ -6,5 +6,5 @@ public interface SaveObserver {
         SAVING, LOADING
     }
 
-    void onNotify(SaveSubject saveManager, SaveEvent saveEvent);
+    void onNotify(SaveManager saveManager, SaveEvent saveEvent);
 }

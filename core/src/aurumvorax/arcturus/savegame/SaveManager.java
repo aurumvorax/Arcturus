@@ -23,7 +23,6 @@ public class SaveManager extends SaveSubject{
     private static final String SAVEGAME_SUFFIX = ".sav";
 
     private SaveManager() {
-        ArrayKryoSerializer.registerArraySerializer(kryo);
         allSaves = new HashMap<>();
         readAllSaves();
     }
@@ -92,7 +91,6 @@ public class SaveManager extends SaveSubject{
         }catch(Exception e) {
             e.printStackTrace();
         }
-
         notify(this, SaveObserver.SaveEvent.LOADING);
         thisSave.clear();
     }

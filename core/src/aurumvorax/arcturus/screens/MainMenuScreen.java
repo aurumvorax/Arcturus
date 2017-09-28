@@ -61,9 +61,7 @@ public class MainMenuScreen extends ScreenAdapter{
         loadButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO load Menu will change active save, then call the following
-                //core.setMode(Core.GameMode.LOAD);
-                //core.switchScreen(Core.ScreenType.Game);
+                SaveManager.getInstance().loadGame("Test");
             }
         });
         saveButton.addListener(new ChangeListener() {
@@ -75,7 +73,7 @@ public class MainMenuScreen extends ScreenAdapter{
         optionsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SaveManager.getInstance().loadGame("Test");
+
             }
         });
         quitButton.addListener(new ChangeListener() {

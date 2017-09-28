@@ -9,6 +9,7 @@ import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
@@ -19,16 +20,15 @@ public class GameScreen extends ScreenAdapter{
     private Core core;
     private World world;
     private PlayerInput input;
-    private PlayerControl playerControl;
     private WorldCam worldCam;
-    private RenderBatcher batcher;
 
     public GameScreen(Core core){
         this.core = core;
         worldCam = new WorldCam();
-        playerControl = new PlayerControl();
+        PlayerControl playerControl = new PlayerControl();
         input = new PlayerInput(core, playerControl, worldCam);
-        batcher = new RenderBatcher(worldCam);
+        RenderBatcher batcher = new RenderBatcher(worldCam);
+        WorldSerializer serializer = new WorldSerializer();
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
@@ -39,7 +39,8 @@ public class GameScreen extends ScreenAdapter{
                 new WeaponsUpdate(),
                 new EphemeralDecay(),
                 playerControl,
-                worldCam
+                worldCam,
+                serializer
             ).register(
                 new GameInvocationStrategy(batcher)
             ).build();
@@ -48,6 +49,7 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.init(world);
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
+        SaveManager.getInstance().addObserver(serializer);
     }
 
     @Override

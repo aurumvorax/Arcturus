@@ -10,13 +10,12 @@ Menu
     - OptionsScreen
     - LoadScreen
 Load/Save
-    - Serializer needs to process:
-        - list of entity transmuters (can't access entity lists directly
-        - components
-        - component vectors
+    - entity master list
+    - components
+    - component vectors(entity transmuters?)
 Damage
     - damage component with armour model
-    - damage handler(not a system, but injected anyway);
+    - damage handler
 HUD
     - hud camera system
     - basic numerical display
