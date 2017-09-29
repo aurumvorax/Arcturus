@@ -21,14 +21,16 @@ public class GameScreen extends ScreenAdapter{
     private World world;
     private PlayerInput input;
     private WorldCam worldCam;
+    private WorldSerializer serializer;
 
     public GameScreen(Core core){
         this.core = core;
+
         worldCam = new WorldCam();
+        RenderBatcher batcher = new RenderBatcher(worldCam);
         PlayerControl playerControl = new PlayerControl();
         input = new PlayerInput(core, playerControl, worldCam);
-        RenderBatcher batcher = new RenderBatcher(worldCam);
-        WorldSerializer serializer = new WorldSerializer();
+        serializer = new WorldSerializer();
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
@@ -49,6 +51,7 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.init(world);
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
+        serializer.init();
         SaveManager.getInstance().addObserver(serializer);
     }
 
@@ -72,25 +75,12 @@ public class GameScreen extends ScreenAdapter{
     }
 
     private void newGame(){
-        resetWorld();
+        serializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 200, 200, 0);
         ShipFactory.create("TestShip", "Standard", 0,0,45);
         ShipFactory.create("OtherShip", "Standard", 400, 400, 135);
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
         mPlayer.create(ship);
-    }
-
-    private void resetWorld(){
-        IntBag entities = world.getAspectSubscriptionManager()
-                .get(Aspect.all())
-                .getEntities();
-
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            world.delete(ids[i]);
-        }
-        world.process();
-        world.getEntityManager().reset();
     }
 }

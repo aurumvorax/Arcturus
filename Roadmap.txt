@@ -10,9 +10,8 @@ Menu
     - OptionsScreen
     - LoadScreen
 Load/Save
-    - entity master list
-    - components
-    - component vectors(entity transmuters?)
+    - clean up serializer registration, etc
+    - persist camera target
 Damage
     - damage component with armour model
     - damage handler
@@ -20,3 +19,6 @@ HUD
     - hud camera system
     - basic numerical display
     - display selected target
+
+BUGS
+    - firing button while saving

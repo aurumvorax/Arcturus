@@ -62,6 +62,8 @@ public class MainMenuScreen extends ScreenAdapter{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 SaveManager.getInstance().loadGame("Test");
+                core.setActive(true);
+                core.switchScreen(Core.ScreenType.Game);
             }
         });
         saveButton.addListener(new ChangeListener() {

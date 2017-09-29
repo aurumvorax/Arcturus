@@ -23,6 +23,7 @@ public class SaveManager extends SaveSubject{
     private static final String SAVEGAME_SUFFIX = ".sav";
 
     private SaveManager() {
+        ArrayKryoSerializer.registerArraySerializer(kryo);
         allSaves = new HashMap<>();
         readAllSaves();
     }
@@ -61,12 +62,12 @@ public class SaveManager extends SaveSubject{
         thisSave.clear();
     }
 
-    public void setProperty(String key, Object object){
+    public void saveElement(String key, Object object){
         thisSave.put(key, object);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getProperty(String key, Class<T> type){
+    public <T> T loadElement(String key, Class<T> type){
         if( !thisSave.containsKey(key) ){
             return null;
         }
