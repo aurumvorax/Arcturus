@@ -73,5 +73,13 @@ public class PlayerControl extends BaseEntitySystem{
         playerShip = entityID;
     }
 
+    public void reset(){
+        thrust = 0;
+        helm = 0;
+        strafe = 0;
+        brake = false;
+        fire = false;
+    }
+
 
 }

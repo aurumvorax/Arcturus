@@ -20,6 +20,7 @@ public class GameScreen extends ScreenAdapter{
     private Core core;
     private World world;
     private PlayerInput input;
+    private PlayerControl playerControl;
     private WorldCam worldCam;
     private WorldSerializer serializer;
 
@@ -28,7 +29,7 @@ public class GameScreen extends ScreenAdapter{
 
         worldCam = new WorldCam();
         RenderBatcher batcher = new RenderBatcher(worldCam);
-        PlayerControl playerControl = new PlayerControl();
+        playerControl = new PlayerControl();
         input = new PlayerInput(core, playerControl, worldCam);
         serializer = new WorldSerializer();
 
@@ -63,6 +64,7 @@ public class GameScreen extends ScreenAdapter{
             core.setActive(true);
         }
         Gdx.input.setInputProcessor(input);
+        playerControl.reset();
     }
 
     @Override

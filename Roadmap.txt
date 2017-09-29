@@ -18,5 +18,3 @@ HUD
     - hud camera system
     - basic numerical display
     - display selected target
-BUGS
-    - holding down the firing button while going to menu
