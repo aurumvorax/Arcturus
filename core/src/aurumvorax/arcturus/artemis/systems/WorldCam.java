@@ -1,6 +1,8 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.savegame.SaveManager;
+import aurumvorax.arcturus.savegame.SaveObserver;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
@@ -11,9 +13,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 
-public class WorldCam extends BaseSystem{
+public class WorldCam extends BaseSystem implements SaveObserver{
 
-    @EntityId private int target = -1;
+    private int target = -1;
     private static OrthographicCamera cam;
     private Vector2 position;
     private Vector2 velocity;
@@ -87,5 +89,17 @@ public class WorldCam extends BaseSystem{
     public Vector2 unproject(Vector2 screen){
         unprojected.set(position.x + ((screen.x - halfWidth) * cam.zoom), position.y + ((-screen.y + halfHeight) * cam.zoom));
         return unprojected;
+    }
+
+    @Override
+    public void onNotify(SaveManager saveManager, SaveEvent saveEvent){
+        switch(saveEvent){
+            case SAVING:
+                saveManager.saveElement("CamTarget", target);
+                break;
+
+            case LOADING:
+                setTarget(saveManager.loadElement("CamTarget", int.class));
+        }
     }
 }

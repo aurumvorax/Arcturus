@@ -11,7 +11,6 @@ Menu
     - LoadScreen
 Load/Save
     - clean up serializer registration, etc
-    - persist camera target
 Damage
     - damage component with armour model
     - damage handler
@@ -19,6 +18,5 @@ HUD
     - hud camera system
     - basic numerical display
     - display selected target
-
 BUGS
-    - firing button while saving
+    - holding down the firing button while going to menu

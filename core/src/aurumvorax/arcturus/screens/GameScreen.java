@@ -53,6 +53,7 @@ public class GameScreen extends ScreenAdapter{
         ProjectileFactory.init(world);
         serializer.init();
         SaveManager.getInstance().addObserver(serializer);
+        SaveManager.getInstance().addObserver(worldCam);
     }
 
     @Override
