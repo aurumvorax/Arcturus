@@ -1,5 +1,6 @@
 package aurumvorax.arcturus;
 
+import aurumvorax.arcturus.preferences.IntMapSerializer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;

@@ -1,4 +1,4 @@
-package aurumvorax.arcturus;
+package aurumvorax.arcturus.preferences;
 
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;

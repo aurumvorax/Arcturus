@@ -41,6 +41,7 @@ public class ArrayKryoSerializer{
                 }
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public Array read (Kryo kryo, Input input, Class<Array> type) {
                 Array array = new Array();

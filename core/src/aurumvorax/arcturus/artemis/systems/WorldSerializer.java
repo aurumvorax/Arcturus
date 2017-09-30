@@ -4,7 +4,7 @@ import aurumvorax.arcturus.savegame.ArrayKryoSerializer;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
 import com.artemis.Aspect;
-import com.artemis.BaseSystem;
+import com.artemis.World;
 import com.artemis.io.KryoArtemisSerializer;
 import com.artemis.io.SaveFileFormat;
 import com.artemis.utils.IntBag;
@@ -13,13 +13,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 
-public class WorldSerializer extends BaseSystem implements SaveObserver{
+public class WorldSerializer implements SaveObserver{
 
     private KryoArtemisSerializer backend;
+    private World world;
 
-    public WorldSerializer(){}
-
-    public void init(){
+    public WorldSerializer(World world){
+        this.world = world;
         backend = new KryoArtemisSerializer(world);
         ArrayKryoSerializer.registerArraySerializer(backend.getKryo());
     }
@@ -56,7 +56,4 @@ public class WorldSerializer extends BaseSystem implements SaveObserver{
         world.process();
         world.getEntityManager().reset();
     }
-
-    @Override
-    protected void processSystem(){}    // This system does not tick.
 }

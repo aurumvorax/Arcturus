@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.Preferences;
+import aurumvorax.arcturus.preferences.Preferences;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;

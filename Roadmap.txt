@@ -9,8 +9,6 @@ Collision
 Menu
     - OptionsScreen
     - LoadScreen
-Load/Save
-    - clean up serializer registration, etc
 Damage
     - damage component with armour model
     - damage handler

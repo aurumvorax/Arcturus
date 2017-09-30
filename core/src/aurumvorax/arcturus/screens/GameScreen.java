@@ -11,7 +11,6 @@ import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
-import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 
@@ -22,16 +21,15 @@ public class GameScreen extends ScreenAdapter{
     private PlayerInput input;
     private PlayerControl playerControl;
     private WorldCam worldCam;
-    private WorldSerializer serializer;
+    private WorldSerializer worldSerializer;
 
     public GameScreen(Core core){
-        this.core = core;
 
+        this.core = core;
         worldCam = new WorldCam();
-        RenderBatcher batcher = new RenderBatcher(worldCam);
         playerControl = new PlayerControl();
         input = new PlayerInput(core, playerControl, worldCam);
-        serializer = new WorldSerializer();
+        RenderBatcher batcher = new RenderBatcher(worldCam);
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
@@ -42,18 +40,18 @@ public class GameScreen extends ScreenAdapter{
                 new WeaponsUpdate(),
                 new EphemeralDecay(),
                 playerControl,
-                worldCam,
-                serializer
+                worldCam
             ).register(
                 new GameInvocationStrategy(batcher)
             ).build();
-
         world = new World(config);
+
         ShipFactory.init(world);
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
-        serializer.init();
-        SaveManager.getInstance().addObserver(serializer);
+
+        worldSerializer = new WorldSerializer(world);
+        SaveManager.getInstance().addObserver(worldSerializer);
         SaveManager.getInstance().addObserver(worldCam);
     }
 
@@ -78,7 +76,7 @@ public class GameScreen extends ScreenAdapter{
     }
 
     private void newGame(){
-        serializer.resetWorld();
+        worldSerializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 200, 200, 0);
         ShipFactory.create("TestShip", "Standard", 0,0,45);
         ShipFactory.create("OtherShip", "Standard", 400, 400, 135);
