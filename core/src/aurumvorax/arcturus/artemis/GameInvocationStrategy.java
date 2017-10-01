@@ -6,6 +6,7 @@ import com.artemis.SystemInvocationStrategy;
 import com.artemis.utils.BitVector;
 import com.badlogic.gdx.utils.Array;
 
+@SuppressWarnings("WeakerAccess")
 public class GameInvocationStrategy extends SystemInvocationStrategy{
 
     private static final long DEFAULT_TICK_TIME = 25000000; // 25 ms = 40 TPS

@@ -8,7 +8,7 @@ public class SaveSubject {
 
     public void addObserver(SaveObserver observer){ observers.add(observer); }
     public void removeObserver(SaveObserver observer){ observers.removeValue(observer, true); }
-    public void removeAllObservers(){ observers.removeAll(observers, true); }
+    public void removeAllObservers(){ observers.clear(); }
 
     protected void notify(final SaveManager saveManager, SaveObserver.SaveEvent event){
         for(SaveObserver observer: observers){

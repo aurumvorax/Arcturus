@@ -13,6 +13,13 @@ Damage
     - damage component with armour model
     - damage handler
 HUD
-    - hud camera system
+    - hud camera system(just use stage?)
     - basic numerical display
     - display selected target
+
+
+LONG TERM
+    - Splash screen via java loader
+    - custom cursor
+    - set preferences directory to local path(DesktopLauncher)
+    - add start icon for game

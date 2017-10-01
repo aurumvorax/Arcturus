@@ -19,7 +19,7 @@ public class Core extends Game{
 
     private EnumMap<ScreenType, Screen> screens;
     public enum ScreenType{
-        Splash,
+        Loading,
         MainMenu,
         Game
     }
@@ -30,10 +30,10 @@ public class Core extends Game{
     public void switchScreen(ScreenType screen){ setScreen(screens.get(screen)); }
 	
 	@Override
-	public void create(){           // Switch to the splash screen for asset loading
+	public void create(){           // Switch to the loading screen for asset loading
         screens = new EnumMap<>(ScreenType.class);
-        screens.put(ScreenType.Splash, new SplashScreen(this));
-        setScreen(screens.get(ScreenType.Splash));
+        screens.put(ScreenType.Loading, new SplashScreen(this));
+        setScreen(screens.get(ScreenType.Loading));
 	}
 
 	public void initialize(){           // Called by LoadingScreen AFTER asset loading

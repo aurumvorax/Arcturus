@@ -39,6 +39,7 @@ public class GameScreen extends ScreenAdapter{
                 new Collision(),
                 new WeaponsUpdate(),
                 new EphemeralDecay(),
+                new HUDRenderer(),
                 playerControl,
                 worldCam
             ).register(
@@ -83,5 +84,11 @@ public class GameScreen extends ScreenAdapter{
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
         mPlayer.create(ship);
+    }
+
+    @Override
+    public void dispose(){
+        world.dispose();
+        SaveManager.getInstance().removeAllObservers();
     }
 }
