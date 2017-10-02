@@ -21,5 +21,4 @@ HUD
 LONG TERM
     - Splash screen via java loader
     - custom cursor
-    - set preferences directory to local path(DesktopLauncher)
     - add start icon for game

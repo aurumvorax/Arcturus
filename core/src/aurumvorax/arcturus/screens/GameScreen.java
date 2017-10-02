@@ -12,6 +12,7 @@ import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.ScreenAdapter;
 
 public class GameScreen extends ScreenAdapter{
