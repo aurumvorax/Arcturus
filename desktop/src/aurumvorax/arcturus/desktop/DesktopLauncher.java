@@ -27,7 +27,7 @@ public class DesktopLauncher {
         config.foregroundFPS = 120;
         config.backgroundFPS = 120;
         config.preferencesFileType = Files.FileType.Local;
-        config.preferencesDirectory = "/saves/options";
+        config.preferencesDirectory = "/config";
 
         Gdx.app = new LwjglApplication(new Core(), config);
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
