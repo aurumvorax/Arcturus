@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.preferences.Preferences;
+import aurumvorax.arcturus.options.Preferences;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -107,7 +108,7 @@ public class MainMenuScreen extends ScreenAdapter{
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(Math.min(delta, 1 / 30f));
+        stage.act(delta);
         stage.draw();
     }
 

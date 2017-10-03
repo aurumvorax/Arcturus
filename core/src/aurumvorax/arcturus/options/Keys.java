@@ -1,5 +1,6 @@
-package aurumvorax.arcturus;
+package aurumvorax.arcturus.options;
 
+import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;

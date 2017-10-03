@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.preferences;
+package aurumvorax.arcturus.options;
 
 public enum Preferences{
     INSTANCE;

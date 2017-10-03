@@ -11,21 +11,23 @@ public class RenderBatcher{
 
     private Array<Bag<Job>> jobs;
     private WorldCam camera;
+    private HUDRenderer hud;
 
 
-    public RenderBatcher(WorldCam camera){
+    public RenderBatcher(WorldCam camera, HUDRenderer hud){
         jobs = new Array<>();
         for(Renderer.Layer layer : Renderer.Layer.values()){
             jobs.add(new Bag<>());
         }
         this.camera = camera;
+        this.hud = hud;
     }
 
-    public void register(int entityID, Renderer delegate, int layer){
+    void register(int entityID, Renderer delegate, int layer){
         jobs.get(layer).add(new Job(entityID, delegate));
     }
 
-    public void unregister(int entityID, Renderer delegate, int layer){
+    void unregister(int entityID, Renderer delegate, int layer){
         final Object[] list = jobs.get(layer).getData();
         for(int i = 0; i< list.length; i++){
             if(((Job)list[i]).entityID == entityID && ((Job)list[i]).delegate == delegate){
@@ -48,6 +50,7 @@ public class RenderBatcher{
             }
         }
         Services.batch.end();
+        hud.render(alpha);
     }
 
 

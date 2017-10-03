@@ -2,6 +2,7 @@ package aurumvorax.arcturus;
 
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.WorldCam;
+import aurumvorax.arcturus.options.Keys;
 import com.badlogic.gdx.InputAdapter;
 
 public class PlayerInput extends InputAdapter{

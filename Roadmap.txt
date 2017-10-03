@@ -13,8 +13,6 @@ Damage
     - damage component with armour model
     - damage handler
 HUD
-    - hud camera system(just use stage?)
-    - basic numerical display
     - display selected target
 
 

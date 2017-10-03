@@ -12,25 +12,28 @@ import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 
 public class GameScreen extends ScreenAdapter{
 
     private Core core;
     private World world;
-    private PlayerInput input;
     private PlayerControl playerControl;
     private WorldCam worldCam;
+    private HUDRenderer hud;
     private WorldSerializer worldSerializer;
+    private InputMultiplexer inputMUX;
 
     public GameScreen(Core core){
 
         this.core = core;
         worldCam = new WorldCam();
+        inputMUX = new InputMultiplexer();
         playerControl = new PlayerControl();
-        input = new PlayerInput(core, playerControl, worldCam);
-        RenderBatcher batcher = new RenderBatcher(worldCam);
+        hud = new HUDRenderer();
+        PlayerInput playerInput = new PlayerInput(core, playerControl, worldCam);
+        RenderBatcher batcher = new RenderBatcher(worldCam, hud);
 
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(
@@ -40,9 +43,9 @@ public class GameScreen extends ScreenAdapter{
                 new Collision(),
                 new WeaponsUpdate(),
                 new EphemeralDecay(),
-                new HUDRenderer(),
                 playerControl,
-                worldCam
+                worldCam,
+                hud
             ).register(
                 new GameInvocationStrategy(batcher)
             ).build();
@@ -51,6 +54,10 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.init(world);
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
+
+        inputMUX = new InputMultiplexer();
+        inputMUX.addProcessor(hud.getInputProcessor());
+        inputMUX.addProcessor(playerInput);
 
         worldSerializer = new WorldSerializer(world);
         SaveManager.getInstance().addObserver(worldSerializer);
@@ -63,13 +70,14 @@ public class GameScreen extends ScreenAdapter{
             newGame();
             core.setActive(true);
         }
-        Gdx.input.setInputProcessor(input);
+        Gdx.input.setInputProcessor(inputMUX);
         playerControl.reset();
     }
 
     @Override
     public void resize(int width, int height){
         worldCam.resize(width, height);
+        hud.resize(width,height);
     }
 
     @Override
