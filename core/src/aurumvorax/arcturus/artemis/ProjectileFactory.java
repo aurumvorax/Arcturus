@@ -42,7 +42,7 @@ public class ProjectileFactory{
         for(FileHandle entry : Services.PROJECTILE_PATH.list()){
             Wrapper wrapper = Services.json.fromJson(Wrapper.class, entry);
             projectiles.put(wrapper.name, wrapper.data);
-            Gdx.app.debug("INIT", "Registered Ship - " + wrapper.name);
+            Gdx.app.debug("INIT", "Registered Projectile - " + wrapper.name);
         }
     }
 
@@ -71,7 +71,7 @@ public class ProjectileFactory{
         p.v.set(data.speed, 0).rotate(t).add(mPhysics.get(firedFrom).v);
 
         SimpleSprite s = mSprite.get(projectile);
-        s.name = Services.PROJECTILE_IMG_PATH + data.imgName;
+        s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;

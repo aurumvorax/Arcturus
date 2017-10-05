@@ -5,6 +5,7 @@ import aurumvorax.arcturus.options.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -18,9 +19,6 @@ public enum Services{
     private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
 
     public static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
-    public static final String SHIP_IMG_PATH = "ships/";
-    public static final String PROJECTILE_IMG_PATH = "projectiles/";
-    public static final String WEAPON_IMG_PATH = "weapons/";
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
 
@@ -48,4 +46,8 @@ public enum Services{
     public static boolean loadAssets(){ return assetManager.update(); }
     public static float loadProgress(){ return assetManager.getProgress(); }
     public static TextureAtlas getSpriteAtlas(){ return assetManager.get(SPRITE_ATLAS_PATH); }
+
+    public static Texture getTeture(String name){
+        return null; //TODO
+    }
 }

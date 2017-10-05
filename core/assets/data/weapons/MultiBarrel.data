@@ -1,0 +1,13 @@
+{
+	name: "MultiBarrel",
+	data: {
+	    type: CANNON,
+		imgName: "MultiBarrel",
+		imgCenter: {x: 7, y: 8},
+		rotationSpeed: 100,
+		barrels: [{x: 7, y: -3}, {x: 8, y: 0}, {x: 7, y: 3}],
+		launches: "TestBullet",
+		delay: 0.1,
+		reload: 0.5
+	}
+}

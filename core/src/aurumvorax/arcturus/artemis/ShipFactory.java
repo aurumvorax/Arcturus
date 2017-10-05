@@ -69,7 +69,7 @@ public class ShipFactory{
         mPolygon.get(ship).setVertices(data.vertices);
 
         SimpleSprite s = mSprite.get(ship);
-        s.name = Services.SHIP_IMG_PATH + data.imgName;
+        s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;

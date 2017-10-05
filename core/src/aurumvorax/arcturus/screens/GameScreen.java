@@ -14,6 +14,7 @@ import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter{
 
@@ -39,13 +40,15 @@ public class GameScreen extends ScreenAdapter{
             .with(
                 new SpriteRenderer(batcher),
                 new MountedRenderer(batcher),
-                new Movement(),
-                new Collision(),
-                new WeaponsUpdate(),
-                new EphemeralDecay(),
-                playerControl,
+                new BeamRenderer(batcher),
                 worldCam,
-                hud
+                hud,
+
+                playerControl,
+                new Movement(),
+                new WeaponsUpdate(),
+                new Collision(),
+                new EphemeralDecay()
             ).register(
                 new GameInvocationStrategy(batcher)
             ).build();

@@ -1,0 +1,13 @@
+{
+	name: "TestBeam",
+	data: {
+	    type: BEAM,
+		imgName: "TestTurret",
+		imgCenter: {x: 7, y: 8},
+		rotationSpeed: 300,
+		barrels: [{x: 8, y: 0}],
+        beamImgName: "TestBeam",
+        beamImgCenter: {x: 0, y: 3.5},
+        range: 300
+	}
+}

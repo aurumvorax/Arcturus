@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 
 class TestCC{
 
+    private static Vector2 contact = new Vector2();
+
     private static ComponentMapper<Physics2D> mPosition;
     private static ComponentMapper<CollisionRadius> mCollidable;
 
-    private static Vector2 contact = new Vector2();
 
     static void test(int entityA, int entityB, Collision.Manifold m){
         int radiusA = mCollidable.get(entityA).radius;

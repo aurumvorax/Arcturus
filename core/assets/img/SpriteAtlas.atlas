@@ -1,47 +1,54 @@
 
 SpriteAtlas.png
-size: 512,128
+size: 512,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-projectiles/TestBeam
+TestBeam
   rotate: false
-  xy: 0, 0
+  xy: 432, 409
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
-projectiles/TestBullet
+TestBullet
   rotate: false
-  xy: 260, 115
+  xy: 302, 342
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
-ships/ConcaveTest
+selector1
   rotate: false
-  xy: 0, 27
+  xy: 0, 116
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+ConcaveTest
+  rotate: false
+  xy: 0, 18
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
-ships/TestShip
+TestShip
   rotate: false
-  xy: 130, 59
+  xy: 302, 352
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
-weapons/MultiBarrel
+MultiBarrel
   rotate: false
-  xy: 0, 9
+  xy: 0, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-weapons/TestTurret
+TestTurret
   rotate: false
-  xy: 130, 41
+  xy: 130, 98
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

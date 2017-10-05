@@ -1,16 +1,10 @@
 package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.components.Cannon;
-import aurumvorax.arcturus.artemis.components.MountedSprite;
-import aurumvorax.arcturus.artemis.components.Mounted;
+import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.components.Turret;
 import aurumvorax.arcturus.artemis.systems.Renderer;
-import com.artemis.Archetype;
-import com.artemis.ArchetypeBuilder;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
+import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,20 +17,21 @@ public class WeaponFactory{
     private static final WeaponFactory INSTANCE = new WeaponFactory();
     private static World world;
     private static HashMap<String, WeaponData> weapons;
-    private static Archetype protoWeapon;
     private static Archetype protoCannon;
+    private static Archetype protoBeam;
 
     private static ComponentMapper<Mounted> mMounted;
     private static ComponentMapper<MountedSprite> mSprite;
     private static ComponentMapper<Turret> mTurret;
     private static ComponentMapper<Cannon> mCannon;
+    private static ComponentMapper<Beam> mBeam;
 
 
     public static void init(World world){
         WeaponFactory.world = world;
         world.inject(INSTANCE);
 
-        protoWeapon = new ArchetypeBuilder()
+        Archetype protoWeapon = new ArchetypeBuilder()
                 .add(Mounted.class)
                 .add(MountedSprite.class)
                 .add(Turret.class)
@@ -44,16 +39,19 @@ public class WeaponFactory{
         protoCannon = new ArchetypeBuilder(protoWeapon)
                 .add(Cannon.class)
                 .build(world);
+        protoBeam = new ArchetypeBuilder(protoWeapon)
+                .add(Beam.class)
+                .build(world);
 
         weapons = new HashMap<>();
         for(FileHandle entry : Services.WEAPON_PATH.list()){
             Wrapper wrapper = Services.json.fromJson(Wrapper.class, entry);
             weapons.put(wrapper.name, wrapper.data);
-            Gdx.app.debug("INIT", "Registered Ship - " + wrapper.name);
+            Gdx.app.debug("INIT", "Registered Weapon - " + wrapper.name);
         }
     }
 
-    public static int create(String type, int ship, Mount.Weapon mount){
+    static int create(String type, int ship, Mount.Weapon mount){
 
         if(!weapons.containsKey(type))
             throw new IllegalArgumentException("Invalid projectile type - " + type);
@@ -69,12 +67,21 @@ public class WeaponFactory{
                 c.reloadTime = data.reload;
                 c.barrels = data.barrels;
                 return cannon;
-            case LAUNCHER:
 
-                //return weapon;
+
             case BEAM:
+                int beam = world.create(protoBeam);
+                buildTurret(beam, data, ship, mount);
+                Beam b = mBeam.get(beam);
+                b.name = data.beamImgName;
+                b.offsetY = data.beamImgCenter.y;
+                b.maxRange = data.range;
+                b.barrels = data.barrels;
+                return beam;
 
-                //return weapon;
+
+            case LAUNCHER:
+                //return launcher;
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");
 
@@ -88,7 +95,7 @@ public class WeaponFactory{
         m.theta = mount.angle;
 
         MountedSprite s = mSprite.get(entityID);
-        s.name = Services.WEAPON_IMG_PATH + data.imgName;
+        s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.DETAIL;
@@ -111,9 +118,11 @@ public class WeaponFactory{
         float rotationSpeed;
         Array<Vector2> barrels;
 
+
         // Specific to Cannons and Launchers
         String launches;
-        float delay, reload;
+        float delay;
+        float reload;
 
         // Specific to Beams
         String beamImgName;

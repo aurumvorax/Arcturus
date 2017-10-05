@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SpriteRenderer extends Renderer implements RenderMarker{
+public class SpriteRenderer extends Renderer{
 
     private ComponentMapper<Physics2D> mPhysics;
     private ComponentMapper<SimpleSprite> mSprite;

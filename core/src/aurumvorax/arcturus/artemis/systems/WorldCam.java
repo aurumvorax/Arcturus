@@ -5,7 +5,6 @@ import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
-import com.artemis.annotations.EntityId;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
@@ -21,8 +20,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     private Vector2 velocity;
     private Vector2 targetP;
     private Vector2 targetV;
-    private Vector2 mouseS;
-    private Vector2 unprojected;
+    public Vector2 mouseS;
+    private Vector2 temp;
     private float halfWidth;
     private float halfHeight;
     private Vector3 lerpMatrix;
@@ -40,7 +39,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         position = new Vector2();
         velocity = new Vector2();
         mouseS = new Vector2();
-        unprojected = new Vector2();
+        temp = new Vector2();
         lerpMatrix = new Vector3();
     }
 
@@ -64,7 +63,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         this.halfHeight = height * 0.5f;
     }
 
-    public Matrix4 getMatrix(float alpha){
+    Matrix4 getMatrix(float alpha){
         cam.position.set(position, 0);
         lerpMatrix.set(velocity, 0);
         cam.position.mulAdd(lerpMatrix, alpha);
@@ -87,8 +86,13 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     }
 
     public Vector2 unproject(Vector2 screen){
-        unprojected.set(position.x + ((screen.x - halfWidth) * cam.zoom), position.y + ((-screen.y + halfHeight) * cam.zoom));
-        return unprojected;
+        temp.set(position.x + ((screen.x - halfWidth) * cam.zoom), position.y + ((-screen.y + halfHeight) * cam.zoom));
+        return temp;
+    }
+
+    public Vector2 project(Vector2 world){
+        temp.set(((world.x - position.x) / cam.zoom) + halfWidth, halfHeight - ((world.y - position.y) / cam.zoom));
+        return temp;
     }
 
     @Override

@@ -1,9 +1,11 @@
 
+
+Rendering
+    - Change Renderers so they don't store RegionsbyName, but retrieve them via Services.  can still store regions by ID
 Beams
-    - beam component
-    - beam system
-    - beam rendering
+    - collision
 Collision
+    - PointTest - used by gui
     - BeamTest
     - Beam Handler
 Menu
@@ -13,8 +15,11 @@ Damage
     - damage component with armour model
     - damage handler
 HUD
+    - target selection
+         - project click to world
+         - TestPoint collider done, needs testing
+         - PlayerControl right mouse
     - display selected target
-
 
 LONG TERM
     - Splash screen via java loader

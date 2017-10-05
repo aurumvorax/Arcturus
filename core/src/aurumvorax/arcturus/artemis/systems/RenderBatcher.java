@@ -53,7 +53,6 @@ public class RenderBatcher{
         hud.render(alpha);
     }
 
-
     private static class Job{
 
         int entityID;

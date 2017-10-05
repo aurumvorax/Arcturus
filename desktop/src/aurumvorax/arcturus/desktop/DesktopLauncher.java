@@ -16,6 +16,7 @@ public class DesktopLauncher {
         settings.maxWidth = 2048;
         settings.edgePadding = false;
         settings.combineSubdirectories = true;
+        settings.flattenPaths = true;
         TexturePacker.process(settings, "img/sprites", "img", "SpriteAtlas");
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

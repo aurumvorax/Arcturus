@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.RenderMarker;
 import aurumvorax.arcturus.artemis.components.Mounted;
 import aurumvorax.arcturus.artemis.components.MountedSprite;
 import aurumvorax.arcturus.artemis.components.Physics2D;
@@ -15,7 +14,7 @@ import com.badlogic.gdx.utils.IntMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MountedRenderer extends Renderer implements RenderMarker{
+public class MountedRenderer extends Renderer{
 
     private ComponentMapper<Physics2D> mPhysics;
     private ComponentMapper<Mounted> mMounted;
