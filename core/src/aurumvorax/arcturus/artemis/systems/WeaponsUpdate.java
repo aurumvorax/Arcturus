@@ -50,7 +50,7 @@ public class WeaponsUpdate extends IteratingSystem{
         if(mCannon.has(weapon))
             updateCannon(mCannon.get(weapon), m, fire);
         if(mBeam.has(weapon))
-            updateBeam(mBeam.get(weapon), fire);
+            updateBeam(mBeam.get(weapon), m, fire);
 
     }
 
@@ -85,9 +85,12 @@ public class WeaponsUpdate extends IteratingSystem{
         }
     }
 
-    private void updateBeam(Beam beam, boolean fire){
-        if(fire)
+    private void updateBeam(Beam beam, Mounted m, boolean fire){
+        if(fire){
             beam.length = beam.maxRange;
+            beam.unitBeam.setAngle(m.theta);
+            beam.origin.set(beam.barrels.get(0)).rotate(m.theta).add(m.position);
+        }
         beam.active = fire;
     }
 }

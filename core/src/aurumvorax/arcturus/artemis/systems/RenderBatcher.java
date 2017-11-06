@@ -38,7 +38,6 @@ public class RenderBatcher{
     }
 
     public void draw(float alpha){
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Services.batch.setProjectionMatrix(camera.getMatrix(alpha));

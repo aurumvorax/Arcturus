@@ -2,20 +2,21 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.RenderMarker;
-import com.artemis.BaseSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
+import com.artemis.*;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class HUDRenderer extends BaseSystem implements RenderMarker{
+public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
 
     private Stage stage;
     private Label fps;
 
     public HUDRenderer(){
+        super(Aspect.all(PlayerShip.class));
         stage = new Stage(new ScreenViewport());
         fps = new Label(String.format("%3d FPS", 0), Services.MENUSKIN);
         Table table = new Table();
@@ -41,6 +42,4 @@ public class HUDRenderer extends BaseSystem implements RenderMarker{
         fps.setText(String.format("%3d FPS", Gdx.graphics.getFramesPerSecond()));
         stage.draw();
     }
-
-
 }

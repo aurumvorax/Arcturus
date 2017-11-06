@@ -14,5 +14,8 @@ public class Beam extends Component{
     public float length;
     public float maxRange;
     public boolean active = false;
+    public Vector2 origin = new Vector2();
+    public Vector2 unitBeam = new Vector2(1, 0);
     public Array<Vector2> barrels;
+
 }

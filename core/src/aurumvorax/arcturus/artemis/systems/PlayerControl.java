@@ -4,6 +4,7 @@ import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -22,6 +23,8 @@ public class PlayerControl extends BaseEntitySystem{
     private transient boolean fire;
     private transient Vector2 accel = new Vector2();
     private transient Vector2 mouse = new Vector2();
+    private transient Vector2 target = new Vector2();
+    private transient Vector2 select = new Vector2();
 
     private ComponentMapper<PlayerShip> mPlayer;
     private ComponentMapper<Physics2D> mPosition;
@@ -39,6 +42,14 @@ public class PlayerControl extends BaseEntitySystem{
     public void controlBrake(boolean brake){ this.brake = brake; }
     public void controlFire(boolean fire){ this.fire = fire; }
     public void setMouse(int x, int y){ this.mouse.set(x, y); }
+
+    public void selectTarget(int x, int y){
+        this.select.set(x, y);
+        target = worldCam.unproject(select);
+        int entityID = Collision.pointCheck(target);
+        System.out.println(target);
+
+    }
 
     @Override
     protected void processSystem(){

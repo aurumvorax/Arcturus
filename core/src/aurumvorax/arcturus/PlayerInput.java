@@ -3,6 +3,7 @@ package aurumvorax.arcturus;
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.WorldCam;
 import aurumvorax.arcturus.options.Keys;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
 public class PlayerInput extends InputAdapter{
@@ -93,13 +94,23 @@ public class PlayerInput extends InputAdapter{
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button){
-        player.controlFire(true);
+        switch(button){
+            case Input.Buttons.LEFT:
+                player.controlFire(true);
+                break;
+        }
         return true;
     }
 
     @Override
     public boolean touchUp (int x, int y, int pointer, int button){
-        player.controlFire(false);
+        switch(button){
+            case Input.Buttons.LEFT:
+                player.controlFire(false);
+                break;
+            case Input.Buttons.RIGHT:
+                player.selectTarget(x, y);
+        }
         return true;
     }
 

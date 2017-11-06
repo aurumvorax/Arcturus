@@ -14,16 +14,16 @@ import com.badlogic.gdx.math.Vector3;
 
 public class WorldCam extends BaseSystem implements SaveObserver{
 
-    private int target = -1;
     private static OrthographicCamera cam;
-    private Vector2 position;
-    private Vector2 velocity;
+    private static Vector2 position;
+    private static Vector2 velocity;
+    private static Vector2 temp;
+    private static float halfWidth;
+    private static float halfHeight;
+    private int target = -1;
     private Vector2 targetP;
     private Vector2 targetV;
-    public Vector2 mouseS;
-    private Vector2 temp;
-    private float halfWidth;
-    private float halfHeight;
+    private Vector2 mouseS;
     private Vector3 lerpMatrix;
 
     private static final float ZMIN = 0.2f;
@@ -49,7 +49,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     public void setTarget(int entityID){
         if(mPhysics.has(entityID)){
             target = entityID;
-            this.position.set(mPhysics.get(target).p);
+            WorldCam.position.set(mPhysics.get(target).p);
             targetP = mPhysics.get(target).p;
             targetV = mPhysics.get(target).v;
         }else
@@ -59,8 +59,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     public void resize(int width, int height){
         cam.setToOrtho(false, width, height);
         cam.update();
-        this.halfWidth = width * 0.5f;
-        this.halfHeight = height * 0.5f;
+        WorldCam.halfWidth = width * 0.5f;
+        WorldCam.halfHeight = height * 0.5f;
     }
 
     Matrix4 getMatrix(float alpha){
@@ -90,7 +90,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         return temp;
     }
 
-    public Vector2 project(Vector2 world){
+    public static Vector2 project(Vector2 world){
         temp.set(((world.x - position.x) / cam.zoom) + halfWidth, halfHeight - ((world.y - position.y) / cam.zoom));
         return temp;
     }

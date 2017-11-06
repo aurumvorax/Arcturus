@@ -1,9 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
-import aurumvorax.arcturus.artemis.components.Projectile;
-import aurumvorax.arcturus.artemis.components.CollisionPolygon;
-import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
@@ -17,6 +14,8 @@ import com.badlogic.gdx.utils.Array;
 public class Collision extends BaseEntitySystem{
 
     private static Bag<CollisionPair> collisionPairs = new Bag<>();
+    private static EntitySubscription selectionList;
+    private static IntBag selectionHits = new IntBag();
     private static Manifold manifold = new Manifold();
 
     private static CollisionHandler notify = new NullHandler();
@@ -24,6 +23,7 @@ public class Collision extends BaseEntitySystem{
     private static CollisionHandler boom = new BoomHandler();
 
     private static ComponentMapper<CollisionPolygon> mPolygon;
+    private static ComponentMapper<Beam> mBeam;
 
     public Collision(){
         super(Aspect.all(CollisionRadius.class, Physics2D.class));
@@ -35,6 +35,8 @@ public class Collision extends BaseEntitySystem{
         world.inject(new TestCC());
         world.inject(new TestCP());
         world.inject(new TestPP());
+        world.inject(new TestBeam());
+        world.inject(new TestPoint());
         world.inject(notify);
         world.inject(crash);
         world.inject(boom);
@@ -49,8 +51,15 @@ public class Collision extends BaseEntitySystem{
                 Physics2D.class,
                 CollisionRadius.class));
 
+        EntitySubscription beams = world.getAspectSubscriptionManager().get(Aspect.all(
+                Beam.class,
+                Mounted.class));
+
         collisionPairs.add(new CollisionPair(actors, actors, crash));
         collisionPairs.add(new CollisionPair(actors, bullets, boom));
+        collisionPairs.add(new CollisionPair(actors, beams, notify));
+
+        selectionList = actors;
     }
 
     @Override
@@ -101,7 +110,12 @@ public class Collision extends BaseEntitySystem{
         private void checkCollision(int entityA, int entityB){
             manifold.reset();
 
-            if(!mPolygon.has(entityA) && !mPolygon.has(entityB))    // Circle - Circle
+            if(mBeam.has(entityB))
+                TestBeam.test(entityA, entityB, manifold);
+            else if(mBeam.has(entityA))
+                TestBeam.test(entityB, entityA, manifold);
+
+            else if(!mPolygon.has(entityA) && !mPolygon.has(entityB))    // Circle - Circle
                 TestCC.test(entityA, entityB, manifold);
 
             else if(!mPolygon.has(entityA) && mPolygon.has(entityB))    // Circle - Polygon
@@ -111,13 +125,29 @@ public class Collision extends BaseEntitySystem{
                 TestCP.test(entityB, entityA, manifold);
                 manifold.normal.scl(-1.0f);
             }
-
             else if(mPolygon.has(entityA) && mPolygon.has(entityB))       // Polygon - Polygon
                 TestPP.test(entityA, entityB, manifold);
-
-
         }
     }
+
+    public static int pointCheck(Vector2 click){
+
+        selectionHits.clear();
+        IntBag list = selectionList.getEntities();
+        for(int i = 0; i < list.size(); i++){
+            if(TestPoint.testC(list.get(i), click))
+                selectionHits.add(list.get(i));
+        }
+
+        if(selectionHits.size() == 0)
+            return -1;
+        if(selectionHits.size() == 1)
+            return selectionHits.get(0);
+
+        return TestPoint.testPolys(click, selectionHits);
+    }
+
+
 
     static class Manifold{
         Array<Vector2> contactPoints = new Array<>();
@@ -143,5 +173,5 @@ public class Collision extends BaseEntitySystem{
 
 //Resolvers needed
 // Newtonian + impact damage = Crash(actor, actor)
-// projectile detonation + damage = Boom(actor/missile, projectile)
+// projectile detonation + damage = Boom(actor/missile, missile/bullet)
 // beam impact - damage = PewPew(actor/missile, beam)
