@@ -12,7 +12,6 @@ public class SplashScreen extends ScreenAdapter{
 
     public SplashScreen(Core core){
         this.core = core;
-        Services.initJson();
         Services.queueTextureAssets();
     }
 
@@ -26,6 +25,8 @@ public class SplashScreen extends ScreenAdapter{
     }
 
     private void finalLoad(){
+        Services.initJson();
+        Services.initAssets();
         core.initialize();
         core.switchScreen(Core.ScreenType.Game);
     }

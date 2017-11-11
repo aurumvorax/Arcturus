@@ -5,20 +5,25 @@ import aurumvorax.arcturus.options.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Services{
     INSTANCE;
 
-    private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
+    private static Map<String, TextureAtlas.AtlasRegion> regionsByName = new HashMap<>();
 
-    public static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
+    private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
+    private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
+
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
 
@@ -47,7 +52,12 @@ public enum Services{
     public static float loadProgress(){ return assetManager.getProgress(); }
     public static TextureAtlas getSpriteAtlas(){ return assetManager.get(SPRITE_ATLAS_PATH); }
 
-    public static Texture getTeture(String name){
-        return null; //TODO
+    public static void initAssets(){
+        for(TextureAtlas.AtlasRegion region : getSpriteAtlas().getRegions())
+            regionsByName.put(region.name, region);
+    }
+
+    public static TextureAtlas.AtlasRegion getTexture(String name){
+        return regionsByName.get(name);
     }
 }

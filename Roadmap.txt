@@ -1,9 +1,4 @@
 
-Rendering
-    - Change Renderers so they don't store RegionsbyName, but retrieve them via Services.  can still store regions by ID
-
-Collision
-    - Beam Handler
 Menu
     - OptionsScreen
     - LoadScreen
@@ -11,7 +6,7 @@ Damage
     - damage component with armour model
     - damage handler
 HUD
-    - display selected target
+    - display reticle correctly
 
 LONG TERM
     - Splash screen via java VM loader

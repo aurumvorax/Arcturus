@@ -46,9 +46,7 @@ public class PlayerControl extends BaseEntitySystem{
     public void selectTarget(int x, int y){
         this.select.set(x, y);
         target = worldCam.unproject(select);
-        int entityID = Collision.pointCheck(target);
-        System.out.println(target);
-
+        HUDRenderer.setTarget(Collision.pointCheck(target));
     }
 
     @Override

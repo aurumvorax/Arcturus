@@ -20,8 +20,7 @@ public class BeamRenderer extends Renderer{
     private static ComponentMapper<Mounted> mMounted;
     private static ComponentMapper<Physics2D> mPhysics;
 
-    private Map<String, TextureAtlas.AtlasRegion> regionsByName;
-    private IntMap<TextureAtlas.AtlasRegion> regionsByID;
+    private IntMap<TextureAtlas.AtlasRegion> regionsByID = new IntMap<>();
     private Vector2 lerpPosition = new Vector2();
     private Vector2 origin = new Vector2();
 
@@ -29,17 +28,6 @@ public class BeamRenderer extends Renderer{
     public BeamRenderer(RenderBatcher principal){
         super(principal, Aspect.all(Beam.class));
     }
-
-    @Override
-    protected void initialize() {
-        regionsByName = new HashMap<>();
-        regionsByID = new IntMap<>();
-        TextureAtlas atlas = Services.getSpriteAtlas();
-
-        for (TextureAtlas.AtlasRegion r : atlas.getRegions())
-            regionsByName.put(r.name, r);
-    }
-
 
     @Override
     protected void draw(int entityID, float alpha){
@@ -60,7 +48,7 @@ public class BeamRenderer extends Renderer{
 
     @Override
     protected void inserted(int entityID){
-        regionsByID.put(entityID, regionsByName.get(mBeam.get(entityID).name));
+        regionsByID.put(entityID, Services.getTexture(mBeam.get(entityID).name));
         principal.register(entityID, this, mBeam.get(entityID).layer.ordinal());
     }
 

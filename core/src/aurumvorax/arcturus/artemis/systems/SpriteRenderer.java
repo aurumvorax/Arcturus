@@ -21,21 +21,10 @@ public class SpriteRenderer extends Renderer{
     private ComponentMapper<Physics2D> mPhysics;
     private ComponentMapper<SimpleSprite> mSprite;
 
-    private Map<String, TextureAtlas.AtlasRegion> regionsByName;
-    private IntMap<TextureAtlas.AtlasRegion> regionsByID;
+    private IntMap<TextureAtlas.AtlasRegion> regionsByID = new IntMap<>();
 
     public SpriteRenderer(RenderBatcher principal){
         super(principal, Aspect.all(SimpleSprite.class, Physics2D.class));
-    }
-
-    @Override
-    protected void initialize() {
-        regionsByName = new HashMap<>();
-        TextureAtlas atlas = Services.getSpriteAtlas();
-        regionsByID = new IntMap<>();
-
-        for (TextureAtlas.AtlasRegion r : atlas.getRegions())
-            regionsByName.put(r.name, r);
     }
 
     @Override
@@ -51,7 +40,7 @@ public class SpriteRenderer extends Renderer{
 
     @Override
     public void inserted(int entityID){
-        regionsByID.put(entityID, regionsByName.get(mSprite.get(entityID).name));
+        regionsByID.put(entityID, Services.getTexture(mSprite.get(entityID).name));
         principal.register(entityID, this, mSprite.get(entityID).layer.ordinal());
     }
 
