@@ -53,9 +53,9 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     void render(float alpha){
         if((targetID != -1) &&(mPhysics.has(targetID))){
             reticle.setVisible(true);
-            target.set(WorldCam.project(mPhysics.get(targetID).p));
+            target.set(WorldCam.projectToStage(mPhysics.get(targetID).p));
             reticle.setX(target.x - (reticle.getImageWidth() * 0.5f));
-            reticle.setY(Gdx.graphics.getHeight() - target.y - (reticle.getImageHeight() * 0.5f));   // because screen and stage coordinate systems have different zeros
+            reticle.setY(target.y - (reticle.getImageHeight() * 0.5f));
         }else
             reticle.setVisible(false);
 

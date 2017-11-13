@@ -90,8 +90,13 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         return temp;
     }
 
-    public static Vector2 project(Vector2 world){
+    public static Vector2 projectToScreen(Vector2 world){
         temp.set(((world.x - position.x) / cam.zoom) + halfWidth, halfHeight - ((world.y - position.y) / cam.zoom));
+        return temp;
+    }
+
+    public static Vector2 projectToStage(Vector2 world){
+        temp.set(((world.x - position.x) / cam.zoom) + halfWidth, ((world.y - position.y) / cam.zoom) + halfHeight);
         return temp;
     }
 
