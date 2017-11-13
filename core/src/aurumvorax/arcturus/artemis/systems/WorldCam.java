@@ -85,7 +85,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         position.mulAdd(velocity, world.delta);
     }
 
-    public Vector2 unproject(Vector2 screen){
+    public static Vector2 unproject(Vector2 screen){
         temp.set(position.x + ((screen.x - halfWidth) * cam.zoom), position.y + ((-screen.y + halfHeight) * cam.zoom));
         return temp;
     }

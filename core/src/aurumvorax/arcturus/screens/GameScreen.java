@@ -89,7 +89,7 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldSerializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 0, 0, 0);
-        ShipFactory.create("TestShip", "Standard", 200,0,0);
+        ShipFactory.create("TestShip", "Standard", 200,200,0);
         ShipFactory.create("OtherShip", "Standard", 400, -200, 0);
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);

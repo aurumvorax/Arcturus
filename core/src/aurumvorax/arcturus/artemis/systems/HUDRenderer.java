@@ -19,8 +19,8 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     private Stage stage;
     private Label fps;
     private Image reticle;
-    private static int targetID;
-    private  Vector2 target;
+    private static int targetID = -1;
+    private Vector2 target = new Vector2();
 
     private static ComponentMapper<Physics2D> mPhysics;
 
@@ -34,7 +34,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         table.top();
         table.add(fps);
         stage.addActor(table);
-        //stage.addActor(reticle);
+        stage.addActor(reticle);
     }
 
     public InputProcessor getInputProcessor(){ return stage; }
@@ -51,11 +51,14 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     }
 
     void render(float alpha){
-        if(mPhysics.has(targetID)){
-            target = mPhysics.get(targetID).p;
-            reticle.setX(target.x);
-            reticle.setY(target.y);
-        }
+        if((targetID != -1) &&(mPhysics.has(targetID))){
+            reticle.setVisible(true);
+            target.set(WorldCam.project(mPhysics.get(targetID).p));
+            reticle.setX(target.x - (reticle.getImageWidth() * 0.5f));
+            reticle.setY(Gdx.graphics.getHeight() - target.y - (reticle.getImageHeight() * 0.5f));   // because screen and stage coordinate systems have different zeros
+        }else
+            reticle.setVisible(false);
+
         fps.setText(String.format("%3d FPS", Gdx.graphics.getFramesPerSecond()));
         stage.draw();
     }

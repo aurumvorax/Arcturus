@@ -3,10 +3,8 @@ Menu
     - OptionsScreen
     - LoadScreen
 Damage
-    - damage component with armour model
+    - damage component (no armour yet)
     - damage handler
-HUD
-    - display reticle correctly
 
 LONG TERM
     - Splash screen via java VM loader
