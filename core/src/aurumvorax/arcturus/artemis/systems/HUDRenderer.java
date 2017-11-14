@@ -21,6 +21,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     private Image reticle;
     private static int targetID = -1;
     private Vector2 target = new Vector2();
+    private Vector2 targetLerp = new Vector2();
 
     private static ComponentMapper<Physics2D> mPhysics;
 
@@ -53,7 +54,9 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     void render(float alpha){
         if((targetID != -1) &&(mPhysics.has(targetID))){
             reticle.setVisible(true);
-            target.set(WorldCam.projectToStage(mPhysics.get(targetID).p));
+            Physics2D physics = mPhysics.get(targetID);
+            targetLerp.set(physics.p).mulAdd(physics.v, alpha);
+            target.set(WorldCam.projectToStage(targetLerp, alpha));
             reticle.setX(target.x - (reticle.getImageWidth() * 0.5f));
             reticle.setY(target.y - (reticle.getImageHeight() * 0.5f));
         }else

@@ -2,9 +2,14 @@
 Menu
     - OptionsScreen
     - LoadScreen
+
 Damage
     - damage component (no armour yet)
     - damage handler
+
+AI
+    - pilot framework
+    - gunnery framework
 
 LONG TERM
     - Splash screen via java VM loader

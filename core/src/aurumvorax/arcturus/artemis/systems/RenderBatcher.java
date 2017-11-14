@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.background_temp.Background;
 import com.artemis.utils.Bag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -12,6 +13,7 @@ public class RenderBatcher{
     private Array<Bag<Job>> jobs;
     private WorldCam camera;
     private HUDRenderer hud;
+    private Background bg = new Background();
 
 
     public RenderBatcher(WorldCam camera, HUDRenderer hud){
@@ -42,6 +44,7 @@ public class RenderBatcher{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Services.batch.setProjectionMatrix(camera.getMatrix(alpha));
         Services.batch.begin();
+        bg.draw(Services.batch, camera.lerpX(alpha), camera.lerpY(alpha));
 
         for(int layer = 0; layer < Renderer.Layer.values().length; layer++){
             for(Job job : jobs.get(layer)){

@@ -45,6 +45,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
 
     public void Zoom(float zoom){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + zoom), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
+    public static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
+    public static float lerpY(float alpha){ return position.y + (velocity.y * alpha); }
 
     public void setTarget(int entityID){
         if(mPhysics.has(entityID)){
@@ -95,8 +97,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         return temp;
     }
 
-    public static Vector2 projectToStage(Vector2 world){
-        temp.set(((world.x - position.x) / cam.zoom) + halfWidth, ((world.y - position.y) / cam.zoom) + halfHeight);
+    public static Vector2 projectToStage(Vector2 world, float alpha){
+        temp.set(((world.x - lerpX(alpha)) / cam.zoom) + halfWidth, ((world.y - lerpY(alpha)) / cam.zoom) + halfHeight);
         return temp;
     }
 
