@@ -31,6 +31,7 @@ public class ShipFactory{
     private static ComponentMapper<Inertia> mInertia;
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Weapons> mWeapons;
+    private static ComponentMapper<Health> mHealth;
 
     public static void init(World world){
         ShipFactory.world = world;
@@ -43,6 +44,7 @@ public class ShipFactory{
                 .add(Inertia.class)
                 .add(SimpleSprite.class)
                 .add(Weapons.class)
+                .add(Health.class)
                 .build(world);
         ships = new HashMap<>();
         for(FileHandle entry : Services.SHIP_PATH.list()){
@@ -76,7 +78,6 @@ public class ShipFactory{
 
         IntArray weaponList = mWeapons.get(ship).all;
         IntArray activeList = mWeapons.get(ship).active;
-
         IntMap<String> loadout =  data.variants.get(variant).weapons;
         if(loadout != null){
             for(int i = 0; i < loadout.size; i++){
@@ -86,7 +87,7 @@ public class ShipFactory{
             }
         }
 
-
+        mHealth.get(ship).hull = data.hull;
 
         return ship;
     }
@@ -102,6 +103,7 @@ public class ShipFactory{
         int collisionRadius;
         Array<Array<Vector2>> vertices;
         Array<Mount.Weapon> weaponMounts;
+        float hull;
         HashMap<String, Variant> variants;
     }
 

@@ -34,6 +34,8 @@ public class MountedRenderer extends Renderer{
         MountedSprite s = mSprite.get(entityID);
         Mounted m = mMounted.get(entityID);
         Physics2D parent = mPhysics.get(m.parent);
+        if(parent == null)
+            return;
         float lerpAngle = parent.theta + (parent.omega * alpha);
         lerpPosition.set(m.location).rotate(lerpAngle).add(parent.p).mulAdd(parent.v, alpha);
         Services.batch.draw(region, lerpPosition.x - s.offsetX, lerpPosition.y - s.offsetY, s.offsetX, s.offsetY,

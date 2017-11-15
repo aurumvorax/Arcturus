@@ -30,7 +30,6 @@ public class GameScreen extends ScreenAdapter{
 
         this.core = core;
         worldCam = new WorldCam();
-        inputMUX = new InputMultiplexer();
         playerControl = new PlayerControl();
         hud = new HUDRenderer();
         PlayerInput playerInput = new PlayerInput(core, playerControl, worldCam);
@@ -48,7 +47,8 @@ public class GameScreen extends ScreenAdapter{
                 new Movement(),
                 new WeaponsUpdate(),
                 new Collision(),
-                new EphemeralDecay()
+                new EphemeralDecay(),
+                new Damage()
             ).build();
         world = new World(config);
 

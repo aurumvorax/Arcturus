@@ -26,11 +26,13 @@ data: {
                 arc: 90},
             {location:{x: 43, y: 25},
                 angle: 0,
-                arc: 90},
+                arc: 90}
         ],
+        hull: 100,
 		variants: {
 			"Standard": {
 			    weapons: {
+			        0: "TestCannon",
 			        0: "TestCannon"
                 }
 			}

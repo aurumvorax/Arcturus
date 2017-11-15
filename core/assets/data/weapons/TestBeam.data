@@ -8,6 +8,7 @@
 		barrels: [{x: 8, y: 0}],
         beamImgName: "TestBeam",
         beamImgCenter: {x: 0, y: 3.5},
-        range: 300
+        range: 300,
+        dps: 10
 	}
 }

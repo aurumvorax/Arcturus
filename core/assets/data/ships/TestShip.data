@@ -10,14 +10,16 @@ name: "TestShip",
             {class: Vector2, x: -60, y: -28},
         	{class: Vector2, x: -60, y: 28}
         ]],
-         weaponMounts: [{
+        weaponMounts: [{
             location:{x: 52, y: 19},
                 angle: 0,
-                arc: 180}],
+                arc: 180}
+        ],
+        hull: 100,
 	    variants: {
 	        "Standard" : {
         	    weapons: {
-        	        0: "TestBeam"
+        	        0: "MultiBarrel"
         	    }
    		    }
 	    }

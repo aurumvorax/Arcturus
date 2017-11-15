@@ -4,8 +4,7 @@ Menu
     - LoadScreen
 
 Damage
-    - damage component (no armour yet)
-    - damage handler
+    - beam impact handler
 
 AI
     - pilot framework

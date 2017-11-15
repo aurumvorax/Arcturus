@@ -76,7 +76,10 @@ public class ProjectileFactory{
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
-        mProjectile.get(projectile).firedFrom = firedFrom;
+        Projectile proj = mProjectile.get(projectile);
+        proj.firedFrom = firedFrom;
+        proj.damage = data.damage;
+
         mEphemeral.get(projectile).lifespan = data.duration;
         mRadius.get(projectile).radius = data.collisionRadius;
     }
@@ -95,6 +98,7 @@ public class ProjectileFactory{
         int collisionRadius;
         float duration;
         float speed;
+        float damage;
 
         //Only for missiles
 

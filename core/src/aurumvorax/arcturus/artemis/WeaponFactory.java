@@ -77,6 +77,7 @@ public class WeaponFactory{
                 b.offsetY = data.beamImgCenter.y;
                 b.maxRange = data.range;
                 b.barrels = data.barrels;
+                b.dps = data.dps;
                 return beam;
 
 
@@ -128,6 +129,7 @@ public class WeaponFactory{
         String beamImgName;
         Vector2 beamImgCenter;
         float range;
+        float dps;
     }
 
     private enum WeaponType{

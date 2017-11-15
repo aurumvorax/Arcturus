@@ -6,6 +6,7 @@
         imgCenter: { x: 5, y : 4},
         collisionRadius: 5,
         duration: 2,
-        speed: 300
+        speed: 300,
+        damage: 10
     }
 }
