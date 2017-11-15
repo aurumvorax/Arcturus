@@ -21,6 +21,7 @@ public class Collision extends BaseEntitySystem{
     private static CollisionHandler notify = new NullHandler();
     private static CollisionHandler crash = new BounceHandler();
     private static CollisionHandler boom = new BoomHandler();
+    private static CollisionHandler pewpew = new BeamHandler();
 
     private static ComponentMapper<CollisionPolygon> mPolygon;
     private static ComponentMapper<Beam> mBeam;
@@ -40,6 +41,7 @@ public class Collision extends BaseEntitySystem{
         world.inject(notify);
         world.inject(crash);
         world.inject(boom);
+        world.inject(pewpew);
 
         EntitySubscription actors = world.getAspectSubscriptionManager().get(Aspect.all(
                 Ship.class,
@@ -57,13 +59,16 @@ public class Collision extends BaseEntitySystem{
 
         collisionPairs.add(new CollisionPair(actors, actors, crash));
         collisionPairs.add(new CollisionPair(actors, bullets, boom));
-        collisionPairs.add(new CollisionPair(actors, beams, notify));
+        collisionPairs.add(new CollisionPair(actors, beams, pewpew));
 
         selectionList = actors;
     }
 
     @Override
     protected void processSystem(){
+
+        ((BeamHandler)pewpew).setDelta(world.getDelta());   // need world.delta for dps calculations
+
         for(CollisionPair collisionPair : collisionPairs)
             collisionPair.runPair();
     }

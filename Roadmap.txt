@@ -3,9 +3,6 @@ Menu
     - OptionsScreen
     - LoadScreen
 
-Damage
-    - beam impact handler
-
 AI
     - pilot framework
     - gunnery framework
@@ -14,3 +11,6 @@ LONG TERM
     - Splash screen via java VM loader
     - custom cursor
     - add start icon for game
+
+MINOR BUGS/IMPROVEMENTS
+    - when multibarrel fires only a partial volley, it should reset after time - use timer regenerates barrels model?
