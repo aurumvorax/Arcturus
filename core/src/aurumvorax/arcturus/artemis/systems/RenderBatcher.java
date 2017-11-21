@@ -43,8 +43,9 @@ public class RenderBatcher{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Services.batch.setProjectionMatrix(camera.getMatrix(alpha));
+        camera.setCullingFrame();
         Services.batch.begin();
-        bg.draw(Services.batch, camera.lerpX(alpha), camera.lerpY(alpha));
+        bg.draw(Services.batch, WorldCam.lerpX(alpha), WorldCam.lerpY(alpha));
 
         for(int layer = 0; layer < Renderer.Layer.values().length; layer++){
             for(Job job : jobs.get(layer)){
@@ -52,6 +53,7 @@ public class RenderBatcher{
             }
         }
         Services.batch.end();
+        camera.endCullingFrame();
         hud.render(alpha);
     }
 

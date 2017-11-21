@@ -5,11 +5,10 @@ import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 
 
 public class WorldCam extends BaseSystem implements SaveObserver{
@@ -25,6 +24,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     private Vector2 targetV;
     private Vector2 mouseS;
     private Vector3 lerpMatrix;
+    private Rectangle screenBounds = new Rectangle();
 
     private static final float ZMIN = 0.2f;
     private static final float ZMAX = 2.0f;
@@ -41,12 +41,15 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         mouseS = new Vector2();
         temp = new Vector2();
         lerpMatrix = new Vector3();
+        screenBounds.set(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public void Zoom(float zoom){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + zoom), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
     public static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
     public static float lerpY(float alpha){ return position.y + (velocity.y * alpha); }
+    void setCullingFrame(){ ScissorStack.pushScissors(screenBounds); }
+    void endCullingFrame(){ ScissorStack.popScissors(); }
 
     public void setTarget(int entityID){
         if(mPhysics.has(entityID)){
@@ -63,6 +66,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         cam.update();
         WorldCam.halfWidth = width * 0.5f;
         WorldCam.halfHeight = height * 0.5f;
+        screenBounds.set(0,0, width, height);
     }
 
     Matrix4 getMatrix(float alpha){

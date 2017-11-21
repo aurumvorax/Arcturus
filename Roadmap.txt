@@ -3,7 +3,11 @@ Menu
     - OptionsScreen
     - LoadScreen
 
+Graphics
+    - Explosion animations
+
 AI
+    - get gdxAI tests working
     - pilot framework
     - gunnery framework
 
@@ -12,5 +16,5 @@ LONG TERM
     - custom cursor
     - add start icon for game
 
-MINOR BUGS/IMPROVEMENTS
+MINOR BUGS/Tweaks
     - when multibarrel fires only a partial volley, it should reset after time - use timer regenerates barrels model?
