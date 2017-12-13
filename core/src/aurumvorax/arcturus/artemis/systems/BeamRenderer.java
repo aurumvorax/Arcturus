@@ -26,7 +26,7 @@ public class BeamRenderer extends Renderer{
 
 
     public BeamRenderer(RenderBatcher principal){
-        super(principal, Aspect.all(Beam.class));
+        super(principal, Aspect.all(Beam.class, Mounted.class));
     }
 
     @Override

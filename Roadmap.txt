@@ -4,12 +4,15 @@ Menu
     - LoadScreen
 
 Graphics
-    - Explosion animations
+    - dynamic load animations in services (from json files)
 
 AI
     - get gdxAI tests working
     - pilot framework
     - gunnery framework
+
+Structural
+    - Separate file paths from services
 
 LONG TERM
     - Splash screen via java VM loader
@@ -17,4 +20,3 @@ LONG TERM
     - add start icon for game
 
 MINOR BUGS/Tweaks
-    - when multibarrel fires only a partial volley, it should reset after time - use timer regenerates barrels model?

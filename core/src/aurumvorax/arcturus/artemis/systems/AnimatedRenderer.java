@@ -1,35 +1,35 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.components.AnimatedSprite;
 import aurumvorax.arcturus.artemis.components.Mounted;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.SimpleSprite;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntMap;
 
+public class AnimatedRenderer extends Renderer{
 
-public class SpriteRenderer extends Renderer{
-
+    private static ComponentMapper<AnimatedSprite> mSprite;
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Mounted> mMounted;
-    private static ComponentMapper<SimpleSprite> mSprite;
 
-    private IntMap<TextureAtlas.AtlasRegion> regionsByID = new IntMap<>();
+    private IntMap<Animation> animationsByID = new IntMap<>();
     private Vector2 lerpPosition = new Vector2();
 
     @SuppressWarnings("unchecked")
-    public SpriteRenderer(RenderBatcher principal){
-        super(principal, Aspect.all(SimpleSprite.class).one(Physics2D.class, Mounted.class));
+    public AnimatedRenderer(RenderBatcher principal){
+        super(principal, Aspect.all(AnimatedSprite.class).one(Physics2D.class, Mounted.class));
     }
 
     @Override
     protected void draw(int entityID, float alpha){
-        TextureRegion region = regionsByID.get(entityID);
-        SimpleSprite s = mSprite.get(entityID);
+        Animation a = animationsByID.get(entityID);
+        AnimatedSprite s = mSprite.get(entityID);
+        TextureRegion region = (TextureRegion)a.getKeyFrame(s.time);
         float spriteAngle = 0;
 
         if(mPhysics.has(entityID)){         // Independent sprite
@@ -52,17 +52,17 @@ public class SpriteRenderer extends Renderer{
     }
 
     @Override
-    public void inserted(int entityID){
+    protected void inserted(int entityID){
         if(mSprite.has(entityID)){
-            regionsByID.put(entityID, Services.getTexture(mSprite.get(entityID).name));
+            animationsByID.put(entityID, Services.getAnimation(mSprite.get(entityID).name));
             principal.register(entityID, this, mSprite.get(entityID).layer.ordinal());
         }
     }
 
     @Override
-    public void removed(int entityID){
+    protected void removed(int entityID){
         if(mSprite.has(entityID)){
-            regionsByID.remove(entityID);
+            animationsByID.remove(entityID);
             principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
         }
     }

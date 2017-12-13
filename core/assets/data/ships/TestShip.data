@@ -19,7 +19,7 @@ name: "TestShip",
 	    variants: {
 	        "Standard" : {
         	    weapons: {
-        	        0: "TestBeam"
+        	        0: "MultiBarrel"
         	    }
    		    }
 	    }

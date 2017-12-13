@@ -39,7 +39,7 @@ public class GameScreen extends ScreenAdapter{
             .register(new GameInvocationStrategy(batcher))
             .with(
                 new SpriteRenderer(batcher),
-                new MountedRenderer(batcher),
+                new AnimatedRenderer(batcher),
                 new BeamRenderer(batcher),
                 worldCam,
                 hud,

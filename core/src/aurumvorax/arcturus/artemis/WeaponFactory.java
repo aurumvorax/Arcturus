@@ -21,7 +21,7 @@ public class WeaponFactory{
     private static Archetype protoBeam;
 
     private static ComponentMapper<Mounted> mMounted;
-    private static ComponentMapper<MountedSprite> mSprite;
+    private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Turret> mTurret;
     private static ComponentMapper<Cannon> mCannon;
     private static ComponentMapper<Beam> mBeam;
@@ -33,7 +33,7 @@ public class WeaponFactory{
 
         Archetype protoWeapon = new ArchetypeBuilder()
                 .add(Mounted.class)
-                .add(MountedSprite.class)
+                .add(SimpleSprite.class)
                 .add(Turret.class)
                 .build(world);
         protoCannon = new ArchetypeBuilder(protoWeapon)
@@ -95,7 +95,7 @@ public class WeaponFactory{
         m.location = mount.location;
         m.theta = mount.angle;
 
-        MountedSprite s = mSprite.get(entityID);
+        SimpleSprite s = mSprite.get(entityID);
         s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;

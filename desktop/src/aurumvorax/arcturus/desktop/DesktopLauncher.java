@@ -18,6 +18,7 @@ public class DesktopLauncher {
         settings.combineSubdirectories = true;
         settings.flattenPaths = true;
         TexturePacker.process(settings, "img/sprites", "img", "SpriteAtlas");
+        TexturePacker.process(settings, "img/animations", "img", "AnimationAtlas");
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "SpaceGame";

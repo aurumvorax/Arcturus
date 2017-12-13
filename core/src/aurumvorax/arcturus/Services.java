@@ -5,11 +5,14 @@ import aurumvorax.arcturus.options.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 
@@ -20,9 +23,11 @@ public enum Services{
     INSTANCE;
 
     private static Map<String, TextureAtlas.AtlasRegion> regionsByName = new HashMap<>();
+    private static Map<String, Animation<TextureRegion>> animationsByName = new HashMap<>();
 
     private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
     private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
+    private static final String ANIMATIONN_ATLAS_PATH = "img/AnimationAtlas.atlas";
 
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
@@ -46,6 +51,7 @@ public enum Services{
 
     public static void queueTextureAssets(){
         assetManager.load(SPRITE_ATLAS_PATH, TextureAtlas.class);
+        assetManager.load(ANIMATIONN_ATLAS_PATH, TextureAtlas.class);
     }
 
     public static boolean loadAssets(){ return assetManager.update(); }
@@ -55,9 +61,19 @@ public enum Services{
     public static void initAssets(){
         for(TextureAtlas.AtlasRegion region : getSpriteAtlas().getRegions())
             regionsByName.put(region.name, region);
+        loadAnimations();
     }
 
     public static TextureAtlas.AtlasRegion getTexture(String name){
         return regionsByName.get(name);
+    }
+
+    public static Animation getAnimation(String name){
+        return animationsByName.get(name);
+    }
+
+    private static void loadAnimations(){
+        TextureAtlas atlas = assetManager.get(ANIMATIONN_ATLAS_PATH);
+        animationsByName.put("Boom", new Animation<TextureRegion>(0.04f, atlas.findRegions("explosion 3")));
     }
 }
