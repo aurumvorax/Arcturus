@@ -83,6 +83,11 @@ public class WeaponsUpdate extends IteratingSystem{
                 cannon.barrel++;
             }
         }
+        if(cannon.timer <= -cannon.reloadTime){
+            cannon.barrel = 0;
+            cannon.timer = 0;
+        }
+
     }
 
     private void updateBeam(Beam beam, Mounted m, boolean fire){
