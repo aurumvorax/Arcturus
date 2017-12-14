@@ -1,10 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.GameInvocationStrategy;
-import aurumvorax.arcturus.artemis.ProjectileFactory;
-import aurumvorax.arcturus.artemis.ShipFactory;
-import aurumvorax.arcturus.artemis.WeaponFactory;
+import aurumvorax.arcturus.artemis.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
@@ -48,7 +45,8 @@ public class GameScreen extends ScreenAdapter{
                 new WeaponsUpdate(),
                 new Collision(),
                 new EphemeralDecay(),
-                new Damage()
+                new Damage(),
+                new Destructor()
             ).build();
         world = new World(config);
 

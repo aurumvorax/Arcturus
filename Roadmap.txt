@@ -5,6 +5,13 @@ Menu
 
 Graphics
     - dynamic load animations in services (from json files)
+    - explosion animation when ships blow up
+        - effect types
+            - ship explosion, projectile explosion - transmute object into explosion
+            - shield flare -
+            - engine - mounted renderer with state change
+            - beam flux - handle inside beamrenderer
+            - bullet trail - particle effects?
 
 AI
     - get gdxAI tests working
@@ -13,6 +20,7 @@ AI
 
 Structural
     - Separate file paths from services
+    - safe entity deletion - check for orphans
 
 LONG TERM
     - Splash screen via java VM loader

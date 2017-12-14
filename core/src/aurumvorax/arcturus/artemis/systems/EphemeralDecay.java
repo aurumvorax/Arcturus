@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.Ephemeral;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -17,6 +18,6 @@ public class EphemeralDecay extends IteratingSystem{
     protected void process(int entityID){
         mEphemeral.get(entityID).lifespan -= world.delta;
         if(mEphemeral.get(entityID).lifespan < 0)
-            world.delete(entityID);
+            Destructor.safeRemove(entityID);
     }
 }
