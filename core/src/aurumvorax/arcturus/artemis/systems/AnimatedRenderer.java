@@ -49,6 +49,8 @@ public class AnimatedRenderer extends Renderer{
 
         Services.batch.draw(region, lerpPosition.x - s.offsetX, lerpPosition.y - s.offsetY, s.offsetX, s.offsetY,
                 region.getRegionWidth(), region.getRegionHeight(), 1, 1, spriteAngle);
+
+        s.time += alpha;
     }
 
     @Override

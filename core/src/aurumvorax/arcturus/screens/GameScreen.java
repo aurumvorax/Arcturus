@@ -53,6 +53,7 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.init(world);
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
+        EffectFactory.init(world);
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());

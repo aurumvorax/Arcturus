@@ -74,6 +74,6 @@ public enum Services{
 
     private static void loadAnimations(){
         TextureAtlas atlas = assetManager.get(ANIMATIONN_ATLAS_PATH);
-        animationsByName.put("Boom", new Animation<TextureRegion>(0.04f, atlas.findRegions("explosion 3")));
+        animationsByName.put("Boom", new Animation<TextureRegion>(0.01f, atlas.findRegions("explosion 3")));
     }
 }
