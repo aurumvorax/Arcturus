@@ -2,9 +2,7 @@ package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
-import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.components.shipComponents.*;
 import aurumvorax.arcturus.artemis.systems.Renderer;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
@@ -45,6 +43,8 @@ public class ShipFactory{
                 .add(SimpleSprite.class)
                 .add(Weapons.class)
                 .add(Health.class)
+                .add(PoweredMotion.class)
+                .add(AIShip.class)
                 .build(world);
         ships = new HashMap<>();
         for(FileHandle entry : Services.SHIP_PATH.list()){

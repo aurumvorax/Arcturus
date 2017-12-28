@@ -11,6 +11,6 @@ public class Utils{
     }
 
     public static float sign(float number){
-        return (number < 0) ? -1f : 1f;
+        return (number == 0) ? 0f : (number < 0) ? -1f : 1f;
     }
 }

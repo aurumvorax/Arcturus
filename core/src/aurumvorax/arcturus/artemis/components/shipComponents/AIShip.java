@@ -2,5 +2,5 @@ package aurumvorax.arcturus.artemis.components.shipComponents;
 
 import com.artemis.Component;
 
-public class PlayerShip extends Component{
+public class AIShip extends Component{
 }

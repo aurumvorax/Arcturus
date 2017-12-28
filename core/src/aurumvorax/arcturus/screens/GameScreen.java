@@ -41,6 +41,7 @@ public class GameScreen extends ScreenAdapter{
                 worldCam,
                 hud,
                 playerControl,
+                new AIControl(),
                 new Movement(),
                 new WeaponsUpdate(),
                 new Collision(),

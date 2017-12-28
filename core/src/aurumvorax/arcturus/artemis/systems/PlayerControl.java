@@ -3,6 +3,7 @@ package aurumvorax.arcturus.artemis.systems;
 import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import com.artemis.Aspect;
@@ -21,15 +22,14 @@ public class PlayerControl extends BaseEntitySystem{
     private transient int strafe;
     private transient boolean brake;
     private transient boolean fire;
-    private transient Vector2 accel = new Vector2();
     private transient Vector2 mouse = new Vector2();
     private transient Vector2 target = new Vector2();
     private transient Vector2 select = new Vector2();
 
     private ComponentMapper<PlayerShip> mPlayer;
-    private ComponentMapper<Physics2D> mPosition;
+    private ComponentMapper<Physics2D> mPhysics;
+    private ComponentMapper<PoweredMotion> mPowered;
     private ComponentMapper<Weapons> mWeapons;
-    private WorldCam worldCam;
 
 
     public PlayerControl(){
@@ -45,7 +45,7 @@ public class PlayerControl extends BaseEntitySystem{
 
     public void selectTarget(int x, int y){
         this.select.set(x, y);
-        target = worldCam.unproject(select);
+        target = WorldCam.unproject(select);
         HUDRenderer.setTarget(Collision.pointCheck(target));
     }
 
@@ -53,27 +53,19 @@ public class PlayerControl extends BaseEntitySystem{
     protected void processSystem(){
         if(!mPlayer.has(playerShip))
             return;
-        Physics2D physics2D = mPosition.get(playerShip);
-        float delta = world.delta;
+        Physics2D physics2D = mPhysics.get(playerShip);
+        PoweredMotion pm = mPowered.get(playerShip);
         if(!brake){
-            physics2D.omega = MathUtils.clamp(-300, physics2D.omega + helm * 100 * delta, 300);
-            accel.set(thrust, strafe);
-            if(!accel.isZero())
-                accel.rotate(physics2D.theta).setLength(300);
+            pm.alpha = helm * pm.rotation;
+            pm.accel.set(thrust, strafe);
+            if(!pm.accel.isZero())
+                pm.accel.rotate(physics2D.theta).setLength(pm.thrust);
         }else{
-            if(abs(physics2D.omega) < 100 * delta)
-                physics2D.omega = 0;
-            else
-                physics2D.omega -= Utils.sign(physics2D.omega) * 100 * delta;
-            if((physics2D.v.len2()) > 300 * delta)
-                accel.set(physics2D.v).scl(-1).setLength(300);
-            else
-                accel.set(physics2D.v).scl(-1);
+            pm.alpha = -Utils.sign(physics2D.omega) * pm.rotation;
+            pm.accel.set(physics2D.v).scl(-1).setLength(pm.thrust);
         }
-        physics2D.v.mulAdd(accel, delta);
-        physics2D.omega += helm * 100 * delta;
         Weapons w = mWeapons.get(playerShip);
-        w.target.set(worldCam.unproject(mouse));
+        w.target.set(WorldCam.unproject(mouse));
         w.fire = fire;
     }
 
