@@ -5,13 +5,13 @@ import aurumvorax.arcturus.artemis.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
+import aurumvorax.arcturus.artemis.systems.ai.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter{
 
@@ -41,7 +41,7 @@ public class GameScreen extends ScreenAdapter{
                 worldCam,
                 hud,
                 playerControl,
-                new AIControl(),
+                new ShipAI(),
                 new Movement(),
                 new WeaponsUpdate(),
                 new Collision(),

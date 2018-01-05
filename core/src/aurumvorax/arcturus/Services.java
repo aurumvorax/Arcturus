@@ -27,7 +27,7 @@ public enum Services{
 
     private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
     private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
-    private static final String ANIMATIONN_ATLAS_PATH = "img/AnimationAtlas.atlas";
+    private static final String ANIMATION_ATLAS_PATH = "img/AnimationAtlas.atlas";
 
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
@@ -51,7 +51,7 @@ public enum Services{
 
     public static void queueTextureAssets(){
         assetManager.load(SPRITE_ATLAS_PATH, TextureAtlas.class);
-        assetManager.load(ANIMATIONN_ATLAS_PATH, TextureAtlas.class);
+        assetManager.load(ANIMATION_ATLAS_PATH, TextureAtlas.class);
     }
 
     public static boolean loadAssets(){ return assetManager.update(); }
@@ -73,7 +73,7 @@ public enum Services{
     }
 
     private static void loadAnimations(){
-        TextureAtlas atlas = assetManager.get(ANIMATIONN_ATLAS_PATH);
+        TextureAtlas atlas = assetManager.get(ANIMATION_ATLAS_PATH);
         animationsByName.put("Boom", new Animation<TextureRegion>(0.01f, atlas.findRegions("explosion 3")));
     }
 }

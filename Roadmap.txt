@@ -1,17 +1,17 @@
 
 Menu
-    - OptionsScreen
-    - LoadScreen
+    - look into implementing a FSM for menu screens (StackStateMachine)
 
 Graphics
     - dynamic load animations in services (from json files)
 
 AI
-    - multiple steering behaviour support
-    - pilot level state machine
+    - start with simple combat - approach and match velocity, facing, aim and fire weapons
+    - write static behaviour framework that takes current ship values(from component) and calculates
+    - all behaviours as static functions in a single class
+    - using btree to determine which behaviours are needed.
 
 Structural
-    - Separate file paths from services
 
 LONG TERM
     - Splash screen via java VM loader
