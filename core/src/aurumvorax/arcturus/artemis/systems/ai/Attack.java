@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
+import aurumvorax.arcturus.artemis.systems.ai.steering.AvoidCollision;
 import aurumvorax.arcturus.artemis.systems.ai.steering.Seek;
 import aurumvorax.arcturus.artemis.systems.ai.steering.Steer;
 import aurumvorax.arcturus.artemis.systems.ai.steering.Stop;
@@ -13,7 +14,7 @@ public class Attack extends LeafTask<ShipAI>{
     public Status execute(){
         ShipAI blackboard = getObject();
 
-        Steer.execute(blackboard.currentAI, Seek.calc(blackboard.currentAI, blackboard.activeTarget), 0);
+        Steer.execute(blackboard.currentAI, AvoidCollision.calc(blackboard.currentAI), 0);
         return Status.RUNNING;
     }
 

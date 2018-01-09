@@ -29,10 +29,10 @@ public class ShipAI extends IteratingSystem{
     @Override
     public void initialize(){
         BuildBehaviourTree();
-        world.inject(new AvoidCollision());
-        world.inject(new Seek());
-        world.inject(new Stop());
-        world.inject(new Steer());
+        world.inject(AvoidCollision.INSTANCE);
+        world.inject(Seek.INSTANCE);
+        world.inject(Stop.INSTANCE);
+        world.inject(Steer.INSTANCE);
     }
 
     @Override

@@ -8,7 +8,7 @@ Graphics
 AI
     - start with simple combat - approach and match velocity, facing, aim and fire weapons
     - proximity finder and callback system
-    - basic nav behaviours
+    - basic nav behaviours - must be singletons.  At least can use enums
 
 
 Structural

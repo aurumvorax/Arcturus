@@ -5,7 +5,8 @@ import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
-public class Seek{
+public enum Seek{
+    INSTANCE;
 
     private static Vector2 seek = new Vector2();
 
