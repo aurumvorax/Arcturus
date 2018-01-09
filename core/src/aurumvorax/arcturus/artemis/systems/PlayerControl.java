@@ -6,10 +6,11 @@ import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.artemis.systems.render.HUDRenderer;
+import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import static java.lang.Math.abs;

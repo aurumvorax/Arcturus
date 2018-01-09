@@ -1,5 +1,8 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
+import aurumvorax.arcturus.artemis.systems.ai.steering.Seek;
+import aurumvorax.arcturus.artemis.systems.ai.steering.Steer;
+import aurumvorax.arcturus.artemis.systems.ai.steering.Stop;
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 
@@ -9,7 +12,8 @@ public class Attack extends LeafTask<ShipAI>{
     @Override
     public Status execute(){
         ShipAI blackboard = getObject();
-        Navigation.execute(blackboard.currentAI, Navigation.Seek(blackboard.currentAI, blackboard.activeTarget));
+
+        Steer.execute(blackboard.currentAI, Seek.calc(blackboard.currentAI, blackboard.activeTarget), 0);
         return Status.RUNNING;
     }
 
