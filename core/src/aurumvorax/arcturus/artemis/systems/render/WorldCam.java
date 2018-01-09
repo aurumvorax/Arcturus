@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.savegame.SaveManager;

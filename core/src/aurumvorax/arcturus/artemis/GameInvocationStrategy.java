@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis;
 
-import aurumvorax.arcturus.artemis.systems.RenderBatcher;
+import aurumvorax.arcturus.artemis.systems.render.RenderBatcher;
+import aurumvorax.arcturus.artemis.systems.render.RenderMarker;
 import com.artemis.BaseSystem;
 import com.artemis.SystemInvocationStrategy;
 import com.artemis.utils.BitVector;

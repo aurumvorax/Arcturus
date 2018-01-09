@@ -1,12 +1,10 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.RenderMarker;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import com.artemis.*;
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

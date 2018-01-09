@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.components;
 
-import aurumvorax.arcturus.artemis.systems.Renderer;
+import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.Component;
 
 public class SimpleSprite extends Component{

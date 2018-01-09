@@ -7,9 +7,9 @@ Graphics
 
 AI
     - start with simple combat - approach and match velocity, facing, aim and fire weapons
-    - write static behaviour framework that takes current ship values(from component) and calculates
-    - all behaviours as static functions in a single class
-    - using btree to determine which behaviours are needed.
+    - proximity finder and callback system
+    - basic nav behaviours
+
 
 Structural
 

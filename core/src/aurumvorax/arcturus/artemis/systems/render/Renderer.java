@@ -1,6 +1,5 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus.artemis.systems.render;
 
-import aurumvorax.arcturus.artemis.RenderMarker;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 

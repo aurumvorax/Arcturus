@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.Beam;
@@ -10,9 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntMap;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class BeamRenderer extends Renderer{
 

@@ -3,7 +3,7 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.systems.Renderer;
+import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

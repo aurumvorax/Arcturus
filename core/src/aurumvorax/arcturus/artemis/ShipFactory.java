@@ -3,7 +3,7 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.*;
-import aurumvorax.arcturus.artemis.systems.Renderer;
+import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;

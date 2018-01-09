@@ -7,6 +7,7 @@ import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.ai.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.artemis.systems.render.*;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
@@ -41,6 +42,7 @@ public class GameScreen extends ScreenAdapter{
                 worldCam,
                 hud,
                 playerControl,
+                new Proximity(),
                 new ShipAI(),
                 new Movement(),
                 new WeaponsUpdate(),

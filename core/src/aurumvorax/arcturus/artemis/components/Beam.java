@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.components;
 
-import aurumvorax.arcturus.artemis.systems.Renderer;
+import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
