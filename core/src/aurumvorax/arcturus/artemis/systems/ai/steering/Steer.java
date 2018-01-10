@@ -18,9 +18,17 @@ public enum Steer{
         pm.alpha = helm;
     }
 
-    public static Vector2 combine(Vector2 course1, float weight1, Vector2 course2, float weight2){
+    public static Vector2 blend(Vector2 course1, float weight1, Vector2 course2, float weight2){
         steer.set(course1).scl(weight1);
         steer.mulAdd(course2, weight2);
+        return steer;
+    }
+
+    public static Vector2 priority(Vector2 course1, Vector2 course2){
+        if(course1.isZero())
+            steer.set(course2);
+        else
+            steer.set(course1);
         return steer;
     }
 }

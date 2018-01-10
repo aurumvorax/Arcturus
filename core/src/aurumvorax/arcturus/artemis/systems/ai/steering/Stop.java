@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.ai.steering;
 
+import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.ComponentMapper;
@@ -19,5 +20,9 @@ public enum Stop{
         if(!physics.v.isZero())
             stop.set(physics.v).scl(-1).setLength(mPowered.get(owner).thrust);
         return stop;
+    }
+
+    public static float face(int owner){
+        return -Utils.sign(mPhysics.get(owner).omega) * mPowered.get(owner).rotation;
     }
 }

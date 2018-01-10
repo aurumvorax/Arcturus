@@ -32,7 +32,7 @@ public enum AvoidCollision implements Proximity.Callback{
         shortestToCPA = Float.POSITIVE_INFINITY;
         distanceCPA = 0;
 
-        int contacts = Proximity.findContacts(owner, 200, INSTANCE);
+        int contacts = Proximity.findContacts(owner, 300, INSTANCE);
 
         if((contacts == 0) || (firstContact == -1))     // No collisions to avoid
             return collision.setZero();
