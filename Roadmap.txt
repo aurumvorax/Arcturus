@@ -1,17 +1,21 @@
 
 Menu
     - look into implementing a FSM for menu screens (StackStateMachine)
+    - save/load menu
+    - options menu
 
 Graphics
     - dynamic load animations in services (from json files)
 
 AI
-    - start with simple combat - approach and match velocity, facing, aim and fire weapons
-    - proximity finder and callback system
-    - basic nav behaviours - must be singletons.  At least can use enums
+    - more steering behaviours - separation, evade, interpose, escort
+    - more tasks - patrol, flee, protect, escort, isStrife,
+    - gunnery
 
-
-Structural
+World
+    - celestial bodies & factory for same
+    - orbit system (preferably elliptical as well as circular)
+    - solar system load/save mechanism
 
 LONG TERM
     - Splash screen via java VM loader

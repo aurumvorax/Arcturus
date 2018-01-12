@@ -35,6 +35,8 @@ public enum Services{
     public static final FileHandle SHIP_PATH = Gdx.files.local("data/ships/");
     public static final FileHandle PROJECTILE_PATH = Gdx.files.local("data/projectiles");
     public static final FileHandle WEAPON_PATH = Gdx.files.local("data/weapons");
+    public static final FileHandle TERRAIN_PATH = Gdx.files.local("data/terrain");
+
     public static final Skin MENUSKIN = new Skin(Gdx.files.internal(MENU_SKIN_PATH));
 
     private static final AssetManager assetManager = new AssetManager();

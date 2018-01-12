@@ -1,0 +1,7 @@
+{
+    name: "TestStar",
+    data: {
+        imgName: "Star1",
+        imgCenter: { x: 63, y : 63},
+    }
+}

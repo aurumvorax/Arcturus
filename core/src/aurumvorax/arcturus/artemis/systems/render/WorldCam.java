@@ -26,8 +26,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     private Vector3 lerpMatrix;
     private Rectangle screenBounds = new Rectangle();
 
-    private static final float ZMIN = 0.2f;
-    private static final float ZMAX = 2.0f;
+    private static final float ZMIN = 0.02f;
+    private static final float ZMAX = 20.0f;
     private static final float MINSPEED2 = 2000f;
     private static final float FRAMESIZE = 0.8f;
     private static final float PANSPEED = 3;

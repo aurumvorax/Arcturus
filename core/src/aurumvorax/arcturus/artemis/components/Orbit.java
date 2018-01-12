@@ -3,8 +3,8 @@ package aurumvorax.arcturus.artemis.components;
 import com.artemis.Component;
 import com.artemis.annotations.EntityId;
 
-public class Projectile extends Component{
+public class Orbit extends Component{
+    @EntityId public int parent;
+    public float speed;
 
-    @EntityId public int firedFrom;
-    public float damage;
 }

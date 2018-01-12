@@ -57,6 +57,7 @@ public class GameScreen extends ScreenAdapter{
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
         EffectFactory.init(world);
+        TerrainFactory.init(world);
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
@@ -91,8 +92,9 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldSerializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 0, 0, 0);
-        ShipFactory.create("TestShip", "Standard", 200,200,0);
-        ShipFactory.create("OtherShip", "Standard", 400, -200, 0);
+        ShipFactory.create("TestShip", "Standard", 800,600,0);
+        ShipFactory.create("OtherShip", "Standard", 400, -800, 0);
+        TerrainFactory.createStar("TestStar", 1000, 1000, 0);
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
         mPlayer.create(ship);
