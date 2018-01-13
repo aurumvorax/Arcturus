@@ -4,6 +4,8 @@ public class Utils{
 
     private Utils(){} // Static class, block instantiation
 
+    public static final float TWOPI = 6.283185307f;
+
     public static float normalize(float angle){
         while(angle < -180) angle += 360;
         while(angle > 180) angle -= 360;

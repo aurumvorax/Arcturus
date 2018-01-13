@@ -45,6 +45,7 @@ public class GameScreen extends ScreenAdapter{
                 new Proximity(),
                 new ShipAI(),
                 new Movement(),
+                new Orbital(),
                 new WeaponsUpdate(),
                 new Collision(),
                 new EphemeralDecay(),
@@ -94,7 +95,9 @@ public class GameScreen extends ScreenAdapter{
         int ship = ShipFactory.create("TestShip", "Standard", 0, 0, 0);
         ShipFactory.create("TestShip", "Standard", 800,600,0);
         ShipFactory.create("OtherShip", "Standard", 400, -800, 0);
-        TerrainFactory.createStar("TestStar", 1000, 1000, 0);
+        int star = TerrainFactory.createStar("TestStar", 1000, 1000);
+        int planet = TerrainFactory.createOrbital("TestPlanet", star);
+        TerrainFactory.createOrbital("TestPlanet", planet);
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
         mPlayer.create(ship);

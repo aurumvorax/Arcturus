@@ -9,12 +9,11 @@ Graphics
 
 AI
     - more steering behaviours - separation, evade, interpose, escort
-    - more tasks - patrol, flee, protect, escort, isStrife,
+    - more tasks - patrol, flee, protect, escort, isStrife
     - gunnery
 
 World
-    - celestial bodies & factory for same
-    - orbit system (preferably elliptical as well as circular)
+    - allow orbitals to orbit other orbitals (update position of center)
     - solar system load/save mechanism
 
 LONG TERM
@@ -23,3 +22,4 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
+    - turret rotation speed is not independant of vessel rotation

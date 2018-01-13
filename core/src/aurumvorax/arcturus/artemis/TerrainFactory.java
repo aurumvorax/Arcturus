@@ -6,10 +6,7 @@ import aurumvorax.arcturus.artemis.components.Orbit;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.SimpleSprite;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
-import com.artemis.Archetype;
-import com.artemis.ArchetypeBuilder;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
+import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +17,7 @@ public enum TerrainFactory{
     INSTANCE;
 
     private static World world;
-    private static HashMap<String, CelestialData> celestials;
+    private static HashMap<String, TerrainData> terrains;
     private static Archetype protoStar;
     private static Archetype protoOrbital;
 
@@ -32,7 +29,7 @@ public enum TerrainFactory{
         TerrainFactory.world = world;
         world.inject(INSTANCE);
 
-        celestials = new HashMap<>();
+        terrains = new HashMap<>();
         protoStar = new ArchetypeBuilder()
                 .add(Celestial.class)
                 .add(Physics2D.class)
@@ -43,40 +40,69 @@ public enum TerrainFactory{
                 .add(Orbit.class)
                 .build(world);
 
-        celestials = new HashMap<>();
+        terrains = new HashMap<>();
         for(FileHandle entry : Services.TERRAIN_PATH.list()){
             Wrapper wrapper = Services.json.fromJson(Wrapper.class, entry);
-            celestials.put(wrapper.name, wrapper.data);
+            terrains.put(wrapper.name, wrapper.data);
             Gdx.app.debug("INIT", "Registered Celestial Body - " + wrapper.name);
         }
     }
 
-    public static int createStar(String type, float x, float y, float t){
-        if(!celestials.containsKey(type))
+    public static int createStar(String type, float x, float y){
+
+        if(!terrains.containsKey(type))
             throw new IllegalArgumentException("Invalid projectile type - " + type);
 
-        CelestialData data = celestials.get(type);
+        TerrainData data = terrains.get(type);
         int star = world.create(protoStar);
+        buildTerrain(star, data, x, y);
+        return star;
+    }
 
-        Physics2D p = mPhysics.get(star);
+    private static void buildTerrain(int terrain, TerrainData data, float x, float y){
+
+        Physics2D p = mPhysics.get(terrain);
         p.p.set(x, y);
-        p.theta = t;
 
-        SimpleSprite s = mSprite.get(star);
+        SimpleSprite s = mSprite.get(terrain);
         s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.PLANETARY;
-
-        return star;
     }
+
+    public static int createOrbital(String type, int parent){
+
+
+        if(!terrains.containsKey(type))
+            throw new IllegalArgumentException("Invalid projectile type - " + type);
+
+        TerrainData data = terrains.get(type);
+        int orbital = world.create(protoOrbital);
+
+
+        float semiminor = data.semimajor * (float)Math.sqrt(1 - Math.pow(data.eccentricity, 2));
+        Orbit o = mOrbit.get(orbital);
+        o.parent = parent;
+        o.major = data.semimajor * 2;
+        o.minor = semiminor * 2;
+        o.tilt = data.tilt;
+        o.time = data.offset;
+        o.sweep = data.sweep;
+        o.center.set(data.semimajor * data.eccentricity, 0).rotate(o.tilt);
+        o.center.add(mPhysics.get(o.parent).p);
+
+        buildTerrain(orbital, data, data.semimajor, semiminor);
+        return orbital;
+    }
+
 
     private static class Wrapper{
         String name;
-        CelestialData data;
+        TerrainData data;
     }
 
-    private static class CelestialData{
+    private static class TerrainData{
 
         //Common to all projectile types
         String imgName;
@@ -84,5 +110,10 @@ public enum TerrainFactory{
 
         // Orbital parameters
 
+        float semimajor;
+        float eccentricity;
+        float offset;
+        float tilt;
+        double sweep;
     }
 }
