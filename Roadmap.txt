@@ -8,7 +8,7 @@ Graphics
     - dynamic load animations in services (from json files)
 
 AI
-    - more steering behaviours - separation, evade, interpose, escort
+    - more steering behaviours - evade, interpose, maintain distance
     - more tasks - patrol, flee, protect, escort, isStrife
     - gunnery
 

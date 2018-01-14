@@ -31,6 +31,7 @@ public class ShipAI extends IteratingSystem{
         world.inject(Stop.INSTANCE);
         world.inject(Steer.INSTANCE);
         world.inject(Arrive.INSTANCE);
+        world.inject(Separation.INSTANCE);
     }
 
     @Override

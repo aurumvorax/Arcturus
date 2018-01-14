@@ -10,6 +10,7 @@ public class Attack extends LeafTask<ShipAI>{
     @Override
     public Status execute(){
         ShipAI blackboard = getObject();
+        Steer.execute(blackboard.currentAI, Steer.blend(Separation.calc(blackboard.currentAI, 5000000), 1, Arrive.calc(blackboard.currentAI, blackboard.activeTarget, 0), 1), 0);
         //Steer.execute(blackboard.currentAI, Steer.priority(AvoidCollision.calc(blackboard.currentAI), Arrive.calc(blackboard.currentAI, blackboard.activeTarget, 200)), 0);
         //Steer.execute(blackboard.currentAI, Arrive.calc(blackboard.currentAI, blackboard.activeTarget, 200), Stop.face(blackboard.currentAI));
         return Status.RUNNING;
