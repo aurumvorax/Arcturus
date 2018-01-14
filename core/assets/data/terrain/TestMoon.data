@@ -1,0 +1,10 @@
+{
+    name: "TestMoon",
+    data: {
+        imgName: "Moon1",
+        imgCenter: { x: 31, y: 31},
+        semimajor: 120,
+        eccentricity: 0.1,
+        sweep: 300
+    }
+}

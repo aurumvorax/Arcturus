@@ -13,7 +13,6 @@ AI
     - gunnery
 
 World
-    - allow orbitals to orbit other orbitals (update position of center)
     - solar system load/save mechanism
 
 LONG TERM

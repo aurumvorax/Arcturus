@@ -90,7 +90,6 @@ public enum TerrainFactory{
         o.time = data.offset;
         o.sweep = data.sweep;
         o.center.set(data.semimajor * data.eccentricity, 0).rotate(o.tilt);
-        o.center.add(mPhysics.get(o.parent).p);
 
         buildTerrain(orbital, data, data.semimajor, semiminor);
         return orbital;

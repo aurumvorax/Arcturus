@@ -6,63 +6,70 @@ filter: Nearest,Nearest
 repeat: none
 TestBeam
   rotate: false
-  xy: 262, 190
+  xy: 0, 0
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
 TestBullet
   rotate: false
-  xy: 132, 91
+  xy: 262, 198
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 selector1
   rotate: false
-  xy: 0, 199
+  xy: 0, 208
   size: 300, 300
   orig: 300, 300
   offset: 0, 0
   index: -1
 ConcaveTest
   rotate: false
-  xy: 132, 101
+  xy: 132, 110
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 TestShip
   rotate: false
-  xy: 0, 0
+  xy: 0, 9
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
+Moon1
+  rotate: false
+  xy: 302, 314
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 Planet1
   rotate: false
-  xy: 0, 66
+  xy: 0, 75
   size: 130, 131
   orig: 130, 131
   offset: 0, 0
   index: -1
 Star1
   rotate: false
-  xy: 302, 371
+  xy: 302, 380
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 MultiBarrel
   rotate: false
-  xy: 302, 353
+  xy: 432, 492
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 TestTurret
   rotate: false
-  xy: 432, 483
+  xy: 132, 92
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

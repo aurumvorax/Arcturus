@@ -97,7 +97,7 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.create("OtherShip", "Standard", 400, -800, 0);
         int star = TerrainFactory.createStar("TestStar", 1000, 1000);
         int planet = TerrainFactory.createOrbital("TestPlanet", star);
-        TerrainFactory.createOrbital("TestPlanet", planet);
+        TerrainFactory.createOrbital("TestMoon", planet);
         worldCam.setTarget(ship);
         ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
         mPlayer.create(ship);
