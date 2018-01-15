@@ -14,7 +14,7 @@ public class Destructor extends BaseSystem{
     public static void safeRemove(int entityID){
         destroyed.add(entityID);
         if(mWeapons.has(entityID))
-            for(int w : mWeapons.get(entityID).all.toArray())
+            for(int w : mWeapons.get(entityID).all.getData())
                 destroyed.add(w);
 
     }

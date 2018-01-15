@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
+import aurumvorax.arcturus.artemis.components.Turret;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
@@ -31,6 +32,7 @@ public class PlayerControl extends BaseEntitySystem{
     private ComponentMapper<Physics2D> mPhysics;
     private ComponentMapper<PoweredMotion> mPowered;
     private ComponentMapper<Weapons> mWeapons;
+    private ComponentMapper<Turret> mTurret;
 
 
     public PlayerControl(){
@@ -52,22 +54,33 @@ public class PlayerControl extends BaseEntitySystem{
 
     @Override
     protected void processSystem(){
+
         if(!mPlayer.has(playerShip))
             return;
+
         Physics2D physics2D = mPhysics.get(playerShip);
         PoweredMotion pm = mPowered.get(playerShip);
         if(!brake){
             pm.alpha = helm * pm.rotation;
             pm.accel.set(thrust, strafe);
+
             if(!pm.accel.isZero())
                 pm.accel.rotate(physics2D.theta).setLength(pm.thrust);
         }else{
             pm.alpha = -Utils.sign(physics2D.omega) * pm.rotation;
             pm.accel.set(physics2D.v).scl(-1).setLength(pm.thrust);
         }
+
+        updateWeapons(WorldCam.unproject(mouse));
+    }
+
+    private void updateWeapons(Vector2 target){
         Weapons w = mWeapons.get(playerShip);
-        w.target.set(WorldCam.unproject(mouse));
-        w.fire = fire;
+        for(int i = 0; i < w.manual.size(); i++){
+            Turret t = mTurret.get(w.manual.get(i));
+            t.target = (target);
+            t.fire = fire;
+        }
     }
 
     @Override

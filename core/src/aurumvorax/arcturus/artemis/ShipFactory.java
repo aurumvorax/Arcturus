@@ -8,6 +8,7 @@ import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
@@ -76,14 +77,16 @@ public class ShipFactory{
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
-        IntArray weaponList = mWeapons.get(ship).all;
-        IntArray activeList = mWeapons.get(ship).active;
+        IntBag weaponList = mWeapons.get(ship).all;
+        IntBag activeList = mWeapons.get(ship).auto;
+        IntBag manualList = mWeapons.get(ship).manual;
         IntMap<String> loadout =  data.variants.get(variant).weapons;
         if(loadout != null){
             for(int i = 0; i < loadout.size; i++){
                 int w = WeaponFactory.create(loadout.get(i), ship, data.weaponMounts.get(i));
                 weaponList.add(w);
                 activeList.add(w);
+                manualList.add(w);
             }
         }
 

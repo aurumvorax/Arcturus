@@ -16,8 +16,5 @@ public class Attack extends LeafTask<ShipAI>{
         return Status.RUNNING;
     }
 
-    @Override
-    protected Task<ShipAI> copyTo(Task<ShipAI> task){
-        return null;
-    }
+    @Override protected Task<ShipAI> copyTo(Task<ShipAI> task){ return null; }
 }

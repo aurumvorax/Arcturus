@@ -10,7 +10,9 @@ Graphics
 AI
     - more steering behaviours - evade, interpose, maintain distance
     - more tasks - patrol, flee, protect, escort, isStrife
+    - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - gunnery
+        - aiming iterates lists of weapons, sets/clears target data(includes calculating shot leading for now), returns true for that weapon when ready to fire
 
 World
     - solar system load/save mechanism
