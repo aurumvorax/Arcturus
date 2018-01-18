@@ -13,5 +13,4 @@ public class Weapons extends Component{
     public IntBag auto = new IntBag();
     public IntBag pd = new IntBag();
     public Vector2 target = new Vector2();
-    public boolean fire = false;
 }

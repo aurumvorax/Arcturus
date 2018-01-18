@@ -8,11 +8,11 @@ Graphics
     - dynamic load animations in services (from json files)
 
 AI
-    - more steering behaviours - evade, interpose, maintain distance
+    - more steering behaviours - evade, flee, maintain distance
     - more tasks - patrol, flee, protect, escort, isStrife
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - gunnery
-        - aiming iterates lists of weapons, sets/clears target data(includes calculating shot leading for now), returns true for that weapon when ready to fire
+        - cannon aiming - leading shots
 
 World
     - solar system load/save mechanism
@@ -23,4 +23,5 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
-    - turret rotation speed is not independant of vessel rotation
+
+    - camera jitter when playership is destroyed

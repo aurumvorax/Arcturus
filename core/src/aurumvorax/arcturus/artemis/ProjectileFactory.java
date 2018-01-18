@@ -46,12 +46,12 @@ public class ProjectileFactory{
         }
     }
 
-    public static int create(String type, float x, float y, float t, int firedFrom){
+    public static int create(String name, float x, float y, float t, int firedFrom){
 
-        if(!projectiles.containsKey(type))
-            throw new IllegalArgumentException("Invalid projectile type - " + type);
+        if(!projectiles.containsKey(name))
+            throw new IllegalArgumentException("Invalid projectile type - " + name);
 
-        ProjectileData data = projectiles.get(type);
+        ProjectileData data = projectiles.get(name);
         switch(data.type){
             case BULLET:
                 int bullet = world.create(protoBullet);
@@ -62,6 +62,14 @@ public class ProjectileFactory{
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");
         }
+    }
+
+    public static void setWeaponData(Cannon c, String type){
+        if(!projectiles.containsKey(type))
+            throw new IllegalArgumentException("Invalid projectile type - " + type);
+        ProjectileData data = projectiles.get(type);
+        c.speed = data.speed;
+        c.maxRange = data.speed * data.duration;
     }
 
     private static void buildProjectile(int projectile, ProjectileData data, float x, float y, float t, int firedFrom){

@@ -32,8 +32,8 @@ data: {
 		variants: {
 			"Standard": {
 			    weapons: {
-			        0: "TestCannon",
-			        0: "TestCannon"
+			        0: "TestBeam",
+			        1: "TestBeam"
                 }
 			}
 		}

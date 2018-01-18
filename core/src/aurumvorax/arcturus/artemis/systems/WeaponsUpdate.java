@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class WeaponsUpdate extends IteratingSystem{
 
     private static final float DAMPING = 10;
+    private static final float AIM_FUZZ = 100;
     private static transient float targetAngle;
     private static transient Vector2 targetVector = new Vector2();
     private static transient Vector2 origin = new Vector2();
@@ -66,11 +67,11 @@ public class WeaponsUpdate extends IteratingSystem{
         float zeroAngle = parent.theta + t.arcMid;
         float targetRelative = Utils.normalize(targetAngle - zeroAngle);
         float thetaRelative = Utils.normalize(m.theta - zeroAngle);
-        //System.out.println(targetAngle + " " + zeroAngle + " " + targetRelative);
         float omega = MathUtils.clamp((targetRelative - thetaRelative) * DAMPING, -t.omegaMax, t.omegaMax);
         thetaRelative += omega * world.delta;
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;
+        t.onTarget = (omega < AIM_FUZZ);
     }
 
     private void updateCannon(Cannon cannon, Mounted m, boolean fire){

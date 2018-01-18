@@ -4,6 +4,8 @@ import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.systems.ai.gunnery.Aiming;
+import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
 import aurumvorax.arcturus.artemis.systems.ai.steering.*;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -32,6 +34,7 @@ public class ShipAI extends IteratingSystem{
         world.inject(Steer.INSTANCE);
         world.inject(Arrive.INSTANCE);
         world.inject(Separation.INSTANCE);
+        GunneryAI.initialize(world);
     }
 
     @Override

@@ -51,12 +51,12 @@ public class WeaponFactory{
         }
     }
 
-    static int create(String type, int ship, Mount.Weapon mount){
+    static int create(String name, int ship, Mount.Weapon mount){
 
-        if(!weapons.containsKey(type))
-            throw new IllegalArgumentException("Invalid projectile type - " + type);
+        if(!weapons.containsKey(name))
+            throw new IllegalArgumentException("Invalid projectile type - " + name);
 
-        WeaponData data = weapons.get(type);
+        WeaponData data = weapons.get(name);
         switch(data.type){
             case CANNON:
                 int cannon = world.create(protoCannon);
@@ -66,6 +66,7 @@ public class WeaponFactory{
                 c.burstTime = data.delay;
                 c.reloadTime = data.reload;
                 c.barrels = data.barrels;
+                ProjectileFactory.setWeaponData(c, data.launches);
                 return cannon;
 
 
