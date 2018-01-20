@@ -10,7 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 public enum Aiming{
     INSTANCE;
 
-    private static Vector2 relativeVelocity = new Vector2();
+    private static Vector2 relativeP = new Vector2();
+    private static Vector2 relativeV = new Vector2();
     private static BitVector onTarget = new BitVector();
 
     // Injected from GunneryAI
@@ -47,16 +48,27 @@ public enum Aiming{
         float range = mBeam.get(beam).maxRange + mRadius.get(target).radius;
         float dist2 = mMounted.get(beam).position.dst2(targetPos);
 
-        if(dist2 > range * range)     // Out of range, don't bother aiming
+        if(dist2 > range * range)     // Out of range
             return false;
         mTurret.get(beam).target.set(targetPos);
         return(mTurret.get(beam).onTarget);
     }
 
     private static boolean aimCannon(int cannon, int target){
+        Physics2D cannonP = mPhysics.get(mMounted.get(cannon).parent);
+        Physics2D targetP = mPhysics.get(target);
+        relativeP.set(targetP.p).sub(cannonP.p);
+        relativeV.set(targetP.v).sub(cannonP.v);
+        float distance1 = relativeP.len();
+        float distance2 = relativeP.nor().dot(relativeV);
+        Cannon c = mCannon.get(cannon);
+        float time = (distance1 + distance2) / c.speed;
 
+        if(time > c.duration)   // Out of range
+            return false;
 
-
-        return false;
+        Turret t = mTurret.get(cannon);
+        t.target.set(targetP.p).mulAdd(relativeV, time);
+        return t.onTarget;
     }
 }

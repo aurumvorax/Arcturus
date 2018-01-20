@@ -12,6 +12,6 @@ public class Cannon extends Component{
     public float reloadTime;
     public int barrel = 0;
     public Array<Vector2> barrels;
-    public float maxRange;
+    public float duration;
     public float speed;
 }

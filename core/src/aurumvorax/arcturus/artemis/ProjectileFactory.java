@@ -69,7 +69,7 @@ public class ProjectileFactory{
             throw new IllegalArgumentException("Invalid projectile type - " + type);
         ProjectileData data = projectiles.get(type);
         c.speed = data.speed;
-        c.maxRange = data.speed * data.duration;
+        c.duration = data.duration;
     }
 
     private static void buildProjectile(int projectile, ProjectileData data, float x, float y, float t, int firedFrom){

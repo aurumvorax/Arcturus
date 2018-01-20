@@ -23,5 +23,4 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
-
-    - camera jitter when playership is destroyed
+    - Steering behaviours cause NPE when target gets destroyed
