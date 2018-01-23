@@ -15,6 +15,8 @@ public enum Seek{
     private static ComponentMapper<PoweredMotion> mPowered;
 
     public static Vector2 calc(int owner, int target){
+        if(!mPhysics.has(target))
+            return null;
         seek.set(mPhysics.get(target).p).sub(mPhysics.get(owner).p).setLength(mPowered.get(owner).thrust);
         return seek;
     }

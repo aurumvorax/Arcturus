@@ -15,6 +15,8 @@ public enum Arrive{
     private static ComponentMapper<PoweredMotion> mPowered;
 
     public static Vector2 calc(int owner, int target, float margin){
+        if(!mPhysics.has(target))
+            return null;
         Physics2D ownerP = mPhysics.get(owner);
         Physics2D targetP = mPhysics.get(target);
         float distance = ownerP.p.dst(targetP.p);

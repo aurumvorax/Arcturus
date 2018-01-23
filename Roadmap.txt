@@ -1,11 +1,19 @@
 
 Menu
+    - menu graphical assets
     - look into implementing a FSM for menu screens (StackStateMachine)
     - save/load menu
     - options menu
+    - in world pause to menu - use framebuffer capture for menu background - will need FSM based menu
 
 Graphics
     - dynamic load animations in services (from json files)
+
+Shields
+    - graphical assets
+    - component
+    - collision
+    - damage
 
 AI
     - more steering behaviours - evade, flee, maintain distance
@@ -13,7 +21,8 @@ AI
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
 
 World
-    - solar system load/save mechanism
+    - solar system load/save mechanism - from kryo if it exists, from json if not
+    - change solar system mechanism - save playership data, clear artemis, load playership and new system
 
 LONG TERM
     - Splash screen via java VM loader
@@ -21,4 +30,3 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
-    - Steering behaviours cause NPE when target gets destroyed
