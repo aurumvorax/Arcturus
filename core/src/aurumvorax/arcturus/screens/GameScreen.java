@@ -93,7 +93,7 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldSerializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 0, 0, 0);
-        ShipFactory.create("TestShip", "Standard", 800,600,0);
+        ShipFactory.create("TestShip", "Standard", 200,200,0);
         //ShipFactory.create("OtherShip", "Standard", 400, -800, 0);
         int star = TerrainFactory.createStar("TestStar", 1000, 1000);
         int planet = TerrainFactory.createOrbital("TestPlanet", star);

@@ -18,12 +18,16 @@ public enum Arrive{
         Physics2D ownerP = mPhysics.get(owner);
         Physics2D targetP = mPhysics.get(target);
         float distance = ownerP.p.dst(targetP.p);
+
         if(distance <= margin)  // Already there
             return Stop.calc(owner);
+
         PoweredMotion pm = mPowered.get(owner);
         float deccel = ownerP.v.len2() * 0.5f /  pm.thrust;
+
         if(distance - margin > deccel)   // Not close enough to slow down yet
             return arrive.set(targetP.p).sub(ownerP.p).setLength(pm.thrust);
-        return arrive.set(ownerP.v).scl(-1f).setLength(pm.thrust);
+        else
+            return arrive.set(ownerP.v).scl(-1f).setLength(pm.thrust);
     }
 }

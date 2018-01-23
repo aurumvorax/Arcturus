@@ -11,8 +11,6 @@ AI
     - more steering behaviours - evade, flee, maintain distance
     - more tasks - patrol, flee, protect, escort, isStrife
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
-    - gunnery
-        - cannon aiming - leading shots
 
 World
     - solar system load/save mechanism

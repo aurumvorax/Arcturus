@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.Aspect;
@@ -25,7 +26,7 @@ public class Movement extends IteratingSystem{
         float delta = world.delta;
 
         physics2D.p.mulAdd(physics2D.v, delta);
-        physics2D.theta += physics2D.omega * delta;
+        physics2D.theta = Utils.normalize(physics2D.theta + (physics2D.omega * delta));
 
         if(mPowered.has(entityId)){
             PoweredMotion p = mPowered.get(entityId);

@@ -21,8 +21,4 @@ public enum Stop{
             stop.set(physics.v).scl(-1).setLength(mPowered.get(owner).thrust);
         return stop;
     }
-
-    public static float face(int owner){
-        return -Utils.sign(mPhysics.get(owner).omega) * mPowered.get(owner).rotation;
-    }
 }
