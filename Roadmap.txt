@@ -1,6 +1,5 @@
 
 Menu
-    - menu graphical assets
     - look into implementing a FSM for menu screens (StackStateMachine)
     - save/load menu
     - options menu
@@ -17,7 +16,7 @@ Shields
 
 AI
     - more steering behaviours - evade, flee, maintain distance
-    - more tasks - patrol, flee, protect, escort, isStrife
+    - more tasks - patrol, flee, protect, escort, isStrife, isHurt
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
 
 World
@@ -30,3 +29,4 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
+    - turret rotation speed limited by ship rotation - change

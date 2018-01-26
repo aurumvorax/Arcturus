@@ -25,7 +25,7 @@ public enum Services{
     private static Map<String, TextureAtlas.AtlasRegion> regionsByName = new HashMap<>();
     private static Map<String, Animation<TextureRegion>> animationsByName = new HashMap<>();
 
-    private static final String MENU_SKIN_PATH = "skin/neon-ui.json";
+    private static final String MENU_SKIN_PATH = "skin/sgx/sgx-ui.json";
     private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
     private static final String ANIMATION_ATLAS_PATH = "img/AnimationAtlas.atlas";
 

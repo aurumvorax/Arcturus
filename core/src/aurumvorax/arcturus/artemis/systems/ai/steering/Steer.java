@@ -8,7 +8,6 @@ public enum Steer{
     INSTANCE;
 
     private static Vector2 steer = new Vector2();
-    private static Vector2 zero = new Vector2();
 
     // Injected from ShipAI
     private static ComponentMapper<PoweredMotion> mPowered;
