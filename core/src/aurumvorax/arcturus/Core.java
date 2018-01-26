@@ -19,8 +19,8 @@ public class Core extends Game{
         Game
     }
 
-    public void setActive(boolean active){Core.gameActive = active; }
-    public boolean getActive(){ return gameActive; }
+    public static void setActive(boolean active){Core.gameActive = active; }
+    public static boolean getActive(){ return gameActive; }
 
     public void switchScreen(ScreenType screen){ setScreen(screens.get(screen)); }
 	
