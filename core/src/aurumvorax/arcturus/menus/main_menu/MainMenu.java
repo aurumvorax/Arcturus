@@ -5,90 +5,110 @@ import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.menus.Menu;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.options.Preferences;
-import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MainMenu extends MenuState{
-    private static MainMenu Instance = new MainMenu();
 
-    public static MainMenu getInstance(){ return Instance; }
+    private static MainMenu INSTANCE = new MainMenu();
+    public static MainMenu getInstance(){ return INSTANCE; }
 
-    private MainMenu(){}
+    private TextButton resumeButton = new TextButton("Resume", Services.MENUSKIN);
+    private TextButton continueButton = new TextButton("Continue", Services.MENUSKIN);
+    private TextButton newButton = new TextButton("New Game", Services.MENUSKIN);
+    private TextButton loadButton = new TextButton("Load Game", Services.MENUSKIN);
+    private TextButton saveButton = new TextButton("Save Game", Services.MENUSKIN);
+    private TextButton optionsButton = new TextButton("Preferences", Services.MENUSKIN);
+    private TextButton quitButton = new TextButton("Exit", Services.MENUSKIN);
+    private Table outerTable = new Table();
+    private Table menuTable = new Table();
 
-    @Override
-    public void enter(Menu entity){
 
-        TextButton resumeButton = new TextButton("Resume", Services.MENUSKIN);
-        TextButton continueButton = new TextButton("Continue", Services.MENUSKIN);
-        TextButton newButton = new TextButton("New Game", Services.MENUSKIN);
-        TextButton loadButton = new TextButton("Load Game", Services.MENUSKIN);
-        TextButton saveButton = new TextButton("Save Game", Services.MENUSKIN);
-        TextButton optionsButton = new TextButton("Preferences", Services.MENUSKIN);
-        TextButton quitButton = new TextButton("Exit", Services.MENUSKIN);
+    private MainMenu(){
 
-        resumeButton.addListener(new ChangeListener() {
+        resumeButton.addListener(new ChangeListener(){
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                entity.exitTo(Core.ScreenType.Game);
+            public void changed(ChangeEvent event, Actor actor){
+                master.exitTo(Core.ScreenType.Game);
             }
         });
-        continueButton.addListener(new ChangeListener() {
+
+        continueButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Most recent save is the active one - stored in prefs
-                entity.exitTo(Core.ScreenType.Game);
+                master.exitTo(Core.ScreenType.Game);
             }
         });
-        newButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Core.setActive(false);
-                entity.exitTo(Core.ScreenType.Game);
-            }
-        });
-        loadButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                SaveManager.getInstance().loadGame("Test");
-                entity.exitTo(Core.ScreenType.Game);
-            }
-        });
-        saveButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                SaveManager.getInstance().saveGame("Test");
-            }
-        });
-        optionsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
 
+        newButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                Core.setActive(false);
+                master.exitTo(Core.ScreenType.Game);
             }
         });
+
+        loadButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                master.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
+            }
+        });
+
+        saveButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                master.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
+            }
+        });
+
+        optionsButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+            }
+        });
+
         quitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
             }
         });
+    }
 
-        Table table = new Table();
-        table.setFillParent(true);
-        table.setDebug(true);
+    @Override
+    public void enter(Menu entity){
+        super.enter(entity);
+
+        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
+
+        outerTable.setFillParent(true);
+        //menuTable.setDebug(true);
         if(Core.getActive())
-            table.add(resumeButton).row();
+            menuTable.add(resumeButton).row();
         else if(Preferences.lastSave != null)
-            table.add(continueButton).row();
-        table.add(newButton).row();
-        table.add(saveButton).row();
-        table.add(loadButton).row();
-        table.add(optionsButton).row();
-        table.add(quitButton).row();
+            menuTable.add(continueButton).row();
+        menuTable.add(newButton).row();
+        menuTable.add(saveButton).row();
+        menuTable.add(loadButton).row();
+        menuTable.add(optionsButton).row();
+        menuTable.add(quitButton).row();
 
-        entity.getStage().addActor(table);
+        menuTable.setBackground(menuBG);
+
+        outerTable.add(menuTable.pad(10));
+        entity.getStage().addActor(outerTable);
+    }
+
+    @Override
+    public void exit(Menu entity){
+        outerTable.reset();
+        menuTable.reset();
     }
 }

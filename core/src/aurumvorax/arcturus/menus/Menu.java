@@ -26,6 +26,17 @@ public class Menu{
         Gdx.input.setInputProcessor(stage);
     }
 
+    public void changeMenu(MenuState menu){
+        stage.clear();
+        stateMachine.changeState(menu);
+    }
+
+    public void changeBack(){
+        stage.clear();
+        if(!stateMachine.revertToPreviousState())
+            core.switchScreen(Core.ScreenType.Game);
+    }
+
     public void exitTo(Core.ScreenType screen){
         Gdx.input.setInputProcessor(null);
         stage.clear();
