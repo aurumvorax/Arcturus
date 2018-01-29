@@ -1,8 +1,7 @@
 
 Menu
-    - look into implementing a FSM for menu screens (StackStateMachine)
-    - save/load menu
     - options menu
+    - keybinds menu
     - in world pause to menu - use framebuffer capture for menu background - will need FSM based menu
 
 Graphics

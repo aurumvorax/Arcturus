@@ -86,10 +86,8 @@ public class MainMenu extends MenuState{
     public void enter(Menu entity){
         super.enter(entity);
 
-        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
 
-        outerTable.setFillParent(true);
-        //menuTable.setDebug(true);
+
         if(Core.getActive())
             menuTable.add(resumeButton).row();
         else if(Preferences.lastSave != null)
@@ -100,8 +98,10 @@ public class MainMenu extends MenuState{
         menuTable.add(optionsButton).row();
         menuTable.add(quitButton).row();
 
+        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
         menuTable.setBackground(menuBG);
 
+        outerTable.setFillParent(true);
         outerTable.add(menuTable.pad(10));
         entity.getStage().addActor(outerTable);
     }
