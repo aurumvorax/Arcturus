@@ -28,40 +28,6 @@ public class SaveManager extends SaveSubject{
         readAllSaves();
     }
 
-    public Array<String> getSaveList(){
-        Array<String> saveNames = new Array<>();
-        for(String save : allSaves.keySet()){
-            saveNames.add(save);
-        }
-        return saveNames;
-    }
-
-    public void readAllSaves(){
-        try{
-            FileHandle[] files = Gdx.files.local(Services.SAVE_PATH).list(SAVEGAME_SUFFIX);
-            for(FileHandle file: files) {
-                allSaves.put(file.nameWithoutExtension(), file);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void saveGame(String saveName){
-        notify(this, SaveObserver.SaveEvent.SAVING);
-        String fullFileName = Services.SAVE_PATH + saveName + SAVEGAME_SUFFIX;
-        try{
-            FileHandle file = Gdx.files.local(fullFileName);
-            Output output = new Output(file.write(false));
-            output.writeString(saveName);
-            kryo.writeObjectOrNull(output, thisSave, thisSave.getClass());
-            output.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        thisSave.clear();
-    }
-
     public void saveElement(String key, Object object){
         thisSave.put(key, object);
     }
@@ -72,6 +38,53 @@ public class SaveManager extends SaveSubject{
             return null;
         }
         return (T)thisSave.get(key);
+    }
+
+    public boolean isValid(String saveName){
+        return allSaves.containsKey(saveName);
+    }
+
+    public Array<String> getSaveList(){
+        readAllSaves();
+        Array<String> saveNames = new Array<>();
+        for(String save : allSaves.keySet()){
+            saveNames.add(save);
+        }
+        return saveNames;
+    }
+
+    public void readAllSaves(){
+        allSaves.clear();
+        try{
+            FileHandle[] files = Gdx.files.local(Services.SAVE_PATH).list(SAVEGAME_SUFFIX);
+            for(FileHandle file: files) {
+                allSaves.put(file.nameWithoutExtension(), file);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean saveGame(String saveName, boolean overwrite){
+        notify(this, SaveObserver.SaveEvent.SAVING);
+        String fullFileName = Services.SAVE_PATH + saveName + SAVEGAME_SUFFIX;
+
+        boolean exists = Gdx.files.local(fullFileName).exists();
+
+        if(exists && !overwrite)
+            return false;
+
+        try{
+            FileHandle file = Gdx.files.local(fullFileName);
+            Output output = new Output(file.write(!overwrite));
+            output.writeString(saveName);
+            kryo.writeObjectOrNull(output, thisSave, thisSave.getClass());
+            output.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        thisSave.clear();
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -94,5 +107,14 @@ public class SaveManager extends SaveSubject{
         }
         notify(this, SaveObserver.SaveEvent.LOADING);
         thisSave.clear();
+    }
+
+    public void deleteGame(String saveName){
+        String fullFileName = Services.SAVE_PATH + saveName + SAVEGAME_SUFFIX;
+        try{
+            Gdx.files.local(fullFileName).delete();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
