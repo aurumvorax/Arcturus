@@ -26,6 +26,7 @@ public class SaveLoad extends MenuState{
         return INSTANCE;
     }
 
+    private SaveManager manager = SaveManager.getInstance();
     private TextButton saveButton = new TextButton("Save", Services.MENUSKIN);
     private TextButton loadButton = new TextButton("Load", Services.MENUSKIN);
     private TextButton deleteButton = new TextButton("Delete", Services.MENUSKIN);
@@ -49,15 +50,15 @@ public class SaveLoad extends MenuState{
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                master.changeBack();
+                menu.changeBack();
             }
         });
 
         loadButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                SaveManager.getInstance().loadGame(savesList.getSelected());
-                master.exitTo(Core.ScreenType.Game);
+                manager.loadGame(savesList.getSelected());
+                menu.exitTo(Core.ScreenType.Game);
             }
         });
 
@@ -68,18 +69,36 @@ public class SaveLoad extends MenuState{
             }
         });
 
+        deleteButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                confirmDeleteLabel.setText("Delete " + saveName.getText() + ".\nAre you sure?");
+                confirmDelete.show(menu.getStage());
+            }
+        });
+
         savesList.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 saveName.setText(((List<String>)actor).getSelected());
+                refresh();
             }
         });
 
         saveName.addListener(new InputListener(){
             @Override
             public boolean keyUp(InputEvent event, int key){
-                if(key == Input.Keys.ENTER)
-                    save(false);
+                if(key == Input.Keys.ENTER){
+                    if(mode == Mode.SAVE)
+                        save(false);
+                    else if(mode == Mode.LOAD){
+                        if(manager.isValid(saveName.getText())){
+                            manager.loadGame(saveName.getText());
+                            menu.exitTo(Core.ScreenType.Game);
+                        }
+                    }
+                }
+                refresh();
                 return true;
             }
         });
@@ -95,21 +114,14 @@ public class SaveLoad extends MenuState{
         confirmOverwrite.button("Yes", true);
         confirmOverwrite.button("No", false);
 
-        deleteButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                confirmDeleteLabel.setText("Delete " + saveName.getText() + ".\nAre you sure?");
-                confirmDelete.show(master.getStage());
-            }
-        });
-
         confirmDelete = new Dialog("Delete Save", Services.MENUSKIN){
             @Override
             protected void result(Object object){
-                if(object.equals(true));
-                SaveManager.getInstance().deleteGame(saveName.getText());
-                savesList.clearItems();
-                savesList.setItems(SaveManager.getInstance().getSaveList());
+                if(object.equals(true)){
+                    SaveManager.getInstance().deleteGame(saveName.getText());
+                    savesList.clearItems();
+                    savesList.setItems(SaveManager.getInstance().getSaveList());
+                }
             }
         };
         confirmDelete.getContentTable().add(confirmDeleteLabel);
@@ -133,6 +145,7 @@ public class SaveLoad extends MenuState{
 
         Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
         innerTable.setBackground(menuBG);
+
         innerTable.add(savesPane);
         innerTable.add(saveInfo).row();
         innerTable.add(saveName);
@@ -141,22 +154,31 @@ public class SaveLoad extends MenuState{
         outerTable.setFillParent(true);
         outerTable.add(innerTable);
         entity.getStage().addActor(outerTable);
-
     }
 
     private void save(boolean overwrite){
         if(!overwrite){
             if(SaveManager.getInstance().saveGame(saveName.getText(), false))
-                master.changeBack();
+                menu.changeBack();
             else{
                 confirmOverwriteLabel.setText(saveName.getText() + " already exists.\n Overwrite?");
-                confirmOverwrite.show(master.getStage());
+                confirmOverwrite.show(menu.getStage());
             }
         }else{
             if(SaveManager.getInstance().saveGame(saveName.getText(), true))
-                master.changeBack();
+                menu.changeBack();
             else
                 Gdx.app.debug("Save", "ERROR - Saving Game");
+        }
+    }
+
+    private void refresh(){
+        if(manager.isValid(saveName.getText())){
+            deleteButton.setDisabled(false);
+            loadButton.setDisabled(false);
+        }else{
+            deleteButton.setDisabled(true);
+            loadButton.setDisabled(true);
         }
     }
 

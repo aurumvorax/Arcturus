@@ -34,7 +34,7 @@ public class MainMenu extends MenuState{
         resumeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                master.exitTo(Core.ScreenType.Game);
+                menu.exitTo(Core.ScreenType.Game);
             }
         });
 
@@ -42,7 +42,7 @@ public class MainMenu extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Most recent save is the active one - stored in prefs
-                master.exitTo(Core.ScreenType.Game);
+                menu.exitTo(Core.ScreenType.Game);
             }
         });
 
@@ -50,21 +50,21 @@ public class MainMenu extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Core.setActive(false);
-                master.exitTo(Core.ScreenType.Game);
+                menu.exitTo(Core.ScreenType.Game);
             }
         });
 
         loadButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                master.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
+                menu.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
             }
         });
 
         saveButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                master.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
+                menu.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
             }
         });
 

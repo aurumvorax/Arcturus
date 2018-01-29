@@ -32,7 +32,7 @@ public class SaveManager extends SaveSubject{
         thisSave.put(key, object);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unused"})
     public <T> T loadElement(String key, Class<T> type){
         if( !thisSave.containsKey(key) ){
             return null;
@@ -53,7 +53,7 @@ public class SaveManager extends SaveSubject{
         return saveNames;
     }
 
-    public void readAllSaves(){
+    private void readAllSaves(){
         allSaves.clear();
         try{
             FileHandle[] files = Gdx.files.local(Services.SAVE_PATH).list(SAVEGAME_SUFFIX);
