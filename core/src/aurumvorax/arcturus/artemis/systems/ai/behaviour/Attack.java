@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems.ai;
+package aurumvorax.arcturus.artemis.systems.ai.behaviour;
 
 import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
 import aurumvorax.arcturus.artemis.systems.ai.steering.*;

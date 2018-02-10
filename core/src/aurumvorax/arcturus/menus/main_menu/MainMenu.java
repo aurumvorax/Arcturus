@@ -4,7 +4,7 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.menus.Menu;
 import aurumvorax.arcturus.menus.MenuState;
-import aurumvorax.arcturus.options.Preferences;
+import aurumvorax.arcturus.options.PreferenceManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -90,7 +90,7 @@ public class MainMenu extends MenuState{
 
         if(Core.getActive())
             menuTable.add(resumeButton).row();
-        else if(Preferences.lastSave != null)
+        else if(PreferenceManager.getLastSave() != null)
             menuTable.add(continueButton).row();
         menuTable.add(newButton).row();
         menuTable.add(saveButton).row();

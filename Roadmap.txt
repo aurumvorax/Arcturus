@@ -1,8 +1,9 @@
 
 Menu
     - options menu
-    - keybinds menu
-    - in world pause to menu - use framebuffer capture for menu background - will need FSM based menu
+        - keybinds menu
+    - in world pause to menu - use framebuffer capture for menu background
+    - transition fade out of menu pages
 
 Graphics
     - dynamic load animations in services (from json files)
@@ -17,6 +18,7 @@ AI
     - more steering behaviours - evade, flee, maintain distance
     - more tasks - patrol, flee, protect, escort, isStrife, isHurt
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
+    - add caching to proximity(sensor range)
 
 World
     - solar system load/save mechanism - from kryo if it exists, from json if not

@@ -1,10 +1,9 @@
-package aurumvorax.arcturus.artemis.systems.ai;
+package aurumvorax.arcturus.artemis.systems.ai.behaviour;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
-import aurumvorax.arcturus.artemis.systems.ai.gunnery.Aiming;
 import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
 import aurumvorax.arcturus.artemis.systems.ai.steering.*;
 import com.artemis.Aspect;

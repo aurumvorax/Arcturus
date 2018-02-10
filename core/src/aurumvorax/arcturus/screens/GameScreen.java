@@ -5,7 +5,7 @@ import aurumvorax.arcturus.artemis.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
-import aurumvorax.arcturus.artemis.systems.ai.ShipAI;
+import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
 import aurumvorax.arcturus.savegame.SaveManager;

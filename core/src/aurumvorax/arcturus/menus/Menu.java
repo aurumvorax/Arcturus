@@ -12,6 +12,7 @@ public class Menu{
 
     private Core core;
     private Stage stage = new Stage(new ScreenViewport(), Services.batch);
+
     // background
     private StackStateMachine<Menu, MenuState> stateMachine = new StackStateMachine<>(this);
 
