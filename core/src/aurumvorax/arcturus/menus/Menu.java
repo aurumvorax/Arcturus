@@ -3,10 +3,12 @@ package aurumvorax.arcturus.menus;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.fsm.StackStateMachine;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Menu{
 
@@ -14,7 +16,7 @@ public class Menu{
     private Stage stage = new Stage(new ScreenViewport(), Services.batch);
 
     // background
-    private StackStateMachine<Menu, MenuState> stateMachine = new StackStateMachine<>(this);
+    private Deque<MenuState> stateStack = new ArrayDeque<>();
 
     public Menu(Core core){
         this.core = core;
@@ -23,24 +25,31 @@ public class Menu{
     public Stage getStage(){ return stage; }
 
     public void enter(MenuState initial){
-        stateMachine.changeState(initial);
         Gdx.input.setInputProcessor(stage);
+        stateStack.push(initial);
+        stage.addActor(initial.enter(this, stage));
     }
 
     public void changeMenu(MenuState menu){
         stage.clear();
-        stateMachine.changeState(menu);
+        stateStack.push(menu);
+        stage.addActor(menu.enter(this, stage));
     }
 
     public void changeBack(){
         stage.clear();
-        if(!stateMachine.revertToPreviousState())
-            core.switchScreen(Core.ScreenType.Game);
+        stateStack.pop();
+        if(stateStack.peek() == null)
+            exitTo(Core.ScreenType.Game);
+        else
+            stage.addActor(stateStack.peek().enter(this, stage));
     }
 
     public void exitTo(Core.ScreenType screen){
         Gdx.input.setInputProcessor(null);
+        stage.getRoot().getColor().a = 1f;
         stage.clear();
+        stateStack.clear();
         core.switchScreen(screen);
     }
 

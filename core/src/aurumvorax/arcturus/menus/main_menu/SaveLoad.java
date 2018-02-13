@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -50,7 +51,7 @@ public class SaveLoad extends MenuState{
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                menu.changeBack();
+                changeBack();
             }
         });
 
@@ -58,7 +59,7 @@ public class SaveLoad extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 manager.loadGame(savesList.getSelected());
-                menu.exitTo(Core.ScreenType.Game);
+                exitTo(Core.ScreenType.Game);
             }
         });
 
@@ -94,7 +95,7 @@ public class SaveLoad extends MenuState{
                     else if(mode == Mode.LOAD){
                         if(manager.isValid(saveName.getText())){
                             manager.loadGame(saveName.getText());
-                            menu.exitTo(Core.ScreenType.Game);
+                            exitTo(Core.ScreenType.Game);
                         }
                     }
                 }
@@ -130,9 +131,11 @@ public class SaveLoad extends MenuState{
     }
 
     @Override
-    public void enter(Menu entity){
-        super.enter(entity);
-
+    public Actor build(Stage menuStage){
+        outerTable.reset();
+        innerTable.reset();
+        buttonGroup.clear();
+        savesList.clearItems();
         if(mode == Mode.SAVE)
             buttonGroup.addActor(saveButton);
         else if(mode == Mode.LOAD)
@@ -153,20 +156,20 @@ public class SaveLoad extends MenuState{
 
         outerTable.setFillParent(true);
         outerTable.add(innerTable);
-        entity.getStage().addActor(outerTable);
+        return outerTable;
     }
 
     private void save(boolean overwrite){
         if(!overwrite){
             if(SaveManager.getInstance().saveGame(saveName.getText(), false))
-                menu.changeBack();
+                changeBack();
             else{
                 confirmOverwriteLabel.setText(saveName.getText() + " already exists.\n Overwrite?");
                 confirmOverwrite.show(menu.getStage());
             }
         }else{
             if(SaveManager.getInstance().saveGame(saveName.getText(), true))
-                menu.changeBack();
+                changeBack();
             else
                 Gdx.app.debug("Save", "ERROR - Saving Game");
         }
@@ -180,13 +183,5 @@ public class SaveLoad extends MenuState{
             deleteButton.setDisabled(true);
             loadButton.setDisabled(true);
         }
-    }
-
-    @Override
-    public void exit(Menu entity){
-        outerTable.reset();
-        innerTable.reset();
-        buttonGroup.clear();
-        savesList.clearItems();
     }
 }

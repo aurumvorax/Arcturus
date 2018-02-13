@@ -1,25 +1,40 @@
 package aurumvorax.arcturus.menus;
 
-import com.badlogic.gdx.ai.fsm.State;
-import com.badlogic.gdx.ai.msg.Telegram;
+import aurumvorax.arcturus.Core;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public abstract class MenuState implements State<Menu>{
+public abstract class MenuState{
 
-    // The states are used to setup the Stage held by Menu, in their respective enter() methods.  This includes
-    // all the listeners, etc.  The effective state is a combination of the current Stage setup, and the state itself.
+    // A MenuState is responsible for setting up a Scene2D.ui menu page.  Most of the setup will be done in the
+    // constructor.  Context specific changes are made in the refresh() method.  Enter() will call refresh(), and
+    // then return the root actor for the page.  The menu page can be exited via a listener call to one of the
+    // following methods: changeBack(), changeMenu(), or exitTo()
 
+    private static final float FADE = 0.3f;
     protected Menu menu;
+    protected Actor root;
 
-    @Override
-    public void enter(Menu entity){
-        menu = entity;
+    public Actor enter(Menu menu, Stage menuStage){
+        this.menu = menu;
+        root = build(menuStage);
+        root.getColor().a = 0;
+        root.addAction(Actions.fadeIn(FADE));
+        return root;
     }
 
-    @Override
-    public void exit(Menu entity){
-        entity.getStage().clear();
+    protected abstract Actor build(Stage menuStage);
+
+    protected void changeBack(){
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.changeBack())));
     }
 
-    @Override public void update(Menu entity){}
-    @Override public boolean onMessage(Menu entity, Telegram telegram){ return false; }
+    protected void changeMenu(MenuState next){
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.changeMenu(next))));
+    }
+
+    protected void exitTo(Core.ScreenType screen){
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.exitTo(screen))));
+    }
 }

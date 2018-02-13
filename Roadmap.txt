@@ -3,7 +3,6 @@ Menu
     - options menu
         - keybinds menu
     - in world pause to menu - use framebuffer capture for menu background
-    - transition fade out of menu pages
 
 Graphics
     - dynamic load animations in services (from json files)

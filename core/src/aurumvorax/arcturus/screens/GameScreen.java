@@ -71,9 +71,9 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void show(){
-        if(!core.getActive()){
+        if(!Core.getActive()){
             newGame();
-            core.setActive(true);
+            Core.setActive(true);
         }
         Gdx.input.setInputProcessor(inputMUX);
         playerControl.reset();

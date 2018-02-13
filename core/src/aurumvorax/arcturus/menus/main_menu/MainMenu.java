@@ -2,11 +2,11 @@ package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.menus.Menu;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.options.PreferenceManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -25,24 +25,25 @@ public class MainMenu extends MenuState{
     private TextButton saveButton = new TextButton("Save Game", Services.MENUSKIN);
     private TextButton optionsButton = new TextButton("Preferences", Services.MENUSKIN);
     private TextButton quitButton = new TextButton("Exit", Services.MENUSKIN);
-    private Table outerTable = new Table();
     private Table menuTable = new Table();
+    private Table outerTable = new Table();
 
 
     private MainMenu(){
+        root = new Table();
 
         resumeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                menu.exitTo(Core.ScreenType.Game);
+                exitTo(Core.ScreenType.Game);
             }
         });
 
         continueButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // Most recent save is the active one - stored in prefs
-                menu.exitTo(Core.ScreenType.Game);
+                // TODO - Load most recent save
+                exitTo(Core.ScreenType.Game);
             }
         });
 
@@ -50,21 +51,21 @@ public class MainMenu extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 Core.setActive(false);
-                menu.exitTo(Core.ScreenType.Game);
+                exitTo(Core.ScreenType.Game);
             }
         });
 
         loadButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                menu.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
+                changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
             }
         });
 
         saveButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                menu.changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
+                changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
             }
         });
 
@@ -83,11 +84,9 @@ public class MainMenu extends MenuState{
     }
 
     @Override
-    public void enter(Menu entity){
-        super.enter(entity);
-
-
-
+    public Actor build(Stage menuStage){
+        outerTable.reset();
+        menuTable.reset();
         if(Core.getActive())
             menuTable.add(resumeButton).row();
         else if(PreferenceManager.getLastSave() != null)
@@ -103,12 +102,6 @@ public class MainMenu extends MenuState{
 
         outerTable.setFillParent(true);
         outerTable.add(menuTable.pad(10));
-        entity.getStage().addActor(outerTable);
-    }
-
-    @Override
-    public void exit(Menu entity){
-        outerTable.reset();
-        menuTable.reset();
+        return outerTable;
     }
 }
