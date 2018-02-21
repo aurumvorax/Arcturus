@@ -123,7 +123,7 @@ public class PlayerInput extends InputAdapter{
 
     @Override
     public boolean scrolled(int amount){
-        cam.Zoom(amount * SCROLLRATE);
+        cam.zoom(amount * SCROLLRATE);
         return false;
     }
 }

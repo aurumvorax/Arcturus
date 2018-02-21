@@ -27,14 +27,14 @@ public abstract class MenuState{
     protected abstract Actor build(Stage menuStage);
 
     protected void changeBack(){
-        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.changeBack())));
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.alpha(1), Actions.run(() -> menu.changeBack())));
     }
 
     protected void changeMenu(MenuState next){
-        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.changeMenu(next))));
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.alpha(1), Actions.run(() -> menu.changeMenu(next))));
     }
 
     protected void exitTo(Core.ScreenType screen){
-        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> menu.exitTo(screen))));
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.alpha(1), Actions.run(() -> menu.exitTo(screen))));
     }
 }

@@ -91,6 +91,7 @@ public class GameScreen extends ScreenAdapter{
     }
 
     private void newGame(){
+        worldCam.reset();
         worldSerializer.resetWorld();
         int ship = ShipFactory.create("TestShip", "Standard", 0, 0, 0);
         ShipFactory.create("TestShip", "Standard", 200,200,0);

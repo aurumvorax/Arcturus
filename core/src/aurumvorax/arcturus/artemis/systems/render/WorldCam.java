@@ -44,7 +44,8 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         screenBounds.set(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
-    public void Zoom(float zoom){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + zoom), ZMIN, ZMAX); }
+    public void reset(){ cam.zoom = 1.0f; }
+    public void zoom(float z){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + z), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
     public static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
     public static float lerpY(float alpha){ return position.y + (velocity.y * alpha); }
@@ -111,10 +112,14 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         switch(saveEvent){
             case SAVING:
                 saveManager.saveElement("CamTarget", target);
+                saveManager.saveElement("CamPosition", position);
+                saveManager.saveElement("Camera", cam);
                 break;
 
             case LOADING:
                 setTarget(saveManager.loadElement("CamTarget", int.class));
+                position.set(saveManager.loadElement("CamPosition", Vector2.class));
+                cam = saveManager.loadElement("Camera", OrthographicCamera.class);
         }
     }
 }
