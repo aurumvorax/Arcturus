@@ -34,6 +34,7 @@ public class ShipAI extends IteratingSystem{
         world.inject(Arrive.INSTANCE);
         world.inject(Separation.INSTANCE);
         world.inject(Face.INSTANCE);
+        world.inject(MaintainDistance.INSTANCE);
         GunneryAI.initialize(world);
     }
 

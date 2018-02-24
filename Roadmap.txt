@@ -2,10 +2,11 @@
 Menu
     - options menu
         - keybinds menu
-    - in world pause to menu - use framebuffer capture for menu background
 
 Graphics
     - dynamic load animations in services (from json files)
+    - ASSETS!
+    - particle effects for missile trails, etc
 
 Shields
     - graphical assets
@@ -16,11 +17,18 @@ Shields
 Game
     - basic faction system
     - dockables
-    - shipyard
+        - proximity check
+    - rockets/torpedoes
+    - missiles
+
+Shipyard
+    - menus
+    - ship components
+    - save/load system for custom loadouts
     
 AI
-    - more steering behaviours - evade, flee, maintain distance
-    - more tasks - patrol, flee, protect, escort, isStrife, isHurt
+    - Attack, Escort, Protect, Travel - AI type component
+    - do behaviours DI in Steer, rather than ShipAI, then just call Steer.init(world) from ShipAI - behaviours don't have to be singletons
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - add caching to proximity(sensor range)
         -lists of friendly/hostile
