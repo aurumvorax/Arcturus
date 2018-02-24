@@ -4,6 +4,7 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -14,7 +15,7 @@ public class Menu{
 
     private Core core;
     private Stage stage = new Stage(new ScreenViewport(), Services.batch);
-
+    private TextureRegion background;
     // background
     private Deque<MenuState> stateStack = new ArrayDeque<>();
 
@@ -24,10 +25,11 @@ public class Menu{
 
     public Stage getStage(){ return stage; }
 
-    public void enter(MenuState initial){
+    public void enter(MenuState initial, TextureRegion bg){
         Gdx.input.setInputProcessor(stage);
         stateStack.push(initial);
         stage.addActor(initial.enter(this, stage));
+        background = bg;
     }
 
     public void changeMenu(MenuState menu){
@@ -56,8 +58,9 @@ public class Menu{
     public void update(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // draw background
+        Services.batch.begin();
+        Services.batch.draw(background, 0, 0);
+        Services.batch.end();
 
         stage.act(delta);
         stage.draw();

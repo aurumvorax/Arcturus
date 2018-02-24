@@ -3,8 +3,11 @@ package aurumvorax.arcturus;
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.options.Keys;
+import aurumvorax.arcturus.screens.MainMenuScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PlayerInput extends InputAdapter{
 
@@ -27,6 +30,7 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case MENU:
+                MainMenuScreen.setBackground(ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
                 core.switchScreen(Core.ScreenType.MainMenu);
                 break;
             case TURN_LEFT:
