@@ -27,14 +27,7 @@ public class ShipAI extends IteratingSystem{
     @Override
     public void initialize(){
         BuildBehaviourTree();
-        world.inject(AvoidCollision.INSTANCE);
-        world.inject(Seek.INSTANCE);
-        world.inject(Stop.INSTANCE);
-        world.inject(Steer.INSTANCE);
-        world.inject(Arrive.INSTANCE);
-        world.inject(Separation.INSTANCE);
-        world.inject(Face.INSTANCE);
-        world.inject(MaintainDistance.INSTANCE);
+        Steer.initialize(world);
         GunneryAI.initialize(world);
     }
 

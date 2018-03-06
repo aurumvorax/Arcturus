@@ -3,18 +3,22 @@ package aurumvorax.arcturus.artemis.systems.ai.steering;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.systems.Proximity;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-public enum Separation implements Proximity.Callback{
-    INSTANCE;
+public class Separation implements Proximity.Callback{
+    private static Separation INSTANCE = new Separation();
+    private Separation(){} // Single static class with DI/callback
 
     private static Vector2 separation = new Vector2();
     private static Vector2 ownerPosition = new Vector2();
     private static Vector2 contactRelative = new Vector2();
     private static float decay;
 
-    // Injected from ShipAI
     private static ComponentMapper<Physics2D> mPhysics;
+
+
+    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static Vector2 calc(int owner, float decay){
         Separation.decay = decay;

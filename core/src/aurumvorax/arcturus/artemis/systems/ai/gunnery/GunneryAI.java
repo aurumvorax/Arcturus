@@ -7,17 +7,20 @@ import com.artemis.World;
 import com.artemis.utils.BitVector;
 import com.artemis.utils.IntBag;
 
-public enum GunneryAI{
-    INSTANCE;
+public class GunneryAI{
+    private static GunneryAI INSTANCE = new GunneryAI();
+    private GunneryAI(){} // Single static class with DI/callback
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static BitVector fireControl = new BitVector();
 
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Turret> mTurret;
 
+
     public static void initialize(World world){
         world.inject(GunneryAI.INSTANCE);
-        world.inject(Aiming.INSTANCE);
+        Aiming.initialize(world);
     }
 
     public static void update(int ship, int target){

@@ -3,18 +3,19 @@ package aurumvorax.arcturus.artemis.systems.ai.gunnery;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.artemis.utils.BitVector;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 
-public enum Aiming{
-    INSTANCE;
+public class Aiming{
+    private static Aiming INSTANCE = new Aiming();
+    private Aiming(){} // Single static class with DI/callback
 
     private static Vector2 relativeP = new Vector2();
     private static Vector2 relativeV = new Vector2();
     private static BitVector onTarget = new BitVector();
 
-    // Injected from GunneryAI
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Turret> mTurret;
@@ -22,6 +23,9 @@ public enum Aiming{
     private static ComponentMapper<Cannon> mCannon;
     private static ComponentMapper<CollisionRadius> mRadius;
     private static ComponentMapper<Mounted> mMounted;
+
+
+    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static BitVector aimPrimary(int owner, int target){
         return aim(target, mWeapons.get(owner).auto);

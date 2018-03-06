@@ -4,18 +4,21 @@ import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-public enum Face{
-    INSTANCE;
+public class Face{
+    private static Face INSTANCE = new Face();
+    private Face(){} // Single static class with DI/callback
 
     private static final float TOLERANCE = 1;
-
     private static Vector2 working = new Vector2();
 
-    // Injected from ShipAI
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<PoweredMotion> mPowered;
+
+
+    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static float heading(int owner){
         working.set(mPhysics.get(owner).v);

@@ -2,16 +2,28 @@ package aurumvorax.arcturus.artemis.systems.ai.steering;
 
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-public enum Steer{
-    INSTANCE;
+public class Steer{
+    private static Steer INSTANCE =  new Steer();
+    private Steer(){} // Single static class with DI/callback
 
     private static Vector2 steer = new Vector2();
 
-    // Injected from ShipAI
     private static ComponentMapper<PoweredMotion> mPowered;
 
+    public static void initialize(World world){
+        world.inject(INSTANCE);
+        Arrive.initialize(world);
+        AvoidCollision.initialize(world);
+        Face.initialize(world);
+        MaintainDistance.initialize(world);
+        Seek.initialize(world);
+        Separation.initialize(world);
+        Stop.initialize(world);
+
+    }
 
     public static void execute(int owner, Vector2 course, float helm){
         PoweredMotion pm = mPowered.get(owner);

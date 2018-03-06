@@ -5,7 +5,6 @@ Menu
 
 Graphics
     - dynamic load animations in services (from json files)
-    - ASSETS!
     - particle effects for missile trails, etc
 
 Shields
@@ -24,11 +23,11 @@ Game
 Shipyard
     - menus
     - ship components
-    - save/load system for custom loadouts
+    - save/load system for custom loadouts - json saves
+        - ability to serialize only playership - possibly to Json, or just into a data object in memory
     
 AI
     - Attack, Escort, Protect, Travel - AI type component
-    - do behaviours DI in Steer, rather than ShipAI, then just call Steer.init(world) from ShipAI - behaviours don't have to be singletons
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - add caching to proximity(sensor range)
         -lists of friendly/hostile
@@ -44,3 +43,13 @@ LONG TERM
 
 BUGS/Tweaks
     - turret rotation speed limited by ship rotation - change
+    - fade in/out should be limited to menu stage, not include background
+
+
+ASSETS NEEDED
+
+    rocket/missile
+    rocket/missile engine flame animation
+    shield arc
+    more weapons
+    more ships

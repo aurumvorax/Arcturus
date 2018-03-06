@@ -5,10 +5,13 @@ import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.systems.Proximity;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-public enum AvoidCollision implements Proximity.Callback{
-    INSTANCE;
+public class AvoidCollision implements Proximity.Callback{
+
+    private static AvoidCollision INSTANCE = new AvoidCollision();
+    private AvoidCollision(){} // Single static class with DI/callback
 
     private static Vector2 collision = new Vector2();
     private static Vector2 deltaP = new Vector2();
@@ -21,10 +24,11 @@ public enum AvoidCollision implements Proximity.Callback{
     private static float shortestToCPA;
     private static float distanceCPA;
 
-    // Injected from ShipAI
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<CollisionRadius> mRadius;
     private static ComponentMapper<PoweredMotion> mPowered;
+
+    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static Vector2 calc(int owner){
         AvoidCollision.owner = owner;

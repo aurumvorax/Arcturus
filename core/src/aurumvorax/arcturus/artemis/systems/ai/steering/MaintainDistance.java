@@ -3,18 +3,21 @@ package aurumvorax.arcturus.artemis.systems.ai.steering;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import com.artemis.ComponentMapper;
+import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-public enum MaintainDistance{
-    INSTANCE;
+public class MaintainDistance{
+    private static MaintainDistance INSTANCE = new MaintainDistance();
+    private MaintainDistance(){} // Single static class with DI/callback
 
     private static final float MARGIN = 10f;
     private static Vector2 destination = new Vector2();
     private static Vector2 maintain = new Vector2();
 
-    // Injected from ShipAI
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<PoweredMotion> mPowered;
+
+    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static Vector2 calc(int owner, int target, float distance){
         if(!mPhysics.has(target))
