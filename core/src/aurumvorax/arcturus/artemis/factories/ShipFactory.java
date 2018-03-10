@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis;
+package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
@@ -13,7 +13,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 import java.util.HashMap;
 
@@ -58,7 +57,7 @@ public class ShipFactory{
     public static int create(String type, String variant, float x, float y, float t){
         if(!ships.containsKey(type))
             throw new IllegalArgumentException("Invalid ship type - " + type);
-        if(!ships.get(type).variants.containsKey(variant))
+        if(!ships.get(type).variants.containsKey(variant) && variant != null)
             throw new IllegalArgumentException("Invalid ship variant - " + type + " - " + variant);
 
         int ship = world.create(protoShip);
@@ -77,6 +76,11 @@ public class ShipFactory{
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
+        mHealth.get(ship).hull = data.hull;
+
+        if(variant == null)
+            return ship;
+
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;
@@ -89,8 +93,6 @@ public class ShipFactory{
                 manualList.add(w);
             }
         }
-
-        mHealth.get(ship).hull = data.hull;
 
         return ship;
     }

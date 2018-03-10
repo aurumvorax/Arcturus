@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis;
+package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;

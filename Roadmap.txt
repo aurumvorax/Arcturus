@@ -1,4 +1,17 @@
 
+
+
+
+    - World Structure - save player ship, solar system, other ships as separate objects
+    When do we want to allow saving/loading?  In space only, on stations?  Ideally both - should have a tag
+        - in space save - use WorldSerializer
+        - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world later
+                - load on station - revert to main station menu page for now.  can save menustack later if we want to.
+
+     Core - playership class used as blackboard
+     new System - WorldPortal
+    ************************************* add dockables to terrainfactory **********************************
+
 Menu
     - options menu
         - keybinds menu
@@ -14,9 +27,6 @@ Shields
     - damage
 
 Game
-    - basic faction system
-    - dockables
-        - proximity check
     - rockets/torpedoes
     - missiles
 
@@ -24,7 +34,6 @@ Shipyard
     - menus
     - ship components
     - save/load system for custom loadouts - json saves
-        - ability to serialize only playership - possibly to Json, or just into a data object in memory
     
 AI
     - Attack, Escort, Protect, Travel - AI type component

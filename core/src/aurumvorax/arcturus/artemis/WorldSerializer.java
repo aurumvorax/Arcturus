@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems;
+package aurumvorax.arcturus.artemis;
 
 import aurumvorax.arcturus.savegame.ArrayKryoSerializer;
 import aurumvorax.arcturus.savegame.SaveManager;

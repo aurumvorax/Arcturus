@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.ProjectileFactory;
+import aurumvorax.arcturus.artemis.factories.ProjectileFactory;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.Utils;
