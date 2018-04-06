@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.factories;
 
+import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.*;
@@ -23,6 +24,7 @@ public class ShipFactory{
     private static HashMap<String, ShipData> ships;
     private static Archetype protoShip;
 
+    private static ComponentMapper<Ship> mShip;
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<CollisionRadius> mCollision;
     private static ComponentMapper<CollisionPolygon> mPolygon;
@@ -62,6 +64,10 @@ public class ShipFactory{
 
         int ship = world.create(protoShip);
         ShipData data = ships.get(type);
+
+        Ship nameplate = mShip.get(ship);
+        nameplate.name = "Shippy McShipFace";
+        nameplate.type = type;
 
         Physics2D p = mPhysics.get(ship);
         p.p.set(x, y);

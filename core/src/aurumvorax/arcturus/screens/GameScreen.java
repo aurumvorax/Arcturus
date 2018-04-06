@@ -1,8 +1,9 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.PlayerShip;
 import aurumvorax.arcturus.artemis.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.PlayerInput;
@@ -37,6 +38,7 @@ public class GameScreen extends ScreenAdapter{
         WorldConfiguration config = new WorldConfigurationBuilder()
             .register(new GameInvocationStrategy(batcher))
             .with(
+                new TransitionManager(core),
                 new SpriteRenderer(batcher),
                 new AnimatedRenderer(batcher),
                 new BeamRenderer(batcher),
@@ -61,6 +63,8 @@ public class GameScreen extends ScreenAdapter{
         EffectFactory.init(world);
         TerrainFactory.init(world);
 
+        PlayerShip.init(world);
+
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
         inputMUX.addProcessor(playerInput);
@@ -78,6 +82,11 @@ public class GameScreen extends ScreenAdapter{
         }
         Gdx.input.setInputProcessor(inputMUX);
         playerControl.reset();
+    }
+
+    @Override
+    public void hide(){
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
@@ -101,7 +110,7 @@ public class GameScreen extends ScreenAdapter{
         int planet = TerrainFactory.createOrbital("TestPlanet", star);
         TerrainFactory.createOrbital("TestMoon", planet);
         worldCam.setTarget(ship);
-        ComponentMapper<PlayerShip> mPlayer = world.getMapper(PlayerShip.class);
+        ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
     }
 

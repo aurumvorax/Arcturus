@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Turret;
-import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
@@ -28,7 +28,7 @@ public class PlayerControl extends BaseEntitySystem{
     private transient Vector2 target = new Vector2();
     private transient Vector2 select = new Vector2();
 
-    private ComponentMapper<PlayerShip> mPlayer;
+    private ComponentMapper<Player> mPlayer;
     private ComponentMapper<Physics2D> mPhysics;
     private ComponentMapper<PoweredMotion> mPowered;
     private ComponentMapper<Weapons> mWeapons;
@@ -36,7 +36,7 @@ public class PlayerControl extends BaseEntitySystem{
 
 
     public PlayerControl(){
-        super(Aspect.all(PlayerShip.class, Physics2D.class));
+        super(Aspect.all(Player.class, Physics2D.class));
     }
 
     public void controlThrust(int thrust){ this.thrust = thrust; }

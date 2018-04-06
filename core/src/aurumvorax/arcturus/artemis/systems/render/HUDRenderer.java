@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.PlayerShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import com.artemis.*;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.Vector2;
@@ -24,7 +24,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     private static ComponentMapper<Physics2D> mPhysics;
 
     public HUDRenderer(){
-        super(Aspect.all(PlayerShip.class));
+        super(Aspect.all(Player.class));
         stage = new Stage(new ScreenViewport(), Services.batch);
         fps = new Label(String.format("%3d FPS", 0), Services.MENUSKIN);
         reticle = new Image(Services.getTexture("selector1"));

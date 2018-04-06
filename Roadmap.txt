@@ -1,16 +1,12 @@
 
 
-
-
-    - World Structure - save player ship, solar system, other ships as separate objects
     When do we want to allow saving/loading?  In space only, on stations?  Ideally both - should have a tag
         - in space save - use WorldSerializer
-        - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world later
+        - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world MUCH later
                 - load on station - revert to main station menu page for now.  can save menustack later if we want to.
 
-     Core - playership class used as blackboard
-     new System - WorldPortal
-    ************************************* add dockables to terrainfactory **********************************
+     Core - playerdata class used as blackboard
+    Playership should be injected class.  contain import/export functions
 
 Menu
     - options menu
