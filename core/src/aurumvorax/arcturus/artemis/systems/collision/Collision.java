@@ -2,10 +2,7 @@ package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
-import com.artemis.Aspect;
-import com.artemis.BaseEntitySystem;
-import com.artemis.ComponentMapper;
-import com.artemis.EntitySubscription;
+import com.artemis.*;
 import com.artemis.utils.Bag;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +12,7 @@ public class Collision extends BaseEntitySystem{
 
     private static Bag<CollisionPair> collisionPairs = new Bag<>();
     private static EntitySubscription selectionList;
+    private static EntitySubscription dockableList;
     private static IntBag selectionHits = new IntBag();
     private static Manifold manifold = new Manifold();
 
@@ -57,11 +55,17 @@ public class Collision extends BaseEntitySystem{
                 Beam.class,
                 Mounted.class));
 
+        EntitySubscription dockables = world.getAspectSubscriptionManager().get(Aspect.all(
+                Physics2D.class,
+                CollisionRadius.class,
+                Dockable.class));
+
         collisionPairs.add(new CollisionPair(actors, actors, crash));
         collisionPairs.add(new CollisionPair(actors, bullets, boom));
         collisionPairs.add(new CollisionPair(actors, beams, pewpew));
 
         selectionList = actors;
+        dockableList = dockables;
     }
 
     @Override
@@ -136,7 +140,6 @@ public class Collision extends BaseEntitySystem{
     }
 
     public static int pointCheck(Vector2 click){
-
         selectionHits.clear();
         IntBag list = selectionList.getEntities();
         for(int i = 0; i < list.size(); i++){
@@ -152,6 +155,16 @@ public class Collision extends BaseEntitySystem{
         return TestPoint.testPolys(click, selectionHits);
     }
 
+    public static int dockCheck(int playerShip){
+        IntBag docks = dockableList.getEntities();
+        for(int i = 0; i < docks.size(); i++){
+            manifold.reset();
+            TestCC.test(playerShip, docks.get(i), manifold);
+            if(manifold.contacts != 0)
+                return docks.get(i);
+        }
+        return -1;
+    }
 
 
     static class Manifold{

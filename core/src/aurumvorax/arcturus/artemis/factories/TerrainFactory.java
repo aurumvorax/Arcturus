@@ -1,10 +1,7 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.components.Celestial;
-import aurumvorax.arcturus.artemis.components.Orbit;
-import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.SimpleSprite;
+import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
@@ -24,6 +21,7 @@ public enum TerrainFactory{
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Orbit> mOrbit;
+    private static ComponentMapper<Dockable> mDockable;
 
     public static void init(World world){
         TerrainFactory.world = world;
@@ -91,6 +89,9 @@ public enum TerrainFactory{
         o.sweep = data.sweep;
         o.center.set(data.semimajor * data.eccentricity, 0).rotate(o.tilt);
 
+        if(data.dockName != null)
+            mDockable.create(orbital).name = data.dockName;
+
         buildTerrain(orbital, data, data.semimajor, semiminor);
         return orbital;
     }
@@ -114,5 +115,9 @@ public enum TerrainFactory{
         float offset;
         float tilt;
         double sweep;
+
+        // Dockables
+
+        String dockName;
     }
 }
