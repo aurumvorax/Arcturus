@@ -1,5 +1,6 @@
 package aurumvorax.arcturus;
 
+import aurumvorax.arcturus.screens.DockScreen;
 import aurumvorax.arcturus.screens.GameScreen;
 import aurumvorax.arcturus.screens.MainMenuScreen;
 import aurumvorax.arcturus.screens.SplashScreen;
@@ -16,7 +17,8 @@ public class Core extends Game{
     public enum ScreenType{
         Loading,
         MainMenu,
-        Game
+        Game,
+        Dock
     }
 
     public static void setActive(boolean active){Core.gameActive = active; }
@@ -34,6 +36,7 @@ public class Core extends Game{
 	public void initialize(){           // Called by LoadingScreen AFTER asset loading
 	    screens.put(ScreenType.MainMenu, new MainMenuScreen(this));
 	    screens.put(ScreenType.Game, new GameScreen(this));
+	    screens.put(ScreenType.Dock, new DockScreen(this));
     }
 
 	@Override

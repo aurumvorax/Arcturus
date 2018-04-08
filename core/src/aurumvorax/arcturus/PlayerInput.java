@@ -1,6 +1,7 @@
 package aurumvorax.arcturus;
 
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
+import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.options.Keys;
 import aurumvorax.arcturus.screens.MainMenuScreen;
@@ -31,7 +32,10 @@ public class PlayerInput extends InputAdapter{
         switch(key){
             case MENU:
                 MainMenuScreen.setBackground(ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-                core.switchScreen(Core.ScreenType.MainMenu);
+                TransitionManager.setTransition(Core.ScreenType.MainMenu);
+                break;
+            case DOCK:
+                TransitionManager.setTransition(Core.ScreenType.Dock);
                 break;
             case TURN_LEFT:
                 player.controlHelm(1);

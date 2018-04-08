@@ -1,12 +1,11 @@
 
 
     When do we want to allow saving/loading?  In space only, on stations?  Ideally both - should have a tag
-        - in space save - use WorldSerializer
+        - in space save - use WorldSerializer only
         - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world MUCH later
                 - load on station - revert to main station menu page for now.  can save menustack later if we want to.
 
-     Core - playerdata class used as blackboard
-    Playership should be injected class.  contain import/export functions
+    Playership - weapons arrays
 
 Menu
     - options menu
@@ -58,3 +57,5 @@ ASSETS NEEDED
     shield arc
     more weapons
     more ships
+    MainMenu background
+    Shipyard menu

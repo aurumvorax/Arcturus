@@ -30,6 +30,7 @@ public class Keys{
         keybinds.put(Input.Keys.Q, Command.STRAFE_LEFT);
         keybinds.put(Input.Keys.E, Command.STRAFE_RIGHT);
         keybinds.put(Input.Keys.C, Command.BRAKE);
+        keybinds.put(Input.Keys.T, Command.DOCK);
     }
 
     public boolean saveKeybinds(){
@@ -52,6 +53,6 @@ public class Keys{
     }
 
     public enum Command{
-        MENU, FORWARD, BACK, TURN_LEFT, TURN_RIGHT, STRAFE_LEFT, STRAFE_RIGHT, BRAKE
+        MENU, FORWARD, BACK, TURN_LEFT, TURN_RIGHT, STRAFE_LEFT, STRAFE_RIGHT, BRAKE, DOCK
     }
 }

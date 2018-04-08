@@ -9,6 +9,7 @@ public class TransitionManager extends BaseSystem{
     // in the middle of a world cycle.
 
     private static Core core;
+    private static boolean transition;
     private static Core.ScreenType transitionTo = null;
     private static boolean newGame = false;
 
@@ -17,12 +18,17 @@ public class TransitionManager extends BaseSystem{
         TransitionManager.core = core;
     }
 
-    public static void setTransition(Core.ScreenType screen){ transitionTo = screen; }
+    public static void setTransition(Core.ScreenType screen){
+        transition = true;
+        transitionTo = screen;
+    }
 
     @Override
     protected void processSystem(){
-        if(transitionTo != null)
+        if(transition){
+            transition = false;
             core.switchScreen(transitionTo);
+        }
     }
 
 
