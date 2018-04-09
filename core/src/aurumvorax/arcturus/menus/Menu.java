@@ -16,7 +16,6 @@ public class Menu{
     private Core core;
     private Stage stage = new Stage(new ScreenViewport(), Services.batch);
     private TextureRegion background;
-    // background
     private Deque<MenuState> stateStack = new ArrayDeque<>();
 
     public Menu(Core core){
@@ -58,6 +57,7 @@ public class Menu{
     public void update(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Services.batch.setColor(1,1,1,1);
         Services.batch.begin();
         Services.batch.draw(background, 0, 0);
         Services.batch.end();

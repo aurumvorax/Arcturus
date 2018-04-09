@@ -1,0 +1,20 @@
+
+BackgroundAtlas.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+MainMenuBackground
+  rotate: false
+  xy: 0, 697
+  size: 1210, 695
+  orig: 1210, 695
+  offset: 0, 0
+  index: -1
+ShipyardBackground
+  rotate: false
+  xy: 0, 0
+  size: 1210, 695
+  orig: 1210, 695
+  offset: 0, 0
+  index: -1

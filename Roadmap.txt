@@ -15,15 +15,15 @@ Graphics
     - dynamic load animations in services (from json files)
     - particle effects for missile trails, etc
 
-Shields
-    - graphical assets
-    - component
-    - collision
-    - damage
 
 Game
     - rockets/torpedoes
     - missiles
+    -Shields
+         - graphical assets
+         - component
+         - collision
+         - damage
 
 Shipyard
     - menus
@@ -53,9 +53,7 @@ BUGS/Tweaks
 ASSETS NEEDED
 
     rocket/missile
-    rocket/missile engine flame animation
+    rocket/missile/ship engine flame animation
     shield arc
     more weapons
     more ships
-    MainMenu background
-    Shipyard menu
