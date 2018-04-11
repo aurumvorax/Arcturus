@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.menus.Menu;
 import aurumvorax.arcturus.menus.shipyard.Shipyard;
 import com.badlogic.gdx.ScreenAdapter;
@@ -13,6 +14,7 @@ public class DockScreen extends ScreenAdapter{
 
     public DockScreen(Core core){
         menu = new Menu(core);
+        background = Services.getTexture("ShipyardBackground");
     }
 
 

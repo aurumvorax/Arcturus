@@ -11,14 +11,15 @@ import aurumvorax.arcturus.artemis.systems.render.HUDRenderer;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
+import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
 import static java.lang.Math.abs;
 
-public class PlayerControl extends BaseEntitySystem{
+public class PlayerControl extends BaseSystem{
 
-    private int playerShip;
+    private transient int player;
     private transient int thrust;
     private transient int helm;
     private transient int strafe;
@@ -35,10 +36,6 @@ public class PlayerControl extends BaseEntitySystem{
     private ComponentMapper<Turret> mTurret;
 
 
-    public PlayerControl(){
-        super(Aspect.all(Player.class, Physics2D.class));
-    }
-
     public void controlThrust(int thrust){ this.thrust = thrust; }
     public void controlHelm(int helm){ this.helm = helm; }
     public void controlStrafe(int strafe){ this.strafe = strafe; }
@@ -54,12 +51,12 @@ public class PlayerControl extends BaseEntitySystem{
 
     @Override
     protected void processSystem(){
-
-        if(!mPlayer.has(playerShip))
+        player = PlayerShip.getID();
+        if(!mPlayer.has(player))
             return;
 
-        Physics2D physics2D = mPhysics.get(playerShip);
-        PoweredMotion pm = mPowered.get(playerShip);
+        Physics2D physics2D = mPhysics.get(player);
+        PoweredMotion pm = mPowered.get(player);
         if(!brake){
             pm.alpha = helm * pm.rotation;
             pm.accel.set(thrust, strafe);
@@ -75,17 +72,12 @@ public class PlayerControl extends BaseEntitySystem{
     }
 
     private void updateWeapons(Vector2 target){
-        Weapons w = mWeapons.get(playerShip);
+        Weapons w = mWeapons.get(player);
         for(int i = 0; i < w.manual.size(); i++){
             Turret t = mTurret.get(w.manual.get(i));
             t.target = (target);
             t.fire = fire;
         }
-    }
-
-    @Override
-    public void inserted(int entityID){
-        playerShip = entityID;
     }
 
     public void reset(){

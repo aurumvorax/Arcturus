@@ -23,10 +23,16 @@ public class TransitionManager extends BaseSystem{
         transitionTo = screen;
     }
 
+    public static void resumeGame(){
+        PlayerShip.insert();
+        core.switchScreen(Core.ScreenType.Game);
+    }
+
     @Override
     protected void processSystem(){
         if(transition){
             transition = false;
+            PlayerShip.extract();
             core.switchScreen(transitionTo);
         }
     }

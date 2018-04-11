@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.PlayerShip;
+import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.artemis.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.factories.*;
@@ -44,6 +44,7 @@ public class GameScreen extends ScreenAdapter{
                 new BeamRenderer(batcher),
                 worldCam,
                 hud,
+                new PlayerShip(),
                 playerControl,
                 new Proximity(),
                 new ShipAI(),
@@ -63,7 +64,6 @@ public class GameScreen extends ScreenAdapter{
         EffectFactory.init(world);
         TerrainFactory.init(world);
 
-        PlayerShip.init(world);
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
@@ -109,7 +109,7 @@ public class GameScreen extends ScreenAdapter{
         int star = TerrainFactory.createStar("TestStar", 1000, 1000);
         int planet = TerrainFactory.createOrbital("TestPlanet", star);
         TerrainFactory.createOrbital("TestMoon", planet);
-        worldCam.setTarget(ship);
+        worldCam.setTarget(PlayerShip.getID());
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
     }

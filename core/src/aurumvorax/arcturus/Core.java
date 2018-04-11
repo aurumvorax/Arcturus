@@ -1,5 +1,6 @@
 package aurumvorax.arcturus;
 
+import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.screens.DockScreen;
 import aurumvorax.arcturus.screens.GameScreen;
 import aurumvorax.arcturus.screens.MainMenuScreen;
@@ -12,6 +13,9 @@ import java.util.EnumMap;
 public class Core extends Game{
 
     private static boolean gameActive = false;
+    private static PlayerData playerData = new PlayerData();
+
+
 
     private EnumMap<ScreenType, Screen> screens;
     public enum ScreenType{
@@ -21,6 +25,7 @@ public class Core extends Game{
         Dock
     }
 
+    public static PlayerShip getPlayerShip(){ return playerData.playership; }
     public static void setActive(boolean active){Core.gameActive = active; }
     public static boolean getActive(){ return gameActive; }
 
