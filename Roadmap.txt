@@ -5,7 +5,7 @@
         - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world MUCH later
                 - load on station - revert to main station menu page for now.  can save menustack later if we want to.
 
-    Playership - weapons arrays
+
 
 Menu
     - options menu

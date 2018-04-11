@@ -5,9 +5,9 @@ import com.artemis.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class Beam extends Component{
+public class Beam extends Weapon{
 
-    public String name;
+    public String imgName;
     public float offsetY;
     public Renderer.Layer layer = Renderer.Layer.EFFECT;
 

@@ -51,7 +51,7 @@ public class WeaponFactory{
         }
     }
 
-    static int create(String name, int ship, Mount.Weapon mount){
+    static int create(String name, int ship, Mount.Weapon mount, int slot){
 
         if(!weapons.containsKey(name))
             throw new IllegalArgumentException("Invalid projectile type - " + name);
@@ -62,6 +62,8 @@ public class WeaponFactory{
                 int cannon = world.create(protoCannon);
                 buildTurret(cannon, data, ship, mount);
                 Cannon c = mCannon.get(cannon);
+                c.name = name;
+                c.slot = slot;
                 c.launches = data.launches;
                 c.burstTime = data.delay;
                 c.reloadTime = data.reload;
@@ -74,7 +76,9 @@ public class WeaponFactory{
                 int beam = world.create(protoBeam);
                 buildTurret(beam, data, ship, mount);
                 Beam b = mBeam.get(beam);
-                b.name = data.beamImgName;
+                b.name = name;
+                b.slot = slot;
+                b.imgName = data.beamImgName;
                 b.offsetY = data.beamImgCenter.y;
                 b.maxRange = data.range;
                 b.barrels = data.barrels;

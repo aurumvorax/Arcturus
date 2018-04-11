@@ -57,13 +57,9 @@ public class ShipFactory{
     }
 
     public static int create(String type, String variant, float x, float y, float t){
-        if(!ships.containsKey(type))
-            throw new IllegalArgumentException("Invalid ship type - " + type);
-        if(!ships.get(type).variants.containsKey(variant) && variant != null)
-            throw new IllegalArgumentException("Invalid ship variant - " + type + " - " + variant);
 
         int ship = world.create(protoShip);
-        ShipData data = ships.get(type);
+        ShipData data = getShipData(type);
 
         Ship nameplate = mShip.get(ship);
         nameplate.name = "Shippy McShipFace";
@@ -84,23 +80,35 @@ public class ShipFactory{
 
         mHealth.get(ship).hull = data.hull;
 
-        if(variant == null)
+        if(!data.variants.containsKey(variant))
             return ship;
+        equip(ship, data, data.variants.get(variant).weapons);
 
+
+        return ship;
+    }
+
+    // TODO pass Variant later instead of just weapons
+    public static void equip(int ship, ShipData data, IntMap<String> loadout){
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;
-        IntMap<String> loadout =  data.variants.get(variant).weapons;
         if(loadout != null){
             for(int i = 0; i < loadout.size; i++){
-                int w = WeaponFactory.create(loadout.get(i), ship, data.weaponMounts.get(i));
-                weaponList.add(w);
-                activeList.add(w);
-                manualList.add(w);
+                if(loadout.get(i) != null){
+                    int w = WeaponFactory.create(loadout.get(i), ship, data.weaponMounts.get(i), i);
+                    weaponList.add(w);
+                    activeList.add(w);
+                    manualList.add(w);
+                }
             }
         }
+    }
 
-        return ship;
+    public static ShipData getShipData(String type){
+        if(!ships.containsKey(type))
+            throw new IllegalArgumentException("Invalid ship type - " + type);
+        return ships.get(type);
     }
 
     private static class Wrapper{

@@ -4,7 +4,7 @@ import com.artemis.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class Cannon extends Component{
+public class Cannon extends Weapon{
 
     public String launches;
     public float timer;
