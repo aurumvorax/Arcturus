@@ -6,12 +6,12 @@
                 - load on station - revert to main station menu page for now.  can save menustack later if we want to.
 
 Clean up transition system
-    - worldcam target
-    - menus
-
-    - menu backgrounds handled by transitionManager - initial background set by MenuScreen
+    - Destructor calls transition on playerdeath
 
 Menu
+    - Main menu
+    - SaveLoad menu
+    - shipyard menu
     - options menu
         - keybinds menu
 

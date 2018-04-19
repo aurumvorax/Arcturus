@@ -10,18 +10,17 @@ public abstract class MenuState{
 
 
     private static final float FADE = 0.3f;
-    protected MenuScreen screen;
-    protected Core core;
-    private Stage stage;
+    private MenuScreen screen;
     private Actor root;
 
-    public MenuState(Core core, MenuScreen screen, Stage stage){
+    protected Core core;
+    protected Stage stage;
+
+
+    public Actor enter(Core core, MenuScreen screen, Stage stage){
         this.core = core;
         this.screen = screen;
         this.stage = stage;
-    }
-
-    public Actor enter(){
         root = build(stage);
         root.getColor().a = 0;
         root.addAction(Actions.fadeIn(FADE));
@@ -34,11 +33,11 @@ public abstract class MenuState{
         root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> screen.changeBack())));
     }
 
-    protected void changeMenu(MenuState next){
+    protected void changeMenu(MenuScreen.MenuType next){
         root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> screen.changeMenu(next))));
     }
 
-    protected void enterGame(){
-        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> screen.enterGame())));
+    protected void enterGame(Core.GameMode mode){
+        root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> screen.enterGame(mode))));
     }
 }

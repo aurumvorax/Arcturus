@@ -4,76 +4,108 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.death.GameOver;
 import aurumvorax.arcturus.menus.main_menu.MainMenu;
+import aurumvorax.arcturus.menus.main_menu.SaveLoad;
 import aurumvorax.arcturus.menus.shipyard.Shipyard;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.*;
 
 public class MenuScreen extends ScreenAdapter{
 
-    private static TextureRegion background = Services.getTexture("MainMenuBackground");
+    private static TextureRegion background;
+    private static TextureRegion liveBackground;
 
     private Core core;
     private Stage stage = new Stage(new ScreenViewport(), Services.batch);
-    private Deque<MenuState> stateStack = new ArrayDeque<>();
-    private MenuState currentState;
+    private Deque<MenuType> stateStack = new ArrayDeque<>();
+    private MenuType current;
 
     private EnumMap<MenuType, MenuState> menus = new EnumMap<>(MenuType.class);
     public enum MenuType{
-        Main,
-        Dock,
+        Main, MainLive, Save, Load,  // Options, Keybinds, etc
+        Shipyard,   // Dock, Missions, Commerce, Intel, etc
         Dead
     }
 
     public MenuScreen(Core core){
         this.core = core;
-        menus.put(MenuType.Main, new MainMenu());
-        menus.put(MenuType.Dock, new Shipyard());
-        //menus.put(MenuType.Dead, new GameOver());
 
-        currentState = menus.get(MenuType.Main);
-    }
+        MenuState mainMenu = new MainMenu();
+        menus.put(MenuType.Main, mainMenu);
+        menus.put(MenuType.MainLive, mainMenu);
+        MenuState saveLoad = new SaveLoad();
+        menus.put(MenuType.Save, saveLoad);
+        menus.put(MenuType.Load, saveLoad);
 
-    // To be called by TransitionManager prior to transition.
-    public void setMenu(MenuType menu){
-        currentState = menus.get(menu);
-        stage.addActor(currentState.enter());
-        // TODO set appropriate backgrounds.
+        menus.put(MenuType.Shipyard, new Shipyard());
+
+        menus.put(MenuType.Dead, new GameOver());
+
+        current = MenuType.Main;
     }
 
     @Override
     public void show(){
         Gdx.input.setInputProcessor(stage);
+        liveBackground = ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
-    public void changeMenu(MenuState newState){
+    // To be called by TransitionManager prior to transition.
+    public void enterMenu(MenuType menu){
+        current = menu;
+        MenuState state = menus.get(menu);
+        switch(menu){
+            case Main:  // This is the Main menu used during startup, or when accessed from other menus
+                background = Services.getTexture("MainMenuBackground");
+                break;
+            case MainLive:  // This is the Main menu accessed from inside the game world.
+                background = liveBackground;
+                break;
+            case Save:  // Background is carried over from Main or MainLive
+                ((SaveLoad)state).setMode(SaveLoad.Mode.SAVE);
+                break;
+            case Load:  // Background is carried over from Main or MainLive
+                ((SaveLoad)state).setMode(SaveLoad.Mode.LOAD);
+                break;
+            case Shipyard:
+                background = Services.getTexture("ShipyardBackground");
+                break;
+        }
+
+        stage.addActor(state.enter(core, this, stage));
+        // TODO set appropriate backgrounds.
+    }
+
+    public void changeMenu(MenuType newMenu){
         stage.getRoot().setColor(1,1,1,1);
         stage.clear();
-        stateStack.push(currentState);
-        currentState = newState;
-        stage.addActor(newState.enter());
+        stateStack.push(current);
+        enterMenu(newMenu);
     }
+
     public void changeBack(){
         stage.getRoot().setColor(1,1,1,1);
         stage.clear();
-        stateStack.pop();
         if(stateStack.peek() == null)
-            enterGame(); // no previous state, so resume game
+            enterGame(Core.GameMode.Active); // no previous state, so resume game
         else
-            stage.addActor(stateStack.peek().enter());
+            enterMenu(stateStack.pop());
     }
 
-    public void enterGame(){
+    public void enterGame(Core.GameMode state){
         Gdx.input.setInputProcessor(null);
         stage.getRoot().getColor().a = 1f;
         stage.clear();
         stateStack.clear();
+        core.setGameMode(state);
         TransitionManager.resumeGame();
     }
 
@@ -93,6 +125,11 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void hide(){
+        liveBackground.getTexture().dispose();
     }
 
     @Override

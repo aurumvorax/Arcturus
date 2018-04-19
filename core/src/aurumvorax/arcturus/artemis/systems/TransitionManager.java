@@ -1,6 +1,8 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.death.GameOver;
 import aurumvorax.arcturus.screens.MenuScreen;
 import com.artemis.BaseSystem;
 
@@ -12,26 +14,24 @@ public class TransitionManager extends BaseSystem{
     private static Core core;
     private static boolean transition;
     private static float timer = 0;
-    private static MenuScreen.MenuType destination = null;
-
-    //MenuScreen.setBackground(ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+    private static MenuState transitionTo = null;
 
 
     public TransitionManager(Core core){
         TransitionManager.core = core;
     }
 
-    // Queues a transition out of the Game world into a menu.  Called from artemis systems.
-    public static void setTransition(MenuScreen.MenuType menu){
+    // Queues a transition out of the Game world into a menu.  Called from within the Artemis world by
+    // Destructor, PlayerInput TODO Docking
+    public static void setTransition(MenuState menu){
         transition = true;
-        destination = menu;
+        transitionTo = menu;
     }
 
     // Transitions into the Game world.  Called by MenuScreen.
     public static void resumeGame(){
-        if(core.getGameMode() != Core.GameMode.New){
+        if(core.getGameMode() == Core.GameMode.Active){
             PlayerShip.insert();
-            core.setGameMode(Core.GameMode.Active);
         }
         core.switchScreen(Core.ScreenType.Game);
     }
@@ -39,14 +39,14 @@ public class TransitionManager extends BaseSystem{
     @Override
     protected void processSystem(){
         if(transition){
-            if(destination != MenuScreen.MenuType.Dead){
+            if(transitionTo instanceof GameOver){
+                transition = false;
+                timer = 3f;
+            }else{
                 transition = false;
                 PlayerShip.extract();
-                core.setMenuMode(destination);
+                core.setGameMode(Core.GameMode.Menu);
                 core.switchScreen(Core.ScreenType.Menu);
-            }else{
-                timer = 3f;
-                transition = false;
             }
         }
 
@@ -55,7 +55,7 @@ public class TransitionManager extends BaseSystem{
 
         if(timer < 0){
             timer = 0;
-            core.setMenuMode(MenuScreen.MenuType.Dead);
+            core.setGameMode(Core.GameMode.Dead);
             core.switchScreen(Core.ScreenType.Menu);
         }
     }
