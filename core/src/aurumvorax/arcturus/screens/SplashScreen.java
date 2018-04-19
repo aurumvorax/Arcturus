@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class SplashScreen extends ScreenAdapter{
 
-    Core core;
+    private Core core;
 
     public SplashScreen(Core core){
         this.core = core;

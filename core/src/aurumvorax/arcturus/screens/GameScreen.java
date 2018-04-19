@@ -32,7 +32,7 @@ public class GameScreen extends ScreenAdapter{
         worldCam = new WorldCam();
         playerControl = new PlayerControl();
         hud = new HUDRenderer();
-        PlayerInput playerInput = new PlayerInput(core, playerControl, worldCam);
+        PlayerInput playerInput = new PlayerInput(playerControl, worldCam);
         RenderBatcher batcher = new RenderBatcher(worldCam, hud);
 
         WorldConfiguration config = new WorldConfigurationBuilder()
@@ -76,9 +76,9 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void show(){
-        if(!Core.getActive()){
+        if(core.getGameMode() == Core.GameMode.New){
             newGame();
-            Core.setActive(true);
+            core.setGameMode(Core.GameMode.Active);
         }
         Gdx.input.setInputProcessor(inputMUX);
         playerControl.reset();

@@ -4,7 +4,7 @@ import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.options.Keys;
-import aurumvorax.arcturus.screens.MainMenuScreen;
+import aurumvorax.arcturus.screens.MenuScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -12,14 +12,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PlayerInput extends InputAdapter{
 
-    private Core core;
     private PlayerControl player;
     private WorldCam cam;
 
     private static final float SCROLLRATE = 0.1f;
 
-    public PlayerInput(Core core, PlayerControl player, WorldCam cam){
-        this.core = core;
+    public PlayerInput(PlayerControl player, WorldCam cam){
         this.player = player;
         this.cam = cam;
     }
@@ -31,11 +29,10 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case MENU:
-                MainMenuScreen.setBackground(ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
-                TransitionManager.setTransition(Core.ScreenType.MainMenu);
+                TransitionManager.setTransition(MenuScreen.MenuType.Main);
                 break;
             case DOCK:
-                TransitionManager.setTransition(Core.ScreenType.Dock);
+                TransitionManager.setTransition(MenuScreen.MenuType.Dock);
                 break;
             case TURN_LEFT:
                 player.controlHelm(1);

@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.screens.MenuScreen;
 import com.artemis.BaseSystem;
 
 public class TransitionManager extends BaseSystem{
@@ -10,33 +11,52 @@ public class TransitionManager extends BaseSystem{
 
     private static Core core;
     private static boolean transition;
-    private static Core.ScreenType transitionTo = null;
-    private static boolean newGame = false;
+    private static float timer = 0;
+    private static MenuScreen.MenuType destination = null;
+
+    //MenuScreen.setBackground(ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
 
     public TransitionManager(Core core){
         TransitionManager.core = core;
     }
 
-    public static void setTransition(Core.ScreenType screen){
+    // Queues a transition out of the Game world into a menu.  Called from artemis systems.
+    public static void setTransition(MenuScreen.MenuType menu){
         transition = true;
-        transitionTo = screen;
+        destination = menu;
     }
 
+    // Transitions into the Game world.  Called by MenuScreen.
     public static void resumeGame(){
-        PlayerShip.insert();
+        if(core.getGameMode() != Core.GameMode.New){
+            PlayerShip.insert();
+            core.setGameMode(Core.GameMode.Active);
+        }
         core.switchScreen(Core.ScreenType.Game);
     }
 
     @Override
     protected void processSystem(){
         if(transition){
-            transition = false;
-            PlayerShip.extract();
-            core.switchScreen(transitionTo);
+            if(destination != MenuScreen.MenuType.Dead){
+                transition = false;
+                PlayerShip.extract();
+                core.setMenuMode(destination);
+                core.switchScreen(Core.ScreenType.Menu);
+            }else{
+                timer = 3f;
+                transition = false;
+            }
+        }
+
+        if(timer > 0)
+            timer -= world.getDelta();
+
+        if(timer < 0){
+            timer = 0;
+            core.setMenuMode(MenuScreen.MenuType.Dead);
+            core.switchScreen(Core.ScreenType.Menu);
         }
     }
-
-
-
 }

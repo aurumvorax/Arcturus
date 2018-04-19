@@ -5,7 +5,11 @@
         - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world MUCH later
                 - load on station - revert to main station menu page for now.  can save menustack later if we want to.
 
+Clean up transition system
+    - worldcam target
+    - menus
 
+    - menu backgrounds handled by transitionManager - initial background set by MenuScreen
 
 Menu
     - options menu
@@ -19,7 +23,7 @@ Graphics
 Game
     - rockets/torpedoes
     - missiles
-    -Shields
+    - Shields
          - graphical assets
          - component
          - collision
