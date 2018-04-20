@@ -5,7 +5,9 @@ import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.menus.death.GameOver;
+import aurumvorax.arcturus.menus.main_menu.Keybinds;
 import aurumvorax.arcturus.menus.main_menu.MainMenu;
+import aurumvorax.arcturus.menus.main_menu.Options;
 import aurumvorax.arcturus.menus.main_menu.SaveLoad;
 import aurumvorax.arcturus.menus.shipyard.Shipyard;
 import com.badlogic.gdx.Gdx;
@@ -30,7 +32,7 @@ public class MenuScreen extends ScreenAdapter{
 
     private EnumMap<MenuType, MenuState> menus = new EnumMap<>(MenuType.class);
     public enum MenuType{
-        Main, MainLive, Save, Load,  // Options, Keybinds, etc
+        Main, MainLive, Save, Load, Options, Keybinds,
         Shipyard,   // Dock, Missions, Commerce, Intel, etc
         Dead
     }
@@ -44,6 +46,8 @@ public class MenuScreen extends ScreenAdapter{
         MenuState saveLoad = new SaveLoad();
         menus.put(MenuType.Save, saveLoad);
         menus.put(MenuType.Load, saveLoad);
+        menus.put(MenuType.Options, new Options());
+        menus.put(MenuType.Keybinds, new Keybinds());
 
         menus.put(MenuType.Shipyard, new Shipyard());
 
@@ -52,13 +56,16 @@ public class MenuScreen extends ScreenAdapter{
         current = MenuType.Main;
     }
 
+    public void setCurrent(MenuType menu){ current = menu; }
+
     @Override
     public void show(){
         Gdx.input.setInputProcessor(stage);
         liveBackground = ScreenUtils.getFrameBufferTexture(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        enterMenu(current);
     }
 
-    // To be called by TransitionManager prior to transition.
+    // To be called by TransitionManager via Core, prior to transition.
     public void enterMenu(MenuType menu){
         current = menu;
         MenuState state = menus.get(menu);
@@ -78,10 +85,12 @@ public class MenuScreen extends ScreenAdapter{
             case Shipyard:
                 background = Services.getTexture("ShipyardBackground");
                 break;
+            case Dead:
+                background = liveBackground;
+                break;
         }
 
         stage.addActor(state.enter(core, this, stage));
-        // TODO set appropriate backgrounds.
     }
 
     public void changeMenu(MenuType newMenu){

@@ -13,9 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class Shipyard extends MenuState{
 
-    private static Shipyard INSTANCE = new Shipyard();
-    public static Shipyard getInstance(){ return INSTANCE; }
-
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
     private TextButton loadout1 = new TextButton("Loadout 1", Services.MENUSKIN);
     private TextButton loadout2 = new TextButton("Loadout 2", Services.MENUSKIN);
@@ -23,11 +20,12 @@ public class Shipyard extends MenuState{
     private Table menuTable = new Table();
 
 
-    private Shipyard(){
+    public Shipyard(){
+
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                TransitionManager.resumeGame();
+                enterGame(Core.GameMode.Active);
             }
         });
         loadout1.addListener(new ChangeListener(){

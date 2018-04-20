@@ -1,8 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.menus.MenuState;
-import aurumvorax.arcturus.menus.death.GameOver;
+import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.screens.MenuScreen;
 import com.artemis.BaseSystem;
 
@@ -14,7 +13,7 @@ public class TransitionManager extends BaseSystem{
     private static Core core;
     private static boolean transition;
     private static float timer = 0;
-    private static MenuState transitionTo = null;
+    private static MenuScreen.MenuType transitionTo = null;
 
 
     public TransitionManager(Core core){
@@ -23,7 +22,7 @@ public class TransitionManager extends BaseSystem{
 
     // Queues a transition out of the Game world into a menu.  Called from within the Artemis world by
     // Destructor, PlayerInput TODO Docking
-    public static void setTransition(MenuState menu){
+    public static void setTransition(MenuScreen.MenuType menu){
         transition = true;
         transitionTo = menu;
     }
@@ -39,13 +38,13 @@ public class TransitionManager extends BaseSystem{
     @Override
     protected void processSystem(){
         if(transition){
-            if(transitionTo instanceof GameOver){
+            if(transitionTo == MenuScreen.MenuType.Dead){
                 transition = false;
                 timer = 3f;
             }else{
                 transition = false;
                 PlayerShip.extract();
-                core.setGameMode(Core.GameMode.Menu);
+                core.setMenuMode(transitionTo);
                 core.switchScreen(Core.ScreenType.Menu);
             }
         }
@@ -55,6 +54,7 @@ public class TransitionManager extends BaseSystem{
 
         if(timer < 0){
             timer = 0;
+            core.setMenuMode(MenuScreen.MenuType.Dead);
             core.setGameMode(Core.GameMode.Dead);
             core.switchScreen(Core.ScreenType.Menu);
         }

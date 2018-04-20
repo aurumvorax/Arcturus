@@ -2,7 +2,6 @@ package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.menus.Menu;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;
@@ -18,14 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class SaveLoad extends MenuState{
 
-    private static SaveLoad INSTANCE = new SaveLoad();
-    private static Mode mode;
+    private Mode mode;
     public enum Mode{ SAVE, LOAD }
-
-    public static SaveLoad getInstance(Mode mode){
-        SaveLoad.mode = mode;
-        return INSTANCE;
-    }
 
     private SaveManager manager = SaveManager.getInstance();
     private TextButton saveButton = new TextButton("Save", Services.MENUSKIN);
@@ -46,7 +39,7 @@ public class SaveLoad extends MenuState{
 
 
     @SuppressWarnings("unchecked")
-    private SaveLoad(){
+    public SaveLoad(){
 
         cancelButton.addListener(new ChangeListener(){
             @Override
@@ -59,7 +52,7 @@ public class SaveLoad extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 manager.loadGame(savesList.getSelected());
-                exitTo(Core.ScreenType.Game);
+                enterGame(Core.GameMode.Active);
             }
         });
 
@@ -74,7 +67,7 @@ public class SaveLoad extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 confirmDeleteLabel.setText("Delete " + saveName.getText() + ".\nAre you sure?");
-                confirmDelete.show(menu.getStage());
+                confirmDelete.show(stage);
             }
         });
 
@@ -95,7 +88,7 @@ public class SaveLoad extends MenuState{
                     else if(mode == Mode.LOAD){
                         if(manager.isValid(saveName.getText())){
                             manager.loadGame(saveName.getText());
-                            exitTo(Core.ScreenType.Game);
+                            enterGame(Core.GameMode.Active);
                         }
                     }
                 }
@@ -119,9 +112,9 @@ public class SaveLoad extends MenuState{
             @Override
             protected void result(Object object){
                 if(object.equals(true)){
-                    SaveManager.getInstance().deleteGame(saveName.getText());
+                    manager.deleteGame(saveName.getText());
                     savesList.clearItems();
-                    savesList.setItems(SaveManager.getInstance().getSaveList());
+                    savesList.setItems(manager.getSaveList());
                 }
             }
         };
@@ -129,6 +122,8 @@ public class SaveLoad extends MenuState{
         confirmDelete.button("Yes", true);
         confirmDelete.button("No", false);
     }
+
+    public void setMode(Mode mode){ this.mode = mode; }
 
     @Override
     public Actor build(Stage menuStage){
@@ -161,14 +156,14 @@ public class SaveLoad extends MenuState{
 
     private void save(boolean overwrite){
         if(!overwrite){
-            if(SaveManager.getInstance().saveGame(saveName.getText(), false))
+            if(manager.saveGame(saveName.getText(), false))
                 changeBack();
             else{
                 confirmOverwriteLabel.setText(saveName.getText() + " already exists.\n Overwrite?");
-                confirmOverwrite.show(menu.getStage());
+                confirmOverwrite.show(stage);
             }
         }else{
-            if(SaveManager.getInstance().saveGame(saveName.getText(), true))
+            if(manager.saveGame(saveName.getText(), true))
                 changeBack();
             else
                 Gdx.app.debug("Save", "ERROR - Saving Game");
