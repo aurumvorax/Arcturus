@@ -29,10 +29,10 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case MENU:
-                TransitionManager.setTransition(MenuScreen.MenuType.Main);
+                TransitionManager.setTransition(MenuScreen.MenuType.MainLive);
                 break;
             case DOCK:
-                TransitionManager.setTransition(MenuScreen.MenuType.Dock);
+                TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
                 break;
             case TURN_LEFT:
                 player.controlHelm(1);

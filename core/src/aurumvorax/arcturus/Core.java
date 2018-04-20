@@ -16,7 +16,6 @@ public class Core extends Game{
     public enum GameMode{
         New,
         Active,
-        Menu,
         Dead
     }
 
@@ -32,8 +31,7 @@ public class Core extends Game{
     public void setGameMode(GameMode state){ gameMode = state; }
 
     public void setMenuMode(MenuScreen.MenuType mode){
-        gameMode = GameMode.Menu;
-        ((MenuScreen)screens.get(ScreenType.Menu)).enterMenu(mode);
+        ((MenuScreen)screens.get(ScreenType.Menu)).setCurrent(mode);
     }
 
     public void switchScreen(ScreenType screen){

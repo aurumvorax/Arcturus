@@ -4,6 +4,7 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.options.PreferenceManager;
+import aurumvorax.arcturus.screens.MenuScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,9 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class MainMenu extends MenuState{
-
-    private static MainMenu INSTANCE = new MainMenu();
-    public static MainMenu getInstance(){ return INSTANCE; }
 
     private TextButton resumeButton = new TextButton("Resume", Services.MENUSKIN);
     private TextButton continueButton = new TextButton("Continue", Services.MENUSKIN);
@@ -29,13 +27,12 @@ public class MainMenu extends MenuState{
     private Table outerTable = new Table();
 
 
-    private MainMenu(){
-        root = new Table();
+    public MainMenu(){
 
         resumeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                exitTo(Core.ScreenType.Game);
+                enterGame(Core.GameMode.Active);
             }
         });
 
@@ -43,35 +40,35 @@ public class MainMenu extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // TODO - Load most recent save
-                exitTo(Core.ScreenType.Game);
+                enterGame(Core.GameMode.Active);
             }
         });
 
         newButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                Core.setActive(false);
-                exitTo(Core.ScreenType.Game);
+               enterGame(Core.GameMode.New);
             }
         });
 
         loadButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                changeMenu(SaveLoad.getInstance(SaveLoad.Mode.LOAD));
+                changeMenu(MenuScreen.MenuType.Load);
             }
         });
 
         saveButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                changeMenu(SaveLoad.getInstance(SaveLoad.Mode.SAVE));
+                changeMenu(MenuScreen.MenuType.Save);
             }
         });
 
         optionsButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
+                changeMenu(MenuScreen.MenuType.Options);
             }
         });
 
@@ -87,7 +84,7 @@ public class MainMenu extends MenuState{
     public Actor build(Stage menuStage){
         outerTable.reset();
         menuTable.reset();
-        if(Core.getActive())
+        if(core.getGameMode() == Core.GameMode.Active)
             menuTable.add(resumeButton).row();
         else if(PreferenceManager.getLastSave() != null)
             menuTable.add(continueButton).row();

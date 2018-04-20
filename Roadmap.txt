@@ -1,19 +1,9 @@
 
-
-    When do we want to allow saving/loading?  In space only, on stations?  Ideally both - should have a tag
-        - in space save - use WorldSerializer only
-        - while on station, freeze time for now, only extract playership.  can add time advancement to artemis world MUCH later
-                - load on station - revert to main station menu page for now.  can save menustack later if we want to.
-
-Clean up transition system
-    - Destructor calls transition on playerdeath
-
 Menu
-    - Main menu
-    - SaveLoad menu
     - shipyard menu
     - options menu
         - keybinds menu
+    - call main menu while in another menu -> saving while in menus
 
 Graphics
     - dynamic load animations in services (from json files)
@@ -51,7 +41,7 @@ LONG TERM
 
 BUGS/Tweaks
     - turret rotation speed limited by ship rotation - change
-    - fade in/out should be limited to menu stage, not include background
+    - set worldcam target on target select in HUD
 
 
 ASSETS NEEDED

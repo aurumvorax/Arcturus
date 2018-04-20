@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
 import com.artemis.BaseSystem;
@@ -55,7 +56,6 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     public void setTarget(int entityID){
         if(mPhysics.has(entityID)){
             target = entityID;
-            WorldCam.position.set(mPhysics.get(target).p);
             targetP = mPhysics.get(target).p;
             targetV = mPhysics.get(target).v;
         }else
@@ -80,9 +80,13 @@ public class WorldCam extends BaseSystem implements SaveObserver{
 
     @Override
     protected void processSystem(){
-        if(target ==-1){
-            velocity.setZero();
-            return;
+        if(target == -1){
+            if(mPhysics.has(PlayerShip.getID()))
+                target = PlayerShip.getID();
+            else{
+                velocity.setZero();
+                return;
+            }
         }
         velocity.set(targetP.x + ((mouseS.x - halfWidth) * cam.zoom * FRAMESIZE),
                 targetP.y - ((mouseS.y - halfHeight) * cam.zoom * FRAMESIZE));
