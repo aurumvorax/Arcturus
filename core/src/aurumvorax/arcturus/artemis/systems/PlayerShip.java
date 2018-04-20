@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.IntMap;
 public class PlayerShip extends BaseEntitySystem{
 
     @EntityId private static int playerID;
+    @EntityId private static int targetID;
     private static String name;
     public static String type;
     private static float x, y, theta;
@@ -36,6 +37,14 @@ public class PlayerShip extends BaseEntitySystem{
     @Override protected void inserted(int playerShip){ playerID = playerShip; }
 
     public static int getID(){ return playerID; }
+    public static void setTargetID(int target){ targetID = target; }
+
+    public static int getTargetID(){
+        if(mPlayer.has(playerID))
+            if((targetID != -1) && (mPhysics.has(targetID)))
+                return targetID;
+        return -1;
+    }
 
     public static void extract(){
         Ship ship = mShip.get(playerID);

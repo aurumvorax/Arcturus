@@ -81,7 +81,6 @@ public class GameScreen extends ScreenAdapter{
             core.setGameMode(Core.GameMode.Active);
         }
         Gdx.input.setInputProcessor(inputMUX);
-        worldCam.setTarget(PlayerShip.getID());
         playerControl.reset();
     }
 
@@ -112,6 +111,7 @@ public class GameScreen extends ScreenAdapter{
         TerrainFactory.createOrbital("TestMoon", planet);
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
+        PlayerShip.setTargetID(-1);
     }
 
     @Override

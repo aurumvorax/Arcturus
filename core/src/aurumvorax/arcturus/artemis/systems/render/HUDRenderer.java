@@ -3,6 +3,7 @@ package aurumvorax.arcturus.artemis.systems.render;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
+import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import com.artemis.*;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.math.Vector2;
@@ -22,6 +23,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     private Vector2 targetLerp = new Vector2();
 
     private static ComponentMapper<Physics2D> mPhysics;
+    private static ComponentMapper<Player> mPlayer;
 
     public HUDRenderer(){
         super(Aspect.all(Player.class));
@@ -37,7 +39,6 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     }
 
     public InputProcessor getInputProcessor(){ return stage; }
-    public static void setTarget(int t){ targetID = t; }
 
     public void resize(int width, int height){
         stage.getViewport().update(width, height, true);
@@ -45,6 +46,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
 
     @Override
     protected void processSystem(){
+        targetID = PlayerShip.getTargetID();
         // calculate stuff (every frame, not tick)
 
     }

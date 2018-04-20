@@ -1,6 +1,7 @@
 
 Menu
     - shipyard menu
+        - data from factories
     - options menu
         - keybinds menu
     - call main menu while in another menu -> saving while in menus
@@ -8,7 +9,6 @@ Menu
 Graphics
     - dynamic load animations in services (from json files)
     - particle effects for missile trails, etc
-
 
 Game
     - rockets/torpedoes
@@ -41,7 +41,7 @@ LONG TERM
 
 BUGS/Tweaks
     - turret rotation speed limited by ship rotation - change
-    - set worldcam target on target select in HUD
+    - sometimes ship position stutters if shiptype is othership.
 
 
 ASSETS NEEDED

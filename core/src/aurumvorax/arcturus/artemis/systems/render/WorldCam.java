@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
@@ -34,6 +35,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     private static final float PANSPEED = 3;
 
     private static ComponentMapper<Physics2D> mPhysics;
+    private static ComponentMapper<Player> mPlayer;
 
     public WorldCam(){
         cam = new OrthographicCamera();
@@ -48,19 +50,10 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     public void reset(){ cam.zoom = 1.0f; }
     public void zoom(float z){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + z), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
-    public static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
-    public static float lerpY(float alpha){ return position.y + (velocity.y * alpha); }
+    static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
+    static float lerpY(float alpha){ return position.y + (velocity.y * alpha); }
     void setCullingFrame(){ ScissorStack.pushScissors(screenBounds); }
     void endCullingFrame(){ ScissorStack.popScissors(); }
-
-    public void setTarget(int entityID){
-        if(mPhysics.has(entityID)){
-            target = entityID;
-            targetP = mPhysics.get(target).p;
-            targetV = mPhysics.get(target).v;
-        }else
-            target = -1;
-    }
 
     public void resize(int width, int height){
         cam.setToOrtho(false, width, height);
@@ -80,20 +73,29 @@ public class WorldCam extends BaseSystem implements SaveObserver{
 
     @Override
     protected void processSystem(){
-        if(target == -1){
-            if(mPhysics.has(PlayerShip.getID()))
-                target = PlayerShip.getID();
-            else{
-                velocity.setZero();
-                return;
-            }
+        getTarget();
+        if((target == -1) || (!mPhysics.has(target))){
+            velocity.setZero();
+            return;
         }
+
+        targetP = mPhysics.get(target).p;
+        targetV = mPhysics.get(target).v;
+
         velocity.set(targetP.x + ((mouseS.x - halfWidth) * cam.zoom * FRAMESIZE),
                 targetP.y - ((mouseS.y - halfHeight) * cam.zoom * FRAMESIZE));
         velocity.sub(position).scl(PANSPEED).add(targetV);
         if(velocity.len2() < MINSPEED2 * cam.zoom)
             velocity.set(targetV);
         position.mulAdd(velocity, world.delta);
+    }
+
+    private void getTarget(){
+        int targetID = PlayerShip.getTargetID();
+        if(targetID == -1)
+            target = PlayerShip.getID();
+        else
+            target = targetID;
     }
 
     public static Vector2 unproject(Vector2 screen){
@@ -115,13 +117,11 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     public void onNotify(SaveManager saveManager, SaveEvent saveEvent){
         switch(saveEvent){
             case SAVING:
-                saveManager.saveElement("CamTarget", target);
                 saveManager.saveElement("CamPosition", position);
                 saveManager.saveElement("Camera", cam);
                 break;
 
             case LOADING:
-                setTarget(saveManager.loadElement("CamTarget", int.class));
                 position.set(saveManager.loadElement("CamPosition", Vector2.class));
                 cam = saveManager.loadElement("Camera", OrthographicCamera.class);
         }

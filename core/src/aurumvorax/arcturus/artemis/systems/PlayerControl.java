@@ -23,14 +23,13 @@ public class PlayerControl extends BaseSystem{
     private transient boolean brake;
     private transient boolean fire;
     private transient Vector2 mouse = new Vector2();
-    private transient Vector2 target = new Vector2();
-    private transient Vector2 select = new Vector2();
+    private transient static Vector2 select = new Vector2();
 
-    private ComponentMapper<Player> mPlayer;
-    private ComponentMapper<Physics2D> mPhysics;
-    private ComponentMapper<PoweredMotion> mPowered;
-    private ComponentMapper<Weapons> mWeapons;
-    private ComponentMapper<Turret> mTurret;
+    private static ComponentMapper<Player> mPlayer;
+    private static ComponentMapper<Physics2D> mPhysics;
+    private static ComponentMapper<PoweredMotion> mPowered;
+    private static ComponentMapper<Weapons> mWeapons;
+    private static ComponentMapper<Turret> mTurret;
 
 
     public void controlThrust(int thrust){ this.thrust = thrust; }
@@ -40,10 +39,10 @@ public class PlayerControl extends BaseSystem{
     public void controlFire(boolean fire){ this.fire = fire; }
     public void setMouse(int x, int y){ this.mouse.set(x, y); }
 
-    public void selectTarget(int x, int y){
-        this.select.set(x, y);
-        target = WorldCam.unproject(select);
-        HUDRenderer.setTarget(Collision.pointCheck(target));
+    public static void selectTarget(int x, int y){
+        select.set(x, y);
+        int targetID = Collision.pointCheck(WorldCam.unproject(select));
+        PlayerShip.setTargetID(targetID);
     }
 
     @Override
@@ -64,7 +63,6 @@ public class PlayerControl extends BaseSystem{
             pm.alpha = -Utils.sign(physics2D.omega) * pm.rotation;
             pm.accel.set(physics2D.v).scl(-1).setLength(pm.thrust);
         }
-
         updateWeapons(WorldCam.unproject(mouse));
     }
 
@@ -84,6 +82,4 @@ public class PlayerControl extends BaseSystem{
         brake = false;
         fire = false;
     }
-
-
 }
