@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.artemis.factories;
 
-import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.*;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import java.util.HashMap;
+import java.util.Set;
 
 public class ShipFactory{
 
@@ -84,7 +84,6 @@ public class ShipFactory{
             return ship;
         equip(ship, data, data.variants.get(variant).weapons);
 
-
         return ship;
     }
 
@@ -110,6 +109,8 @@ public class ShipFactory{
             throw new IllegalArgumentException("Invalid ship type - " + type);
         return ships.get(type);
     }
+
+    public static Set<String> getShipTypes(){ return ships.keySet(); }
 
     private static class Wrapper{
         String name;

@@ -142,7 +142,8 @@ public class MenuScreen extends ScreenAdapter{
     }
 
     @Override
-    public void dispose() {
+    public void dispose(){
         stage.dispose();
+        menus.clear();
     }
 }

@@ -1,7 +1,5 @@
 
 Menu
-    - shipyard menu
-        - data from factories
     - options menu
         - keybinds menu
     - call main menu while in another menu -> saving while in menus
@@ -20,11 +18,11 @@ Game
          - damage
 
 Shipyard
-    - menus
-    - ship components
+    - ship components - add/remove from slots
     - save/load system for custom loadouts - json saves
     
 AI
+    - assign actual target to AI.  right now it just defaults to entity 0
     - Attack, Escort, Protect, Travel - AI type component
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - add caching to proximity(sensor range)
