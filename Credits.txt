@@ -1,0 +1,10 @@
+
+Libgdx
+GdxAI
+ArtemisODB
+
+
+ideas from:
+
+Erin Catto - Box2d
+Pixel Scientists - Inventory System

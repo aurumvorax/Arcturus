@@ -117,17 +117,17 @@ public class ShipFactory{
         ShipData data;
     }
 
-    private static class ShipData{
-        String imgName;
-        Vector2 imgCenter;
+    public static class ShipData{
+        public String imgName;
+        public Vector2 imgCenter;
         int collisionRadius;
         Array<Array<Vector2>> vertices;
-        Array<Mount.Weapon> weaponMounts;
-        float hull;
+        public Array<Mount.Weapon> weaponMounts;
+        public float hull;
         HashMap<String, Variant> variants;
     }
 
-    private static class Variant{
+    public static class Variant{
         IntMap<String> weapons;
     }
 }

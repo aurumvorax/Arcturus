@@ -17,8 +17,17 @@ Game
          - collision
          - damage
 
+Inventory
+    - drag quantity based on type
+    - overall cleanup of entire inventory system to use Items instead of Strings.
+    - tooltips
+
 Shipyard
     - ship components - add/remove from slots
+        - get ship data from factory
+        - ship display with hotspots for weaponmounts
+        - get weaponslist from factory
+        - popup list when weaponslot is clicked
     - save/load system for custom loadouts - json saves
     
 AI

@@ -4,23 +4,30 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
+import aurumvorax.arcturus.inventory.Inventory;
+import aurumvorax.arcturus.inventory.InventoryActor;
 import aurumvorax.arcturus.menus.MenuState;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 
 public class Shipyard extends MenuState{
 
+    private ShipFactory.ShipData shipData;
+    private InventoryActor inventoryActor;
+
     private Array<String> shipListData = new Array<>();
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
-    private TextButton loadout1 = new TextButton("Loadout 1", Services.MENUSKIN);
-    private TextButton loadout2 = new TextButton("Loadout 2", Services.MENUSKIN);
-    private SelectBox<String> shipList = new SelectBox<String>(Services.MENUSKIN);
+    private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
     private Table menuTable = new Table();
+    private Stack shipDisplayStack = new Stack();
+    private Image shipImage = new Image();
 
 
     public Shipyard(){
@@ -31,25 +38,17 @@ public class Shipyard extends MenuState{
                 enterGame(Core.GameMode.Active);
             }
         });
-        loadout1.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                PlayerShip.weapons.put(0, "MultiBarrel");
-
-            }
-        });
-        loadout2.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                PlayerShip.weapons.put(0, "TestBeam");
-            }
-        });
         shipList.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 PlayerShip.type = shipList.getSelected();
+                refresh();
             }
         });
+
+        DragAndDrop dragAndDrop = new DragAndDrop();
+        inventoryActor = new InventoryActor(new Inventory(), dragAndDrop, Services.MENUSKIN);
+
     }
 
     @Override
@@ -62,12 +61,43 @@ public class Shipyard extends MenuState{
         shipList.setSelected(PlayerShip.type);
 
         menuTable.reset();
+        refresh();
+
+        shipDisplayStack.clear();
+        shipDisplayStack.add(shipImage);
+        shipDisplayStack.setBounds(200, 200, 600, 600);
 
         menuTable.setFillParent(true);
+        menuTable.add(shipDisplayStack).width(400);
         menuTable.add(backButton);
-        menuTable.add(loadout1);
-        menuTable.add(loadout2);
-        menuTable.add(shipList);
+        menuTable.add(shipList).row();
+        stage.addActor(inventoryActor);
         return menuTable;
     }
+
+    private void refresh(){
+        shipData = ShipFactory.getShipData(PlayerShip.type);
+        TextureRegion shipTexture = Services.getTexture(shipData.imgName);
+        shipImage.setDrawable(new TextureRegionDrawable(shipTexture));
+        shipImage.setScaling(Scaling.fill);
+    }
 }
+
+/*
+MainTable
+    ShipDisplayStack
+        ShipImage
+        ShipDisplayTable
+            Slots
+            Slots
+            ...
+    InventoryDisplayTable
+        InventorySlot
+        InventorySlot
+        ...
+    ControlsTable
+
+
+
+
+ */
