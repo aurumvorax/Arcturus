@@ -111,16 +111,22 @@ public class WeaponFactory{
         t.setArcs(mount.angle, mount.arc);
     }
 
+    public static WeaponData getWeaponData(String type){
+        if(!weapons.containsKey(type))
+            throw new IllegalArgumentException("Invalid weapon type - " + type);
+        return weapons.get(type);
+    }
+
     private static class Wrapper{
         String name;
         WeaponData data;
     }
 
-    private static class WeaponData{
+    public static class WeaponData{
         // Generic to all weapons
-        WeaponType type;
-        String imgName;
-        Vector2 imgCenter;
+        public WeaponType type;
+        public String imgName;
+        public Vector2 imgCenter;
         float rotationSpeed;
         Array<Vector2> barrels;
 
@@ -137,7 +143,7 @@ public class WeaponFactory{
         float dps;
     }
 
-    private enum WeaponType{
+    public enum WeaponType{
         CANNON, LAUNCHER, BEAM
     }
 }

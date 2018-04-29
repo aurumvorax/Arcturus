@@ -1,37 +1,29 @@
 package aurumvorax.arcturus.inventory;
 
-
+import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.factories.WeaponFactory;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 public class Slot{
 
-    private String item;
+    private Item item;
     private int amount;
 
     private Array<SlotListener> slotListeners = new Array<>();
 
-    public Slot(String item, int amount) {
+    Slot(Item item, int amount) {
         this.item = item;
         this.amount = amount;
     }
 
-    public boolean isEmpty() {
-        return item == null || amount <= 0;
-    }
+    Item getItem(){ return item; }
+    int getAmount(){ return amount; }
+    boolean isEmpty(){ return item == null || amount <= 0; }
+    void addListener(SlotListener slotListener){ slotListeners.add(slotListener); }
+    void removeListener(SlotListener slotListener){ slotListeners.removeValue(slotListener, true); }
 
-    public void addListener(SlotListener slotListener) {
-        slotListeners.add(slotListener);
-    }
-
-    public void removeListener(SlotListener slotListener) {
-        slotListeners.removeValue(slotListener, true);
-    }
-
-    public boolean matches(Slot other) {
-        return this.item.equals(other.item) && this.amount >= other.amount;
-    }
-
-    public boolean add(String item, int amount) {
+    public boolean add(Item item, int amount) {
         if (this.item == item || this.item == null) {
             this.item = item;
             this.amount += amount;
@@ -41,7 +33,7 @@ public class Slot{
         return false;
     }
 
-    public boolean take(int amount) {
+    boolean take(int amount) {
         if (this.amount >= amount) {
             this.amount -= amount;
             if (this.amount == 0) {
@@ -53,22 +45,24 @@ public class Slot{
         return false;
     }
 
+    TextureRegion getTexture(){
+        if(isEmpty())
+            return Services.getTexture("Empty");
+        if(item.type == Item.ItemType.Weapon)
+            return Services.getTexture(WeaponFactory.getWeaponData(item.name).imgName);
+        throw new IllegalArgumentException("You haven't implemented non weapon item types yet!");
+    }
+
     private void notifyListeners() {
         for (SlotListener slotListener : slotListeners) {
             slotListener.hasChanged(this);
         }
     }
 
-    public String getItem() {
-        return item;
-    }
+    static class WeaponSlot extends Slot{
 
-    public int getAmount() {
-        return amount;
-    }
-
-    @Override
-    public String toString() {
-        return "Slot[" + item + ":" + amount + "]";
+        WeaponSlot(Item item){
+            super(item, 1);
+        }
     }
 }

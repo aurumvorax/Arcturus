@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.inventory;
 
-import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -27,17 +26,17 @@ public class SlotSource extends DragAndDrop.Source{
         sourceSlot.take(sourceSlot.getAmount());
         payload.setObject(payloadSlot);
 
-        TextureRegion icon = Services.getTexture(payloadSlot.getItem());
+        TextureRegion icon = payloadSlot.getTexture();
 
         Actor dragActor = new Image(icon);
         payload.setDragActor(dragActor);
 
         Actor validDragActor = new Image(icon);
-        // validDragActor.setColor(0, 1, 0, 1);
+         validDragActor.setColor(0, 1, 0, 1);
         payload.setValidDragActor(validDragActor);
 
         Actor invalidDragActor = new Image(icon);
-        // invalidDragActor.setColor(1, 0, 0, 1);
+         invalidDragActor.setColor(1, 0, 0, 1);
         payload.setInvalidDragActor(invalidDragActor);
 
         return payload;
@@ -51,7 +50,7 @@ public class SlotSource extends DragAndDrop.Source{
             if ((payloadSlot.getItem().equals(targetSlot.getItem())) || targetSlot.getItem() == null){
                 targetSlot.add(payloadSlot.getItem(), payloadSlot.getAmount());
             } else {
-                String targetType = targetSlot.getItem();
+                Item targetType = targetSlot.getItem();
                 int targetAmount = targetSlot.getAmount();
                 targetSlot.take(targetAmount);
                 targetSlot.add(payloadSlot.getItem(), payloadSlot.getAmount());

@@ -17,14 +17,17 @@ Game
          - collision
          - damage
 
+Structural
+    - Move Factory dataset loading to separate class that is accessible via services.  This class can load during splash.
+
 Inventory
+    - get weapon data from factory
     - drag quantity based on type
     - overall cleanup of entire inventory system to use Items instead of Strings.
     - tooltips
 
 Shipyard
     - ship components - add/remove from slots
-        - get ship data from factory
         - ship display with hotspots for weaponmounts
         - get weaponslist from factory
         - popup list when weaponslot is clicked
@@ -52,7 +55,6 @@ BUGS/Tweaks
 
 
 ASSETS NEEDED
-
     rocket/missile
     rocket/missile/ship engine flame animation
     shield arc

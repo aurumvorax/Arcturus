@@ -39,15 +39,16 @@ public class Core extends Game{
     }
 
 	@Override
-	public void create(){           // Switch to the loading screen for asset loading
+	public void create(){
         screens = new EnumMap<>(ScreenType.class);
         screens.put(ScreenType.Loading, new SplashScreen(this));
         setScreen(screens.get(ScreenType.Loading));
 	}
 
-	public void initialize(){           // Called by LoadingScreen AFTER asset loading
-	    screens.put(ScreenType.Menu, new MenuScreen(this));
+    // Called by LoadingScreen AFTER asset loading.  GameScreen needs to be loaded before MenuScreen.
+	public void initialize(){
 	    screens.put(ScreenType.Game, new GameScreen(this));
+        screens.put(ScreenType.Menu, new MenuScreen(this));
     }
 
 	@Override

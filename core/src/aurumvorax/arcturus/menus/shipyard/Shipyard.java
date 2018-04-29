@@ -19,15 +19,12 @@ import com.badlogic.gdx.utils.Scaling;
 
 public class Shipyard extends MenuState{
 
-    private ShipFactory.ShipData shipData;
     private InventoryActor inventoryActor;
-
+    private ShipyardDisplay shipyardDisplay = new ShipyardDisplay();
     private Array<String> shipListData = new Array<>();
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
     private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
     private Table menuTable = new Table();
-    private Stack shipDisplayStack = new Stack();
-    private Image shipImage = new Image();
 
 
     public Shipyard(){
@@ -63,12 +60,10 @@ public class Shipyard extends MenuState{
         menuTable.reset();
         refresh();
 
-        shipDisplayStack.clear();
-        shipDisplayStack.add(shipImage);
-        shipDisplayStack.setBounds(200, 200, 600, 600);
+
 
         menuTable.setFillParent(true);
-        menuTable.add(shipDisplayStack).width(400);
+       menuTable.add(shipyardDisplay);
         menuTable.add(backButton);
         menuTable.add(shipList).row();
         stage.addActor(inventoryActor);
@@ -76,28 +71,6 @@ public class Shipyard extends MenuState{
     }
 
     private void refresh(){
-        shipData = ShipFactory.getShipData(PlayerShip.type);
-        TextureRegion shipTexture = Services.getTexture(shipData.imgName);
-        shipImage.setDrawable(new TextureRegionDrawable(shipTexture));
-        shipImage.setScaling(Scaling.fill);
+        shipyardDisplay.build(ShipFactory.getShipData(PlayerShip.type));
     }
 }
-
-/*
-MainTable
-    ShipDisplayStack
-        ShipImage
-        ShipDisplayTable
-            Slots
-            Slots
-            ...
-    InventoryDisplayTable
-        InventorySlot
-        InventorySlot
-        ...
-    ControlsTable
-
-
-
-
- */

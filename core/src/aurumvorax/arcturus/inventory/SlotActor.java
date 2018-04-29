@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.inventory;
 
-import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,12 +18,7 @@ public class SlotActor extends ImageButton implements SlotListener{
     }
 
     private static ImageButtonStyle createStyle(Skin skin, Slot slot) {
-        TextureRegion image;
-        if (slot.getItem() != null)
-            image = Services.getTexture(slot.getItem());
-        else
-            image = Services.getTexture("Empty");
-
+        TextureRegion image = slot.getTexture();
         ImageButtonStyle style = new ImageButtonStyle(skin.get(ButtonStyle.class));
         style.imageUp = new TextureRegionDrawable(image);
         style.imageDown = new TextureRegionDrawable(image);
