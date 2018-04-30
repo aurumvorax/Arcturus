@@ -45,8 +45,7 @@ public class Core extends Game{
         setScreen(screens.get(ScreenType.Loading));
 	}
 
-    // Called by LoadingScreen AFTER asset loading.  GameScreen needs to be loaded before MenuScreen.
-	public void initialize(){
+	public void initialize(){   // Called by LoadingScreen AFTER asset loading.
 	    screens.put(ScreenType.Game, new GameScreen(this));
         screens.put(ScreenType.Menu, new MenuScreen(this));
     }

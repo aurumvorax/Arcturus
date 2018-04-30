@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
@@ -71,7 +72,7 @@ public class PlayerShip extends BaseEntitySystem{
         int ship =  ShipFactory.create(type, null, x, y, theta);
         mPlayer.create(ship);
         mShip.get(ship).name = name;
-        ShipFactory.equip(ship, ShipFactory.getShipData(type), weapons);
+        ShipFactory.equip(ship, EntityData.getShipData(type), weapons);
     }
 
     private static Weapon getWeapon(int weaponID){

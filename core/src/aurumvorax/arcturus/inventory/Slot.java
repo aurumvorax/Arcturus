@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.artemis.factories.WeaponFactory;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -49,7 +50,7 @@ public class Slot{
         if(isEmpty())
             return Services.getTexture("Empty");
         if(item.type == Item.ItemType.Weapon)
-            return Services.getTexture(WeaponFactory.getWeaponData(item.name).imgName);
+            return Services.getTexture(EntityData.getWeaponData(item.name).imgName);
         throw new IllegalArgumentException("You haven't implemented non weapon item types yet!");
     }
 

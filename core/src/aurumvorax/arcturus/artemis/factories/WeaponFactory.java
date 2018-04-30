@@ -1,22 +1,14 @@
 package aurumvorax.arcturus.artemis.factories;
 
-import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import com.artemis.*;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.HashMap;
 
 public class WeaponFactory{
 
     private static final WeaponFactory INSTANCE = new WeaponFactory();
     private static World world;
-    private static HashMap<String, WeaponData> weapons;
     private static Archetype protoCannon;
     private static Archetype protoBeam;
 
@@ -42,21 +34,11 @@ public class WeaponFactory{
         protoBeam = new ArchetypeBuilder(protoWeapon)
                 .add(Beam.class)
                 .build(world);
-
-        weapons = new HashMap<>();
-        for(FileHandle entry : Services.WEAPON_PATH.list()){
-            Wrapper wrapper = Services.json.fromJson(Wrapper.class, entry);
-            weapons.put(wrapper.name, wrapper.data);
-            Gdx.app.debug("INIT", "Registered Weapon - " + wrapper.name);
-        }
     }
 
     static int create(String name, int ship, Mount.Weapon mount, int slot){
+        WeaponData data = EntityData.getWeaponData(name);
 
-        if(!weapons.containsKey(name))
-            throw new IllegalArgumentException("Invalid projectile type - " + name);
-
-        WeaponData data = weapons.get(name);
         switch(data.type){
             case CANNON:
                 int cannon = world.create(protoCannon);
@@ -71,7 +53,6 @@ public class WeaponFactory{
                 ProjectileFactory.setWeaponData(c, data.launches);
                 return cannon;
 
-
             case BEAM:
                 int beam = world.create(protoBeam);
                 buildTurret(beam, data, ship, mount);
@@ -85,12 +66,11 @@ public class WeaponFactory{
                 b.dps = data.dps;
                 return beam;
 
-
             case LAUNCHER:
                 //return launcher;
+
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");
-
         }
     }
 
@@ -109,41 +89,5 @@ public class WeaponFactory{
         Turret t = mTurret.get(entityID);
         t.omegaMax = data.rotationSpeed;
         t.setArcs(mount.angle, mount.arc);
-    }
-
-    public static WeaponData getWeaponData(String type){
-        if(!weapons.containsKey(type))
-            throw new IllegalArgumentException("Invalid weapon type - " + type);
-        return weapons.get(type);
-    }
-
-    private static class Wrapper{
-        String name;
-        WeaponData data;
-    }
-
-    public static class WeaponData{
-        // Generic to all weapons
-        public WeaponType type;
-        public String imgName;
-        public Vector2 imgCenter;
-        float rotationSpeed;
-        Array<Vector2> barrels;
-
-
-        // Specific to Cannons and Launchers
-        String launches;
-        float delay;
-        float reload;
-
-        // Specific to Beams
-        String beamImgName;
-        Vector2 beamImgCenter;
-        float range;
-        float dps;
-    }
-
-    public enum WeaponType{
-        CANNON, LAUNCHER, BEAM
     }
 }

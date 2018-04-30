@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.factories.ShipFactory;
+import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.inventory.Slot;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
@@ -24,7 +24,7 @@ public class ShipyardDisplay extends Container<Stack>{
         this.setActor(displayStack);
     }
 
-    void build(ShipFactory.ShipData data){
+    void build(ShipData data){
         TextureRegion shipTexture = Services.getTexture(data.imgName);
         shipImage.setDrawable(new TextureRegionDrawable(shipTexture));
         shipImage.setScaling(Scaling.fill);

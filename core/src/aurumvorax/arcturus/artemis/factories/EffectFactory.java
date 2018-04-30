@@ -31,7 +31,6 @@ public class EffectFactory{
     }
 
     public static int createExplosion(String name, Physics2D physics){
-        
         int effect = world.create(protoExplosion);
 
         Physics2D p = mPhysics.get(effect);
@@ -46,23 +45,5 @@ public class EffectFactory{
         mEphemeral.get(effect).lifespan = Services.getAnimation("Boom").getAnimationDuration();
 
         return effect;
-    }
-
-
-    private static class Wrapper{
-        String name;
-        EffectData data;
-    }
-
-    private static class EffectData{
-
-        //Common to all projectile types
-        EffectType type;
-        String animName;
-        float duration;
-    }
-
-    private enum EffectType{
-        EXPLOSION
     }
 }

@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -27,6 +28,7 @@ public class SplashScreen extends ScreenAdapter{
     private void finalLoad(){
         Services.initJson();
         Services.initAssets();
+        EntityData.load();
         core.initialize();
         core.switchScreen(Core.ScreenType.Game);
     }

@@ -1,21 +1,18 @@
 package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.factories.ShipFactory;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.InventoryActor;
 import aurumvorax.arcturus.menus.MenuState;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Scaling;
 
 public class Shipyard extends MenuState{
 
@@ -52,7 +49,7 @@ public class Shipyard extends MenuState{
     protected Actor build(Stage menuStage){
 
         shipListData.clear();
-        for(String shipType : ShipFactory.getShipTypes())
+        for(String shipType : EntityData.getShipTypes())
             shipListData.add(shipType);
         shipList.setItems(shipListData);
         shipList.setSelected(PlayerShip.type);
@@ -71,6 +68,6 @@ public class Shipyard extends MenuState{
     }
 
     private void refresh(){
-        shipyardDisplay.build(ShipFactory.getShipData(PlayerShip.type));
+        shipyardDisplay.build(EntityData.getShipData(PlayerShip.type));
     }
 }
