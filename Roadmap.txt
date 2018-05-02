@@ -5,7 +5,7 @@ Menu
     - call main menu while in another menu -> saving while in menus
 
 Graphics
-    - dynamic load animations in services (from json files)
+    - dynamic load animations in services (from json files) - finish EffectFactory
     - particle effects for missile trails, etc
 
 Game
@@ -23,8 +23,6 @@ Inventory
     - tooltips
 
 Shipyard
-    - ship components - add/remove from slots
-        - ship display with hotspots for weaponmounts
     - save/load system for custom loadouts - json/kryo saves
     
 AI

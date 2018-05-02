@@ -6,6 +6,7 @@ import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.InventoryActor;
+import aurumvorax.arcturus.inventory.ShipyardDisplay;
 import aurumvorax.arcturus.menus.MenuState;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,10 +17,14 @@ import com.badlogic.gdx.utils.Array;
 
 public class Shipyard extends MenuState{
 
+    private String shipType;
+
     private InventoryActor inventoryActor;
-    private ShipyardDisplay shipyardDisplay = new ShipyardDisplay();
+    private ShipyardDisplay shipyardDisplay;
+    private DragAndDrop dragAndDrop = new DragAndDrop();
     private Array<String> shipListData = new Array<>();
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
+    private TextButton changeButton = new TextButton("Change", Services.MENUSKIN);
     private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
     private Table menuTable = new Table();
 
@@ -29,19 +34,27 @@ public class Shipyard extends MenuState{
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
+                shipyardDisplay.saveToPlayerShip();
                 enterGame(Core.GameMode.Active);
+            }
+        });
+        changeButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                PlayerShip.type = shipType;
+                refresh();
             }
         });
         shipList.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                PlayerShip.type = shipList.getSelected();
-                refresh();
+                shipType = shipList.getSelected();
             }
         });
 
-        DragAndDrop dragAndDrop = new DragAndDrop();
+
         inventoryActor = new InventoryActor(new Inventory(), dragAndDrop, Services.MENUSKIN);
+        shipyardDisplay = new ShipyardDisplay(dragAndDrop);
 
     }
 
@@ -55,19 +68,22 @@ public class Shipyard extends MenuState{
         shipList.setSelected(PlayerShip.type);
 
         menuTable.reset();
-        refresh();
-
-
-
+        menuTable.setDebug(true);
         menuTable.setFillParent(true);
-       menuTable.add(shipyardDisplay);
+        menuTable.add(shipyardDisplay).width(400).height(400).expand().fill().row();
         menuTable.add(backButton);
+        menuTable.add(changeButton);
         menuTable.add(shipList).row();
         stage.addActor(inventoryActor);
+
+        refresh();
+
         return menuTable;
     }
 
     private void refresh(){
-        shipyardDisplay.build(EntityData.getShipData(PlayerShip.type));
+        dragAndDrop.clear();
+        inventoryActor.build();
+        shipyardDisplay.build(EntityData.getShipData(PlayerShip.type), 400, 400);
     }
 }

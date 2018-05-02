@@ -46,6 +46,10 @@ public class Slot{
         return false;
     }
 
+    void clear(){
+        item = null;
+        amount = 0;
+    }
     TextureRegion getTexture(){
         if(isEmpty())
             return Services.getTexture("Empty");
@@ -57,13 +61,6 @@ public class Slot{
     private void notifyListeners() {
         for (SlotListener slotListener : slotListeners) {
             slotListener.hasChanged(this);
-        }
-    }
-
-    static class WeaponSlot extends Slot{
-
-        WeaponSlot(Item item){
-            super(item, 1);
         }
     }
 }

@@ -10,7 +10,7 @@ public class SlotActor extends ImageButton implements SlotListener{
     private Slot slot;
     private Skin skin;
 
-    public SlotActor(Skin skin, Slot slot) {
+    SlotActor(Skin skin, Slot slot) {
         super(createStyle(skin, slot));
         this.slot = slot;
         this.skin = skin;

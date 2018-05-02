@@ -6,7 +6,6 @@ public class Inventory{
 
     private Array<Slot> slots;
 
-    private Array<Slot.WeaponSlot> weaponSlots;
 
     public Inventory(){
         slots = new Array<>(12);
@@ -19,8 +18,6 @@ public class Inventory{
         slots.get(7).add(new Item(Item.ItemType.Weapon, "TestCannon"), 1);
         slots.get(10).add(new Item(Item.ItemType.Weapon, "TestBeam"), 1);
         slots.get(11).add(new Item(Item.ItemType.Weapon, "TestBeam"), 1);
-
-        weaponSlots = new Array<>(4);
 
     }
 
