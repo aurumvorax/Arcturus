@@ -67,7 +67,7 @@ public class WeaponsUpdate extends IteratingSystem{
         float zeroAngle = parent.theta + t.arcMid;
         float targetRelative = Utils.normalize(targetAngle - zeroAngle);
         float thetaRelative = Utils.normalize(m.theta - zeroAngle);
-        float omega = MathUtils.clamp((targetRelative - thetaRelative) * DAMPING, -t.omegaMax, t.omegaMax);
+        float omega = MathUtils.clamp((targetRelative - thetaRelative) * DAMPING, -t.omegaMax, t.omegaMax) + parent.omega;
         thetaRelative += omega * world.delta;
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;

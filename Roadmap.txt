@@ -42,7 +42,6 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
-    - turret rotation speed limited by ship rotation - change
     - sometimes ship position stutters if shiptype is othership.
 
 
