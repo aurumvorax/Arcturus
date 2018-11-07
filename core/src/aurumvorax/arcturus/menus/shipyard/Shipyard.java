@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
@@ -41,7 +42,7 @@ public class Shipyard extends MenuState{
         changeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                PlayerShip.type = shipType;
+                PlayerData.playership.type = shipType;
                 refresh();
             }
         });
@@ -65,7 +66,7 @@ public class Shipyard extends MenuState{
         for(String shipType : EntityData.getShipTypes())
             shipListData.add(shipType);
         shipList.setItems(shipListData);
-        shipList.setSelected(PlayerShip.type);
+        shipList.setSelected(PlayerData.playership.type);
 
         menuTable.reset();
         menuTable.setDebug(true);
@@ -84,6 +85,6 @@ public class Shipyard extends MenuState{
     private void refresh(){
         dragAndDrop.clear();
         inventoryActor.build();
-        shipyardDisplay.build(EntityData.getShipData(PlayerShip.type), 400, 400);
+        shipyardDisplay.build(EntityData.getShipData(PlayerData.playership.type), 400, 400);
     }
 }

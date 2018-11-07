@@ -8,7 +8,6 @@ import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.utils.IntMap;
 
 
 public class ShipFactory{
@@ -44,45 +43,42 @@ public class ShipFactory{
                 .build(world);
     }
 
-    public static int create(String type, String variant, float x, float y, float t){
-        int ship = world.create(protoShip);
-        ShipData data = EntityData.getShipData(type);
+    public static int create(Ships.Profile profile, float x, float y, float t){
+        int shipID = world.create(protoShip);
+        Ships.Data data = EntityData.getShipData(profile.type);
 
-        Ship nameplate = mShip.get(ship);
-        nameplate.name = "Shippy McShipFace";
-        nameplate.type = type;
+        Ship ship = mShip.get(shipID);
+        ship.name = profile.name;
+        ship.type = profile.type;
 
-        Physics2D p = mPhysics.get(ship);
+        Physics2D p = mPhysics.get(shipID);
         p.p.set(x, y);
         p.theta = t;
 
-        mCollision.get(ship).radius = data.collisionRadius;
-        mPolygon.get(ship).setVertices(data.vertices);
+        mCollision.get(shipID).radius = data.collisionRadius;
+        mPolygon.get(shipID).setVertices(data.vertices);
 
-        SimpleSprite s = mSprite.get(ship);
+        SimpleSprite s = mSprite.get(shipID);
         s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
-        mHealth.get(ship).hull = data.hull;
+        mHealth.get(shipID).hull = data.hull;
 
-        if(!data.variants.containsKey(variant))
-            return ship;
-        equip(ship, data, data.variants.get(variant).weapons);
+        equip(shipID, data, profile.loadout);
 
-        return ship;
+        return shipID;
     }
 
-    // TODO pass Variant later instead of just weapons
-    public static void equip(int ship, ShipData data, IntMap<String> loadout){
+    public static void equip(int ship, Ships.Data data, Ships.Loadout loadout){
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;
-        if(loadout != null){
-            for(int i = 0; i < loadout.size; i++){
-                if(loadout.get(i) != null){
-                    int w = WeaponFactory.create(loadout.get(i), ship, data.weaponMounts.get(i), i);
+        if(loadout.weapons != null){
+            for(int i = 0; i < loadout.weapons.size; i++){
+                if(loadout.weapons.get(i) != null){
+                    int w = WeaponFactory.create(loadout.weapons.get(i), ship, data.weaponMounts.get(i), i);
                     weaponList.add(w);
                     activeList.add(w);
                     manualList.add(w);

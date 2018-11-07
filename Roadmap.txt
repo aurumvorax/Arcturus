@@ -1,4 +1,3 @@
-
 Menu
     - options menu
         - keybinds menu
@@ -20,6 +19,7 @@ Game
 Inventory
     - drag quantity based on type
     - overall cleanup of entire inventory system - ongoing
+    - storage/stores
     - tooltips
 
 Shipyard
@@ -43,11 +43,11 @@ LONG TERM
 
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership.
-
+    - NPE if playership is destroyed sometimes(AI is targeting entity 0, not the actual playership
+    - Numerous crashes involving moving weapon slots in transition back to game mode, or changing ship types to ones that can't hold all the guns.
 
 ASSETS NEEDED
     rocket/missile
     rocket/missile/ship engine flame animation
-    shield arc
     more weapons
     more ships

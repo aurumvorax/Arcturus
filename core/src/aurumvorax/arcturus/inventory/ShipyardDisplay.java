@@ -1,9 +1,9 @@
 package aurumvorax.arcturus.inventory;
 
+import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
-import aurumvorax.arcturus.artemis.factories.ShipData;
+import aurumvorax.arcturus.artemis.factories.Ships;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +28,7 @@ public class ShipyardDisplay extends Stack{
         this.dragAndDrop = dragAndDrop;
     }
 
-    public void build(ShipData data, float width, float height){
+    public void build(Ships.Data data, float width, float height){
         clear();
         shipImage.clear();
         slotGroup.clear();
@@ -66,8 +66,9 @@ public class ShipyardDisplay extends Stack{
     }
 
     public void loadFromPlayerShip(){
-        for(int i = 0; i < PlayerShip.weapons.size; i++){
-            String weapon = PlayerShip.weapons.get(i);
+        Ships.Profile p = PlayerData.playership;
+        for(int i = 0; i < p.loadout.weapons.size; i++){
+            String weapon = p.loadout.weapons.get(i);
             if(weapon == null)
                 weaponSlots.get(i).getSlot().clear();
             else
@@ -76,9 +77,12 @@ public class ShipyardDisplay extends Stack{
     }
 
     public void saveToPlayerShip(){
+        Ships.Profile p = PlayerData.playership;
+        p.loadout.weapons.clear();
         for(int i = 0; i < weaponSlots.size; i++){
-            String weapon = weaponSlots.get(i).getSlot().getItem().name;
-            PlayerShip.weapons.put(i, weapon);
+            Item weapon = weaponSlots.get(i).getSlot().getItem();
+            if(weapon != null)
+                p.loadout.weapons.put(i, weapon.name);
         }
 
     }

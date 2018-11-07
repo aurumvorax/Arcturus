@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
+import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.*;
@@ -7,20 +8,18 @@ import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
+import aurumvorax.arcturus.artemis.factories.Ships;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.EntityId;
-import com.badlogic.gdx.utils.IntMap;
+
+import static aurumvorax.arcturus.PlayerData.y;
 
 public class PlayerShip extends BaseEntitySystem{
 
     @EntityId private static int playerID;
     @EntityId private static int targetID;
-    private static String name;
-    public static String type;
-    private static float x, y, theta;
-    public static IntMap<String> weapons = new IntMap<>();
 
 
     private static ComponentMapper<Ship> mShip;
@@ -47,32 +46,29 @@ public class PlayerShip extends BaseEntitySystem{
         return -1;
     }
 
-    public static void extract(){
-        Ship ship = mShip.get(playerID);
-        name = ship.name;
-        type = ship.type;
-
+    static void extract(){
         Physics2D physics = mPhysics.get(playerID);
-        x = physics.p.x;
+        PlayerData.x = physics.p.x;
         y = physics.p.y;
-        theta = physics.theta;
+        PlayerData.t = physics.theta;
 
-        weapons.clear();
+        Ship ship = mShip.get(playerID);
+        Ships.Profile profile = new Ships.Profile(ship.name, ship.type, null);
+
         Weapons w = mWeapons.get(playerID);
-        for(int i = 0; i < w.all.size(); i++)
-        {
+        for(int i = 0; i < w.all.size(); i++){
             Weapon weapon = getWeapon(w.all.get(i));
-            weapons.put(weapon.slot, weapon.name);
+            profile.loadout.weapons.put(weapon.slot, weapon.name);
         }
+
+        PlayerData.playership = profile;
 
         Destructor.safeRemove(playerID);
     }
 
-    public static void insert(){
-        int ship =  ShipFactory.create(type, null, x, y, theta);
+    static void insert(){
+        int ship =  ShipFactory.create(PlayerData.playership, PlayerData.x, PlayerData.y, PlayerData.t);
         mPlayer.create(ship);
-        mShip.get(ship).name = name;
-        ShipFactory.equip(ship, EntityData.getShipData(type), weapons);
     }
 
     private static Weapon getWeapon(int weaponID){

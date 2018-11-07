@@ -16,7 +16,7 @@ name: "TestShip",
                 arc: 180}
         ],
         hull: 100,
-	    variants: {
+	    loadouts: {
 	        "Standard" : {
         	    weapons: {
         	        0: "MultiBarrel"

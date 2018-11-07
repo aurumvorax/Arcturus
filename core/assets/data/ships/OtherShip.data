@@ -29,7 +29,7 @@ data: {
                 arc: 90}
         ],
         hull: 100,
-		variants: {
+		loadouts: {
 			"Standard": {
 			    weapons: {
 			        0: "TestBeam",
