@@ -11,9 +11,6 @@ public class GunneryAI{
     private static GunneryAI INSTANCE = new GunneryAI();
     private GunneryAI(){} // Single static class with DI/callback
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private static BitVector fireControl = new BitVector();
-
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Turret> mTurret;
 
@@ -24,7 +21,7 @@ public class GunneryAI{
     }
 
     public static void update(int ship, int target){
-        fireControl = Aiming.aimPrimary(ship, target);
+        BitVector fireControl = Aiming.aimPrimary(ship, target);
         IntBag weapons = mWeapons.get(ship).all;
         for(int i = 0; i < weapons.size(); i++){
             int weapon = weapons.get(i);
