@@ -17,16 +17,20 @@ Game
          - damage
 
 Inventory
-    - drag quantity based on type
-    - overall cleanup of entire inventory system - ongoing
-    - storage/stores
-    - tooltips
+    -ShipDisplay
+        -contains ShipSlots and draws/refreshes
+        -uses ship profile to populate
+        -clear() to dump items back to given inventory
+    -shipyard use of inventory/draganddrop
+    - fix NPE on drag - do not destroy dragsource/actor until drag is complete
 
 Shipyard
-    - save/load system for custom loadouts - json/kryo saves
+    - use temp profile.
+    - fix ship change function to clear temp profile
+    - fix confirm/cancel buttons
     
 AI
-    - assign actual target to AI.  right now it just defaults to entity 0
+    - assign actual target to AI.  right now it just defaults to entity 0 - default to PlayerShip?
     - Attack, Escort, Protect, Travel - AI type component
     - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
     - add caching to proximity(sensor range)

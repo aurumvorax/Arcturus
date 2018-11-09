@@ -1,66 +1,89 @@
 package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.factories.EntityData;
-import aurumvorax.arcturus.artemis.factories.WeaponFactory;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-public class Slot{
+public class Slot extends Stack implements Draggable.Source, Draggable.Target{
 
-    private Item item;
-    private int amount;
+    private Item.Stack itemStack;
+    private Item.ItemType slotType;
+    private int slotSize;
 
-    private Array<SlotListener> slotListeners = new Array<>();
 
-    Slot(Item item, int amount) {
-        this.item = item;
-        this.amount = amount;
+    Slot(Item.Stack itemStack, Item.ItemType slotType, Skin skin, int max){
+        //super(skin);
+        this.itemStack = itemStack;
+        this.slotType = slotType;
+        this.slotSize = max;
     }
 
-    Item getItem(){ return item; }
-    int getAmount(){ return amount; }
-    boolean isEmpty(){ return item == null || amount <= 0; }
-    void addListener(SlotListener slotListener){ slotListeners.add(slotListener); }
-    void removeListener(SlotListener slotListener){ slotListeners.removeValue(slotListener, true); }
+    void empty(){ itemStack = null; }
 
-    public boolean add(Item item, int amount) {
-        if (this.item == item || this.item == null) {
-            this.item = item;
-            this.amount += amount;
-            notifyListeners();
+    @Override
+    public Item.Stack getStack(){ return itemStack; }
+
+    @Override
+    public boolean isValid(Item.Stack stack){
+        if(!stack.item.type.equals(slotType)) // Right type?
+            return false;
+
+        if(itemStack == null)   // Slot is empty
+                return true;
+
+        return (itemStack.equals(stack) && itemStack.quantity + stack.quantity <= slotSize); // Check if there is enough room
+    }
+
+    @Override
+    public int add(Item.Stack stack){
+        int amount = stack.quantity;
+
+        if(!stack.item.type.equals(slotType))
+            return amount;          // Slot filtering.  Can't put missiles in an engine slot.
+
+        if(itemStack == null){      // Slot is empty
+            int amountAdded = Math.min(stack.quantity, slotSize);
+            itemStack = new Item.Stack(stack.item, amountAdded);
+            update();
+            return amount - amountAdded;
+        }
+
+        if(itemStack.item.equals(stack.item)){      // Slot contains same thing, add quantity as appropriate
+            int amountAdded = Math.min(stack.quantity, slotSize - itemStack.quantity);
+            itemStack.quantity += amountAdded;
+            update();
+            return amount - amountAdded;
+        }
+        return amount;
+    }
+
+    @Override
+    public boolean take(Item.Stack stack){
+
+        if(itemStack == null)
+            return false;
+
+        if(itemStack.equals(stack) && itemStack.quantity >= stack.quantity){
+            itemStack.quantity -= stack.quantity;
+            if(itemStack.quantity == 0)
+                itemStack = null;
+            update();
             return true;
         }
         return false;
     }
 
-    boolean take(int amount) {
-        if (this.amount >= amount) {
-            this.amount -= amount;
-            if (this.amount == 0) {
-                item = null;
-            }
-            notifyListeners();
-            return true;
-        }
-        return false;
+    private void update(){
+        clearChildren();
+        add(new Image(getTexture()));
     }
 
-    void clear(){
-        item = null;
-        amount = 0;
-    }
     TextureRegion getTexture(){
-        if(isEmpty())
+        if(itemStack == null)
             return Services.getTexture("Empty");
-        if(item.type == Item.ItemType.Weapon)
-            return Services.getTexture(EntityData.getWeaponData(item.name).imgName);
-        throw new IllegalArgumentException("You haven't implemented non weapon item types yet!");
-    }
-
-    private void notifyListeners() {
-        for (SlotListener slotListener : slotListeners) {
-            slotListener.hasChanged(this);
-        }
+        else
+            return itemStack.item.getTexture();
     }
 }

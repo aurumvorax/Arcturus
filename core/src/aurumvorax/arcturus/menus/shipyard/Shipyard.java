@@ -4,10 +4,8 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.inventory.Inventory;
-import aurumvorax.arcturus.inventory.InventoryActor;
-import aurumvorax.arcturus.inventory.ShipyardDisplay;
+import aurumvorax.arcturus.inventory.ShipDisplay;
 import aurumvorax.arcturus.menus.MenuState;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,11 +18,12 @@ public class Shipyard extends MenuState{
 
     private String shipType;
 
-    private InventoryActor inventoryActor;
-    private ShipyardDisplay shipyardDisplay;
+    private ShipDisplay shipDisplay;
+    private Inventory inventory;
     private DragAndDrop dragAndDrop = new DragAndDrop();
     private Array<String> shipListData = new Array<>();
-    private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
+    private TextButton confirmButton = new TextButton("Confirm", Services.MENUSKIN);
+    private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
     private TextButton changeButton = new TextButton("Change", Services.MENUSKIN);
     private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
     private Table menuTable = new Table();
@@ -32,10 +31,16 @@ public class Shipyard extends MenuState{
 
     public Shipyard(){
 
-        backButton.addListener(new ChangeListener(){
+        confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                shipyardDisplay.saveToPlayerShip();
+                shipDisplay.saveToPlayerShip();
+                enterGame(Core.GameMode.Active);
+            }
+        });
+        cancelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
                 enterGame(Core.GameMode.Active);
             }
         });
@@ -53,10 +58,8 @@ public class Shipyard extends MenuState{
             }
         });
 
-
-        inventoryActor = new InventoryActor(new Inventory(), dragAndDrop, Services.MENUSKIN);
-        shipyardDisplay = new ShipyardDisplay(dragAndDrop);
-
+        shipDisplay = new ShipDisplay(dragAndDrop);
+        inventory = new Inventory(dragAndDrop, Services.MENUSKIN);
     }
 
     @Override
@@ -68,23 +71,23 @@ public class Shipyard extends MenuState{
         shipList.setItems(shipListData);
         shipList.setSelected(PlayerData.playership.type);
 
+        refresh();
         menuTable.reset();
         menuTable.setDebug(true);
         menuTable.setFillParent(true);
-        menuTable.add(shipyardDisplay).width(400).height(400).expand().fill().row();
-        menuTable.add(backButton);
+        menuTable.add(shipDisplay).width(400).height(400).expand().fill();
+        menuTable.add(inventory).row();
+        menuTable.add(confirmButton);
+        menuTable.add(cancelButton);
         menuTable.add(changeButton);
         menuTable.add(shipList).row();
-        stage.addActor(inventoryActor);
-
-        refresh();
-
+        Stage s = menuTable.getStage();
         return menuTable;
     }
 
     private void refresh(){
-        dragAndDrop.clear();
-        inventoryActor.build();
-        shipyardDisplay.build(EntityData.getShipData(PlayerData.playership.type), 400, 400);
+
+        inventory.update();
+        shipDisplay.build(EntityData.getShipData(PlayerData.playership.type), 400, 400);
     }
 }
