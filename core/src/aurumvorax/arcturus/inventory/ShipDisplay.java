@@ -3,7 +3,9 @@ package aurumvorax.arcturus.inventory;
 import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.factories.Ships;
+import aurumvorax.arcturus.artemis.factories.EntityData;
+import aurumvorax.arcturus.artemis.factories.ShipData;
+import aurumvorax.arcturus.artemis.factories.ShipProfile;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -17,32 +19,38 @@ import com.badlogic.gdx.utils.Scaling;
 
 public class ShipDisplay extends Stack{
 
-    private Image shipImage = new Image();
+    private Image shipImage;
     private Group slotGroup = new Group();
     private Array<Slot> weaponSlots = new Array<>();
     private DragAndDrop dragAndDrop;
+    private ShipProfile workingProfile;
 
 
-    public ShipDisplay(DragAndDrop dragAndDrop){
+    public ShipDisplay(DragAndDrop dragAndDrop, ShipProfile profile){
         this.dragAndDrop = dragAndDrop;
+        workingProfile = profile;
+
+        ShipData data = EntityData.getShipData(workingProfile.type);
+        shipImage = new Image(Services.getTexture(data.imgName));
+        shipImage.setScaling(Scaling.fit);
+        shipImage.setAlign(Align.center);
     }
 
-    public void build(Ships.Data data, float width, float height){
+    public String getType(){ return (workingProfile == null) ? null : workingProfile.type; }
+    public String getName(){ return workingProfile.name; }
+
+    public void build(float width, float height){
         clear();
-        shipImage.clear();
         slotGroup.clear();
         weaponSlots.clear();
 
-        TextureRegion shipTexture = Services.getTexture(data.imgName);
-
-        shipImage.setDrawable(new TextureRegionDrawable(shipTexture));
-        shipImage.setScaling(Scaling.fit);
-        shipImage.setAlign(Align.center);
         setSize(width, height);
         addActor(shipImage);
         validate();
 
-        float scale = shipImage.getImageHeight() / shipTexture.getRegionHeight();
+        ShipData data = EntityData.getShipData(workingProfile.type);
+
+        float scale = shipImage.getImageHeight() / shipImage.getDrawable().getMinHeight();
         System.out.println(shipImage.getScaleX() + " " + scale);
         Vector2 origin = new Vector2(data.imgCenter);
         origin.scl(scale).add(shipImage.getImageX(), shipImage.getImageY());
@@ -60,28 +68,26 @@ public class ShipDisplay extends Stack{
         }
         addActor(slotGroup);
         validate();
-        loadFromPlayerShip();
-
     }
 
-    public void loadFromPlayerShip(){
-        Ships.Profile p = PlayerData.playership;
-        for(int i = 0; i < p.loadout.weapons.size; i++){
-            String weapon = p.loadout.weapons.get(i);
-            weaponSlots.get(i).empty();
-            if(!(weapon == null))
-                weaponSlots.get(i).add(new Item.Stack(new Item(Item.ItemType.Weapon, weapon), 1));
+    public void dumpTo(Inventory inventory){
+        for(Slot ws : weaponSlots){
+            Item.Stack stack = ws.getStack();
+            if(ws.take(stack))
+                inventory.add(stack);
         }
     }
 
     public void saveToPlayerShip(){
-        Ships.Profile p = PlayerData.playership;
-        p.loadout.weapons.clear();
+
+        workingProfile.loadout.weapons.clear();
         for(int i = 0; i < weaponSlots.size; i++){
             Item weapon = weaponSlots.get(i).getStack().item;
             if(weapon != null)
-                p.loadout.weapons.put(i, weapon.name);
+                workingProfile.loadout.weapons.put(i, weapon.name);
         }
+
+        PlayerData.SetPlayerShip(workingProfile);
 
     }
 }

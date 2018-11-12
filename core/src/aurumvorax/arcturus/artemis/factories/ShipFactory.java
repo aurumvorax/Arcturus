@@ -43,9 +43,9 @@ public class ShipFactory{
                 .build(world);
     }
 
-    public static int create(Ships.Profile profile, float x, float y, float t){
+    public static int create(ShipProfile profile, float x, float y, float t){
         int shipID = world.create(protoShip);
-        Ships.Data data = EntityData.getShipData(profile.type);
+        ShipData data = EntityData.getShipData(profile.type);
 
         Ship ship = mShip.get(shipID);
         ship.name = profile.name;
@@ -71,7 +71,7 @@ public class ShipFactory{
         return shipID;
     }
 
-    public static void equip(int ship, Ships.Data data, Ships.Loadout loadout){
+    public static void equip(int ship, ShipData data, Loadout loadout){
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;

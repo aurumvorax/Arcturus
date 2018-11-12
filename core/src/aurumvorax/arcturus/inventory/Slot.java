@@ -2,11 +2,12 @@ package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
-public class Slot extends Stack implements Draggable.Source, Draggable.Target{
+public class Slot extends Button implements Draggable.Source, Draggable.Target{
 
     private Item.Stack itemStack;
     private Item.ItemType slotType;
@@ -14,7 +15,7 @@ public class Slot extends Stack implements Draggable.Source, Draggable.Target{
 
 
     Slot(Item.Stack itemStack, Item.ItemType slotType, Skin skin, int max){
-        //super(skin);
+        super(skin);
         this.itemStack = itemStack;
         this.slotType = slotType;
         this.slotSize = max;

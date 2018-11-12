@@ -17,10 +17,11 @@ public class DragSource extends DragAndDrop.Source{
 
     @Override
     public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer){
-        DragAndDrop.Payload payload = new DragAndDrop.Payload();
-
+        DragAndDrop.Payload payload = null;
         Item.Stack sourceStack = source.getStack();
+
         if(source.take(sourceStack)){
+            payload = new DragAndDrop.Payload();
             payload.setObject(sourceStack);
             TextureRegion icon = ((Item.Stack) payload.getObject()).item.getTexture();
             payload.setDragActor(new Image(icon));

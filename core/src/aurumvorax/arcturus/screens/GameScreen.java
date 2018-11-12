@@ -103,8 +103,8 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldCam.reset();
         worldSerializer.resetWorld();
-        int ship = Ships.buildGeneric("PlayerShip", "TestShip", "Standard", 0, 0, 0);
-        Ships.buildGeneric("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
+        int ship = ShipData.buildGeneric("PlayerShip", "TestShip", "Standard", 0, 0, 0);
+        ShipData.buildGeneric("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
         int star = TerrainFactory.createStar("TestStar", 1000, 1000);
         int planet = TerrainFactory.createOrbital("TestPlanet", star);
         TerrainFactory.createOrbital("TestMoon", planet);

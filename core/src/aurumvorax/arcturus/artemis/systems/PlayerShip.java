@@ -1,14 +1,14 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
-import aurumvorax.arcturus.artemis.factories.Ships;
+import aurumvorax.arcturus.artemis.factories.ShipData;
+import aurumvorax.arcturus.artemis.factories.ShipProfile;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -53,7 +53,7 @@ public class PlayerShip extends BaseEntitySystem{
         PlayerData.t = physics.theta;
 
         Ship ship = mShip.get(playerID);
-        Ships.Profile profile = new Ships.Profile(ship.name, ship.type, null);
+        ShipProfile profile = new ShipProfile(ship.name, ship.type, null);
 
         Weapons w = mWeapons.get(playerID);
         for(int i = 0; i < w.all.size(); i++){
@@ -61,13 +61,13 @@ public class PlayerShip extends BaseEntitySystem{
             profile.loadout.weapons.put(weapon.slot, weapon.name);
         }
 
-        PlayerData.playership = profile;
+        PlayerData.SetPlayerShip(profile);
 
         Destructor.safeRemove(playerID);
     }
 
     static void insert(){
-        int ship =  ShipFactory.create(PlayerData.playership, PlayerData.x, PlayerData.y, PlayerData.t);
+        int ship =  ShipFactory.create(PlayerData.GetPlayerShip(), PlayerData.x, PlayerData.y, PlayerData.t);
         mPlayer.create(ship);
     }
 
