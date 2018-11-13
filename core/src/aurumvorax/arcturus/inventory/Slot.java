@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
 public class Slot extends Button implements Draggable.Source, Draggable.Target{
 
@@ -21,10 +20,8 @@ public class Slot extends Button implements Draggable.Source, Draggable.Target{
         this.slotSize = max;
     }
 
-    void empty(){ itemStack = null; }
-
     @Override
-    public Item.Stack getStack(){ return itemStack; }
+    public Item.Stack getStack(){ return new Item.Stack(itemStack); }
 
     @Override
     public boolean isValid(Item.Stack stack){
@@ -34,7 +31,7 @@ public class Slot extends Button implements Draggable.Source, Draggable.Target{
         if(itemStack == null)   // Slot is empty
                 return true;
 
-        return (itemStack.equals(stack) && itemStack.quantity + stack.quantity <= slotSize); // Check if there is enough room
+        return ((itemStack.equals(stack)) && (stack.quantity < slotSize)); // Check if there is enough room
     }
 
     @Override
@@ -43,6 +40,9 @@ public class Slot extends Button implements Draggable.Source, Draggable.Target{
 
         if(!stack.item.type.equals(slotType))
             return amount;          // Slot filtering.  Can't put missiles in an engine slot.
+
+        if(amount == 0)
+            return 0;
 
         if(itemStack == null){      // Slot is empty
             int amountAdded = Math.min(stack.quantity, slotSize);

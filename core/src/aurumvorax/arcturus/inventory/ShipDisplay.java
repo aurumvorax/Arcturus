@@ -26,39 +26,40 @@ public class ShipDisplay extends Stack{
     private ShipProfile workingProfile;
 
 
-    public ShipDisplay(DragAndDrop dragAndDrop, ShipProfile profile){
+    public ShipDisplay(DragAndDrop dragAndDrop){
         this.dragAndDrop = dragAndDrop;
-        workingProfile = profile;
-
-        ShipData data = EntityData.getShipData(workingProfile.type);
-        shipImage = new Image(Services.getTexture(data.imgName));
-        shipImage.setScaling(Scaling.fit);
-        shipImage.setAlign(Align.center);
     }
 
     public String getType(){ return (workingProfile == null) ? null : workingProfile.type; }
     public String getName(){ return workingProfile.name; }
 
-    public void build(float width, float height){
+    public void build(ShipProfile profile, float width, float height){
+        workingProfile = profile;
+        rebuild(width,height);
+    }
+
+    public void rebuild(float width, float height){
         clear();
         slotGroup.clear();
         weaponSlots.clear();
 
+        ShipData data = EntityData.getShipData(workingProfile.type);
+        shipImage = new Image(Services.getTexture(data.imgName));
+        shipImage.setScaling(Scaling.fit);
+        shipImage.setAlign(Align.center);
+
         setSize(width, height);
         addActor(shipImage);
         validate();
-
-        ShipData data = EntityData.getShipData(workingProfile.type);
 
         float scale = shipImage.getImageHeight() / shipImage.getDrawable().getMinHeight();
         System.out.println(shipImage.getScaleX() + " " + scale);
         Vector2 origin = new Vector2(data.imgCenter);
         origin.scl(scale).add(shipImage.getImageX(), shipImage.getImageY());
 
-
         for(int i = 0; i < data.weaponMounts.size; i++){
             Mount.Weapon mount = data.weaponMounts.get(i);
-            Slot weaponSlot = new Slot(null, Item.ItemType.Weapon, Services.MENUSKIN, 0);
+            Slot weaponSlot = new Slot(null, Item.ItemType.Weapon, Services.MENUSKIN, 1);
             weaponSlot.setPosition((mount.location.x  * scale + origin.x), (mount.location.y * scale + origin.y), Align.center);
             weaponSlot.setRotation(mount.angle);
             weaponSlots.add(weaponSlot);
@@ -66,15 +67,27 @@ public class ShipDisplay extends Stack{
             dragAndDrop.addTarget(new DragTarget(weaponSlot));
             slotGroup.addActor(weaponSlot);
         }
+
         addActor(slotGroup);
         validate();
+        populateSlots();
+    }
+
+    private void populateSlots(){
+        for(int i = 0; i < workingProfile.loadout.weapons.size; i++){
+            String weapon = workingProfile.loadout.weapons.get(i);
+            if(weapon != null)
+                weaponSlots.get(i).add(new Item.Stack(new Item(Item.ItemType.Weapon, weapon) , 1));
+        }
     }
 
     public void dumpTo(Inventory inventory){
         for(Slot ws : weaponSlots){
-            Item.Stack stack = ws.getStack();
-            if(ws.take(stack))
-                inventory.add(stack);
+            if(ws != null){
+                Item.Stack stack = ws.getStack();
+                if(ws.take(stack))
+                    inventory.add(stack);
+            }
         }
     }
 

@@ -16,15 +16,8 @@ Game
          - collision
          - damage
 
-Inventory
-    -Slot draganddrop not working
-    -populate slots in Shipdisplay
-    -make Shipyard layout less crap
-
 Shipyard
-    - use temp profile.
-    - fix ship change function to clear temp profile
-    - fix confirm/cancel buttons
+    -make layout less crap
     
 AI
     - assign actual target to AI.  right now it just defaults to entity 0 - default to PlayerShip?
@@ -45,7 +38,7 @@ LONG TERM
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership.
     - NPE if playership is destroyed sometimes(AI is targeting entity 0, not the actual playership
-    - Numerous crashes involving moving weapon slots in transition back to game mode, or changing ship types to ones that can't hold all the guns.
+    - Inventory bug where can't pick up weapons a second time(can't mount 2 of the same gun)
 
 ASSETS NEEDED
     rocket/missile

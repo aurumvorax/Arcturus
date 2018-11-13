@@ -13,7 +13,7 @@ public class Loadout{
         }
 
         public Loadout(Loadout l){
-            for(int w = 0; w < weapons.size; w++)
+            for(int w = 0; w < l.weapons.size; w++)
                 weapons.put(w, l.weapons.get(w));
         }
 

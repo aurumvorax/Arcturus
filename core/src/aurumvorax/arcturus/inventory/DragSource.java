@@ -33,13 +33,12 @@ public class DragSource extends DragAndDrop.Source{
     public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target){
         Item.Stack payloadStack = (Item.Stack)payload.getObject();
 
-        if(!(target instanceof Draggable.Target)){
-            source.add(payloadStack);
-            return;
+        if((target != null) && (target.getActor() instanceof Draggable.Target)){
+            Draggable.Target t = (Draggable.Target)target.getActor();
+            payloadStack.quantity = t.add(payloadStack);
         }
 
-        Draggable.Target t = (Draggable.Target)target.getActor();
-        payloadStack.quantity = t.add(payloadStack);
         source.add(payloadStack);
+
     }
 }
