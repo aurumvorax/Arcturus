@@ -17,7 +17,7 @@ Game
          - damage
 
 Inventory
-    -clean up dragsource/target management, no more orphans.  fix add.
+    - eventually add list filtering using Array.select() and array.sort()
 
 Shipyard
     -make layout less crap
