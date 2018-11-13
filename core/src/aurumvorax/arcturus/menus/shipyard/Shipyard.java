@@ -5,7 +5,6 @@ import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.EntityData;
 import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.factories.ShipProfile;
-import aurumvorax.arcturus.inventory.DragSource;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
 import aurumvorax.arcturus.menus.MenuState;

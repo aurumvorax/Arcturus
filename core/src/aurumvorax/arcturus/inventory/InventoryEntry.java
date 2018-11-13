@@ -2,11 +2,12 @@ package aurumvorax.arcturus.inventory;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
-class InventoryEntry extends Button implements Draggable.Source, Draggable.Target{
+class InventoryEntry extends Button implements Draggable.Source, Comparable<InventoryEntry>{
 
     private Item.Stack stack;
     private Inventory inventory;
     private Skin skin;
+    private DragSource source;
 
 
     InventoryEntry(Item.Stack stack, Inventory inventory, Skin skin){
@@ -15,9 +16,10 @@ class InventoryEntry extends Button implements Draggable.Source, Draggable.Targe
         this.skin = skin;
         update(stack);
         setSkin(skin);
+        source = new DragSource(this);
     }
 
-    @Override public boolean isValid(Item.Stack stack){ return true; }
+    public DragSource getSource(){ return source; }
     @Override public Item.Stack getStack(){ return new Item.Stack(stack); }
     @Override public int add(Item.Stack stack){ return inventory.add(stack); }
     @Override public boolean take(Item.Stack stack){ return inventory.take(stack); }
@@ -29,5 +31,10 @@ class InventoryEntry extends Button implements Draggable.Source, Draggable.Targe
         add(new Image(stack.item.getTexture()));
         add(new Label(stack.item.name, skin));
         add(new Label(String.valueOf(stack.quantity), skin));
+    }
+
+    @Override
+    public int compareTo(InventoryEntry o){
+        return this.stack.item.compareTo(o.stack.item);
     }
 }

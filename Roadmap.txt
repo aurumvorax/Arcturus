@@ -16,9 +16,6 @@ Game
          - collision
          - damage
 
-Inventory
-    - eventually add list filtering using Array.select() and array.sort()
-
 Shipyard
     -make layout less crap
     

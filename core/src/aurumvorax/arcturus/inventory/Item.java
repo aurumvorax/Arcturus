@@ -5,7 +5,7 @@ import aurumvorax.arcturus.Services;
 import aurumvorax.arcturus.artemis.factories.EntityData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Item{
+public class Item implements Comparable<Item>{
 
     String name;
     ItemType type;
@@ -18,11 +18,6 @@ public class Item{
 
     Item(Item item){ this(item.type, item.name); }
 
-    public enum ItemType{
-        Simple,
-        Weapon
-    }
-
     TextureRegion getTexture(){
         if(type == Item.ItemType.Weapon)
             return Services.getTexture(EntityData.getWeaponData(name).imgName);
@@ -30,10 +25,23 @@ public class Item{
     }
 
     @Override
+    public int compareTo(Item o){
+        int typeCompare = this.type.compareTo(o.type);
+        if(typeCompare != 0)
+            return typeCompare;
+        return this.name.compareTo(o.name);
+    }
+
+    @Override
     public boolean equals(Object that){
         return (that instanceof Item) &&
                 (this.type == ((Item)that).type) &&
                 (this.name.equals(((Item)that).name));
+    }
+
+    public enum ItemType{
+        Simple,
+        Weapon
     }
 
 
