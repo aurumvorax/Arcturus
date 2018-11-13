@@ -17,7 +17,7 @@ Game
          - damage
 
 Inventory
-    -clean up dragsource/target management, no more orphans.  fix add.
+    - eventually add list filtering using Array.select() and array.sort()
 
 Shipyard
     -make layout less crap
@@ -41,7 +41,6 @@ LONG TERM
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership.
     - NPE if playership is destroyed sometimes(AI is targeting entity 0, not the actual playership
-    - Inventory bug where can't pick up weapons a second time(can't mount 2 of the same gun)
 
 ASSETS NEEDED
     rocket/missile
