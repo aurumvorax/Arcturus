@@ -16,6 +16,9 @@ Game
          - collision
          - damage
 
+Inventory
+    -clean up dragsource/target management, no more orphans.  fix add.
+
 Shipyard
     -make layout less crap
     

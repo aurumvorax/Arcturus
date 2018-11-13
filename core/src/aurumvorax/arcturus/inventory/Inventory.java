@@ -33,11 +33,13 @@ public class Inventory extends VerticalGroup implements Draggable.Target{
         if((stack.quantity == 0) && (listEntries.get(idx).getStack().quantity == 0)){
             listEntries.removeIndex(idx);
             update();
+            return 0;
         }
 
         if(idx == -1){
             items.add(new Item.Stack(stack));
             listEntries.add(new InventoryEntry(new Item.Stack(stack), this, skin));
+            update();
         }else{
             items.get(idx).quantity += stack.quantity;
             listEntries.get(idx).update(items.get(idx));
@@ -45,7 +47,7 @@ public class Inventory extends VerticalGroup implements Draggable.Target{
         return 0;
     }
 
-    public boolean take(Item.Stack stack){
+    boolean take(Item.Stack stack){
         int idx = items.indexOf(stack, false);
         if(idx == -1)
             return false;

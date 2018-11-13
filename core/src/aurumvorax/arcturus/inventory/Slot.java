@@ -21,7 +21,7 @@ public class Slot extends Button implements Draggable.Source, Draggable.Target{
     }
 
     @Override
-    public Item.Stack getStack(){ return new Item.Stack(itemStack); }
+    public Item.Stack getStack(){ return (itemStack == null) ? null : new Item.Stack(itemStack); }
 
     @Override
     public boolean isValid(Item.Stack stack){

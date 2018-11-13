@@ -11,7 +11,6 @@ class InventoryEntry extends Button implements Draggable.Source, Draggable.Targe
 
     InventoryEntry(Item.Stack stack, Inventory inventory, Skin skin){
         super(skin);
-        this.stack = stack;
         this.inventory = inventory;
         this.skin = skin;
         update(stack);
@@ -24,10 +23,11 @@ class InventoryEntry extends Button implements Draggable.Source, Draggable.Targe
     @Override public boolean take(Item.Stack stack){ return inventory.take(stack); }
 
     void update(Item.Stack stack){
-       clearChildren();
-       setDebug(true);
-       add(new Image(stack.item.getTexture()));
-       add(new Label(stack.item.name, skin));
-       add(new Label(String.valueOf(stack.quantity), skin));
+        this.stack = stack;
+        clearChildren();
+        setDebug(true);
+        add(new Image(stack.item.getTexture()));
+        add(new Label(stack.item.name, skin));
+        add(new Label(String.valueOf(stack.quantity), skin));
     }
 }

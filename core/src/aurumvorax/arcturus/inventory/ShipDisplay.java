@@ -92,12 +92,13 @@ public class ShipDisplay extends Stack{
     }
 
     public void saveToPlayerShip(){
-
         workingProfile.loadout.weapons.clear();
         for(int i = 0; i < weaponSlots.size; i++){
-            Item weapon = weaponSlots.get(i).getStack().item;
-            if(weapon != null)
+
+            if(weaponSlots.get(i).getStack() != null){
+                Item weapon = weaponSlots.get(i).getStack().item;
                 workingProfile.loadout.weapons.put(i, weapon.name);
+            }
         }
 
         PlayerData.SetPlayerShip(workingProfile);
