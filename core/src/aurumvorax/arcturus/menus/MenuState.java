@@ -29,6 +29,8 @@ public abstract class MenuState{
 
     protected abstract Actor build(Stage menuStage);
 
+    public void resize(int width, int height){}
+
     protected void changeBack(){
         root.addAction(Actions.sequence(Actions.fadeOut(FADE), Actions.run(() -> screen.changeBack())));
     }

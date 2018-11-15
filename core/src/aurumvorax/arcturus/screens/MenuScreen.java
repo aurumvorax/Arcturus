@@ -134,6 +134,7 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        menus.get(current).resize(width, height);
     }
 
     @Override

@@ -1,10 +1,13 @@
 package aurumvorax.arcturus.inventory;
 
+import aurumvorax.arcturus.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Sort;
 
@@ -50,7 +53,6 @@ public class Inventory extends Table implements Draggable.Target{
 
         // Create new entry
         if(idx == -1){
-            idx = items.size;
             items.add(new Item.Stack(stack));
             InventoryEntry newEntry = new InventoryEntry(stack, this, skin);
             listEntries.add(newEntry);
@@ -93,7 +95,9 @@ public class Inventory extends Table implements Draggable.Target{
         clearChildren();
         loadLists();
         sortEntries();
-        addActor(entryGroup);
+        add(entryGroup).pad(10);
+        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
+        setBackground(menuBG);
 
         draganddrop.addTarget(new DragTarget(this));
 

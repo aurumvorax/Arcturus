@@ -8,7 +8,9 @@ import aurumvorax.arcturus.artemis.factories.ShipProfile;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
 import aurumvorax.arcturus.menus.MenuState;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -24,6 +26,9 @@ public class Shipyard extends MenuState{
     private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
     private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
     private Table menuTable = new Table();
+    private Group buttonGroup = new HorizontalGroup();
+
+    private int displayWidth, displayHeight;
 
 
     public Shipyard(){
@@ -47,7 +52,7 @@ public class Shipyard extends MenuState{
                 if((shipDisplay != null) && !(shipDisplay.getType().equals(shipList.getSelected()))){
                     shipDisplay.dumpTo(inventory);
                     ShipProfile p = new ShipProfile(shipDisplay.getName(), shipList.getSelected(), null);
-                    shipDisplay.build(p, 400,400);
+                    shipDisplay.build(p, displayWidth, displayHeight);
                 }
             }
         });
@@ -55,12 +60,17 @@ public class Shipyard extends MenuState{
         DragAndDrop dragAndDrop = new DragAndDrop();
         shipDisplay = new ShipDisplay(dragAndDrop);
         inventory = new Inventory(dragAndDrop, Services.MENUSKIN);
+        buttonGroup.addActor(confirmButton);
+        buttonGroup.addActor(cancelButton);
     }
 
     @Override
     protected Actor build(Stage menuStage){
 
-        shipDisplay.build(PlayerData.GetPlayerShip(),400,400);
+        displayWidth = Gdx.graphics.getWidth();
+        displayHeight = Gdx.graphics.getHeight();
+
+        shipDisplay.build(PlayerData.GetPlayerShip(), displayWidth, displayHeight);
 
         shipListData.clear();
         for(String shipType : EntityData.getShipTypes())
@@ -69,20 +79,27 @@ public class Shipyard extends MenuState{
         shipList.setSelected(PlayerData.GetPlayerShip().type);
 
         refresh();
-        menuTable.reset();
-        menuTable.setDebug(true);
-        menuTable.setFillParent(true);
-        menuTable.add(shipDisplay).width(400).height(400).expand().fill();
-        menuTable.add(inventory).row();
-        menuTable.add(confirmButton);
-        menuTable.add(cancelButton);
-        menuTable.add(shipList).row();
+
         return menuTable;
     }
 
     private void refresh(){
-
         inventory.update();
-        shipDisplay.rebuild(400, 400);
+        shipDisplay.rebuild(displayWidth, displayHeight);
+
+        menuTable.reset();
+        menuTable.setDebug(true);
+        menuTable.setFillParent(true);
+        menuTable.add(shipDisplay).size(displayWidth, displayHeight).fill();
+        menuTable.add(inventory).row();
+        menuTable.add(buttonGroup).space(20).left();
+        menuTable.add(shipList).right().row();
+    }
+
+    @Override
+    public void resize(int width, int height){
+        displayWidth = width - 400;
+        displayHeight = height - 200;
+        refresh();
     }
 }

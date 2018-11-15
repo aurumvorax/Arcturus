@@ -15,9 +15,6 @@ Game
          - component
          - collision
          - damage
-
-Shipyard
-    -make layout less crap
     
 AI
     - assign actual target to AI.  right now it just defaults to entity 0 - default to PlayerShip?
@@ -40,6 +37,7 @@ BUGS/Tweaks
     - NPE if playership is destroyed sometimes(AI is targeting entity 0, not the actual playership
 
 ASSETS NEEDED
+    WeaponSlot icons(valid/invalid)
     rocket/missile
     rocket/missile/ship engine flame animation
     more weapons

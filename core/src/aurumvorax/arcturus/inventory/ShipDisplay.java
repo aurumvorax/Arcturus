@@ -47,7 +47,6 @@ public class ShipDisplay extends Stack{
         shipImage = new Image(Services.getTexture(data.imgName));
         shipImage.setScaling(Scaling.fit);
         shipImage.setAlign(Align.center);
-
         setSize(width, height);
         addActor(shipImage);
         validate();
@@ -92,6 +91,7 @@ public class ShipDisplay extends Stack{
     }
 
     public void saveToPlayerShip(){
+
         workingProfile.loadout.weapons.clear();
         for(int i = 0; i < weaponSlots.size; i++){
 
