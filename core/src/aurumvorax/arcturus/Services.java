@@ -4,15 +4,12 @@ import aurumvorax.arcturus.options.IntMapSerializer;
 import aurumvorax.arcturus.options.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 
@@ -33,10 +30,11 @@ public enum Services{
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
 
-    public static final FileHandle SHIP_PATH = Gdx.files.local("data/ships/");
-    public static final FileHandle PROJECTILE_PATH = Gdx.files.local("data/projectiles");
-    public static final FileHandle WEAPON_PATH = Gdx.files.local("data/weapons");
-    public static final FileHandle TERRAIN_PATH = Gdx.files.local("data/terrain");
+    public static final String EFFECT_PATH = "data/effects/";
+    public static final String PROJECTILE_PATH = "data/projectiles/";
+    public static final String SHIP_PATH = "data/ships/";
+    public static final String TERRAIN_PATH = "data/terrain/";
+    public static final String WEAPON_PATH = "data/weapons/";
 
     public static final Skin MENUSKIN = new Skin(Gdx.files.internal(MENU_SKIN_PATH));
 
@@ -82,6 +80,6 @@ public enum Services{
 
     private static void loadAnimations(){
         TextureAtlas atlas = assetManager.get(ANIMATION_ATLAS_PATH);
-        animationsByName.put("Boom", new Animation<TextureRegion>(0.01f, atlas.findRegions("explosion 3")));
+        animationsByName.put("Boom", new Animation<>(0.01f, atlas.findRegions("explosion 3")));
     }
 }

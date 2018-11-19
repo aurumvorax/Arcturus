@@ -26,13 +26,23 @@ task debug(dependsOn: classes, type: JavaExec) {
 task dist(type: Jar) {
     from files(sourceSets.main.output.classesDir)
     from files(sourceSets.main.output.resourcesDir)
-    from {configurations.compile.collect {zipTree(it)}}
+    from { configurations.compile.collect { zipTree(it) } }
     from files(project.assetsDir);
- 
+
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
 }
-
 dist.dependsOn classes
+
+task texturePacker << {
+    if (project.ext.has('texturePacker')) {
+        logger.info "Calling TexturePacker: "+texturePacker
+        TexturePacker.process("img/sprites", "img", "SpriteAtlas");
+        TexturePacker.process("img/animations", "img", "AnimationAtlas");
+        TexturePacker.process("img/backgrounds", "img", "BackgroundAtlas");
+    }
+}
+
+
 

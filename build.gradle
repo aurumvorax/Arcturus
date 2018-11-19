@@ -78,10 +78,10 @@ project(":core") {
         }
         test {
             java {
-                srcDirs = ['src/test/']
+                srcDirs = []
             }
             resources {
-                srcDirs = ['assets/']
+                srcDirs = []
             }
         }
     }
@@ -92,10 +92,6 @@ project(":core") {
         compile 'junit:junit:4.12'
         compile "net.onedaybeard.artemis:artemis-odb:2.1.0"
         compile "net.onedaybeard.artemis:artemis-odb-serializer-kryo:2.1.0"
-
-        testCompile 'junit:junit:4.12'
-        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         
     }
 }

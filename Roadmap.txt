@@ -15,6 +15,10 @@ Game
          - component
          - collision
          - damage
+
+Distro
+    - access skins via a method that will work in the jar
+    - working jar
     
 AI
     - assign actual target to AI.  right now it just defaults to entity 0 - default to PlayerShip?

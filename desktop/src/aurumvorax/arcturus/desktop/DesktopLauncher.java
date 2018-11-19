@@ -10,17 +10,6 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 public class DesktopLauncher {
     public static void main (String[] arg) {
-
-        TexturePacker.Settings settings = new TexturePacker.Settings();
-        settings.maxHeight = 2048;
-        settings.maxWidth = 2048;
-        settings.edgePadding = false;
-        settings.combineSubdirectories = true;
-        settings.flattenPaths = true;
-        TexturePacker.process(settings, "img/sprites", "img", "SpriteAtlas");
-        TexturePacker.process(settings, "img/animations", "img", "AnimationAtlas");
-        TexturePacker.process(settings, "img/backgrounds", "img", "BackgroundAtlas");
-
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "SpaceGame";
         config.useGL30 = false;
