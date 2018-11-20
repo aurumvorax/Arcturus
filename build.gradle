@@ -46,21 +46,11 @@ project(":desktop") {
                 srcDirs = []
             }
         }
-        test {
-            java {
-                srcDirs = ['src/test/']
-            }
-            resources {
-                srcDirs = []
-            }
-        }
     }
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
-        testCompile 'junit:junit:4.12'
-        compile 'junit:junit:4.12'
     }
 }
 
@@ -93,6 +83,26 @@ project(":core") {
         compile "net.onedaybeard.artemis:artemis-odb:2.1.0"
         compile "net.onedaybeard.artemis:artemis-odb-serializer-kryo:2.1.0"
         
+    }
+}
+
+project(":tools") {
+    apply plugin: "java"
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/']
+            }
+            resources {
+                srcDirs = []
+            }
+        }
+    }
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
 
