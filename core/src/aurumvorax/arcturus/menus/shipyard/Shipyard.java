@@ -2,8 +2,8 @@ package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.artemis.factories.EntityData;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.factories.ShipProfile;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;

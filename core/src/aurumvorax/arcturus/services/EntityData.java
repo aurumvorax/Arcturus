@@ -1,6 +1,6 @@
-package aurumvorax.arcturus.artemis.factories;
+package aurumvorax.arcturus.services;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.artemis.factories.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +24,7 @@ public class EntityData{
             FileHandle dataFile = Gdx.files.internal(Services.EFFECT_PATH + fileName);
             EffectWrapper effectWrapper = Services.json.fromJson(EffectWrapper.class, dataFile);
             effects.put(effectWrapper.name, effectWrapper.data);
-            Gdx.app.debug("INIT", "Registered Celestial Body - " + effectWrapper.name);
+            Gdx.app.debug("INIT", "Registered Effect - " + effectWrapper.name);
         }
 
         for(String fileName : dataFiles.ships){
@@ -58,7 +58,12 @@ public class EntityData{
 
     public static Set<String> getShipTypes(){ return ships.keySet(); }
     public static Set<String> getWeaponTypes(){ return weapons.keySet(); }
-    public static Set<String> getProjectileData(){ return projectiles.keySet(); }
+
+    public static EffectData getEffectData(String type){
+        if(!effects.containsKey(type))
+            throw new IllegalArgumentException("Invalid effect type - " + type);
+        return effects.get(type);
+    }
 
     public static ShipData getShipData(String type){
         if(!ships.containsKey(type))
@@ -85,12 +90,12 @@ public class EntityData{
     }
 
 
-    private static class FileList{
-        private Array<String> effects = new Array<>();
-        private Array<String> projectiles = new Array<>();
-        private Array<String> ships = new Array<>();
-        private Array<String> terrain = new Array<>();
-        private Array<String> weapons = new Array<>();
+    public static class FileList{       // Disposable class used for loading all data file names
+        public Array<String> effects = new Array<>();
+        public Array<String> projectiles = new Array<>();
+        public Array<String> ships = new Array<>();
+        public Array<String> terrain = new Array<>();
+        public Array<String> weapons = new Array<>();
     }
 
     private static class ShipWrapper{
@@ -113,7 +118,7 @@ public class EntityData{
         TerrainData data;
     }
 
-    private class EffectWrapper{
+    private static class EffectWrapper{
         String name;
         EffectData data;
     }

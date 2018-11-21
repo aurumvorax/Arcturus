@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.background_temp.Background;
 import com.artemis.utils.Bag;
 import com.badlogic.gdx.Gdx;

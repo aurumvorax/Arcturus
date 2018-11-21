@@ -1,5 +1,6 @@
 package main;
 
+import aurumvorax.arcturus.services.EntityData.FileList;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 
@@ -32,13 +33,14 @@ public class FileListGenerator{
         fillList(fileList.terrain, Paths.get("core/assets/data/terrain"));
         fillList(fileList.weapons, Paths.get("core/assets/data/weapons"));
 
-        Path p = Paths.get("core/assets/DataFileList.json");
         Json json = new Json();
+
+        Path p = Paths.get("core/assets/DataFileList.json");
         byte[] data = json.toJson(fileList, FileList.class).getBytes();
-        try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(p))){
+        try(OutputStream out = new BufferedOutputStream(Files.newOutputStream(p))){
             out.write(data);
-        }catch (IOException x){
-            System.err.println(x);
+        }catch(IOException x){
+            x.printStackTrace();
         }
     }
 
@@ -51,13 +53,5 @@ public class FileListGenerator{
         }catch(IOException e){
             e.printStackTrace();
         }
-    }
-
-    private static class FileList{  // MUST BE IDENTICAL TO EntityData.FileList
-        private Array<String> effects = new Array<>();
-        private Array<String> projectiles = new Array<>();
-        private Array<String> ships = new Array<>();
-        private Array<String> terrain = new Array<>();
-        private Array<String> weapons = new Array<>();
     }
 }

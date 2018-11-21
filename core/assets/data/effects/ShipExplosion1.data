@@ -1,0 +1,8 @@
+{
+    name: "ShipExplosion1",
+    data: {
+        type: "EXPLOSION",
+        animName: "explosion 3",
+        imgCenter: { x: 127, y : 127}
+    }
+}

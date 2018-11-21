@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.menus.main_menu;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.menus.MenuState;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;

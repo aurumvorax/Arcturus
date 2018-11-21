@@ -5,10 +5,9 @@ import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.options.Keys;
 import aurumvorax.arcturus.screens.MenuScreen;
-import com.badlogic.gdx.Gdx;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PlayerInput extends InputAdapter{
 

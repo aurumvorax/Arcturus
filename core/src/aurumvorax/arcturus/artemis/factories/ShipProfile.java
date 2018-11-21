@@ -1,5 +1,7 @@
 package aurumvorax.arcturus.artemis.factories;
 
+import aurumvorax.arcturus.services.EntityData;
+
 public class ShipProfile{
 
     public String name;

@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.menus.death.GameOver;

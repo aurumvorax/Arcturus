@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.Beam;
 import aurumvorax.arcturus.artemis.components.Mounted;
 import aurumvorax.arcturus.artemis.components.Physics2D;

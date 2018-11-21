@@ -1,8 +1,7 @@
 
-1.0
-
-    - finish effectsfactory
-    - finish animationloader
+0.1
+    - ai improvements
+    - working jar
 
 Menu
     - options menu

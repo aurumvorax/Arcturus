@@ -1,4 +1,4 @@
-package aurumvorax.arcturus;
+package aurumvorax.arcturus.services;
 
 import aurumvorax.arcturus.options.IntMapSerializer;
 import aurumvorax.arcturus.options.Keys;
@@ -13,14 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public enum Services{
     INSTANCE;
 
-    private static Map<String, TextureAtlas.AtlasRegion> regionsByName = new HashMap<>();
-    private static Map<String, Animation<TextureRegion>> animationsByName = new HashMap<>();
+    private static Map<String, TextureAtlas.AtlasRegion> regionsByName;
+    private static Map<String, Animation<TextureRegion>> animationsByName;
 
     private static final String MENU_SKIN_PATH = "skin/sgx/sgx-ui.json";
     private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
@@ -60,15 +59,11 @@ public enum Services{
     public static boolean loadAssets(){ return assetManager.update(); }
     public static float loadProgress(){ return assetManager.getProgress(); }
 
-    private static TextureAtlas getSpriteAtlas(){ return assetManager.get(SPRITE_ATLAS_PATH); }
-    private static TextureAtlas getBackgroundAtlas(){ return assetManager.get(BACKGROUND_ATLAS_PATH); }
-
     public static void initAssets(){
-        for(TextureAtlas.AtlasRegion region : getSpriteAtlas().getRegions())
-            regionsByName.put(region.name, region);
-        for(TextureAtlas.AtlasRegion region : getBackgroundAtlas().getRegions())
-            regionsByName.put(region.name, region);
-        loadAnimations();
+        regionsByName = AssetIndexer.loadImages(assetManager.get(SPRITE_ATLAS_PATH),
+                                                assetManager.get(BACKGROUND_ATLAS_PATH));
+
+        animationsByName = AssetIndexer.loadAnimations(assetManager.get(ANIMATION_ATLAS_PATH));
     }
 
     public static TextureAtlas.AtlasRegion getTexture(String name){
@@ -77,10 +72,5 @@ public enum Services{
 
     public static Animation getAnimation(String name){
         return animationsByName.get(name);
-    }
-
-    private static void loadAnimations(){
-        TextureAtlas atlas = assetManager.get(ANIMATION_ATLAS_PATH);
-        animationsByName.put("Boom", new Animation<>(0.01f, atlas.findRegions("explosion 3")));
     }
 }

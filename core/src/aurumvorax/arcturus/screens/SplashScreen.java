@@ -1,8 +1,8 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.factories.EntityData;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;

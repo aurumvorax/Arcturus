@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.menus.death;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.screens.MenuScreen;
 import com.badlogic.gdx.scenes.scene2d.Actor;

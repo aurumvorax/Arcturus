@@ -1,18 +1,16 @@
 package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.artemis.factories.EntityData;
+import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.artemis.factories.ShipProfile;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;

@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.factories;
 
+import aurumvorax.arcturus.services.EntityData;
 import com.badlogic.gdx.utils.IntMap;
 
 public class Loadout{

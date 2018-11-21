@@ -19,7 +19,7 @@ public class Damage extends BaseSystem{
             Health h = mHealth.get(entityID);
             h.hull -= damage;
             if(h.hull <= 0){
-                EffectFactory.createExplosion("", mPhysics.get(entityID));
+                EffectFactory.createExplosion("ShipExplosion1", mPhysics.get(entityID));
 
                 if(entityID == PlayerShip.getID())
                     TransitionManager.setTransition(MenuScreen.MenuType.Dead);

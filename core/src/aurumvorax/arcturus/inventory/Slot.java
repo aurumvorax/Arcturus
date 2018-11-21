@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.inventory;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

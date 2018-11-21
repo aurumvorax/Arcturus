@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;

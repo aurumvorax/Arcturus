@@ -1,8 +1,8 @@
 package aurumvorax.arcturus.inventory;
 
 
-import aurumvorax.arcturus.Services;
-import aurumvorax.arcturus.artemis.factories.EntityData;
+import aurumvorax.arcturus.services.Services;
+import aurumvorax.arcturus.services.EntityData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Item implements Comparable<Item>{

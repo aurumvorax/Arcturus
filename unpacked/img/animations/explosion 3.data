@@ -1,0 +1,5 @@
+{
+name: "explosion 3",
+frameTime: 0.01,
+frames: 62
+}

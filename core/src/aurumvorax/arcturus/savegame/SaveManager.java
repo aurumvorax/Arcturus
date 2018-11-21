@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.savegame;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;

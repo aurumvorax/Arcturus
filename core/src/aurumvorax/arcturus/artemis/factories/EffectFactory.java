@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.artemis.factories;
 
-import aurumvorax.arcturus.Services;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.AnimatedSprite;
 import aurumvorax.arcturus.artemis.components.Ephemeral;
 import aurumvorax.arcturus.artemis.components.Physics2D;
@@ -32,17 +33,18 @@ public class EffectFactory{
 
     public static int createExplosion(String name, Physics2D physics){
         int effect = world.create(protoExplosion);
+        EffectData data = EntityData.getEffectData(name);
 
         Physics2D p = mPhysics.get(effect);
         p.p.set(physics.p);
         p.v.set(physics.v);
 
         AnimatedSprite s = mSprite.get(effect);
-        s.name = "Boom";
-        s.offsetX = 127;
-        s.offsetY = 127;
-
-        mEphemeral.get(effect).lifespan = Services.getAnimation("Boom").getAnimationDuration();
+        s.name = data.animName;
+        s.offsetX = data.imgCenter.x;
+        s.offsetY = data.imgCenter.y;
+        Services.getAnimation(data.animName);
+        mEphemeral.get(effect).lifespan = Services.getAnimation(data.animName).getAnimationDuration();
 
         return effect;
     }

@@ -1,6 +1,0 @@
-{
-name: "explosion3",
-imgCenter: {x: 62, y: 48},
-frameTime: 0.03,
-frames: 62
-}

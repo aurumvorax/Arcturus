@@ -35,14 +35,4 @@ task dist(type: Jar) {
 }
 dist.dependsOn classes
 
-task texturePacker << {
-    if (project.ext.has('texturePacker')) {
-        logger.info "Calling TexturePacker: "+texturePacker
-        TexturePacker.process("img/sprites", "img", "SpriteAtlas");
-        TexturePacker.process("img/animations", "img", "AnimationAtlas");
-        TexturePacker.process("img/backgrounds", "img", "BackgroundAtlas");
-    }
-}
-
-
 

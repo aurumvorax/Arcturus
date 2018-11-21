@@ -2,9 +2,9 @@
 Libgdx
 GdxAI
 ArtemisODB
-
+Kryo
 
 ideas from:
 
-Erin Catto - Box2d
+Erin Catto/Box2d - Collisions
 Pixel Scientists - Inventory System
