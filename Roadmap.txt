@@ -1,8 +1,6 @@
 
 1.0
 
-    - move individual images out of classpath
-    - fix texturepacker
     - finish effectsfactory
     - finish animationloader
 
