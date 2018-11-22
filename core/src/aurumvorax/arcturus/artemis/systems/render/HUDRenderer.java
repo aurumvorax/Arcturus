@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
+import aurumvorax.arcturus.artemis.components.Health;
 import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
 
     private Stage stage;
-    private Label fps;
+    private Label fps, health;
     private Image reticle;
     private static int targetID = -1;
     private Vector2 target = new Vector2();
@@ -24,11 +25,14 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
 
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Player> mPlayer;
+    private static ComponentMapper<Health> mHealth;
+
 
     public HUDRenderer(){
         super(Aspect.all(Player.class));
         stage = new Stage(new ScreenViewport(), Services.batch);
         fps = new Label(String.format("%3d FPS", 0), Services.MENUSKIN);
+        health = new Label(String.format("Health : %3.2f", 0f), Services.MENUSKIN);
         reticle = new Image(Services.getTexture("selector1"));
         Table table = new Table();
         table.setFillParent(true);
@@ -36,6 +40,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         table.add(fps);
         stage.addActor(table);
         stage.addActor(reticle);
+        stage.addActor(health);
     }
 
     public InputProcessor getInputProcessor(){ return stage; }
@@ -63,6 +68,8 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
             reticle.setVisible(false);
 
         fps.setText(String.format("%3d FPS", Gdx.graphics.getFramesPerSecond()));
+        if(mHealth.has(PlayerShip.getID()))
+            health.setText(String.format("Health : %3.2f", mHealth.get(PlayerShip.getID()).hull));
         stage.draw();
     }
 }

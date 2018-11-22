@@ -5,7 +5,7 @@ import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
-import aurumvorax.arcturus.artemis.systems.ai.steering.*;
+import aurumvorax.arcturus.artemis.systems.ai.steering.Steer;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;

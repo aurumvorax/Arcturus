@@ -1,7 +1,30 @@
 
-0.1
-    - ai improvements
-    - working jar
+0.2 - Playground
+
+    - multiple solar systems / hyperdrive
+    - home system contains shipyard, friendly ships
+    - pirate system contains hostile ships
+    - map and/or minimap
+
+    - basic faction system
+    - solar save/load system
+    - hyperdrive
+    - test basic AI behaviours
+
+    - rockets/missiles
+    - particle effects system
+    - launchers
+    - pd weapons
+
+0.3 - Adventure
+
+    - strategic AI
+    - graphics improvements to beam, explosions on hit, etc
+    - armour system / shields
+    - detailed HUD
+    - animated engines
+    - new inventory items - engines, armour, missiles, etc
+    - add money to inventory system
 
 Menu
     - options menu
