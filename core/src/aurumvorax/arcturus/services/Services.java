@@ -32,7 +32,7 @@ public enum Services{
     public static final String EFFECT_PATH = "data/effects/";
     public static final String PROJECTILE_PATH = "data/projectiles/";
     public static final String SHIP_PATH = "data/ships/";
-    public static final String TERRAIN_PATH = "data/terrain/";
+    public static final String TERRAIN_PATH = "data/systems/";
     public static final String WEAPON_PATH = "data/weapons/";
 
     public static final Skin MENUSKIN = new Skin(Gdx.files.internal(MENU_SKIN_PATH));

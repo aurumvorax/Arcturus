@@ -2,8 +2,11 @@ package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
-import aurumvorax.arcturus.services.EntityData;
-import com.artemis.*;
+import com.artemis.Archetype;
+import com.artemis.ArchetypeBuilder;
+import com.artemis.ComponentMapper;
+import com.artemis.World;
+import com.badlogic.gdx.math.Vector2;
 
 
 public class TerrainFactory{
@@ -15,6 +18,7 @@ public class TerrainFactory{
 
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<SimpleSprite> mSprite;
+    private static ComponentMapper<Celestial> mCelestial;
     private static ComponentMapper<Orbit> mOrbit;
     private static ComponentMapper<Dockable> mDockable;
 
@@ -34,29 +38,25 @@ public class TerrainFactory{
                 .build(world);
     }
 
-    public static int createStar(String type, float x, float y){
-        TerrainData data = EntityData.getTerrainData(type);
+    static int createStar(String name, String imgName, Vector2 imgCenter){
         int star = world.create(protoStar);
-        buildTerrain(star, data, x, y);
+        mCelestial.get(star).name = name;
+        SimpleSprite s = mSprite.get(star);
+        s.name = imgName;
+        s.offsetX = imgCenter.x;
+        s.offsetY = imgCenter.y;
+        s.layer = Renderer.Layer.PLANETARY;
         return star;
     }
 
-    private static void buildTerrain(int terrain, TerrainData data, float x, float y){
-        Physics2D p = mPhysics.get(terrain);
-        p.p.set(x, y);
-
-        SimpleSprite s = mSprite.get(terrain);
+    static int createOrbital(SystemData.OrbitalData data, int parent){
+        int orbital = world.create(protoOrbital);
+        mCelestial.get(orbital).name = data.name;
+        SimpleSprite s = mSprite.get(orbital);
         s.name = data.imgName;
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.PLANETARY;
-    }
-
-    public static int createOrbital(String type, int parent){
-        TerrainData data = EntityData.getTerrainData(type);
-        int orbital = world.create(protoOrbital);
-
-
         float semiminor = data.semimajor * (float)Math.sqrt(1 - Math.pow(data.eccentricity, 2));
         Orbit o = mOrbit.get(orbital);
         o.parent = parent;
@@ -66,11 +66,12 @@ public class TerrainFactory{
         o.time = data.offset;
         o.sweep = data.sweep;
         o.center.set(data.semimajor * data.eccentricity, 0).rotate(o.tilt);
+        mPhysics.get(orbital).p.set(data.semimajor, 0).rotate(o.tilt).add(o.center);
 
-        if(data.dockName != null)
-            mDockable.create(orbital).name = data.dockName;
+        if(data.dock){
+            mDockable.create(orbital);
+        }
 
-        buildTerrain(orbital, data, data.semimajor, semiminor);
         return orbital;
     }
 }

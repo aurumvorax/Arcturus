@@ -30,7 +30,7 @@ public class FileListGenerator{
         fillList(fileList.effects, Paths.get("core/assets/data/effects"));
         fillList(fileList.projectiles, Paths.get("core/assets/data/projectiles"));
         fillList(fileList.ships, Paths.get("core/assets/data/ships"));
-        fillList(fileList.terrain, Paths.get("core/assets/data/terrain"));
+        fillList(fileList.systems, Paths.get("core/assets/data/systems"));
         fillList(fileList.weapons, Paths.get("core/assets/data/weapons"));
 
         Json json = new Json();

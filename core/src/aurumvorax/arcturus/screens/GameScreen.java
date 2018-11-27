@@ -10,6 +10,7 @@ import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
+import aurumvorax.arcturus.artemis.factories.SolarSystem;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
@@ -103,14 +104,12 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldCam.reset();
         worldSerializer.resetWorld();
-        int ship = ShipData.buildGeneric("PlayerShip", "TestShip", "Standard", 0, 0, 0);
+        int ship = ShipData.buildGeneric("PlayerShip", "TestShip", "Standard", 800, 800, 0);
         ShipData.buildGeneric("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
-        int star = TerrainFactory.createStar("TestStar", 1000, 1000);
-        int planet = TerrainFactory.createOrbital("TestPlanet", star);
-        TerrainFactory.createOrbital("TestMoon", planet);
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);
+        SolarSystem.createSystem("Playground");
     }
 
     @Override

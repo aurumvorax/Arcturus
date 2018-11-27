@@ -1,0 +1,28 @@
+{
+    name: "Playground",
+    data:{
+        systemCoords: {x: 0, y: 0},
+        starName: "Omicron Persei",
+        starImgName: "Star1"
+        starImgCenter: {x: 63, y: 63},
+        children: [
+            {name: "Planetopolous",
+                imgName: "Planet1",
+                imgCenter: {x: 63, y: 63},
+                semimajor: 500,
+                eccentricity: 0.8,
+                sweep: 50,
+                children: [
+                    {name: "Boring Moon",
+                    imgName: "Moon1",
+                    imgCenter: {x: 31, y: 31},
+                    semimajor: 150,
+                    eccentricity: 0.1,
+                    sweep: 300
+                    }
+                ]
+
+            }
+        ]
+    }
+}

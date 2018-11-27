@@ -4,27 +4,40 @@
     - multiple solar systems / hyperdrive
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
-    - map and/or minimap
+    - map
 
     - basic faction system
+        - just a property for each ship for now, will eventually load from json
     - solar save/load system
+
     - hyperdrive
+        - set course before jump, using map
+        - can only jump outside mass limit - hyberbola perpendicular to flight path, radius property of solarsystem
+
     - test basic AI behaviours
 
     - rockets/missiles
+        - assets
+
     - particle effects system
+        - smoke trails
+
     - launchers
+
     - pd weapons
+        - aiming ai
+        - weapon fire groups
 
 0.3 - Adventure
 
     - strategic AI
     - graphics improvements to beam, explosions on hit, etc
     - armour system / shields
-    - detailed HUD
+    - detailed HUD, including minimap
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
+    - error handling on json reads and factories
 
 Menu
     - options menu
@@ -52,7 +65,7 @@ AI
         -lists of friendly/hostile
 
 World
-    - solar system load/save mechanism - from kryo if it exists, from json if not
+    - solar system load/save mechanism - storage to POJO, which can then be manipulated by time passing thread.
     - change solar system mechanism - save playership data, clear artemis, load playership and new system
 
 LONG TERM
@@ -61,8 +74,8 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
-    - sometimes ship position stutters if shiptype is othership.
-    - NPE if playership is destroyed sometimes(AI is targeting entity 0, not the actual playership
+    - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
+    - reset camera position on newgame/transition from menu
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)

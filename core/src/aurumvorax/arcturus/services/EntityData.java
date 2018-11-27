@@ -14,7 +14,7 @@ public class EntityData{
     private static HashMap<String, ShipData> ships = new HashMap<>();
     private static HashMap<String, WeaponData> weapons = new HashMap<>();
     private static HashMap<String, ProjectileData> projectiles = new HashMap<>();
-    private static HashMap<String, TerrainData> terrain = new HashMap<>();
+    private static HashMap<String, SystemData> systems = new HashMap<>();
 
     public static void load(){
         FileHandle listFile = Gdx.files.internal("DataFileList.json");
@@ -48,11 +48,11 @@ public class EntityData{
             Gdx.app.debug("INIT", "Registered Projectile - " + projectileWrapper.name);
         }
 
-        for(String fileName : dataFiles.terrain){
+        for(String fileName : dataFiles.systems){
             FileHandle dataFile = Gdx.files.internal(Services.TERRAIN_PATH + fileName);
-            TerrainWrapper terrainWrapper = Services.json.fromJson(TerrainWrapper.class, dataFile);
-            terrain.put(terrainWrapper.name, terrainWrapper.data);
-            Gdx.app.debug("INIT", "Registered Celestial Body - " + terrainWrapper.name);
+            SystemWrapper systemWrapper = Services.json.fromJson(SystemWrapper.class, dataFile);
+            systems.put(systemWrapper.name, systemWrapper.data);
+            Gdx.app.debug("INIT", "Registered Celestial Body - " + systemWrapper.name);
         }
     }
 
@@ -83,10 +83,10 @@ public class EntityData{
         return projectiles.get(type);
     }
 
-    public static TerrainData getTerrainData(String type){
-        if(!terrain.containsKey(type))
-            throw new IllegalArgumentException("Invalid terrain type = " + type);
-        return terrain.get(type);
+    public static SystemData getSystemData(String type){
+        if(!systems.containsKey(type))
+            throw new IllegalArgumentException("Invalid solar system - " + type);
+        return systems.get(type);
     }
 
 
@@ -94,7 +94,7 @@ public class EntityData{
         public Array<String> effects = new Array<>();
         public Array<String> projectiles = new Array<>();
         public Array<String> ships = new Array<>();
-        public Array<String> terrain = new Array<>();
+        public Array<String> systems = new Array<>();
         public Array<String> weapons = new Array<>();
     }
 
@@ -113,9 +113,9 @@ public class EntityData{
         ProjectileData data;
     }
 
-    private static class TerrainWrapper{
+    private static class SystemWrapper{
         String name;
-        TerrainData data;
+        SystemData data;
     }
 
     private static class EffectWrapper{
