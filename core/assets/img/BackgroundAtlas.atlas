@@ -6,9 +6,29 @@ filter: Nearest,Nearest
 repeat: none
 MainMenuBackground
   rotate: false
-  xy: 0, 697
+  xy: 0, 0
   size: 1210, 695
   orig: 1210, 695
+  offset: 0, 0
+  index: -1
+MapBackground
+  rotate: false
+  xy: 0, 697
+  size: 1920, 1280
+  orig: 1920, 1280
+  offset: 0, 0
+  index: -1
+
+BackgroundAtlas2.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+MapBackgroundSmaller
+  rotate: false
+  xy: 0, 697
+  size: 1600, 1200
+  orig: 1600, 1200
   offset: 0, 0
   index: -1
 ShipyardBackground

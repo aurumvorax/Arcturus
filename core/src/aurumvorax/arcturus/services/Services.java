@@ -22,9 +22,10 @@ public enum Services{
     private static Map<String, Animation<TextureRegion>> animationsByName;
 
     private static final String MENU_SKIN_PATH = "skin/sgx/sgx-ui.json";
-    private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
     private static final String ANIMATION_ATLAS_PATH = "img/AnimationAtlas.atlas";
+    private static final String SPRITE_ATLAS_PATH = "img/SpriteAtlas.atlas";
     private static final String BACKGROUND_ATLAS_PATH = "img/BackgroundAtlas.atlas";
+    private static final String UI_ATLAS_PATH = "img/UIAtlas.atlas";
 
     public static final String KEY_PATH = "config/keys.cfg";
     public static final String SAVE_PATH = "saves/";
@@ -54,6 +55,7 @@ public enum Services{
         assetManager.load(SPRITE_ATLAS_PATH, TextureAtlas.class);
         assetManager.load(ANIMATION_ATLAS_PATH, TextureAtlas.class);
         assetManager.load(BACKGROUND_ATLAS_PATH, TextureAtlas.class);
+        assetManager.load(UI_ATLAS_PATH, TextureAtlas.class);
     }
 
     public static boolean loadAssets(){ return assetManager.update(); }
@@ -61,7 +63,8 @@ public enum Services{
 
     public static void initAssets(){
         regionsByName = AssetIndexer.loadImages(assetManager.get(SPRITE_ATLAS_PATH),
-                                                assetManager.get(BACKGROUND_ATLAS_PATH));
+                                                assetManager.get(BACKGROUND_ATLAS_PATH),
+                                                assetManager.get(UI_ATLAS_PATH));
 
         animationsByName = AssetIndexer.loadAnimations(assetManager.get(ANIMATION_ATLAS_PATH));
     }

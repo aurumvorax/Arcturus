@@ -28,6 +28,7 @@ public class TextureAtlasPacker{
         TexturePacker.process(settings, "unpacked/img/sprites", "core/assets/img", "SpriteAtlas");
         TexturePacker.process(settings, "unpacked/img/animations", "core/assets/img", "AnimationAtlas");
         TexturePacker.process(settings, "unpacked/img/backgrounds", "core/assets/img", "BackgroundAtlas");
+        TexturePacker.process(settings, "unpacked/img/ui", "core/assets/img", "UIAtlas");
 
         Path path = Paths.get("unpacked/img/animations");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, "*.data")){
