@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.menus.death.GameOver;
@@ -9,7 +8,9 @@ import aurumvorax.arcturus.menus.main_menu.Keybinds;
 import aurumvorax.arcturus.menus.main_menu.MainMenu;
 import aurumvorax.arcturus.menus.main_menu.Options;
 import aurumvorax.arcturus.menus.main_menu.SaveLoad;
+import aurumvorax.arcturus.menus.map.GalaxyMap;
 import aurumvorax.arcturus.menus.shipyard.Shipyard;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +19,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.EnumMap;
 
 public class MenuScreen extends ScreenAdapter{
 
@@ -33,7 +36,7 @@ public class MenuScreen extends ScreenAdapter{
     private EnumMap<MenuType, MenuState> menus = new EnumMap<>(MenuType.class);
     public enum MenuType{
         Main, MainLive, Save, Load, Options, Keybinds,
-        Shipyard,   // Dock, Missions, Commerce, Intel, etc
+        Shipyard, Map,  // Dock, Missions, Commerce, Intel, etc
         Dead
     }
 
@@ -50,7 +53,7 @@ public class MenuScreen extends ScreenAdapter{
         menus.put(MenuType.Keybinds, new Keybinds());
 
         menus.put(MenuType.Shipyard, new Shipyard());
-
+        menus.put(MenuType.Map, new GalaxyMap());
         menus.put(MenuType.Dead, new GameOver());
 
         current = MenuType.Main;
@@ -123,9 +126,12 @@ public class MenuScreen extends ScreenAdapter{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Services.batch.setColor(1,1,1,1);
-        Services.batch.begin();
-        Services.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Services.batch.end();
+
+        if(background != null){
+            Services.batch.begin();
+            Services.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            Services.batch.end();
+        }
 
         stage.act(delta);
         stage.draw();

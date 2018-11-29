@@ -33,6 +33,8 @@ public class PlayerInput extends InputAdapter{
             case DOCK:
                 TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
                 break;
+            case MAP:
+                TransitionManager.setTransition(MenuScreen.MenuType.Map);
             case TURN_LEFT:
                 player.controlHelm(1);
                 break;
