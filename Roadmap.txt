@@ -22,8 +22,8 @@
             - name
             - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
             - position/destination/goal/status of all ships in system
-                - can use ShipProfile?  will later use AI data class that contains shipProfile
-                    - add health to profile.
+                + combine loadout and shipprofile into Profiles
+                - import/export ship Profiles
 
     - hyperdrive
         + set course ahead of time

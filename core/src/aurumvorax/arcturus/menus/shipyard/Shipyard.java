@@ -2,17 +2,20 @@ package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.services.EntityData;
-import aurumvorax.arcturus.services.Services;
-import aurumvorax.arcturus.artemis.factories.ShipProfile;
+import aurumvorax.arcturus.backstage.Profiles;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
 import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
@@ -51,7 +54,7 @@ public class Shipyard extends MenuState{
             public void changed(ChangeEvent event, Actor actor){
                 if((shipDisplay != null) && !(shipDisplay.getType().equals(shipList.getSelected()))){
                     shipDisplay.dumpTo(inventory);
-                    ShipProfile p = new ShipProfile(shipDisplay.getName(), shipList.getSelected(), null);
+                    Profiles.Ship p = new Profiles.Ship(shipDisplay.getName(), shipList.getSelected(), null);
                     shipDisplay.build(p, displayWidth, displayHeight);
                 }
             }

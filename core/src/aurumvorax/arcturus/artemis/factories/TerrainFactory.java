@@ -49,7 +49,7 @@ public class TerrainFactory{
         return star;
     }
 
-    static int createOrbital(SystemData.OrbitalData data, int parent){
+    static int createOrbital(SolarData.OrbitalData data, int parent){
         int orbital = world.create(protoOrbital);
         mCelestial.get(orbital).name = data.name;
         SimpleSprite s = mSprite.get(orbital);

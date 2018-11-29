@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.services;
 
 import aurumvorax.arcturus.artemis.factories.*;
+import aurumvorax.arcturus.artemis.factories.SolarData;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
@@ -14,7 +15,7 @@ public class EntityData{
     private static HashMap<String, ShipData> ships = new HashMap<>();
     private static HashMap<String, WeaponData> weapons = new HashMap<>();
     private static HashMap<String, ProjectileData> projectiles = new HashMap<>();
-    private static HashMap<String, SystemData> systems = new HashMap<>();
+    private static HashMap<String, SolarData> systems = new HashMap<>();
 
     public static void load(){
         FileHandle listFile = Gdx.files.internal("DataFileList.json");
@@ -83,7 +84,7 @@ public class EntityData{
         return projectiles.get(type);
     }
 
-    public static SystemData getSystemData(String type){
+    public static SolarData getSystemData(String type){
         if(!systems.containsKey(type))
             throw new IllegalArgumentException("Invalid solar system - " + type);
         return systems.get(type);
@@ -115,7 +116,7 @@ public class EntityData{
 
     private static class SystemWrapper{
         String name;
-        SystemData data;
+        SolarData data;
     }
 
     private static class EffectWrapper{

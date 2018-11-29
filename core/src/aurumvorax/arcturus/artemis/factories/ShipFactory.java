@@ -1,8 +1,12 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.*;
+import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
+import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
+import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
+import aurumvorax.arcturus.backstage.Profiles;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
@@ -44,7 +48,7 @@ public class ShipFactory{
                 .build(world);
     }
 
-    public static int create(ShipProfile profile, float x, float y, float t){
+    public static int create(Profiles.Ship profile, float x, float y, float t){
         int shipID = world.create(protoShip);
         ShipData data = EntityData.getShipData(profile.type);
 
@@ -72,7 +76,7 @@ public class ShipFactory{
         return shipID;
     }
 
-    public static void equip(int ship, ShipData data, Loadout loadout){
+    public static void equip(int ship, ShipData data, Profiles.Ship.Loadout loadout){
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;

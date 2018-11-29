@@ -1,11 +1,11 @@
 package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
-import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.artemis.factories.ShipData;
-import aurumvorax.arcturus.artemis.factories.ShipProfile;
+import aurumvorax.arcturus.backstage.Profiles;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -21,7 +21,7 @@ public class ShipDisplay extends Stack{
     private Group slotGroup = new Group();
     private Array<Slot> weaponSlots = new Array<>();
     private DragAndDrop dragAndDrop;
-    private ShipProfile workingProfile;
+    private Profiles.Ship workingProfile;
 
 
     public ShipDisplay(DragAndDrop dragAndDrop){
@@ -31,7 +31,7 @@ public class ShipDisplay extends Stack{
     public String getType(){ return (workingProfile == null) ? null : workingProfile.type; }
     public String getName(){ return workingProfile.name; }
 
-    public void build(ShipProfile profile, float width, float height){
+    public void build(Profiles.Ship profile, float width, float height){
         workingProfile = profile;
         rebuild(width,height);
     }

@@ -2,13 +2,15 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.Destructor;
-import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.components.Beam;
+import aurumvorax.arcturus.artemis.components.Cannon;
+import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.Weapon;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
-import aurumvorax.arcturus.artemis.factories.ShipData;
-import aurumvorax.arcturus.artemis.factories.ShipProfile;
+import aurumvorax.arcturus.backstage.Profiles;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -53,7 +55,7 @@ public class PlayerShip extends BaseEntitySystem{
         PlayerData.t = physics.theta;
 
         Ship ship = mShip.get(playerID);
-        ShipProfile profile = new ShipProfile(ship.name, ship.type, null);
+        Profiles.Ship profile = new Profiles.Ship(ship.name, ship.type, null);
 
         Weapons w = mWeapons.get(playerID);
         for(int i = 0; i < w.all.size(); i++){

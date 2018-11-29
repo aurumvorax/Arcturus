@@ -10,7 +10,7 @@ import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
-import aurumvorax.arcturus.artemis.factories.SolarSystem;
+import aurumvorax.arcturus.artemis.factories.SolarFactory;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
@@ -109,7 +109,7 @@ public class GameScreen extends ScreenAdapter{
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);
-        SolarSystem.createSystem("Playground");
+        SolarFactory.createSystem("Playground");
     }
 
     @Override
