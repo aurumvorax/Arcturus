@@ -1,6 +1,7 @@
 package aurumvorax.arcturus.menus.map;
 
 import aurumvorax.arcturus.Core;
+import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,9 +15,10 @@ public class GalaxyMap extends MenuState{
 
     private Table mapTable = new Table();
     private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
-    private TextButton setCourseButton = new TextButton("", Services.MENUSKIN);
+    private static TextButton setCourseButton = new TextButton(null, Services.MENUSKIN);
     private HorizontalGroup buttonGroup = new HorizontalGroup();
     private MapPane mapPane = new MapPane(Services.MENUSKIN);
+    private static String tempNavTarget;
 
     public GalaxyMap(){
 
@@ -30,13 +32,20 @@ public class GalaxyMap extends MenuState{
         setCourseButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-
+                if(tempNavTarget != null){
+                    PlayerData.navTarget = tempNavTarget;
+                    enterGame(Core.GameMode.Active);
+                }
             }
         });
 
         buttonGroup.addActor(setCourseButton);
         buttonGroup.addActor(cancelButton);
+    }
 
+    static void setNavTarget(String target){
+        tempNavTarget = target;
+        setCourseButton.getLabel().setText("Set course to " + target);
     }
 
 
@@ -49,6 +58,7 @@ public class GalaxyMap extends MenuState{
         mapTable.setDebug(true);
         mapTable.add(mapPane).row();
         mapTable.add(buttonGroup);
+
         return mapTable;
     }
 }

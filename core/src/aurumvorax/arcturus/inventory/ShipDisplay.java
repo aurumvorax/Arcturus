@@ -50,7 +50,6 @@ public class ShipDisplay extends Stack{
         validate();
 
         float scale = shipImage.getImageHeight() / shipImage.getDrawable().getMinHeight();
-        System.out.println(shipImage.getScaleX() + " " + scale);
         Vector2 origin = new Vector2(data.imgCenter);
         origin.scl(scale).add(shipImage.getImageX(), shipImage.getImageY());
 

@@ -2,33 +2,39 @@
 0.2 - Playground
 
     - multiple solar systems / hyperdrive
-        - test assets needed - more planets/moons, etc
-
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
 
-    - galaxy map
-        - system select/set course
+
+    - assets needed
+        - test planets/moons
+        - rocket/missile and launcher
+        - smoke particle for missile trail
+
+    + galaxy map
+        + system select/set course
 
     - basic faction system
-        - just a property for each ship for now, will eventually load from json
+        - just a property for each ship for now, will eventually load from json, change, etc
 
     - solar save/load system
+        - pojo for storing system data in
+            - name
+            - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
+            - position/destination/goal/status of all ships in system
+                - can use ShipProfile?  will later use AI data class that contains shipProfile
+                    - add health to profile.
 
     - hyperdrive
-        - check for set course
-        - can only jump outside mass limit - hyberbola perpendicular to flight path, radius property of solarsystem
-        - draw hyper limit
-
-    - test basic AI behaviours
+        + set course ahead of time
+        - limited range based on power/ship mass
+        - can only jump outside mass limit - hyberbola perpendicular to flight path, closest radius property of solarsystem
+        - draw hyper limit in space/only on map? once course is selected
 
     - rockets/missiles
-        - assets
-
+    - launchers
     - particle effects system
         - smoke trails
-
-    - launchers
 
     - pd weapons
         - aiming ai
@@ -49,6 +55,7 @@ Menu
     - options menu
         - keybinds menu
     - call main menu while in another menu -> saving while in menus
+    - create modified version of ScrollPane for mapPane - can then use for shipyard as well
 
 Graphics
     - dynamic load animations in services (from json files) - finish EffectFactory
@@ -83,6 +90,8 @@ LONG TERM
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
     - reset camera position on newgame/transition from menu
+    - NPE if map of shipyard is opened after playership is destroyed - look in transitionManager
+    - add rotational speed limit for ships
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)
