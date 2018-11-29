@@ -2,17 +2,23 @@
 0.2 - Playground
 
     - multiple solar systems / hyperdrive
+        - test assets needed - more planets/moons, etc
+
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
-    - map
+
+    - galaxy map
+        - system select/set course
 
     - basic faction system
         - just a property for each ship for now, will eventually load from json
+
     - solar save/load system
 
     - hyperdrive
-        - set course before jump, using map
+        - check for set course
         - can only jump outside mass limit - hyberbola perpendicular to flight path, radius property of solarsystem
+        - draw hyper limit
 
     - test basic AI behaviours
 
@@ -47,6 +53,7 @@ Menu
 Graphics
     - dynamic load animations in services (from json files) - finish EffectFactory
     - particle effects for missile trails, etc
+    - 3d planets using modelbuilder.createsphere
 
 Game
     - rockets/torpedoes
