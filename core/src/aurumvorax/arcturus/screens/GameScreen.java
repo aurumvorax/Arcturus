@@ -1,18 +1,21 @@
 package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.systems.PlayerShip;
-import aurumvorax.arcturus.artemis.*;
+import aurumvorax.arcturus.PlayerInput;
+import aurumvorax.arcturus.artemis.Destructor;
+import aurumvorax.arcturus.artemis.GameInvocationStrategy;
+import aurumvorax.arcturus.artemis.WorldSerializer;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
-import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
-import aurumvorax.arcturus.artemis.factories.SolarFactory;
 import aurumvorax.arcturus.savegame.SaveManager;
-import com.artemis.*;
+import com.artemis.ComponentMapper;
+import com.artemis.World;
+import com.artemis.WorldConfiguration;
+import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -57,6 +60,7 @@ public class GameScreen extends ScreenAdapter{
                 new Damage(),
                 new Destructor()
             ).build();
+
         world = new World(config);
 
         ShipFactory.init(world);
@@ -64,7 +68,6 @@ public class GameScreen extends ScreenAdapter{
         ProjectileFactory.init(world);
         EffectFactory.init(world);
         TerrainFactory.init(world);
-
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
@@ -104,8 +107,8 @@ public class GameScreen extends ScreenAdapter{
     private void newGame(){
         worldCam.reset();
         worldSerializer.resetWorld();
-        int ship = ShipData.buildGeneric("PlayerShip", "TestShip", "Standard", 800, 800, 0);
-        ShipData.buildGeneric("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
+        int ship = ShipFactory.create("PlayerShip", "TestShip", "Standard", 800, 800, 0);
+        ShipFactory.create("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);

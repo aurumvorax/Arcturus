@@ -12,7 +12,7 @@ import java.util.Set;
 public class EntityData{
 
     private static HashMap<String, EffectData> effects = new HashMap<>();
-    private static HashMap<String, ShipData> ships = new HashMap<>();
+    private static HashMap<String, ShipData.Stock> ships = new HashMap<>();
     private static HashMap<String, WeaponData> weapons = new HashMap<>();
     private static HashMap<String, ProjectileData> projectiles = new HashMap<>();
     private static HashMap<String, SolarData> systems = new HashMap<>();
@@ -66,7 +66,7 @@ public class EntityData{
         return effects.get(type);
     }
 
-    public static ShipData getShipData(String type){
+    public static ShipData.Stock getShipData(String type){
         if(!ships.containsKey(type))
             throw new IllegalArgumentException("Invalid ship type - " + type);
         return ships.get(type);
@@ -101,7 +101,7 @@ public class EntityData{
 
     private static class ShipWrapper{
         String name;
-        ShipData data;
+        ShipData.Stock data;
     }
 
     private static class WeaponWrapper{

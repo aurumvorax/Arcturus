@@ -2,7 +2,7 @@ package aurumvorax.arcturus.menus.shipyard;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.backstage.Profiles;
+import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
 import aurumvorax.arcturus.menus.MenuState;
@@ -54,8 +54,14 @@ public class Shipyard extends MenuState{
             public void changed(ChangeEvent event, Actor actor){
                 if((shipDisplay != null) && !(shipDisplay.getType().equals(shipList.getSelected()))){
                     shipDisplay.dumpTo(inventory);
-                    Profiles.Ship p = new Profiles.Ship(shipDisplay.getName(), shipList.getSelected(), null);
-                    shipDisplay.build(p, displayWidth, displayHeight);
+
+                    ShipData.Unique playerShip = PlayerData.GetPlayerShip();
+                    ShipData.Unique newShip = new ShipData.Unique(playerShip.name, shipList.getSelected());
+                    newShip.x = playerShip.x;
+                    newShip.y = playerShip.y;
+                    newShip.t = playerShip.t;
+
+                    shipDisplay.build(newShip, displayWidth, displayHeight);
                 }
             }
         });

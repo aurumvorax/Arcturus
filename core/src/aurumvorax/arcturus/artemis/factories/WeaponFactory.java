@@ -4,7 +4,10 @@ import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
-import com.artemis.*;
+import com.artemis.Archetype;
+import com.artemis.ArchetypeBuilder;
+import com.artemis.ComponentMapper;
+import com.artemis.World;
 
 public class WeaponFactory{
 
@@ -72,6 +75,18 @@ public class WeaponFactory{
 
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");
+        }
+    }
+
+    static void extract(ShipData.Loadout l, int weaponID){
+        if(mBeam.has(weaponID)){
+            Beam b = mBeam.get(weaponID);
+            l.weapons.put(b.slot, b.name);
+        }
+
+        if(mCannon.has(weaponID)){
+            Cannon b = mCannon.get(weaponID);
+            l.weapons.put(b.slot, b.name);
         }
     }
 

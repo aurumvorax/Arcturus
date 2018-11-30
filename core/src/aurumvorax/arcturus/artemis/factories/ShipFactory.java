@@ -6,7 +6,6 @@ import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
-import aurumvorax.arcturus.backstage.Profiles;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
@@ -48,13 +47,24 @@ public class ShipFactory{
                 .build(world);
     }
 
-    public static int create(Profiles.Ship profile, float x, float y, float t){
+    public static int create(ShipData.Unique ship){
+        return create(ship.name, ship.type, ship.loadout, ship.health, ship.x, ship.y, ship.t);
+    }
+
+    public static int create(String name, String type, String variant, float x, float y, float t){
+        ShipData.Stock stock = EntityData.getShipData(type);
+        ShipData.Loadout loadout = stock.loadouts.get(variant);
+
+        return create(name, type, loadout, stock.hull, x, y, t);
+    }
+
+    private static int create(String name, String type, ShipData.Loadout loadout, float hull, float x, float y, float t){
         int shipID = world.create(protoShip);
-        ShipData data = EntityData.getShipData(profile.type);
+        ShipData.Stock data = EntityData.getShipData(type);
 
         Ship ship = mShip.get(shipID);
-        ship.name = profile.name;
-        ship.type = profile.type;
+        ship.name = name;
+        ship.type = type;
 
         Physics2D p = mPhysics.get(shipID);
         p.p.set(x, y);
@@ -71,12 +81,12 @@ public class ShipFactory{
 
         mHealth.get(shipID).hull = data.hull;
 
-        equip(shipID, data, profile.loadout);
+        equip(shipID, data, loadout);
 
         return shipID;
     }
 
-    public static void equip(int ship, ShipData data, Profiles.Ship.Loadout loadout){
+    private static void equip(int ship, ShipData.Stock data, ShipData.Loadout loadout){
         IntBag weaponList = mWeapons.get(ship).all;
         IntBag activeList = mWeapons.get(ship).auto;
         IntBag manualList = mWeapons.get(ship).manual;
@@ -90,6 +100,24 @@ public class ShipFactory{
                 }
             }
         }
+    }
+
+    public static ShipData.Unique extract(int shipID){
+        Ship s = mShip.get(shipID);
+        ShipData.Unique unique = new ShipData.Unique(s.name, s.type);
+
+        Physics2D p = mPhysics.get(shipID);
+        unique.x = p.p.x;
+        unique.y = p.p.y;
+        unique.t = p.theta;
+
+        Weapons w = mWeapons.get(shipID);
+        for(int weaponID : w.all.getData())
+            WeaponFactory.extract(unique.loadout, weaponID);
+
+        unique.health = mHealth.get(shipID).hull;
+
+        return unique;
     }
 
 

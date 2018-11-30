@@ -3,7 +3,6 @@ package aurumvorax.arcturus.inventory;
 import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
 import aurumvorax.arcturus.artemis.factories.ShipData;
-import aurumvorax.arcturus.backstage.Profiles;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +20,7 @@ public class ShipDisplay extends Stack{
     private Group slotGroup = new Group();
     private Array<Slot> weaponSlots = new Array<>();
     private DragAndDrop dragAndDrop;
-    private Profiles.Ship workingProfile;
+    private ShipData.Unique workingProfile;
 
 
     public ShipDisplay(DragAndDrop dragAndDrop){
@@ -31,9 +30,9 @@ public class ShipDisplay extends Stack{
     public String getType(){ return (workingProfile == null) ? null : workingProfile.type; }
     public String getName(){ return workingProfile.name; }
 
-    public void build(Profiles.Ship profile, float width, float height){
-        workingProfile = profile;
-        rebuild(width,height);
+    public void build(ShipData.Unique ship, float width, float height){
+        workingProfile = ship;
+        rebuild(width, height);
     }
 
     public void rebuild(float width, float height){
@@ -41,7 +40,7 @@ public class ShipDisplay extends Stack{
         slotGroup.clear();
         weaponSlots.clear();
 
-        ShipData data = EntityData.getShipData(workingProfile.type);
+        ShipData.Stock data = EntityData.getShipData(workingProfile.type);
         shipImage = new Image(Services.getTexture(data.imgName));
         shipImage.setScaling(Scaling.fit);
         shipImage.setAlign(Align.center);
