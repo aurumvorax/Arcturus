@@ -1,7 +1,7 @@
 {
     name: "Playground",
     data:{
-        systemCoords: {x: 0, y: 0},
+        systemCoords: {x: 300, y: 542},
         starName: "Omicron Persei",
         starImgName: "Star1"
         starImgCenter: {x: 63, y: 63},

@@ -1,0 +1,36 @@
+{
+    name: "Brigand's Star",
+    data:{
+        systemCoords: {x: 400, y: 700},
+        starName: "Bob",
+        starImgName: "Star1"
+        starImgCenter: {x: 63, y: 63},
+        children: [
+            {name: "Yarr",
+                imgName: "Planet1",
+                imgCenter: {x: 63, y: 63},
+                semimajor: 5000,
+                eccentricity: 0.4,
+                sweep: 10,
+                children: []
+            },
+            {name: "Mutt",
+                imgName: "Moon1",
+                imgCenter: {x: 63, y: 63},
+                semimajor: 2000,
+                eccentricity: 1,
+                sweep: 25,
+                children: []
+            },
+            {name: "Jeff",
+                imgName: "Moon1",
+                imgCenter: {x: 63, y: 63},
+                semimajor: 2000,
+                eccentricity: 1,
+                sweep: 25,
+                offset: 30,
+                children: []
+            }
+        ]
+    }
+}

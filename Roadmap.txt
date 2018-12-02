@@ -15,7 +15,6 @@
         - ai determines target by player faction for now
 
     - solar save/load system
-        - add second system + coords to systemdata
         - make hyperdrive jump key
         - test system change
         - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
