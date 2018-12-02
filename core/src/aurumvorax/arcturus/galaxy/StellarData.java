@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 public class StellarData{
 
     public static class Base{
-        Vector2 systemCoords;
+        public Vector2 systemCoords;
         String starName;
         String starImgName;
         Vector2 starImgCenter;

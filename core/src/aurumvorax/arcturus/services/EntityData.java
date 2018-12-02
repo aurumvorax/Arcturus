@@ -87,7 +87,7 @@ public class EntityData{
         return projectiles.get(type);
     }
 
-    public static StellarData.Base getSolarData(String type){
+    public static StellarData.Base getStellarData(String type){
         if(!systems.containsKey(type))
             throw new IllegalArgumentException("Invalid solar system - " + type);
         return systems.get(type);

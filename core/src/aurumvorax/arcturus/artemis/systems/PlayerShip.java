@@ -36,11 +36,6 @@ public class PlayerShip extends BaseEntitySystem{
     }
 
     static void extract(){
-        Physics2D physics = mPhysics.get(playerID);
-        PlayerData.x = physics.p.x;
-        PlayerData.y = physics.p.y;
-        PlayerData.t = physics.theta;
-
         PlayerData.SetPlayerShip(ShipFactory.extract(playerID));
         Destructor.safeRemove(playerID);
     }

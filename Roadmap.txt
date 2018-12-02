@@ -15,14 +15,13 @@
         - ai determines target by player faction for now
 
     - solar save/load system
-        - fix mapPane to load systemlist from SolarSystemManager
+        - add second system + coords to systemdata
         - make hyperdrive jump key
         - test system change
         - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
 
     - newgame system
         - move everything out of GameScreen
-        - fix playership/playerdata ship loading
 
     - hyperdrive
         - implemented in transitionManager

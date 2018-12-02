@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.menus.map;
 
+import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -23,16 +24,17 @@ public class MapPane extends ScrollPane{
         setFadeScrollBars(false);
 
         background = new Image(Services.getTexture("MapBackgroundSmaller"));
-        mapItems.add(new MapMarker("Omicron Persei", new Vector2(500,500), Services.MENUSKIN));
-        mapItems.add(new MapMarker("Pirates Nest", new Vector2(100,200), Services.MENUSKIN));
+        for(String system : EntityData.getSolarSystems()){
+            MapMarker marker = new MapMarker(system, EntityData.getStellarData(system).systemCoords, Services.MENUSKIN);
 
-        for(MapMarker m : mapItems){
-            m.addListener(new ClickListener(){
+            marker.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    GalaxyMap.setNavTarget(m.name);
+                    GalaxyMap.setNavTarget(marker.name);
                 }
             });
+
+            mapItems.add(marker);
         }
     }
 
