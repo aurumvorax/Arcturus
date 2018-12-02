@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.galaxy;
 
 import aurumvorax.arcturus.artemis.factories.OrbitalData;
-import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
 import aurumvorax.arcturus.artemis.factories.StellarFactory;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
@@ -33,8 +32,8 @@ public class SolarSystemManager{
         if(extra == null)
             return;
 
-        for(ShipData.Unique ship : extra.ships.items)
-            ShipFactory.create(ship);
+        for(int i = 0; i < extra.ships.size; i++)
+            ShipFactory.create(extra.ships.get(i));
     }
 
     public static void saveSystem(){

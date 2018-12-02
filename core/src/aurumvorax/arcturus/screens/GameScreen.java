@@ -13,10 +13,8 @@ import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.savegame.SaveManager;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
-import com.artemis.WorldConfiguration;
-import com.artemis.WorldConfigurationBuilder;
+import com.artemis.*;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -24,12 +22,12 @@ import com.badlogic.gdx.ScreenAdapter;
 public class GameScreen extends ScreenAdapter{
 
     private Core core;
-    private World world;
     private PlayerControl playerControl;
     private WorldCam worldCam;
     private HUDRenderer hud;
     private WorldSerializer worldSerializer;
     private InputMultiplexer inputMUX;
+    private static World world;
 
     public GameScreen(Core core){
 
@@ -107,13 +105,26 @@ public class GameScreen extends ScreenAdapter{
 
     private void newGame(){
         worldCam.reset();
-        worldSerializer.resetWorld();
+        resetWorld();
         int ship = ShipFactory.create("PlayerShip", "TestShip", "Standard", 800, 800, 0);
         ShipFactory.create("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);
         SolarSystemManager.loadSystem("Playground");
+    }
+
+    public static void resetWorld(){
+        IntBag entities = world.getAspectSubscriptionManager()
+                .get(Aspect.all())
+                .getEntities();
+
+        int[] ids = entities.getData();
+        for (int i = 0, s = entities.size(); s > i; i++) {
+            world.delete(ids[i]);
+        }
+        world.process();
+        world.getEntityManager().reset();
     }
 
     @Override

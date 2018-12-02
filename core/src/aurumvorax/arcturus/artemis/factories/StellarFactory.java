@@ -1,10 +1,12 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.galaxy.StellarData;
 import com.artemis.*;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -81,11 +83,14 @@ public class StellarFactory{
         return orbital;
     }
 
+    @SuppressWarnings("unchecked")
     public static StellarData.Extra extractCurrentSystem(){
         StellarData.Extra currentSystem = new StellarData.Extra();
 
-        for(int shipID : world.getAspectSubscriptionManager().get(Aspect.all(Ship.class)).getEntities().getData()){
-            currentSystem.ships.add(ShipFactory.extract(shipID));
+        IntBag ships = world.getAspectSubscriptionManager().get(Aspect.all(Ship.class).exclude(Player.class)).getEntities();
+        int[] ids = ships.getData();
+        for(int i = 0, s = ships.size(); s > i; i++){
+            currentSystem.ships.add(ShipFactory.extract(ids[i]));
         }
 
         return currentSystem;

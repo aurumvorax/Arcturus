@@ -14,22 +14,17 @@
         - just a property for each ship for now, will eventually load from json, change, etc
         - ai determines target by player faction for now
 
-    - solar save/load system
-        - make hyperdrive jump key
-        - test system change
-        - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
+    -save/load
+        -add solarsystemmamager to save/load
 
     - newgame system
         - move everything out of GameScreen
 
-    - hyperdrive
-        - implemented in transitionManager
-        - limited range based on power/ship mass
-        - can only jump outside mass limit - hyberbola perpendicular to flight path, closest radius property of solarsystem
-        - draw hyper limit in space/only on map? once course is selected
-
     - rockets/missiles
+
     - launchers
+        - hardpoint mounts
+
     - particle effects system
         - smoke trails
 
@@ -46,6 +41,7 @@
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
+    - hyperdrive refinements
     - error handling on json reads, file access, and factories
 
 Menu

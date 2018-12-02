@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.menus.map;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.PlayerData;
+import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -33,7 +33,7 @@ public class GalaxyMap extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 if(tempNavTarget != null){
-                    PlayerData.navTarget = tempNavTarget;
+                    SolarSystemManager.setNavigationTarget(tempNavTarget);
                     enterGame(Core.GameMode.Active);
                 }
             }
