@@ -3,6 +3,7 @@ package aurumvorax.arcturus;
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
+import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.options.Keys;
 import aurumvorax.arcturus.screens.MenuScreen;
 import aurumvorax.arcturus.services.Services;
@@ -35,6 +36,10 @@ public class PlayerInput extends InputAdapter{
                 break;
             case MAP:
                 TransitionManager.setTransition(MenuScreen.MenuType.Map);
+                break;
+            case JUMP:
+                SolarSystemManager.hyperdrive();
+                break;
             case TURN_LEFT:
                 player.controlHelm(1);
                 break;

@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.systems.render.WorldCam;
+import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.screens.MenuScreen;
 import com.artemis.BaseSystem;
 
@@ -44,6 +44,7 @@ public class TransitionManager extends BaseSystem{
             }else{
                 transition = false;
                 PlayerShip.extract();
+                Destructor.safeRemove(PlayerShip.getID());
                 core.setMenuMode(transitionTo);
                 core.switchScreen(Core.ScreenType.Menu);
             }

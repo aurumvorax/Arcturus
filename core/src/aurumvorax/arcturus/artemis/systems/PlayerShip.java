@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
@@ -35,12 +34,11 @@ public class PlayerShip extends BaseEntitySystem{
         return -1;
     }
 
-    static void extract(){
+    public static void extract(){
         PlayerData.SetPlayerShip(ShipFactory.extract(playerID));
-        Destructor.safeRemove(playerID);
     }
 
-    static void insert(){
+    public static void insert(){
         int ship = ShipFactory.create(PlayerData.GetPlayerShip());
         mPlayer.create(ship);
     }

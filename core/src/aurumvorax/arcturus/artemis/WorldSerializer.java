@@ -3,6 +3,7 @@ package aurumvorax.arcturus.artemis;
 import aurumvorax.arcturus.savegame.ArrayKryoSerializer;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;
+import aurumvorax.arcturus.screens.GameScreen;
 import com.artemis.Aspect;
 import com.artemis.World;
 import com.artemis.io.KryoArtemisSerializer;
@@ -37,23 +38,10 @@ public class WorldSerializer implements SaveObserver{
                 break;
 
             case LOADING:
-                resetWorld();
+                GameScreen.resetWorld();
                 ByteArrayInputStream is = new ByteArrayInputStream(saveManager.loadElement("Artemis", byte[].class));
                 backend.load(is, SaveFileFormat.class);
                 break;
         }
-    }
-
-    public void resetWorld(){
-        IntBag entities = world.getAspectSubscriptionManager()
-                .get(Aspect.all())
-                .getEntities();
-
-        int[] ids = entities.getData();
-        for (int i = 0, s = entities.size(); s > i; i++) {
-            world.delete(ids[i]);
-        }
-        world.process();
-        world.getEntityManager().reset();
     }
 }
