@@ -11,6 +11,7 @@ import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.render.*;
+import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
@@ -67,7 +68,7 @@ public class GameScreen extends ScreenAdapter{
         WeaponFactory.init(world);
         ProjectileFactory.init(world);
         EffectFactory.init(world);
-        TerrainFactory.init(world);
+        StellarFactory.init(world);
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
@@ -112,7 +113,7 @@ public class GameScreen extends ScreenAdapter{
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);
-        SolarFactory.createSystem("Playground");
+        SolarSystemManager.loadSystem("Playground");
     }
 
     @Override

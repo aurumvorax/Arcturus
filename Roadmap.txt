@@ -7,26 +7,25 @@
 
 
     - assets needed
-        - test planets/moons
         - rocket/missile and launcher
         - smoke particle for missile trail
 
-    + galaxy map
-        + system select/set course
-
     - basic faction system
         - just a property for each ship for now, will eventually load from json, change, etc
+        - ai determines target by player faction for now
 
     - solar save/load system
-        - pojo for storing system data in
-            - name
-            - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
-            - position/destination/goal/status of all ships in system
-                + combine loadout and shipprofile into Profiles
-                - import/export ship Profiles
+        - fix mapPane to load systemlist from SolarSystemManager
+        - make hyperdrive jump key
+        - test system change
+        - elapsed time - modify SolarSystem and TerrainFactory to handle additional time parameter
+
+    - newgame system
+        - move everything out of GameScreen
+        - fix playership/playerdata ship loading
 
     - hyperdrive
-        + set course ahead of time
+        - implemented in transitionManager
         - limited range based on power/ship mass
         - can only jump outside mass limit - hyberbola perpendicular to flight path, closest radius property of solarsystem
         - draw hyper limit in space/only on map? once course is selected
@@ -49,7 +48,7 @@
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
-    - error handling on json reads and factories
+    - error handling on json reads, file access, and factories
 
 Menu
     - options menu
@@ -89,7 +88,7 @@ LONG TERM
 
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
-    - reset camera position on newgame/transition from menu
+    - on worldCam.reset(), just set camera position to target, don't set motion target.
     - NPE if map of shipyard is opened after playership is destroyed - look in transitionManager
     - add rotational speed limit for ships
 

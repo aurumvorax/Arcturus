@@ -1,16 +1,15 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
-import com.artemis.Archetype;
-import com.artemis.ArchetypeBuilder;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
+import aurumvorax.arcturus.galaxy.StellarData;
+import com.artemis.*;
 import com.badlogic.gdx.math.Vector2;
 
 
-public class TerrainFactory{
-    private static final TerrainFactory INSTANCE = new TerrainFactory();
+public class StellarFactory{
+    private static final StellarFactory INSTANCE = new StellarFactory();
 
     private static World world;
     private static Archetype protoStar;
@@ -24,7 +23,7 @@ public class TerrainFactory{
 
 
     public static void init(World world){
-        TerrainFactory.world = world;
+        StellarFactory.world = world;
         world.inject(INSTANCE);
 
         protoStar = new ArchetypeBuilder()
@@ -38,7 +37,14 @@ public class TerrainFactory{
                 .build(world);
     }
 
-    static int createStar(String name, String imgName, Vector2 imgCenter){
+    public static void buildTree(OrbitalData data, int parent){
+        int thisOrbital = StellarFactory.createOrbital(data, parent);
+        if(data.children != null)
+            for(OrbitalData child : data.children)
+                buildTree(child, thisOrbital);
+    }
+
+    public static int createStar(String name, String imgName, Vector2 imgCenter){
         int star = world.create(protoStar);
         mCelestial.get(star).name = name;
         SimpleSprite s = mSprite.get(star);
@@ -49,7 +55,7 @@ public class TerrainFactory{
         return star;
     }
 
-    static int createOrbital(SolarData.OrbitalData data, int parent){
+    private static int createOrbital(OrbitalData data, int parent){
         int orbital = world.create(protoOrbital);
         mCelestial.get(orbital).name = data.name;
         SimpleSprite s = mSprite.get(orbital);
@@ -73,5 +79,15 @@ public class TerrainFactory{
         }
 
         return orbital;
+    }
+
+    public static StellarData.Extra extractCurrentSystem(){
+        StellarData.Extra currentSystem = new StellarData.Extra();
+
+        for(int shipID : world.getAspectSubscriptionManager().get(Aspect.all(Ship.class)).getEntities().getData()){
+            currentSystem.ships.add(ShipFactory.extract(shipID));
+        }
+
+        return currentSystem;
     }
 }

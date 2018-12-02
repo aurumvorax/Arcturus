@@ -1,22 +1,17 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
-public class TerrainData{
-
-    //Common to all projectile types
+public class OrbitalData{
+    String name;
     String imgName;
     Vector2 imgCenter;
-
-    // Orbital parameters
-
     float semimajor;
     float eccentricity;
     float offset;
     float tilt;
     double sweep;
-
-    // Dockables
-
-    String dockName;
+    boolean dock;
+    Array<OrbitalData> children;
 }
