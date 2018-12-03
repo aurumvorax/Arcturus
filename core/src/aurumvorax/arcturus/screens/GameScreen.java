@@ -28,6 +28,7 @@ public class GameScreen extends ScreenAdapter{
     private WorldSerializer worldSerializer;
     private InputMultiplexer inputMUX;
     private static World world;
+    private static SolarSystemManager stellarManager;
 
     public GameScreen(Core core){
 
@@ -35,6 +36,7 @@ public class GameScreen extends ScreenAdapter{
         worldCam = new WorldCam();
         playerControl = new PlayerControl();
         hud = new HUDRenderer();
+        stellarManager = new SolarSystemManager();
         PlayerInput playerInput = new PlayerInput(playerControl, worldCam);
         RenderBatcher batcher = new RenderBatcher(worldCam, hud);
 
@@ -75,6 +77,7 @@ public class GameScreen extends ScreenAdapter{
         worldSerializer = new WorldSerializer(world);
         SaveManager.getInstance().addObserver(worldSerializer);
         SaveManager.getInstance().addObserver(worldCam);
+        SaveManager.getInstance().addObserver(stellarManager);
     }
 
     @Override
@@ -111,6 +114,7 @@ public class GameScreen extends ScreenAdapter{
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
         PlayerShip.setTargetID(-1);
+        SolarSystemManager.resetWorlds();
         SolarSystemManager.loadSystem("Playground");
     }
 

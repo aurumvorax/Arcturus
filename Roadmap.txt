@@ -14,12 +14,6 @@
         - just a property for each ship for now, will eventually load from json, change, etc
         - ai determines target by player faction for now
 
-    -save/load
-        -add solarsystemmamager to save/load
-
-    - newgame system
-        - move everything out of GameScreen
-
     - rockets/missiles
 
     - launchers
@@ -83,7 +77,7 @@ LONG TERM
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
     - on worldCam.reset(), just set camera position to target, don't set motion target.
-    - NPE if map of shipyard is opened after playership is destroyed - look in transitionManager
+    - NPE if map/shipyard/mainmenu after playership is destroyed - extracting nonexistant playership
     - add rotational speed limit for ships
 
 ASSETS NEEDED

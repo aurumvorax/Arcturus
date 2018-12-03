@@ -1,13 +1,12 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
+import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Turret;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
-import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
-import aurumvorax.arcturus.artemis.systems.render.HUDRenderer;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
@@ -39,7 +38,7 @@ public class PlayerControl extends BaseSystem{
     public void controlFire(boolean fire){ this.fire = fire; }
     public void setMouse(int x, int y){ this.mouse.set(x, y); }
 
-    public static void selectTarget(int x, int y){
+    public void selectTarget(int x, int y){
         select.set(x, y);
         int targetID = Collision.pointCheck(WorldCam.unproject(select));
         PlayerShip.setTargetID(targetID);

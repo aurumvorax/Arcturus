@@ -26,6 +26,8 @@ public class ShipData{
         public Loadout loadout;
         public float health;
 
+        public Unique(){}
+
         public Unique(String name, String type){
             this.name = name;
             this.type = type;

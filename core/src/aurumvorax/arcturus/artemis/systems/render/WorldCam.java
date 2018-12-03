@@ -124,6 +124,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
             case LOADING:
                 position.set(saveManager.loadElement("CamPosition", Vector2.class));
                 cam = saveManager.loadElement("Camera", OrthographicCamera.class);
+                break;
         }
     }
 }
