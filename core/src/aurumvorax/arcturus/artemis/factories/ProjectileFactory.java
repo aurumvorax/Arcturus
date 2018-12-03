@@ -14,6 +14,7 @@ public class ProjectileFactory{
     private static final ProjectileFactory INSTANCE = new ProjectileFactory();
     private static World world;
     private static Archetype protoBullet;
+    private static Archetype protoMissile;
 
     private static ComponentMapper<Projectile> mProjectile;
     private static ComponentMapper<Physics2D> mPhysics;
@@ -33,6 +34,9 @@ public class ProjectileFactory{
                 .add(Ephemeral.class)
                 .add(CollisionRadius.class)
                 .build(world);
+        protoMissile = new ArchetypeBuilder(protoBullet)
+                .add(PoweredProjectile.class)
+                .build(world);
     }
 
     public static int create(String name, float x, float y, float t, int firedFrom){
@@ -44,6 +48,10 @@ public class ProjectileFactory{
                 return bullet;
 
             case MISSILE:
+                int missile = world.create(protoMissile);
+                buildProjectile(missile, data, x, y, t, firedFrom);
+
+                return missile;
 
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");

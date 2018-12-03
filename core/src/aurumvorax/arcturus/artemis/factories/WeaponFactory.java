@@ -15,12 +15,14 @@ public class WeaponFactory{
     private static World world;
     private static Archetype protoCannon;
     private static Archetype protoBeam;
+    private static Archetype protoLauncher;
 
     private static ComponentMapper<Mounted> mMounted;
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Turret> mTurret;
     private static ComponentMapper<Cannon> mCannon;
     private static ComponentMapper<Beam> mBeam;
+    private static ComponentMapper<Launcher> mLauncher;
 
 
     public static void init(World world){
@@ -37,6 +39,9 @@ public class WeaponFactory{
                 .build(world);
         protoBeam = new ArchetypeBuilder(protoWeapon)
                 .add(Beam.class)
+                .build(world);
+        protoLauncher = new ArchetypeBuilder(protoWeapon)
+                .add(Launcher.class)
                 .build(world);
     }
 
@@ -71,7 +76,17 @@ public class WeaponFactory{
                 return beam;
 
             case LAUNCHER:
-                //return launcher;
+                int launcher = world.create(protoLauncher);
+                buildTurret(launcher, data, ship, mount);
+                Launcher l = mLauncher.get(launcher);
+                l.name = name;
+                l.slot = slot;
+                l.launches = data.launches;
+                l.burstTime = data.delay;
+                l.reloadTime = data.reload;
+                l.barrels = data.barrels;
+                ProjectileFactory.setWeaponData(l, data.launches);
+                return launcher;
 
             default:
                 throw new IllegalArgumentException(data.type + " is not a known type");

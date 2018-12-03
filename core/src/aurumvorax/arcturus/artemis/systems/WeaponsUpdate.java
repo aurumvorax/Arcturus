@@ -24,6 +24,7 @@ public class WeaponsUpdate extends IteratingSystem{
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Cannon> mCannon;
     private static ComponentMapper<Beam> mBeam;
+    private static ComponentMapper<Launcher> mLauncher;
 
 
     public WeaponsUpdate(){
@@ -53,6 +54,8 @@ public class WeaponsUpdate extends IteratingSystem{
 
         if(mCannon.has(weapon))
             updateCannon(mCannon.get(weapon), m, t.fire);
+        if(mLauncher.has(weapon))
+            updateCannon(mLauncher.get(weapon), m, t.fire);
         if(mBeam.has(weapon))
             updateBeam(mBeam.get(weapon), m, t.fire);
     }

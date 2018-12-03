@@ -1,0 +1,15 @@
+{
+    name: "TestMissile",
+    data: {
+        type: "MISSILE",
+        imgName: "Missile1",
+        imgCenter: { x: 4, y : 6},
+        collisionRadius: 6,
+        duration: 10,
+        speed: 100,
+        damage: 30,
+        engineDuration: 8,
+        turnRate: 15
+
+    }
+}

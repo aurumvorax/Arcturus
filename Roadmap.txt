@@ -7,7 +7,6 @@
 
 
     - assets needed
-        - rocket/missile and launcher
         - smoke particle for missile trail
 
     - basic faction system

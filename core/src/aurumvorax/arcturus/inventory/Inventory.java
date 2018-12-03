@@ -29,6 +29,7 @@ public class Inventory extends Table implements Draggable.Target{
         add(new Item.Stack(new Item(Item.ItemType.Weapon, "MultiBarrel"), 1));
         add(new Item.Stack(new Item(Item.ItemType.Weapon, "TestCannon"), 2));
         add(new Item.Stack(new Item(Item.ItemType.Weapon, "TestBeam"), 4));
+        add(new Item.Stack(new Item(Item.ItemType.Weapon, "TestLauncher"), 3));
     }
 
     @Override

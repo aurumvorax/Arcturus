@@ -1,0 +1,13 @@
+{
+	name: "TestLauncher",
+	data: {
+	    type: LAUNCHER,
+		imgName: "Launcher1",
+		imgCenter: {x: 4, y: 4},
+	    rotationSpeed: 50,
+		barrels: [{x: 4, y: 6}],
+		launches: "TestMissile",
+		delay: 0,
+		reload: 0.8
+	}
+}
