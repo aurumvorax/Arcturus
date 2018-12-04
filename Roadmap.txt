@@ -14,6 +14,7 @@
         - ai determines target by player faction for now
 
     - rockets/missiles
+        -guidance
 
     - launchers
         - hardpoint mounts
@@ -78,6 +79,7 @@ BUGS/Tweaks
     - on worldCam.reset(), just set camera position to target, don't set motion target.
     - NPE if map/shipyard/mainmenu after playership is destroyed - extracting nonexistant playership
     - add rotational speed limit for ships
+    - launched projectiles do not appear in the right place when the ship is moving
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)

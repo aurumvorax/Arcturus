@@ -6,21 +6,21 @@ filter: Nearest,Nearest
 repeat: none
 Missile1
   rotate: false
-  xy: 262, 174
-  size: 16, 16
-  orig: 16, 16
+  xy: 0, 0
+  size: 15, 7
+  orig: 15, 7
   offset: 0, 0
   index: -1
 TestBeam
   rotate: false
-  xy: 0, 0
+  xy: 17, 0
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
 TestBullet
   rotate: false
-  xy: 262, 164
+  xy: 18, 17
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -62,21 +62,21 @@ Star1
   index: -1
 Launcher1
   rotate: false
-  xy: 0, 9
-  size: 16, 16
-  orig: 16, 16
+  xy: 458, 247
+  size: 16, 9
+  orig: 16, 9
   offset: 0, 0
   index: -1
 MultiBarrel
   rotate: false
-  xy: 458, 240
+  xy: 0, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 TestTurret
   rotate: false
-  xy: 18, 9
+  xy: 262, 174
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

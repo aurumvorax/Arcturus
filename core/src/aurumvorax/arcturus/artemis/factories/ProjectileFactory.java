@@ -1,6 +1,9 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;
@@ -21,6 +24,8 @@ public class ProjectileFactory{
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Ephemeral> mEphemeral;
     private static ComponentMapper<CollisionRadius> mRadius;
+    private static ComponentMapper<Missile> mMissile;
+    private static ComponentMapper<Weapons> mWeapons;
 
 
     public static void init(World world){
@@ -35,7 +40,8 @@ public class ProjectileFactory{
                 .add(CollisionRadius.class)
                 .build(world);
         protoMissile = new ArchetypeBuilder(protoBullet)
-                .add(PoweredProjectile.class)
+                .add(PoweredMotion.class)
+                .add(Missile.class)
                 .build(world);
     }
 
@@ -50,7 +56,6 @@ public class ProjectileFactory{
             case MISSILE:
                 int missile = world.create(protoMissile);
                 buildProjectile(missile, data, x, y, t, firedFrom);
-
                 return missile;
 
             default:
@@ -82,5 +87,12 @@ public class ProjectileFactory{
 
         mEphemeral.get(projectile).lifespan = data.duration;
         mRadius.get(projectile).radius = data.collisionRadius;
+
+        if(mMissile.has(projectile)){
+            Missile m = mMissile.get(projectile);
+            m.engineDuration = data.engineDuration;
+                // TODO - set target for realsies here
+            m.target = PlayerShip.getTargetID();
+        }
     }
 }

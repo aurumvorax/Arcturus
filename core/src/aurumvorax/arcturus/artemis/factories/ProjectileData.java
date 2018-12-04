@@ -13,10 +13,12 @@ public class ProjectileData{
     float speed;
     float damage;
 
-    //Only for missiles
+    // Specific to missiles
 
     float engineDuration;
     float turnRate;
+    float accel;
+    float maxV;
 
     public enum Type{
         BULLET, MISSILE
