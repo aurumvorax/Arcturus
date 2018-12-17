@@ -97,11 +97,12 @@ public class WeaponFactory{
         if(mBeam.has(weaponID)){
             Beam b = mBeam.get(weaponID);
             l.weapons.put(b.slot, b.name);
-        }
-
-        if(mCannon.has(weaponID)){
+        }else if(mCannon.has(weaponID)){
             Cannon b = mCannon.get(weaponID);
             l.weapons.put(b.slot, b.name);
+        }else if(mLauncher.has(weaponID)){
+            Launcher m = mLauncher.get(weaponID);
+            l.weapons.put(m.slot, m.name);
         }
     }
 

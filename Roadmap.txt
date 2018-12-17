@@ -6,6 +6,8 @@
     - pirate system contains hostile ships
 
 
+    - localize docking to actual docks
+
     - assets needed
         - smoke particle for missile trail
 
@@ -72,12 +74,10 @@ LONG TERM
 
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
-    - on worldCam.reset(), just set camera position to target, don't set motion target.
-    - NPE if map/shipyard/mainmenu after playership is destroyed - extracting nonexistant playership
     - add rotational speed limit for ships
-    - launched projectiles do not appear in the right place when the ship is moving
+    - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
     - if target object is destroyed, reset target ID
-    - reentering game strips weapons.
+
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)

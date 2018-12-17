@@ -27,6 +27,7 @@ public class WorldCam extends BaseSystem implements SaveObserver{
     private Vector2 mouseS;
     private Vector3 lerpMatrix;
     private Rectangle screenBounds = new Rectangle();
+    private boolean reset = false;
 
     private static final float ZMIN = 0.02f;
     private static final float ZMAX = 20.0f;
@@ -47,7 +48,6 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         screenBounds.set(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
-    public void reset(){ cam.zoom = 1.0f; }
     public void zoom(float z){ cam.zoom = MathUtils.clamp(cam.zoom * (1 + z), ZMIN, ZMAX); }
     public void setMouse(float x, float y){ mouseS.set(x, y); }
     static float lerpX(float alpha){ return position.x + (velocity.x * alpha); }
@@ -61,6 +61,11 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         WorldCam.halfWidth = width * 0.5f;
         WorldCam.halfHeight = height * 0.5f;
         screenBounds.set(0,0, width, height);
+    }
+
+    public void reset(){
+        cam.zoom = 1.0f;
+        reset = true;
     }
 
     Matrix4 getMatrix(float alpha){
@@ -82,8 +87,13 @@ public class WorldCam extends BaseSystem implements SaveObserver{
         targetP = mPhysics.get(target).p;
         targetV = mPhysics.get(target).v;
 
-        velocity.set(targetP.x + ((mouseS.x - halfWidth) * cam.zoom * FRAMESIZE),
-                targetP.y - ((mouseS.y - halfHeight) * cam.zoom * FRAMESIZE));
+        if(reset){
+            reset = false;
+            position.set(targetP);
+            return;
+        }
+
+        velocity.set(targetP.x + ((mouseS.x - halfWidth) * cam.zoom * FRAMESIZE), targetP.y - ((mouseS.y - halfHeight) * cam.zoom * FRAMESIZE));
         velocity.sub(position).scl(PANSPEED).add(targetV);
         if(velocity.len2() < MINSPEED2 * cam.zoom)
             velocity.set(targetV);

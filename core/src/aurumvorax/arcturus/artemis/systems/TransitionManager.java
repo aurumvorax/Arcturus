@@ -23,8 +23,10 @@ public class TransitionManager extends BaseSystem{
     // Queues a transition out of the Game world into a menu.  Called from within the Artemis world by
     // Destructor, PlayerInput TODO Docking
     public static void setTransition(MenuScreen.MenuType menu){
-        transition = true;
-        transitionTo = menu;
+        if(timer == 0){
+            transition = true;
+            transitionTo = menu;
+        }
     }
 
     // Transitions into the Game world.  Called by MenuScreen.
