@@ -5,6 +5,7 @@ import aurumvorax.arcturus.PlayerInput;
 import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.WorldSerializer;
+import aurumvorax.arcturus.artemis.components.Faction;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
@@ -115,6 +116,7 @@ public class GameScreen extends ScreenAdapter{
         ShipFactory.create("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
         ComponentMapper<Player> mPlayer = world.getMapper(Player.class);
         mPlayer.create(ship);
+        world.getMapper(Faction.class).get(ship).faction = "Player";
         PlayerShip.setTargetID(-1);
         SolarSystemManager.resetWorlds();
         SolarSystemManager.loadSystem("Playground");

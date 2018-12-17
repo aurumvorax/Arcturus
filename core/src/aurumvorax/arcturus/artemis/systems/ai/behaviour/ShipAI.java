@@ -34,12 +34,14 @@ public class ShipAI extends IteratingSystem{
     @Override
     protected void process(int entityId){
         currentAI = entityId;
-        if(!mPlayer.has(entityId))
+        if(!mPlayer.has(entityId)){
             btree.step();
+        }else
+            activeTarget = entityId;
     }
 
     private void BuildBehaviourTree(){
-        btree = new BehaviorTree<ShipAI>(new Attack(), this);
+        btree = new BehaviorTree<>(new Attack(), this);
     }
 
 }

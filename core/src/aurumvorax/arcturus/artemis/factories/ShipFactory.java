@@ -28,6 +28,7 @@ public class ShipFactory{
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Health> mHealth;
+    private static ComponentMapper<Faction> mFaction;
 
 
     public static void init(World world){
@@ -44,6 +45,7 @@ public class ShipFactory{
                 .add(Health.class)
                 .add(PoweredMotion.class)
                 .add(AIShip.class)
+                .add(Faction.class)
                 .build(world);
     }
 
@@ -51,6 +53,7 @@ public class ShipFactory{
         return create(ship.name, ship.type, ship.loadout, ship.health, ship.x, ship.y, ship.t);
     }
 
+    // TODO - temp
     public static int create(String name, String type, String variant, float x, float y, float t){
         ShipData.Stock stock = EntityData.getShipData(type);
         ShipData.Loadout loadout = stock.loadouts.get(variant);
@@ -80,6 +83,8 @@ public class ShipFactory{
         s.layer = Renderer.Layer.ACTOR;
 
         mHealth.get(shipID).hull = data.hull;
+
+        mFaction.get(shipID).faction = "Pirate";
 
         equip(shipID, data, loadout);
 

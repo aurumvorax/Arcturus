@@ -2,7 +2,7 @@ package aurumvorax.arcturus;
 
 public class Utils{
 
-    private Utils(){} // Static class, block instantiation
+    private Utils(){}
 
     public static final float TWOPI = 6.283185307f;
 

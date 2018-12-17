@@ -1,7 +1,9 @@
 package aurumvorax.arcturus.artemis.systems.ai.behaviour;
 
 import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
-import aurumvorax.arcturus.artemis.systems.ai.steering.*;
+import aurumvorax.arcturus.artemis.systems.ai.steering.Face;
+import aurumvorax.arcturus.artemis.systems.ai.steering.MaintainDistance;
+import aurumvorax.arcturus.artemis.systems.ai.steering.Steer;
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 

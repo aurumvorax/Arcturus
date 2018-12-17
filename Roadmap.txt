@@ -9,10 +9,6 @@
     - assets needed
         - smoke particle for missile trail
 
-    - basic faction system
-        - just a property for each ship for now, will eventually load from json, change, etc
-        - ai determines target by player faction for now
-
     - rockets/missiles
         -guidance
 
@@ -28,7 +24,7 @@
 
 0.3 - Adventure
 
-    - strategic AI
+    - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, going to use state machines
     - graphics improvements to beam, explosions on hit, etc
     - armour system / shields
     - detailed HUD, including minimap
@@ -47,7 +43,7 @@ Menu
 Graphics
     - dynamic load animations in services (from json files) - finish EffectFactory
     - particle effects for missile trails, etc
-    - 3d planets using modelbuilder.createsphere
+    - 3d planets using modelbuilder.createsphere?
 
 Game
     - rockets/torpedoes
@@ -80,6 +76,8 @@ BUGS/Tweaks
     - NPE if map/shipyard/mainmenu after playership is destroyed - extracting nonexistant playership
     - add rotational speed limit for ships
     - launched projectiles do not appear in the right place when the ship is moving
+    - if target object is destroyed, reset target ID
+    - reentering game strips weapons.
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)
