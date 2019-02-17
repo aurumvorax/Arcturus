@@ -12,6 +12,7 @@ import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.artemis.systems.ai.MissileAI;
 import aurumvorax.arcturus.artemis.systems.ai.behaviour.ShipAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.*;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.savegame.SaveManager;
@@ -60,6 +61,7 @@ public class GameScreen extends ScreenAdapter{
                 new WeaponsUpdate(),
                 new MissileAI(),
                 new Collision(),
+                new Selection(),
                 new EphemeralDecay(),
                 new Damage(),
                 new Destructor()

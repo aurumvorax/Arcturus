@@ -2,6 +2,7 @@ package aurumvorax.arcturus;
 
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
+import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.options.Keys;
@@ -32,7 +33,9 @@ public class PlayerInput extends InputAdapter{
                 TransitionManager.setTransition(MenuScreen.MenuType.MainLive);
                 break;
             case DOCK:
-                TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
+                int dock = Selection.getDock();
+                if(dock > -1)
+                    TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
                 break;
             case MAP:
                 TransitionManager.setTransition(MenuScreen.MenuType.Map);

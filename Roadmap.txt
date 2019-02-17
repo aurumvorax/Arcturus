@@ -1,21 +1,16 @@
 
 0.2 - Playground
 
-    - multiple solar systems / hyperdrive
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
+    - some sort of effect/indicator for hyperdrive
 
-
-    - localize docking to actual docks
 
     - assets needed
         - smoke particle for missile trail
 
     - rockets/missiles
         -guidance
-
-    - launchers
-        - hardpoint mounts
 
     - particle effects system
         - smoke trails
@@ -26,7 +21,7 @@
 
 0.3 - Adventure
 
-    - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, going to use state machines
+    - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, may need to come up with some better Btree system
     - graphics improvements to beam, explosions on hit, etc
     - armour system / shields
     - detailed HUD, including minimap
@@ -35,6 +30,7 @@
     - add money to inventory system
     - hyperdrive refinements
     - error handling on json reads, file access, and factories
+
 
 Menu
     - options menu
@@ -77,6 +73,7 @@ BUGS/Tweaks
     - add rotational speed limit for ships
     - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
     - if target object is destroyed, reset target ID
+    - velocity is not saved when entering a menu - should keep position/velocity
 
 
 ASSETS NEEDED

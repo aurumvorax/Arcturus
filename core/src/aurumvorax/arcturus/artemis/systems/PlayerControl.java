@@ -6,16 +6,17 @@ import aurumvorax.arcturus.artemis.components.Turret;
 import aurumvorax.arcturus.artemis.components.shipComponents.Player;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
-import aurumvorax.arcturus.artemis.systems.collision.Collision;
+import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.artemis.annotations.EntityId;
 import com.badlogic.gdx.math.Vector2;
 
 
 public class PlayerControl extends BaseSystem{
 
-    private transient int player;
+    @EntityId private transient int player;
     private transient int thrust;
     private transient int helm;
     private transient int strafe;
@@ -40,7 +41,7 @@ public class PlayerControl extends BaseSystem{
 
     public void selectTarget(int x, int y){
         select.set(x, y);
-        int targetID = Collision.pointCheck(WorldCam.unproject(select));
+        int targetID = Selection.getSelected(WorldCam.unproject(select));
         PlayerShip.setTargetID(targetID);
     }
 

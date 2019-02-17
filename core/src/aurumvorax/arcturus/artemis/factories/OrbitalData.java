@@ -12,6 +12,7 @@ public class OrbitalData{
     float offset;
     float tilt;
     double sweep;
-    boolean dock;
+    boolean dock = false;
+    int dockRadius = 200;
     Array<OrbitalData> children;
 }

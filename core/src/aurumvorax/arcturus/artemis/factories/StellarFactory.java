@@ -22,6 +22,7 @@ public class StellarFactory{
     private static ComponentMapper<Celestial> mCelestial;
     private static ComponentMapper<Orbit> mOrbit;
     private static ComponentMapper<Dockable> mDockable;
+    private static ComponentMapper<CollisionRadius> mRadius;
 
 
     public static void init(World world){
@@ -77,7 +78,10 @@ public class StellarFactory{
         mPhysics.get(orbital).p.set(data.semimajor, 0).rotate(o.tilt).add(o.center);
 
         if(data.dock){
-            mDockable.create(orbital);
+            Dockable d = mDockable.create(orbital);
+            d.name = data.name;
+            CollisionRadius r = mRadius.create(orbital);
+            r.radius = data.dockRadius;
         }
 
         return orbital;

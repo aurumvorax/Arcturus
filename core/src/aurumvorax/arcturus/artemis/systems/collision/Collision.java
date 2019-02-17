@@ -11,9 +11,6 @@ import com.badlogic.gdx.utils.Array;
 public class Collision extends BaseEntitySystem{
 
     private static Bag<CollisionPair> collisionPairs = new Bag<>();
-    private static EntitySubscription selectionList;
-    private static EntitySubscription dockableList;
-    private static IntBag selectionHits = new IntBag();
     private static Manifold manifold = new Manifold();
 
     private static CollisionHandler notify = new NullHandler();
@@ -55,22 +52,13 @@ public class Collision extends BaseEntitySystem{
                 Beam.class,
                 Mounted.class));
 
-        EntitySubscription dockables = world.getAspectSubscriptionManager().get(Aspect.all(
-                Physics2D.class,
-                CollisionRadius.class,
-                Dockable.class));
-
         collisionPairs.add(new CollisionPair(actors, actors, crash));
         collisionPairs.add(new CollisionPair(actors, bullets, boom));
         collisionPairs.add(new CollisionPair(actors, beams, pewpew));
-
-        selectionList = actors;
-        dockableList = dockables;
     }
 
     @Override
     protected void processSystem(){
-
         ((BeamHandler)pewpew).setDelta(world.getDelta());   // need world.delta for dps calculations
 
         for(CollisionPair collisionPair : collisionPairs)
@@ -138,34 +126,6 @@ public class Collision extends BaseEntitySystem{
                 TestPP.test(entityA, entityB, manifold);
         }
     }
-
-    public static int pointCheck(Vector2 click){
-        selectionHits.clear();
-        IntBag list = selectionList.getEntities();
-        for(int i = 0; i < list.size(); i++){
-            if(TestPoint.testC(list.get(i), click))
-                selectionHits.add(list.get(i));
-        }
-
-        if(selectionHits.size() == 0)
-            return -1;
-        if(selectionHits.size() == 1)
-            return selectionHits.get(0);
-
-        return TestPoint.testPolys(click, selectionHits);
-    }
-
-    public static int dockCheck(int playerShip){
-        IntBag docks = dockableList.getEntities();
-        for(int i = 0; i < docks.size(); i++){
-            manifold.reset();
-            TestCC.test(playerShip, docks.get(i), manifold);
-            if(manifold.contacts != 0)
-                return docks.get(i);
-        }
-        return -1;
-    }
-
 
     static class Manifold{
         Array<Vector2> contactPoints = new Array<>();

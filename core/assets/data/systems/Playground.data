@@ -12,6 +12,8 @@
                 semimajor: 500,
                 eccentricity: 0.8,
                 sweep: 50,
+                dock: true,
+                dockRadius: 200,
                 children: [
                     {name: "Boring Moon",
                     imgName: "Moon1",
