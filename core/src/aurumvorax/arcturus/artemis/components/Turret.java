@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Turret extends Component{
 
-    private static final float FIXED_ARC = 5;
+    private static final float FIXED_ARC = 10;
 
     public float arcMin;
     public float arcMax;

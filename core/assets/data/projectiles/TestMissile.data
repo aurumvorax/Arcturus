@@ -6,11 +6,11 @@
         imgCenter: { x: 5, y : 3},
         collisionRadius: 6,
         duration: 10,
-        speed: 100,
-        damage: 30,
-        engineDuration: 8,
+        speed: 50,
+        damage: 1,
+        engineDuration: 10,
         turnRate: 15,
-        accel: 200,
-        maxV: 500
+        thrust: 100,
+        maxV: 400
     }
 }

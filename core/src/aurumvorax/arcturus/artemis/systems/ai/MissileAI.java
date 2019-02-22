@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MissileAI extends IteratingSystem{
 
+    private static Vector2 deltaP = new Vector2();
+    private static Vector2 deltaV = new Vector2();
+
     private static ComponentMapper<Missile> mMissile;
     private static ComponentMapper<PoweredMotion> mPowered;
     private static ComponentMapper<Physics2D> mPhysics;
@@ -23,13 +26,30 @@ public class MissileAI extends IteratingSystem{
     @Override
     protected void process(int entityId){
         PoweredMotion pm = mPowered.get(entityId);
+        Physics2D pMissile = mPhysics.get(entityId);
         Missile m = mMissile.get(entityId);
-        float theta = mPhysics.get(entityId).theta;
-        pm.accel.set(pm.thrust, 0).rotate(theta);
-        if((m.target != -1) && (mPhysics.has(m.target))){
-            Vector2 deltaP = new Vector2(mPhysics.get(m.target).p).sub(mPhysics.get(entityId).p);
-            pm.alpha = Utils.normalize(deltaP.angle() - theta) * 5000;
-        }
 
+        pm.accel.set(pm.thrust, 0).rotate(pMissile.theta);
+
+        if((m.target != -1) && (mPhysics.has(m.target))){
+            Physics2D pTarget = mPhysics.get(m.target);
+
+            float angleT = Utils.normalize(deltaP.set(pTarget.p).sub(pMissile.p).angle());
+            float angleV = Utils.normalize(deltaV.set(pTarget.v).add(pMissile.v).angle());
+
+            float difference = Utils.normalize(angleT - angleV);
+            float commanded;
+            if(Math.abs(difference) < 90)
+                commanded = Utils.normalize(angleT + difference);
+            else
+                commanded = angleT;
+
+            System.out.println(commanded + " " + pMissile.theta);
+
+            pMissile.omega = Utils.normalize(commanded - pMissile.theta) * 2f;
+
+        }else{  // Straighten out and fly off into the sunset
+            pm.alpha = -mPhysics.get(entityId).omega;
+        }
     }
 }

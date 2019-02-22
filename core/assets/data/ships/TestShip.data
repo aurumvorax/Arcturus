@@ -19,7 +19,7 @@ name: "TestShip",
 	    loadouts: {
 	        "Standard" : {
         	    weapons: {
-        	        0: "MultiBarrel"
+        	        0: "TestLauncher"
         	    }
    		    }
 	    }

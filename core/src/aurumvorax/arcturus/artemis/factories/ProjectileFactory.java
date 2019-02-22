@@ -26,6 +26,7 @@ public class ProjectileFactory{
     private static ComponentMapper<CollisionRadius> mRadius;
     private static ComponentMapper<Missile> mMissile;
     private static ComponentMapper<Weapons> mWeapons;
+    private static ComponentMapper<PoweredMotion> mPowered;
 
 
     public static void init(World world){
@@ -91,6 +92,9 @@ public class ProjectileFactory{
         if(mMissile.has(projectile)){
             Missile m = mMissile.get(projectile);
             m.engineDuration = data.engineDuration;
+            PoweredMotion pm = mPowered.get(projectile);
+            pm.thrust = data.thrust;
+            pm.maxV = data.maxV;
                 // TODO - set target for realsies here
             m.target = PlayerShip.getTargetID();
         }

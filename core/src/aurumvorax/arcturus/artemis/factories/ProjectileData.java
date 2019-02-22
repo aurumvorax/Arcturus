@@ -17,7 +17,7 @@ public class ProjectileData{
 
     float engineDuration;
     float turnRate;
-    float accel;
+    float thrust;
     float maxV;
 
     public enum Type{

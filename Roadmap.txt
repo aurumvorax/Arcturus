@@ -18,14 +18,11 @@
         - ship with PD turrets
         - smoke trails
 
-    - gamemode/transition cleanup
-        - ship menu skeleton
-        - check pause/
-        - use changeBack() for resume, check for menu status on load and use changeMenu as appropriate
+0.25 Interface
 
     - menu/save overhaul
-        - game mode
         - implement pages
+        - skeleton for inflight page browser
         - pageframes
         - pause system
 
@@ -43,6 +40,8 @@
     - add money to inventory system
     - hyperdrive refinements - go/nogo line, jump effect
     - error handling on json reads, file access, and factories
+
+
 
 0.4 - Experience
 
