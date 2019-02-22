@@ -36,10 +36,13 @@ public class PlayerShip extends BaseEntitySystem{
 
     public static void extract(){
         PlayerData.SetPlayerShip(ShipFactory.extract(playerID));
+        PlayerData.state.load(mPhysics.get(playerID));
     }
 
     public static void insert(){
         int ship = ShipFactory.create(PlayerData.GetPlayerShip());
+        Physics2D p = mPhysics.get(ship);
+        p.load(PlayerData.state);
         mPlayer.create(ship);
     }
 }

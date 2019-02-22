@@ -66,11 +66,10 @@ public class StellarFactory{
         s.offsetX = data.imgCenter.x;
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.PLANETARY;
-        float semiminor = data.semimajor * (float)Math.sqrt(1 - Math.pow(data.eccentricity, 2));
         Orbit o = mOrbit.get(orbital);
         o.parent = parent;
         o.major = data.semimajor * 2;
-        o.minor = semiminor * 2;
+        o.minor = data.semimajor * (float)Math.sqrt(1 - Math.pow(data.eccentricity, 2)) * 2;
         o.tilt = data.tilt;
         o.time = data.offset;
         o.sweep = data.sweep;

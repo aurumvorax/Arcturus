@@ -3,65 +3,57 @@
 
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
-    - some sort of effect/indicator for hyperdrive
-
-
-    - assets needed
-        - smoke particle for missile trail
 
     - rockets/missiles
-        -guidance
+        - guidance
 
-    - particle effects system
+    - effects system
         - smoke trails
 
     - pd weapons
         - aiming ai
         - weapon fire groups
 
+    - assets
+        - ship with PD turrets
+        - smoke trails
+
+    - gamemode/transition cleanup
+        - ship menu skeleton
+        - check pause/
+        - use changeBack() for resume, check for menu status on load and use changeMenu as appropriate
+
+    - menu/save overhaul
+        - game mode
+        - implement pages
+        - pageframes
+        - pause system
+
+
 0.3 - Adventure
 
     - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, may need to come up with some better Btree system
-    - graphics improvements to beam, explosions on hit, etc
+    - faction system
     - armour system / shields
-    - detailed HUD, including minimap
+    - basic HUD layout
+    - player message system
+    - minimap
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
-    - hyperdrive refinements
+    - hyperdrive refinements - go/nogo line, jump effect
     - error handling on json reads, file access, and factories
 
+0.4 - Experience
 
-Menu
-    - options menu
-        - keybinds menu
-    - call main menu while in another menu -> saving while in menus
-    - create modified version of ScrollPane for mapPane - can then use for shipyard as well
+    - graphics and effects overhaul
+         - graphics improvements to beam, explosions on hit, etc
+    - sound
 
-Graphics
-    - dynamic load animations in services (from json files) - finish EffectFactory
-    - particle effects for missile trails, etc
-    - 3d planets using modelbuilder.createsphere?
+0.5 - Economy
 
-Game
-    - rockets/torpedoes
-    - missiles
-    - Shields
-         - graphical assets
-         - component
-         - collision
-         - damage
-    
-AI
-    - assign actual target to AI.  right now it just defaults to entity 0 - default to PlayerShip?
-    - Attack, Escort, Protect, Travel - AI type component
-    - split proximity list into ships and projectiles - change avoidCollision to only dodge ships.  Allows for bullet dodging as a separate behaviour.
-    - add caching to proximity(sensor range)
-        -lists of friendly/hostile
+0.6 - Quests and Conversations
 
-World
-    - solar system load/save mechanism - storage to POJO, which can then be manipulated by time passing thread.
-    - change solar system mechanism - save playership data, clear artemis, load playership and new system
 
 LONG TERM
     - Splash screen via java VM loader
@@ -73,8 +65,7 @@ BUGS/Tweaks
     - add rotational speed limit for ships
     - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
     - if target object is destroyed, reset target ID
-    - velocity is not saved when entering a menu - should keep position/velocity
-
+    - hull damage is not extracted/inserted
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)

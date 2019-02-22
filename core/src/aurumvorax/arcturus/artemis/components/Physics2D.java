@@ -9,4 +9,11 @@ public class Physics2D extends Component{
     public Vector2 v = new Vector2();
     public float theta;
     public float omega;
+
+    public void load(Physics2D source){
+        p.set(source.p);
+        v.set(source.v);
+        theta = source.theta;
+        omega = source.omega;
+    }
 }
