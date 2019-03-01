@@ -57,7 +57,7 @@ public class AnimatedRenderer extends Renderer{
     protected void inserted(int entityID){
         if(mSprite.has(entityID)){
             animationsByID.put(entityID, Services.getAnimation(mSprite.get(entityID).name));
-            principal.register(entityID, this, mSprite.get(entityID).layer.ordinal());
+            principal.register(entityID, this, mSprite.get(entityID).layer);
         }
     }
 
@@ -65,7 +65,7 @@ public class AnimatedRenderer extends Renderer{
     protected void removed(int entityID){
         if(mSprite.has(entityID)){
             animationsByID.remove(entityID);
-            principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+            principal.unregister(entityID, this, mSprite.get(entityID).layer);
         }
     }
 }

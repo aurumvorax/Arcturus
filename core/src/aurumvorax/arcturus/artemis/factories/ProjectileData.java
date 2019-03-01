@@ -20,6 +20,11 @@ public class ProjectileData{
     float thrust;
     float maxV;
 
+    // Specific to missiles for now - will be expanded to include motion trails for bullets, gauss weapons, etc
+
+    String trailName;
+    Vector2 trailOffset;
+
     public enum Type{
         BULLET, MISSILE
     }

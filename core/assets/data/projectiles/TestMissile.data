@@ -3,14 +3,17 @@
     data: {
         type: "MISSILE",
         imgName: "Missile1",
-        imgCenter: { x: 5, y : 3},
+        imgCenter: { x: 5, y: 3},
         collisionRadius: 6,
         duration: 10,
         speed: 50,
         damage: 1,
         engineDuration: 10,
-        turnRate: 15,
+        turnRate: 25,
         thrust: 100,
-        maxV: 400
+        maxV: 400,
+
+        trailName: "MissileSmoke",
+        trailOffset: { x:-5, y: 0}
     }
 }

@@ -46,14 +46,14 @@ public class BeamRenderer extends Renderer{
     @Override
     protected void inserted(int entityID){
         regionsByID.put(entityID, Services.getTexture(mBeam.get(entityID).imgName));
-        principal.register(entityID, this, mBeam.get(entityID).layer.ordinal());
+        principal.register(entityID, this, mBeam.get(entityID).layer);
     }
 
     @Override
     protected void removed(int entityID){
         if(mBeam.has(entityID)){
             regionsByID.remove(entityID);
-            principal.unregister(entityID, this, mBeam.get(entityID).layer.ordinal());
+            principal.unregister(entityID, this, mBeam.get(entityID).layer);
         }
     }
 }

@@ -4,19 +4,10 @@
     - home system contains shipyard, friendly ships
     - pirate system contains hostile ships
 
-    - rockets/missiles
-        - guidance
-
-    - effects system
-        - smoke trails
-
-    - pd weapons
-        - aiming ai
-        - weapon fire groups
-
-    - assets
-        - ship with PD turrets
-        - smoke trails
+    - trail system
+       - renderer
+            - align offset with parent angle
+            - replace interval with mindistance
 
 0.25 Interface
 
@@ -26,21 +17,31 @@
         - pageframes
         - pause system
 
+    - basic HUD layout
+    - player message system
+    - error handling on json reads, file access, and factories
+        -error catching
 
 0.3 - Adventure
 
     - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, may need to come up with some better Btree system
     - faction system
     - armour system / shields
-    - basic HUD layout
-    - player message system
+     - pd weapons
+            - target prioritization ai
+            - weapon fire groups
     - minimap
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
     - hyperdrive refinements - go/nogo line, jump effect
-    - error handling on json reads, file access, and factories
 
+    - assets
+            - ship with PD turrets
+            - texture for jump line
+            - jump animation
+            - minimap stuff
+            - inventory items
 
 
 0.4 - Experience
@@ -49,9 +50,9 @@
          - graphics improvements to beam, explosions on hit, etc
     - sound
 
-0.5 - Economy
+0.5 - Quests and Conversations
 
-0.6 - Quests and Conversations
+0.6 - Economy
 
 
 LONG TERM

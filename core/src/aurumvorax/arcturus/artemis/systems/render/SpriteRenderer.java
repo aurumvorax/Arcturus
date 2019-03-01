@@ -55,7 +55,7 @@ public class SpriteRenderer extends Renderer{
     public void inserted(int entityID){
         if(mSprite.has(entityID)){
             regionsByID.put(entityID, Services.getTexture(mSprite.get(entityID).name));
-            principal.register(entityID, this, mSprite.get(entityID).layer.ordinal());
+            principal.register(entityID, this, mSprite.get(entityID).layer);
         }
     }
 
@@ -63,7 +63,7 @@ public class SpriteRenderer extends Renderer{
     public void removed(int entityID){
         if(mSprite.has(entityID)){
             regionsByID.remove(entityID);
-            principal.unregister(entityID, this, mSprite.get(entityID).layer.ordinal());
+            principal.unregister(entityID, this, mSprite.get(entityID).layer);
         }
     }
 }

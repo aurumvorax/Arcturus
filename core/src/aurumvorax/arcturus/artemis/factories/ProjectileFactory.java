@@ -4,6 +4,7 @@ import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
 import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
+import aurumvorax.arcturus.artemis.systems.Trails;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;
@@ -27,6 +28,7 @@ public class ProjectileFactory{
     private static ComponentMapper<Missile> mMissile;
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<PoweredMotion> mPowered;
+    private static ComponentMapper<Trail> mTrail;
 
 
     public static void init(World world){
@@ -43,6 +45,7 @@ public class ProjectileFactory{
         protoMissile = new ArchetypeBuilder(protoBullet)
                 .add(PoweredMotion.class)
                 .add(Missile.class)
+                .add(Trail.class)
                 .build(world);
     }
 
@@ -57,6 +60,7 @@ public class ProjectileFactory{
             case MISSILE:
                 int missile = world.create(protoMissile);
                 buildProjectile(missile, data, x, y, t, firedFrom);
+                mTrail.get(missile).trailData = Trails.addTrail(missile, data.trailName, data.trailOffset);
                 return missile;
 
             default:

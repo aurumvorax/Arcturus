@@ -8,5 +8,5 @@ public class SimpleSprite extends Component{
     public String name;
     public float offsetX;
     public float offsetY;
-    public Renderer.Layer layer = Renderer.Layer.DEFAULT;
+    public Renderer.Layer layer;
 }

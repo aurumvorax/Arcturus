@@ -1,0 +1,11 @@
+{
+    name: "MissileSmoke",
+    data: {
+        type: "TRAIL",
+        textureName: "Contrail",
+        interval: 1,
+        segments: 100,
+        width: 8,
+        widen: 0.03
+    }
+}

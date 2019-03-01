@@ -25,15 +25,15 @@ public class RenderBatcher{
         this.hud = hud;
     }
 
-    void register(int entityID, Renderer delegate, int layer){
-        jobs.get(layer).add(new Job(entityID, delegate));
+    void register(int entityID, Renderer delegate, Renderer.Layer layer){
+        jobs.get(layer.ordinal()).add(new Job(entityID, delegate));
     }
 
-    void unregister(int entityID, Renderer delegate, int layer){
-        final Object[] list = jobs.get(layer).getData();
+    void unregister(int entityID, Renderer delegate, Renderer.Layer layer){
+        final Object[] list = jobs.get(layer.ordinal()).getData();
         for(int i = 0; i< list.length; i++){
             if(((Job)list[i]).entityID == entityID && ((Job)list[i]).delegate == delegate){
-                jobs.get(layer).remove(i);
+                jobs.get(layer.ordinal()).remove(i);
                 break;
             }
         }

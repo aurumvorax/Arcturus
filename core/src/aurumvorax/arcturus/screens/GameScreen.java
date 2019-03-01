@@ -50,6 +50,7 @@ public class GameScreen extends ScreenAdapter{
                 new SpriteRenderer(batcher),
                 new AnimatedRenderer(batcher),
                 new BeamRenderer(batcher),
+                new TrailRenderer(batcher),
                 worldCam,
                 hud,
                 new PlayerShip(),
@@ -63,6 +64,7 @@ public class GameScreen extends ScreenAdapter{
                 new Collision(),
                 new Selection(),
                 new EphemeralDecay(),
+                new Trails(),
                 new Damage(),
                 new Destructor()
             ).build();

@@ -26,9 +26,9 @@ public abstract class Renderer extends BaseEntitySystem implements RenderMarker{
     @Override protected void processSystem(){}
 
     public enum Layer{
-        DEFAULT,
         STARFIELD,
         PLANETARY,
+        TRAIL,
         ACTOR,
         DETAIL,
         EFFECT

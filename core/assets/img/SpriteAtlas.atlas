@@ -1,82 +1,103 @@
 
 SpriteAtlas.png
-size: 512,256
+size: 512,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Contrail
+  rotate: false
+  xy: 132, 231
+  size: 128, 16
+  orig: 128, 16
+  offset: 0, 0
+  index: -1
+TestSmoke
+  rotate: false
+  xy: 0, 399
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
+TestSmoke2
+  rotate: false
+  xy: 0, 347
+  size: 400, 50
+  orig: 400, 50
+  offset: 0, 0
+  index: -1
 Missile1
   rotate: false
-  xy: 0, 0
+  xy: 402, 376
   size: 15, 7
   orig: 15, 7
   offset: 0, 0
   index: -1
 TestBeam
   rotate: false
-  xy: 17, 0
+  xy: 262, 320
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
 TestBullet
   rotate: false
-  xy: 18, 17
+  xy: 468, 441
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 ConcaveTest
   rotate: false
-  xy: 0, 27
+  xy: 132, 249
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 TestShip
   rotate: false
-  xy: 262, 192
+  xy: 0, 18
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 Moon1
   rotate: false
-  xy: 392, 192
+  xy: 402, 385
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Planet1
   rotate: false
-  xy: 0, 125
+  xy: 0, 214
   size: 130, 131
   orig: 130, 131
   offset: 0, 0
   index: -1
 Star1
   rotate: false
-  xy: 132, 128
+  xy: 0, 84
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 Launcher1
   rotate: false
-  xy: 458, 247
+  xy: 132, 220
   size: 16, 9
   orig: 16, 9
   offset: 0, 0
   index: -1
 MultiBarrel
   rotate: false
-  xy: 0, 9
+  xy: 262, 329
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 TestTurret
   rotate: false
-  xy: 262, 174
+  xy: 0, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

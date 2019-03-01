@@ -1,63 +1,80 @@
 package aurumvorax.arcturus.menus.map;
 
-import aurumvorax.arcturus.services.EntityData;
-import aurumvorax.arcturus.services.Services;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
 public class MapPane extends ScrollPane{
 
-    private Stack mapStack = new Stack();
-    private Group markerGroup = new Group();
-    private Image background;
-    private Array<MapMarker> mapItems = new Array<>();
+    private float zoom = 1;
+    private float zoomScale = 0.05f;
+    private float zoomMin = 0.5f;
+    private float zoomMax = 3f;
+    private Vector2 screen = new Vector2();
+    private Vector2 local = new Vector2();
+    private Group group;
 
-    MapPane(Skin skin){
-        super(null, skin);
-        setActor(mapStack);
+    public MapPane(Skin skin){
+        super(new Stack(), skin);
+        build();
+    }
+
+    public MapPane(){
+        super(new Stack());
+        build();
+    }
+
+    private void build(){
+        group = ((Group)getActor());
+        group.setTransform(true);
+
         setOverscroll(false, false);
         setFlingTime(0.2f);
         setFadeScrollBars(false);
 
-        background = new Image(Services.getTexture("MapBackgroundSmaller"));
-        for(String system : EntityData.getSolarSystems()){
-            MapMarker marker = new MapMarker(system, EntityData.getStellarData(system).systemCoords, Services.MENUSKIN);
+        removeListener(getListeners().get(1));
 
-            marker.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y){
-                    GalaxyMap.setNavTarget(marker.name);
-                }
-            });
+        addListener(new InputListener(){
+            public boolean scrolled(InputEvent event, float x, float y, int amount) {
+                zoom = MathUtils.clamp(zoom + (amount * zoomScale), zoomMin, zoomMax);
 
-            mapItems.add(marker);
-        }
+                screen.set(x, Gdx.graphics.getHeight() - y);
+                local.set(getActor().screenToLocalCoordinates(screen));
+                System.out.println(screen + " " + local);
+                group.setOrigin(local.x, local.y);
+
+                group.setScale(zoom);
+
+                System.out.println(zoom);
+                return true;
+            }
+        });
     }
 
-    public void build(){
-        mapStack.clear();
-        markerGroup.clear();
-        background.layout();
+    public void addStackActor(Actor actor){ group.addActor(actor); }
+    public void clearStack(){ group.clear(); }
 
-        for(MapMarker m : mapItems){
-            markerGroup.addActor(m);
-        }
 
-        mapStack.addActor(background);
-        mapStack.addActor(markerGroup);
-    }
 
-    private static class MapMarker extends ImageButton{
-        private String name;
 
-        private MapMarker(String name, Vector2 coords, Skin skin){
-            super(skin);
-            this.name = name;
-            setPosition(coords.x, coords.y);
-        }
-    }
+    // center zooming on mouse
+     // - calculate origin point from mouse position
+
+
+    // setters
+
+    //smooth zoom
+
+    // zoom - mouse wheel and +/- buttons
+        // - need to  add zoom buttons
+
+    // center/zoom to target
+        // - just a public method
 }
