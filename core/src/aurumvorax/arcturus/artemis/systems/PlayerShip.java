@@ -28,9 +28,12 @@ public class PlayerShip extends BaseEntitySystem{
     public static void setTargetID(int target){ targetID = target; }
 
     public static int getTargetID(){
-        if(mPlayer.has(playerID))
-            if((targetID != -1) && (mPhysics.has(targetID)))
-                return targetID;
+        if((mPlayer.has(playerID)) && (targetID != -1)){
+                if(mPhysics.has(targetID))
+                    return targetID;
+                else
+                    targetID = -1;
+        }
         return -1;
     }
 

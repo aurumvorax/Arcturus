@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Movement extends IteratingSystem{
 
-    private static final float V_CUTOFF = 10f;
+    private static final float V_CUTOFF = 1f;
     private static final float O_CUTOFF = 1f;
 
     private ComponentMapper<Physics2D> mPhysics;

@@ -113,6 +113,7 @@ public class Selection extends BaseSystem{
 
     public static int getSelected(Vector2 click){
         entityType.ALL.getEntities();  // loads all entities
+        selections.clear();
 
         for(int i = 0; i < entities.size(); i++){
             if(TestPoint.testC(entities.get(i), click))

@@ -1,9 +1,4 @@
 
-0.2 - Playground
-
-    - bug fixes
-
-
 0.25 Interface
 
     - menu/save overhaul
@@ -38,14 +33,12 @@
             - minimap stuff
             - inventory items
 
-
-0.4 - Experience
-
     - graphics and effects overhaul
          - graphics improvements to beam, explosions on hit, etc
     - sound
 
-0.5 - Quests and Conversations
+
+0.4 - Quests and Conversations
 
 0.6 - Economy
 
@@ -57,9 +50,7 @@ LONG TERM
 
 BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
-    - add rotational speed limit for ships
     - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
-    - if target object is destroyed, reset target ID
     - hull damage is not extracted/inserted
 
 ASSETS NEEDED
