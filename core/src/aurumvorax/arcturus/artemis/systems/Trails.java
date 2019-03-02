@@ -52,7 +52,6 @@ public class Trails extends IteratingSystem{
         t.length = data.segments;
         t.texDiv = (t.texture.getU2() - t.texture.getU()) / t.length;
         t.segments = new TrailData.Segment[data.segments];
-        t.ticksPerSegment = data.interval;
         t.width = data.width;
         t.widen = data.widen;
 
@@ -73,8 +72,6 @@ public class Trails extends IteratingSystem{
         public float texDiv;
 
         @EntityId int parent;
-        private int ticks;
-        private int ticksPerSegment;
         private float width;
         private float widen;
         private Vector2 point = new Vector2();
@@ -83,24 +80,20 @@ public class Trails extends IteratingSystem{
 
 
         void update(boolean active){
-            ticks++;
-            if(ticks >= ticksPerSegment){
-                ticks = 0;
-
-                if(active){
-                    point.set(mPhysics.get(parent).p).add(offset);
-                    lastPoint.sub(point);
-                    create(point, lastPoint.angle(), width, widen);
-                    lastPoint.set(point);
-                }else{
-                    size--;
-                    if(size < 2)
-                        fadingTrails.remove(this);
-                }
-
-                for(int i = 0; i < size; i++)
-                    segments[i].update();
+            if(active){
+                offset.setAngle(180 + mPhysics.get(parent).theta);
+                point.set(mPhysics.get(parent).p).add(offset);
+                lastPoint.sub(point);
+                create(point, lastPoint.angle(), width, widen);
+                lastPoint.set(point);
+            }else{
+                size--;
+                if(size < 2)
+                    fadingTrails.remove(this);
             }
+
+            for(int i = 0; i < size; i++)
+                segments[i].update();
         }
 
         void create(Vector2 center, float angle, float width, float widen){

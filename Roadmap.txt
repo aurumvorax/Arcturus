@@ -1,13 +1,8 @@
 
 0.2 - Playground
 
-    - home system contains shipyard, friendly ships
-    - pirate system contains hostile ships
+    - bug fixes
 
-    - trail system
-       - renderer
-            - align offset with parent angle
-            - replace interval with mindistance
 
 0.25 Interface
 

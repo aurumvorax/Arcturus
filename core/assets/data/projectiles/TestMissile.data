@@ -14,6 +14,6 @@
         maxV: 400,
 
         trailName: "MissileSmoke",
-        trailOffset: { x:-5, y: 0}
+        trailOffset: { x:-3, y: 0}
     }
 }

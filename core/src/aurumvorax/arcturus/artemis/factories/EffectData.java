@@ -13,7 +13,6 @@ public class EffectData{
 
     // Specific to TrailEffects
     public String textureName;
-    public int interval;
     public int segments;
     public float width;
     public float widen;
