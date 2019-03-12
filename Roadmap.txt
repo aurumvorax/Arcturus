@@ -2,10 +2,13 @@
 0.25 Interface
 
     - menu/save overhaul
-        - implement pages
-        - skeleton for inflight page browser
-        - pageframes
+        - load/save in menus
         - pause system
+
+    - in flight data
+        - implement pages
+            - skeleton for inflight page browser
+            - pageframes
 
     - basic HUD layout
     - player message system

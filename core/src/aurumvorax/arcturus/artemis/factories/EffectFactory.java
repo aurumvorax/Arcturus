@@ -1,23 +1,29 @@
 package aurumvorax.arcturus.artemis.factories;
 
-import aurumvorax.arcturus.services.EntityData;
-import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.AnimatedSprite;
 import aurumvorax.arcturus.artemis.components.Ephemeral;
 import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.Trail;
+import aurumvorax.arcturus.services.EntityData;
+import aurumvorax.arcturus.services.Services;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
+
 public class EffectFactory{
 
     private static final EffectFactory INSTANCE = new EffectFactory();
     private static World world;
     private static Archetype protoExplosion;
+    private static Archetype protoTrail;
 
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Ephemeral> mEphemeral;
     private static ComponentMapper<AnimatedSprite> mSprite;
+    private static ComponentMapper<Trail> mTrail;
 
 
     public static void init(World world){
@@ -28,6 +34,10 @@ public class EffectFactory{
                 .add(Physics2D.class)
                 .add(AnimatedSprite.class)
                 .add(Ephemeral.class)
+                .build(world);
+
+        protoTrail = new ArchetypeBuilder()
+                .add(Trail.class)
                 .build(world);
     }
 
@@ -47,5 +57,24 @@ public class EffectFactory{
         mEphemeral.get(effect).lifespan = Services.getAnimation(data.animName).getAnimationDuration();
 
         return effect;
+    }
+
+    public static int createTrail(String name, int parentID, Vector2 offset){
+        int trail = world.create(protoTrail);
+        EffectData data = EntityData.getEffectData(name);
+
+        Trail t = mTrail.get(trail);
+        t.parent = parentID;
+        t.offset.set(offset);
+        t.width = data.width;
+        t.widen = data.widen;
+        t.length = data.segments;
+        t.segments = new Trail.Segment[data.segments];
+
+        t.imgName = data.textureName;
+        TextureAtlas.AtlasRegion texture = Services.getTexture(data.textureName);
+        t.texDiv = (texture.getU2() - texture.getU()) / t.length;
+
+        return trail;
     }
 }
