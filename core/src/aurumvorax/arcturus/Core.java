@@ -16,6 +16,7 @@ public class Core extends Game{
     public enum GameMode{
         New,
         Active,
+        Paused,
         Dead
     }
 

@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis;
 
+import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.systems.render.RenderBatcher;
 import aurumvorax.arcturus.artemis.systems.render.RenderMarker;
 import com.artemis.BaseSystem;
@@ -21,12 +22,14 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
     private final BitVector disabledRenderSystems = new BitVector();
     private final BitVector disabledLogicSystems = new BitVector();
 
+    private Core core;
     private RenderBatcher batcher;
 
 
-    public GameInvocationStrategy(RenderBatcher batcher){  this(batcher, DEFAULT_TICK_TIME); }
+    public GameInvocationStrategy(Core core, RenderBatcher batcher){ this(core, batcher, DEFAULT_TICK_TIME); }
 
-    public GameInvocationStrategy(RenderBatcher batcher, long tickTime){
+    public GameInvocationStrategy(Core core, RenderBatcher batcher, long tickTime){
+        this.core = core;
         this.batcher = batcher;
         this.tickTime = tickTime;
         renderSystems = new Array<>();
@@ -57,12 +60,14 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
         while(accumulator >= tickTime){
             accumulator -= tickTime;
 
-            // Update tick
-            world.setDelta((float)tickTime * 0.000000001f);
-            for(int i = 0; i < logicSystems.size; i++){
-                if(!disabledLogicSystems.get(i)){
-                    logicSystems.get(i).process();
-                    updateEntityStates();
+            if(core.getGameMode() != Core.GameMode.Paused){
+                // Update tick
+                world.setDelta((float)tickTime * 0.000000001f);
+                for(int i = 0; i < logicSystems.size; i++){
+                    if(!disabledLogicSystems.get(i)){
+                        logicSystems.get(i).process();
+                        updateEntityStates();
+                    }
                 }
             }
         }
@@ -74,7 +79,11 @@ public class GameInvocationStrategy extends SystemInvocationStrategy{
                 updateEntityStates();
             }
         }
-        batcher.draw((float)accumulator * 0.000000001f);
+
+        if(core.getGameMode() == Core.GameMode.Paused)
+            batcher.draw(0f);
+        else
+            batcher.draw((float)accumulator * 0.000000001f);
     }
 
     @Override

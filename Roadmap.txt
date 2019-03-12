@@ -3,7 +3,6 @@
 
     - menu/save overhaul
         - load/save in menus
-        - pause system
 
     - in flight data
         - implement pages

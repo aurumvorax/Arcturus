@@ -13,12 +13,14 @@ import com.badlogic.gdx.InputAdapter;
 
 public class PlayerInput extends InputAdapter{
 
+    private Core core;
     private PlayerControl player;
     private WorldCam cam;
 
     private static final float SCROLLRATE = 0.1f;
 
-    public PlayerInput(PlayerControl player, WorldCam cam){
+    public PlayerInput(Core core, PlayerControl player, WorldCam cam){
+        this.core = core;
         this.player = player;
         this.cam = cam;
     }
@@ -32,35 +34,52 @@ public class PlayerInput extends InputAdapter{
             case MENU:
                 TransitionManager.setTransition(MenuScreen.MenuType.MainLive);
                 break;
+
+            case PAUSE:
+                if(core.getGameMode() == Core.GameMode.Paused)
+                    core.setGameMode(Core.GameMode.Active);
+                else
+                    core.setGameMode(Core.GameMode.Paused);
+                break;
+
             case DOCK:
                 int dock = Selection.getDock();
                 if(dock > -1)
                     TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
                 break;
+
             case MAP:
                 TransitionManager.setTransition(MenuScreen.MenuType.Map);
                 break;
+
             case JUMP:
                 SolarSystemManager.hyperdrive();
                 break;
+
             case TURN_LEFT:
                 player.controlHelm(1);
                 break;
+
             case TURN_RIGHT:
                 player.controlHelm(-1);
                 break;
+
             case FORWARD:
                 player.controlThrust(1);
                 break;
+
             case BACK:
                 player.controlThrust(-1);
                 break;
+
             case STRAFE_LEFT:
                 player.controlStrafe(1);
                 break;
+
             case STRAFE_RIGHT:
                 player.controlStrafe( -1);
                 break;
+
             case BRAKE:
                 player.controlBrake(true);
                 break;
@@ -77,21 +96,27 @@ public class PlayerInput extends InputAdapter{
             case TURN_LEFT:
                 player.controlHelm(0);
                 break;
+
             case TURN_RIGHT:
                 player.controlHelm(0);
                 break;
+
             case FORWARD:
                 player.controlThrust(0);
                 break;
+
             case BACK:
                 player.controlThrust(0);
                 break;
+
             case STRAFE_LEFT:
                 player.controlStrafe(0);
                 break;
+
             case STRAFE_RIGHT:
                 player.controlStrafe(0);
                 break;
+
             case BRAKE:
                 player.controlBrake(false);
                 break;
@@ -122,6 +147,7 @@ public class PlayerInput extends InputAdapter{
             case Input.Buttons.LEFT:
                 player.controlFire(false);
                 break;
+
             case Input.Buttons.RIGHT:
                 player.selectTarget(x, y);
         }
