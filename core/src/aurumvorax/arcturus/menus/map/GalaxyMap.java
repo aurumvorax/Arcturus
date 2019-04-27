@@ -5,6 +5,7 @@ import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.menus.MenuState;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -21,30 +22,34 @@ public class GalaxyMap extends MenuState{
     private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
     private static TextButton setCourseButton = new TextButton(null, Services.MENUSKIN);
     private HorizontalGroup buttonGroup = new HorizontalGroup();
-    private MapPane map;
+    private ZoomPane map;
     private Group markerGroup = new Group();
     private Image background;
+    private Stack stack = new Stack();
     private Array<MapMarker> mapItems = new Array<>();
     private static String tempNavTarget;
 
     public GalaxyMap(){
-        map = new MapPane(Services.MENUSKIN);
+        map = new ZoomPane(stack, Services.MENUSKIN);
 
         background = new Image(Services.getTexture("MapBackgroundSmaller"));
+
         for(String system : EntityData.getSolarSystems()){
             MapMarker marker = new MapMarker(system, EntityData.getStellarData(system).systemCoords, Services.MENUSKIN);
 
             marker.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y){
-                    GalaxyMap.setNavTarget(marker.name);
+                    setNavTarget(marker.name);
                 }
             });
 
             mapItems.add(marker);
         }
-        map.addStackActor(background);
-        map.addStackActor(markerGroup);
+
+        stack.addActor(background);
+        stack.addActor(markerGroup);
+        map.setWidget(stack);
 
         cancelButton.addListener(new ChangeListener(){
             @Override
@@ -67,7 +72,7 @@ public class GalaxyMap extends MenuState{
         buttonGroup.addActor(cancelButton);
     }
 
-    static void setNavTarget(String target){
+     void setNavTarget(String target){
         tempNavTarget = target;
         setCourseButton.getLabel().setText("Set course to " + target);
     }
@@ -76,16 +81,17 @@ public class GalaxyMap extends MenuState{
     @Override
     protected Actor build(Stage menuStage){
         markerGroup.clear();
-        background.layout();
         for(MapMarker m : mapItems)
             markerGroup.addActor(m);
 
         mapTable.clear();
         mapTable.setFillParent(true);
         mapTable.setDebug(true);
-        mapTable.add(map).row();
+        mapTable.add(map).expand().fill().row();
         mapTable.add(buttonGroup);
         menuStage.setScrollFocus(map);
+
+        Gdx.app.log("", "image" + background.getPrefHeight());
 
         return mapTable;
     }
