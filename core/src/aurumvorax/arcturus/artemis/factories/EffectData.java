@@ -23,4 +23,22 @@ public class EffectData{
     public enum Type{
         EXPLOSION, TRAIL
     }
+
+    public static boolean verify(EffectData data){
+        if(data ==  null)
+            return false;
+
+        if(data.type == Type.EXPLOSION){
+            return (data.animName != null &&
+                    data.imgCenter != null);
+        }
+
+        if(data.type == Type.TRAIL){
+            return (data.textureName != null &&
+                    data.segments > 0 &&
+                    data.width > 0);
+        }
+
+        return false;
+    }
 }

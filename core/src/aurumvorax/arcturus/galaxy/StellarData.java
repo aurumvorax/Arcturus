@@ -18,4 +18,24 @@ public class StellarData{
     public static class Extra{
         public Array<ShipData.Unique> ships = new Array<>();
     }
+
+    public static boolean verify(StellarData.Base data){
+        if(data.systemCoords != null ||
+                data.starName != null ||
+                data.starImgName != null ||
+                data.starImgCenter != null){
+
+            if(data.children == null)
+                return true;
+
+            for(OrbitalData child : data.children){
+                if(!OrbitalData.verify(child))
+                    return false;
+            }
+
+            return true;
+
+        }else
+            return false;
+    }
 }

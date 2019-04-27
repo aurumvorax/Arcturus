@@ -70,7 +70,12 @@ public enum Services{
     }
 
     public static TextureAtlas.AtlasRegion getTexture(String name){
-        return regionsByName.get(name);
+        TextureAtlas.AtlasRegion tex = regionsByName.get(name);
+        if(tex == null){
+            Gdx.app.error("Services", "Invalid/Missing texture - " + name);
+            return regionsByName.get("NoTexture");
+        }else
+            return regionsByName.get(name);
     }
 
     public static Animation getAnimation(String name){

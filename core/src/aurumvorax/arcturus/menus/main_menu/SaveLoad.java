@@ -166,7 +166,7 @@ public class SaveLoad extends MenuState{
             if(manager.saveGame(saveName.getText(), true))
                 changeBack();
             else
-                Gdx.app.debug("Save", "ERROR - Saving Game");
+                Gdx.app.debug("SaveManager", "ERROR - Saving Game");
         }
     }
 

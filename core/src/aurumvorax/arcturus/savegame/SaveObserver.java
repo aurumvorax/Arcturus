@@ -1,6 +1,6 @@
 package aurumvorax.arcturus.savegame;
 
-public interface SaveObserver {
+public interface SaveObserver{
 
     enum SaveEvent{
         SAVING, LOADING

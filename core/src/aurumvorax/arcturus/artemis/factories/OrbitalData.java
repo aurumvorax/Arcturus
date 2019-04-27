@@ -15,4 +15,11 @@ public class OrbitalData{
     boolean dock = false;
     int dockRadius = 200;
     Array<OrbitalData> children;
+
+    public static boolean verify(OrbitalData data){
+        return (data.name != null &&
+                data.imgName != null &&
+                data.imgCenter != null &&
+                data.semimajor > 0);
+    }
 }

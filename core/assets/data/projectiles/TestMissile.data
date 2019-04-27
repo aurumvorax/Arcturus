@@ -7,7 +7,7 @@
         collisionRadius: 6,
         duration: 10,
         speed: 50,
-        damage: 1,
+        damage: 10,
         engineDuration: 10,
         turnRate: 25,
         thrust: 100,

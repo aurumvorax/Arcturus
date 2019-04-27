@@ -4,6 +4,13 @@ size: 512,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+NoTexture
+  rotate: false
+  xy: 262, 281
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 Contrail
   rotate: false
   xy: 132, 231
@@ -27,21 +34,21 @@ TestSmoke2
   index: -1
 Missile1
   rotate: false
-  xy: 402, 376
+  xy: 468, 442
   size: 15, 7
   orig: 15, 7
   offset: 0, 0
   index: -1
 TestBeam
   rotate: false
-  xy: 262, 320
+  xy: 328, 338
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
 TestBullet
   rotate: false
-  xy: 468, 441
+  xy: 262, 271
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -90,14 +97,14 @@ Launcher1
   index: -1
 MultiBarrel
   rotate: false
-  xy: 262, 329
+  xy: 0, 0
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 TestTurret
   rotate: false
-  xy: 0, 0
+  xy: 402, 367
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

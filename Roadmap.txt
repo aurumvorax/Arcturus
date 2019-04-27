@@ -3,16 +3,30 @@
 
     - menu/save overhaul
         - load/save in menus
+        - dock menu needs a variable to hold which dock it is - decide background, services, etc
+            - assign in transition manager.  Store full data in json that is loaded by what?
 
     - in flight data
         - implement pages
             - skeleton for inflight page browser
             - pageframes
+            - menu page
+            - mission logs
+            - starmap
+            - cargo manifest
+            - ship systems
 
     - basic HUD layout
+
     - player message system
-    - error handling on json reads, file access, and factories
-        -error catching
+        - message queue
+        - message rendering system
+
+    - error handling in factories - return generic on error?
+    - save/load error handling
+
+    - look into fonts and text rendering
+
 
 0.3 - Adventure
 
@@ -37,6 +51,7 @@
 
     - graphics and effects overhaul
          - graphics improvements to beam, explosions on hit, etc
+         - 3d planets
     - sound
 
 

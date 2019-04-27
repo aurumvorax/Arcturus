@@ -17,6 +17,7 @@ public class Core extends Game{
         New,
         Active,
         Paused,
+        Docked,
         Dead
     }
 

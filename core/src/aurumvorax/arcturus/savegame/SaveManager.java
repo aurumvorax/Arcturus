@@ -22,7 +22,7 @@ public class SaveManager extends SaveSubject{
 
     private static final String SAVEGAME_SUFFIX = ".sav";
 
-    private SaveManager() {
+    private SaveManager(){
         ArrayKryoSerializer.registerArraySerializer(kryo);
         allSaves = new HashMap<>();
         readAllSaves();
@@ -34,7 +34,7 @@ public class SaveManager extends SaveSubject{
 
     @SuppressWarnings({"unchecked", "unused"})
     public <T> T loadElement(String key, Class<T> type){
-        if( !thisSave.containsKey(key) ){
+        if(!thisSave.containsKey(key)){
             return null;
         }
         return (T)thisSave.get(key);
@@ -61,7 +61,8 @@ public class SaveManager extends SaveSubject{
                 allSaves.put(file.nameWithoutExtension(), file);
             }
         }catch(Exception e){
-            e.printStackTrace();
+            Gdx.app.error("SaveManager", "Error in save file directory");
+            throw e;
         }
     }
 
@@ -81,7 +82,8 @@ public class SaveManager extends SaveSubject{
             kryo.writeObjectOrNull(output, thisSave, thisSave.getClass());
             output.close();
         }catch(Exception e){
-            e.printStackTrace();
+            Gdx.app.error("SaveManager", "Cannot write to save file - " + fullFileName);
+            throw e;
         }
         thisSave.clear();
         return true;
@@ -91,7 +93,7 @@ public class SaveManager extends SaveSubject{
     public void loadGame(String saveName){
         String fullFileName = Services.SAVE_PATH + saveName + SAVEGAME_SUFFIX;
         Input input;
-        try {
+        try{
             FileHandle file = Gdx.files.local(fullFileName);
             input = new Input(file.read());
             try{
@@ -100,12 +102,20 @@ public class SaveManager extends SaveSubject{
                     input.close();
                 thisSave = kryo.readObjectOrNull(input, thisSave.getClass());
             }catch(Exception e){
-                e.printStackTrace();
+                Gdx.app.error("SaveManager", "Error reading save file - " + fullFileName);
+                throw e;
             }
         }catch(Exception e) {
-            e.printStackTrace();
+            Gdx.app.error("SaveManager", "Unable to open save file - " + fullFileName);
+            throw e;
         }
-        notify(this, SaveObserver.SaveEvent.LOADING);
+
+        try{
+            notify(this, SaveObserver.SaveEvent.LOADING);
+        }catch(Exception e){
+            Gdx.app.error("SaveManager", "Save file is corrupt or wrong version");
+            throw e;
+        }
         thisSave.clear();
     }
 
@@ -114,7 +124,8 @@ public class SaveManager extends SaveSubject{
         try{
             Gdx.files.local(fullFileName).delete();
         }catch(Exception e){
-            e.printStackTrace();
+            Gdx.app.error("SaveManager", "Error deleting save file - " + fullFileName);
+            throw e;
         }
     }
 }

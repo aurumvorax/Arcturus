@@ -26,4 +26,28 @@ public class WeaponData{
     public enum Type{
         CANNON, LAUNCHER, BEAM
     }
+
+    public static boolean verify(WeaponData data){
+        if(data == null)
+            return false;
+
+        if(data.imgName == null ||
+                data.imgCenter == null ||
+                data.rotationSpeed == 0 ||
+                data.barrels == null ||
+                data.barrels.get(0) == null)
+            return false;
+
+        if(data.type == Type.CANNON || data.type == Type.LAUNCHER){
+            return (data.launches != null);
+        }
+
+        if(data.type == Type.BEAM){
+            return (data.beamImgName != null &&
+                    data.beamImgCenter != null &&
+                    data.range > 0);
+        }
+
+        return false;
+    }
 }

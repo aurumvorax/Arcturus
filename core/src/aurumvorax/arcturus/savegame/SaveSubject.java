@@ -2,9 +2,9 @@ package aurumvorax.arcturus.savegame;
 
 import com.badlogic.gdx.utils.Array;
 
-public class SaveSubject {
+public class SaveSubject{
 
-    private Array<SaveObserver> observers = new Array<SaveObserver>();
+    private Array<SaveObserver> observers = new Array<>();
 
     public void addObserver(SaveObserver observer){ observers.add(observer); }
     public void removeObserver(SaveObserver observer){ observers.removeValue(observer, true); }

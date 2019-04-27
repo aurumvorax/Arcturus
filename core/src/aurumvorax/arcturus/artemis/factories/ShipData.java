@@ -57,5 +57,32 @@ public class ShipData{
         }
     }
 
+    public static boolean verifyStock(ShipData.Stock data){
+        if(data == null)
+            return false;
 
+        return(data.imgName != null &&
+            data.imgCenter != null &&
+            data.collisionRadius > 0 &&
+            data.vertices != null &&
+            data.weaponMounts != null &&
+            data.hull > 0);
+    }
+
+    public static boolean verifyUnique(ShipData.Unique data){
+        if(data == null)
+            return false;
+
+        return(data.name != null &&
+            data.type != null &&
+            data.health > 0 &&
+            data.loadout != null);
+    }
+
+    public static boolean verifyLoadout(ShipData.Loadout data){
+        if(data == null)
+            return false;
+
+        return(data.weapons != null);
+    }
 }

@@ -28,5 +28,15 @@ public class ProjectileData{
     public enum Type{
         BULLET, MISSILE
     }
+
+    public static boolean verify(ProjectileData data){
+        if(data == null)
+            return false;
+
+        return (data.imgName != null ||
+                data.imgCenter != null ||
+                data.collisionRadius > 0 ||
+                data.duration != 0);
+    }
 }
 
