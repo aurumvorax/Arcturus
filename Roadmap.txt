@@ -9,10 +9,9 @@
     - in flight data
         - implement pages
             - skeleton for inflight page browser
-            - pageframes
-            - menu page
             - mission logs
             - starmap
+            - system map
             - cargo manifest
             - ship systems
 
@@ -30,7 +29,8 @@
 
 0.3 - Adventure
 
-    - strategic AI - don't like btree implementation. Want a series of static behaviours and deciders, may need to come up with some better Btree system
+    - strategic AI
+
     - faction system
     - armour system / shields
      - pd weapons
