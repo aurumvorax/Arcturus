@@ -1,11 +1,13 @@
 package aurumvorax.arcturus.artemis.systems.ai.utilityAI;
 
-import com.badlogic.gdx.utils.IntArray;
-
 public abstract class Action{
 
-    IntArray axes;
+    int[] axes;
+    float weight;
+
+
+    public Action(){
+    }
 
     abstract void execute();
-
 }
