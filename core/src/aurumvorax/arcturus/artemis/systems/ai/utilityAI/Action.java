@@ -6,8 +6,14 @@ public abstract class Action{
     float weight;
 
 
-    public Action(){
-    }
+    protected abstract boolean execute(float axisData[]);
 
-    abstract void execute();
+    float calculateScore(float[] axisData){
+        float tally = 1;
+
+        for(int axis : axes)
+            tally *= axisData[axis];
+
+        return tally * weight;
+    }
 }

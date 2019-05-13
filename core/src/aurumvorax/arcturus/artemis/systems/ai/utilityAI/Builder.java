@@ -2,7 +2,6 @@ package aurumvorax.arcturus.artemis.systems.ai.utilityAI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 
 public class Builder{
@@ -11,81 +10,101 @@ public class Builder{
     private Array<Transform> transforms = new Array<>();
     private IntMap<String> inputNames = new IntMap<>();
 
-    private Array<Array<ActionBuilder>> groups = new Array<>();
-    private Array<ActionBuilder> currentGroup = new Array<>();
+    private ActionBuilder root;
+    private ActionBuilder currentGroup;
 
+
+    public Builder(){
+        root = new ActionBuilder();
+        root.children = new Array<>();
+        currentGroup = root;
+    }
 
     public Builder addInput(Input i, Transform t){
         i.ID = inputs.size;
         inputs.add(i);
         transforms.add(t);
-        inputNames.put(i.ID, i.name);
+        inputNames.put(i.ID, i.getName());
 
         return this;
     }
 
-    public Builder addGroup(){
-        currentGroup = new Array<>();
-        groups.add(currentGroup);
+    public Builder atartGroup(float weight, String ... inputs){
+        ActionBuilder group = new ActionBuilder();
+
+        group.weight = weight;
+        group.inputs = inputs;
+        group.parent = currentGroup;
+        group.children = new Array<>();
+
+        currentGroup.children.add(group);
+        currentGroup = group;
+
+        return this;
+    }
+
+    public Builder endGroup(){
+        if(currentGroup == root)
+            Gdx.app.debug("AI Builder", "No need to close root group - just use build()");
+        else
+            currentGroup = currentGroup.parent;
 
         return this;
     }
 
     public Builder addAction(Action a, float weight, String ... inputs){
-        a.weight = weight;
-        ActionBuilder ab = new ActionBuilder(a, inputs);
-        currentGroup.add(ab);
+        ActionBuilder builder = new ActionBuilder();
+
+        builder.a = a;
+        builder.weight = weight;
+        builder.inputs = inputs;
+
+        currentGroup.children.add(builder);
 
         return this;
     }
 
     public Core build(){
-        Array<Action[]> actionGroups = new Array<>();
-        for(Array<ActionBuilder> group : groups){
+        return new Core(inputs.items, transforms.items, buildGroup(root));
+    }
 
-            Array<Action> actions = new Array<>();
-            for(ActionBuilder ab : group){
+    private ActionGroup buildGroup(ActionBuilder builder){
+        ActionGroup group = (ActionGroup)buildAction(builder);
 
-                IntArray ids = new IntArray();
-                for(String name : ab.inputs){
-                    int id = inputNames.findKey(name, false, -1);
+        Action[] actions = new Action[builder.children.size];
 
-                    if(id == -1)
-                        Gdx.app.error("AI Builder", "Cannot find input - " + name);
-                    else
-                        ids.add(id);
-                }
+        for(int i = 0; i < builder.children.size; i++)
+            actions[i] = buildAction(builder.children.get(i));
 
-                if(ids.size == 0)
-                    Gdx.app.error("AI Builder", "Cannot create action with no inputs - " + ab);
-                else{
-                    ab.a.axes = ids.items;
-                    actions.add(ab.a);
-                }
-            }
+        group.actions = actions;
 
-            if(actions.size == 0)
-                Gdx.app.error("AI Builder", " Cannot have an action group with no actions - " + group);
-            else{
-                actionGroups.add(actions.items);
-            }
+        return group;
+    }
+
+    private Action buildAction(ActionBuilder builder){
+        Action a = builder.a;
+
+        a.axes = new int[builder.inputs.length];
+
+        for(int j = 0; j < builder.inputs.length; j++){
+            int id = inputNames.findKey(builder.inputs[j], false, -1);
+
+            if(id == -1)
+                throw new IllegalArgumentException("AI Builder - Cannot find input - " + builder.inputs[j]);
+
+            a.axes[j] = id;
+            a.weight = builder.weight;
         }
 
-        if(actionGroups.size == 0){
-            Gdx.app.error("AI Builder", "No actions or action groups registered");
-            return null;
-        }else
-            return new Core(inputs.items, transforms.items, actionGroups.items);
+        return a;
     }
 
 
     private static class ActionBuilder{
         Action a;
+        float weight;
         String[] inputs;
-
-        ActionBuilder(Action a, String[] i){
-            this.a = a;
-            this.inputs = i;
-        }
+        ActionBuilder parent;
+        Array<ActionBuilder> children;
     }
 }

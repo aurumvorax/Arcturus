@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Transform{
 
-    Type type;
-    float m, k, b, c;
+    private Type type;
+    private float m, k, b, c;
 
     private static final float LOGIT_SAFETY_RANGE = 0.001f;
 
@@ -99,7 +99,7 @@ public class Transform{
         public abstract float calc(float input, float m, float k, float b, float c);
     }
 
-    public float calcTransform(float input){
+    float calcTransform(float input){
         input = MathUtils.clamp(input, 0, 1);
         input = this.type.calc(input, this.m, this.k, this.b, this.c);
         return MathUtils.clamp(input, 0, 1);
