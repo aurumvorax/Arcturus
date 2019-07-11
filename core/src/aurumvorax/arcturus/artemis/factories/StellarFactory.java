@@ -1,8 +1,8 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
-import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
+import aurumvorax.arcturus.artemis.components.Player;
+import aurumvorax.arcturus.artemis.components.Ship;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.galaxy.StellarData;
 import com.artemis.*;

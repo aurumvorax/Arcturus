@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
+import aurumvorax.arcturus.artemis.components.Mount;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;

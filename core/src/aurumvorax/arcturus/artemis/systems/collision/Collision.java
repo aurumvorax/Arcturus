@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.collision;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
+import aurumvorax.arcturus.artemis.components.Ship;
 import com.artemis.*;
 import com.artemis.utils.Bag;
 import com.artemis.utils.IntBag;

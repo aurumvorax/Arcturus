@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems.ai.steering;
 
 import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;

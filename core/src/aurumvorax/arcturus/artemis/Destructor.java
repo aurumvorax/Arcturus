@@ -1,9 +1,6 @@
 package aurumvorax.arcturus.artemis;
 
-import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
-import aurumvorax.arcturus.artemis.systems.PlayerShip;
-import aurumvorax.arcturus.artemis.systems.TransitionManager;
-import aurumvorax.arcturus.screens.MenuScreen;
+import aurumvorax.arcturus.artemis.components.Weapons;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.utils.IntBag;

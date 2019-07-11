@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
+import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.factories.ShipFactory;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;

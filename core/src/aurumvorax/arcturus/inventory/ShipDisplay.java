@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.inventory;
 
 import aurumvorax.arcturus.PlayerData;
-import aurumvorax.arcturus.artemis.components.shipComponents.Mount;
+import aurumvorax.arcturus.artemis.components.Mount;
 import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;

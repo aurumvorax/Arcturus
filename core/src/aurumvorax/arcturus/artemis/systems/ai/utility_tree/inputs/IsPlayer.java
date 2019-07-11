@@ -1,18 +1,17 @@
 package aurumvorax.arcturus.artemis.systems.ai.utility_tree.inputs;
 
-import aurumvorax.arcturus.artemis.components.Health;
 import aurumvorax.arcturus.artemis.components.AIData;
+import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.ai.utility_tree.Input;
 import com.artemis.ComponentMapper;
 
-public class MyHealth extends Input{
+public class IsPlayer extends Input{
 
-    private ComponentMapper<Health> mHealth;
+    private static ComponentMapper<Player> mPlayer;
 
 
     @Override
     protected float getData(AIData bb){
-        Health h = mHealth.get(bb.selfID);
-        return h.hull / h.maxHull;
+        return (mPlayer.has(bb.selfID)) ? 1f : 0f;
     }
 }

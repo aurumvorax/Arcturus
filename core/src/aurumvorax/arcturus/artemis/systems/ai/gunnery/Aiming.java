@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.ai.gunnery;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.components.Weapons;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.artemis.utils.BitVector;

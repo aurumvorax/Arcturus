@@ -1,9 +1,10 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Health;
+import aurumvorax.arcturus.artemis.systems.render.HUD.Codex;
 import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
+import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import com.artemis.*;
 import com.badlogic.gdx.*;
@@ -22,6 +23,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     private static int targetID = -1;
     private Vector2 target = new Vector2();
     private Vector2 targetLerp = new Vector2();
+    private Codex codex = new Codex(Services.MENUSKIN);
 
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<Player> mPlayer;
@@ -41,6 +43,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         stage.addActor(table);
         stage.addActor(reticle);
         stage.addActor(health);
+        stage.addActor(codex);
     }
 
     public InputProcessor getInputProcessor(){ return stage; }

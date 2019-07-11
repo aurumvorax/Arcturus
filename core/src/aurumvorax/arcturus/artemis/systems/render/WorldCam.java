@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
+import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.savegame.SaveObserver;

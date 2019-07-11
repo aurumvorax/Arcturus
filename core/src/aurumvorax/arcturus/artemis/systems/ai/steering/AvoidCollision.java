@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems.ai.steering;
 
 import aurumvorax.arcturus.artemis.components.CollisionRadius;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import aurumvorax.arcturus.artemis.systems.Proximity;
 import com.artemis.ComponentMapper;
 import com.artemis.World;

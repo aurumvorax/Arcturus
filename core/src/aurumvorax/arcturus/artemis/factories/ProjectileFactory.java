@@ -1,8 +1,8 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
-import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.Weapons;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;

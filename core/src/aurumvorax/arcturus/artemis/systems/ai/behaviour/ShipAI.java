@@ -1,9 +1,9 @@
 package aurumvorax.arcturus.artemis.systems.ai.behaviour;
 
+import aurumvorax.arcturus.artemis.components.AIData;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.Player;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import aurumvorax.arcturus.artemis.systems.ai.gunnery.GunneryAI;
 import aurumvorax.arcturus.artemis.systems.ai.steering.Steer;
 import com.artemis.Aspect;
@@ -21,7 +21,7 @@ public class ShipAI extends IteratingSystem{
 
     @SuppressWarnings("unchecked")
     public ShipAI(){
-        super(Aspect.all(Physics2D.class, PoweredMotion.class).one(AIShip.class, Player.class));
+        super(Aspect.all(Physics2D.class, PoweredMotion.class).one(AIData.class, Player.class));
     }
 
     @Override

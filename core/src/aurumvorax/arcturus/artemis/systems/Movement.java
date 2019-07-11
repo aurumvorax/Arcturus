@@ -2,7 +2,7 @@ package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;

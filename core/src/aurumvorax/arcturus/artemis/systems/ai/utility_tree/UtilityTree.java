@@ -1,5 +1,6 @@
 package aurumvorax.arcturus.artemis.systems.ai.utility_tree;
 
+import aurumvorax.arcturus.artemis.components.AIData;
 import com.artemis.World;
 import com.badlogic.gdx.utils.Array;
 
@@ -11,15 +12,12 @@ public class UtilityTree extends Node{
     private UtilityTree(){}  // Enforce use of Builder
 
     @Override
-    protected void action(Blackboard bb){}
+    protected void action(AIData bb){}
 
-    float getInputData(int index, Blackboard bb){
+    float getInputData(int index, AIData bb){
         return inputs[index].getData(bb);
     }
 
-    public void tick(Blackboard bb){
-        tick(bb);
-    }
 
     public static class Builder{
 
@@ -77,7 +75,7 @@ public class UtilityTree extends Node{
         }
 
         public UtilityTree build(){
-            tree.inputs = inputs.toArray();
+            tree.inputs = inputs.toArray(Input.class);
 
         return tree;
         }

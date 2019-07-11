@@ -1,10 +1,9 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.shipComponents.AIShip;
-import aurumvorax.arcturus.artemis.components.shipComponents.PoweredMotion;
-import aurumvorax.arcturus.artemis.components.shipComponents.Ship;
-import aurumvorax.arcturus.artemis.components.shipComponents.Weapons;
+import aurumvorax.arcturus.artemis.components.PoweredMotion;
+import aurumvorax.arcturus.artemis.components.Ship;
+import aurumvorax.arcturus.artemis.components.Weapons;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
 import com.artemis.Archetype;
@@ -44,7 +43,7 @@ public class ShipFactory{
                 .add(Weapons.class)
                 .add(Health.class)
                 .add(PoweredMotion.class)
-                .add(AIShip.class)
+                .add(AIData.class)
                 .add(Faction.class)
                 .build(world);
     }
@@ -87,6 +86,7 @@ public class ShipFactory{
         h.maxHull = data.hull;
 
         mFaction.get(shipID).faction = "Pirate";
+
 
         equip(shipID, data, loadout);
 

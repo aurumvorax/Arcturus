@@ -20,9 +20,7 @@ class TestPoint{
         if(!mCollidable.has(entity))
             return false;               // Not collidable
         int radius = mCollidable.get(entity).radius;
-        if(mPosition.get(entity).p.dst2(point) > radius * radius)
-            return false;               // Outside collision radius
-        return true;
+        return !(mPosition.get(entity).p.dst2(point) > radius * radius);
     }
 
     static int testPolys(Vector2 point, IntBag entities){

@@ -6,7 +6,7 @@ import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.GameInvocationStrategy;
 import aurumvorax.arcturus.artemis.WorldSerializer;
 import aurumvorax.arcturus.artemis.components.Faction;
-import aurumvorax.arcturus.artemis.components.shipComponents.Player;
+import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.artemis.systems.ai.MissileAI;
@@ -76,6 +76,7 @@ public class GameScreen extends ScreenAdapter{
         ProjectileFactory.init(world);
         EffectFactory.init(world);
         StellarFactory.init(world);
+
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
