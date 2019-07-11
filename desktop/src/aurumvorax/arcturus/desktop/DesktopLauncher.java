@@ -6,7 +6,6 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 public class DesktopLauncher {
     public static void main (String[] arg) {
@@ -20,6 +19,7 @@ public class DesktopLauncher {
         config.backgroundFPS = 120;
         config.preferencesFileType = Files.FileType.Local;
         config.preferencesDirectory = "/config";
+        config.forceExit = false;
 
         Gdx.app = new LwjglApplication(new Core(), config);
         Gdx.app.setLogLevel(Application.LOG_DEBUG);

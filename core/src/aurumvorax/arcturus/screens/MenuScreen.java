@@ -68,7 +68,7 @@ public class MenuScreen extends ScreenAdapter{
         enterMenu(current);
     }
 
-    // To be called by TransitionManager via Core, prior to transition.
+    // To be called by TransitionManager via USTCore, prior to transition.
     public void enterMenu(MenuType menu){
         current = menu;
         MenuState state = menus.get(menu);
