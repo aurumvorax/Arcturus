@@ -9,6 +9,7 @@
     - in flight data
         - implement pages
             - skeleton for inflight page browser
+                - hotkeys + exit
             - mission logs
             - starmap
             - system map
@@ -30,6 +31,7 @@
 0.3 - Adventure
 
     - strategic AI
+        - blackboard + shipID for each AI pass
 
     - faction system
     - armour system / shields

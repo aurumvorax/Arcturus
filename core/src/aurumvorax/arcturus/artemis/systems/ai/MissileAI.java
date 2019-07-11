@@ -44,7 +44,7 @@ public class MissileAI extends IteratingSystem{
             else
                 commanded = angleT;
 
-            pMissile.omega = Utils.normalize(commanded - pMissile.theta) * 2f;
+            pMissile.omega = Utils.normalize(commanded - pMissile.theta) * 4f;
 
         }else{  // Straighten out and fly off into the sunset
             pm.alpha = -mPhysics.get(entityId).omega;

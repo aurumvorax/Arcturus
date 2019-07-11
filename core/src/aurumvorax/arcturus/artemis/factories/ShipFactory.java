@@ -82,7 +82,9 @@ public class ShipFactory{
         s.offsetY = data.imgCenter.y;
         s.layer = Renderer.Layer.ACTOR;
 
-        mHealth.get(shipID).hull = data.hull;
+        Health h = mHealth.get(shipID);
+        h.hull = data.hull;
+        h.maxHull = data.hull;
 
         mFaction.get(shipID).faction = "Pirate";
 

@@ -5,4 +5,5 @@ import com.artemis.Component;
 public class Health extends Component{
 
     public float hull;
+    public float maxHull;
 }
