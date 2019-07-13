@@ -10,8 +10,9 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 
 
-public class StellarFactory{
-    private static final StellarFactory INSTANCE = new StellarFactory();
+public enum StellarFactory{
+
+    INSTANCE;
 
     private static World world;
     private static Archetype protoStar;

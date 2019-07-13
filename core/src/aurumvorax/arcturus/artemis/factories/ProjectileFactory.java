@@ -12,9 +12,10 @@ import com.artemis.ComponentMapper;
 import com.artemis.World;
 
 
-public class ProjectileFactory{
+public enum ProjectileFactory{
 
-    private static final ProjectileFactory INSTANCE = new ProjectileFactory();
+    INSTANCE;
+
     private static World world;
     private static Archetype protoBullet;
     private static Archetype protoMissile;

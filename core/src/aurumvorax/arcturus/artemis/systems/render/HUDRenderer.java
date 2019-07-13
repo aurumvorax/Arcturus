@@ -1,13 +1,16 @@
 package aurumvorax.arcturus.artemis.systems.render;
 
 import aurumvorax.arcturus.artemis.components.Health;
-import aurumvorax.arcturus.artemis.systems.render.HUD.Codex;
-import aurumvorax.arcturus.services.Services;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
-import com.artemis.*;
-import com.badlogic.gdx.*;
+import aurumvorax.arcturus.artemis.systems.render.HUD.Codex;
+import aurumvorax.arcturus.services.Services;
+import com.artemis.Aspect;
+import com.artemis.BaseEntitySystem;
+import com.artemis.ComponentMapper;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

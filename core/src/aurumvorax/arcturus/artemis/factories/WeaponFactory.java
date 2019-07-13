@@ -9,9 +9,10 @@ import com.artemis.ArchetypeBuilder;
 import com.artemis.ComponentMapper;
 import com.artemis.World;
 
-public class WeaponFactory{
+public enum WeaponFactory{
 
-    private static final WeaponFactory INSTANCE = new WeaponFactory();
+    INSTANCE;
+
     private static World world;
     private static Archetype protoCannon;
     private static Archetype protoBeam;

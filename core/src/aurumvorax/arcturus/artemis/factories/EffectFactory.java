@@ -13,9 +13,10 @@ import com.artemis.World;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
-public class EffectFactory{
+public enum EffectFactory{
 
-    private static final EffectFactory INSTANCE = new EffectFactory();
+    INSTANCE;
+
     private static World world;
     private static Archetype protoExplosion;
     private static Archetype protoTrail;

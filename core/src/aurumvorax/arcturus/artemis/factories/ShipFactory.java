@@ -13,9 +13,10 @@ import com.artemis.World;
 import com.artemis.utils.IntBag;
 
 
-public class ShipFactory{
+public enum ShipFactory{
 
-    private static final ShipFactory INSTANCE = new ShipFactory();
+    INSTANCE;
+
     private static World world;
     private static Archetype protoShip;
 
