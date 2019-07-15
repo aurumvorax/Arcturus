@@ -21,7 +21,8 @@ public class TransitionManager extends BaseSystem{
     }
 
     // Queues a transition out of the Game world into a menu.  Called from within the Artemis world by
-    // Destructor, PlayerInput TODO Docking
+    // Destructor(Death), Menu(Exit) or TODO Docking
+
     public static void setTransition(MenuScreen.MenuType menu){
         if(timer == 0){
             transition = true;
@@ -29,11 +30,14 @@ public class TransitionManager extends BaseSystem{
         }
     }
 
-    // Transitions into the Game world.  Called by MenuScreen.
-    public static void resumeGame(){
-        if(core.getGameMode() == Core.GameMode.Active){
+    // Transitions into the Game world.  Called by MenuFramework.
+    public static void resumeGame(Core.GameMode mode){
+        core.setGameMode(mode);
+
+        if(mode == Core.GameMode.Active){
             PlayerShip.insert();
         }
+
         core.switchScreen(Core.ScreenType.Game);
     }
 

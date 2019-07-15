@@ -2,7 +2,7 @@ package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.services.Services;
-import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.savegame.SaveManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-public class SaveLoad extends MenuState{
+public abstract class SaveLoad extends MenuPage{
 
     private Mode mode;
     public enum Mode{ SAVE, LOAD }
@@ -67,7 +67,7 @@ public class SaveLoad extends MenuState{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 confirmDeleteLabel.setText("Delete " + saveName.getText() + ".\nAre you sure?");
-                confirmDelete.show(stage);
+                confirmDelete.show(getStage());
             }
         });
 
@@ -177,6 +177,22 @@ public class SaveLoad extends MenuState{
         }else{
             deleteButton.setDisabled(true);
             loadButton.setDisabled(true);
+        }
+    }
+
+    public class Save extends SaveLoad{
+
+        @Override
+        protected Actor build(){
+            return null;
+        }
+    }
+
+    public class Load extends SaveLoad{
+
+        @Override
+        protected Actor build(){
+            return null;
         }
     }
 }

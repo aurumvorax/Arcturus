@@ -2,7 +2,7 @@ package aurumvorax.arcturus.screens;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
-import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.menus.death.GameOver;
 import aurumvorax.arcturus.menus.main_menu.Keybinds;
 import aurumvorax.arcturus.menus.main_menu.MainMenu;
@@ -33,20 +33,20 @@ public class MenuScreen extends ScreenAdapter{
     private Deque<MenuType> stateStack = new ArrayDeque<>();
     private MenuType current;
 
-    private EnumMap<MenuType, MenuState> menus = new EnumMap<>(MenuType.class);
+    private EnumMap<MenuType, MenuPage> menus = new EnumMap<>(MenuType.class);
     public enum MenuType{
         Main, MainLive, Save, Load, Options, Keybinds,
-        Shipyard, Map,  // Dock, Missions, Commerce, Intel, etc
+        Shipyard, Map,  // Dock, Missions, Commerce, InfoBroker, etc
         Dead
     }
 
     public MenuScreen(Core core){
         this.core = core;
 
-        MenuState mainMenu = new MainMenu();
+        MenuPage mainMenu = new MainMenu();
         menus.put(MenuType.Main, mainMenu);
         menus.put(MenuType.MainLive, mainMenu);
-        MenuState saveLoad = new SaveLoad();
+        MenuPage saveLoad = new SaveLoad();
         menus.put(MenuType.Save, saveLoad);
         menus.put(MenuType.Load, saveLoad);
         menus.put(MenuType.Options, new Options());
@@ -71,7 +71,7 @@ public class MenuScreen extends ScreenAdapter{
     // To be called by TransitionManager via USTCore, prior to transition.
     public void enterMenu(MenuType menu){
         current = menu;
-        MenuState state = menus.get(menu);
+        MenuPage state = menus.get(menu);
         switch(menu){
             case Main:  // This is the Main menu used during startup, or when accessed from other menus
                 background = Services.getTexture("MainMenuBackground");
@@ -96,30 +96,7 @@ public class MenuScreen extends ScreenAdapter{
         stage.addActor(state.enter(core, this, stage));
     }
 
-    public void changeMenu(MenuType newMenu){
-        stage.getRoot().setColor(1,1,1,1);
-        stage.clear();
-        stateStack.push(current);
-        enterMenu(newMenu);
-    }
 
-    public void changeBack(){
-        stage.getRoot().setColor(1,1,1,1);
-        stage.clear();
-        if(stateStack.peek() == null)
-            enterGame(Core.GameMode.Active); // no previous state, so resume game
-        else
-            enterMenu(stateStack.pop());
-    }
-
-    public void enterGame(Core.GameMode state){
-        Gdx.input.setInputProcessor(null);
-        stage.getRoot().getColor().a = 1f;
-        stage.clear();
-        stateStack.clear();
-        core.setGameMode(state);
-        TransitionManager.resumeGame();
-    }
 
     @Override
     public void render(float delta){

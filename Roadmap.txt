@@ -71,6 +71,7 @@ BUGS/Tweaks
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
     - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
     - hull damage is not extracted/inserted
+    - NPE crash on game load when there are missile trails
 
 ASSETS NEEDED
     WeaponSlot icons(valid/invalid)

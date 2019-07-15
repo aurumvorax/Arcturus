@@ -5,7 +5,7 @@ import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
-import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Array;
 
-public class Shipyard extends MenuState{
+public class Shipyard extends MenuPage{
 
     private ShipDisplay shipDisplay = null;
     private Inventory inventory;

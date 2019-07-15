@@ -2,7 +2,7 @@ package aurumvorax.arcturus.menus.map;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
-import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 
-public class GalaxyMap extends MenuState{
+public class GalaxyMap extends MenuPage{
 
     private Table mapTable = new Table();
     private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);

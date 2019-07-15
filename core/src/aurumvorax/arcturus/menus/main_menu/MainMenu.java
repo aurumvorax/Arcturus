@@ -1,22 +1,20 @@
 package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.services.Services;
-import aurumvorax.arcturus.menus.MenuState;
+import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.options.PreferenceManager;
 import aurumvorax.arcturus.screens.MenuScreen;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-public class MainMenu extends MenuState{
+public class MainMenu extends MenuPage{
 
-    private TextButton resumeButton = new TextButton("Resume", Services.MENUSKIN);
     private TextButton continueButton = new TextButton("Continue", Services.MENUSKIN);
     private TextButton newButton = new TextButton("New Game", Services.MENUSKIN);
     private TextButton loadButton = new TextButton("Load Game", Services.MENUSKIN);
@@ -28,13 +26,6 @@ public class MainMenu extends MenuState{
 
 
     public MainMenu(){
-
-        resumeButton.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor){
-                enterGame(Core.GameMode.Active);
-            }
-        });
 
         continueButton.addListener(new ChangeListener(){
             @Override
@@ -81,12 +72,10 @@ public class MainMenu extends MenuState{
     }
 
     @Override
-    public Actor build(Stage menuStage){
+    public Actor build(){
         outerTable.reset();
         menuTable.reset();
-        if(core.getGameMode() == Core.GameMode.Active)
-            menuTable.add(resumeButton).row();
-        else if(PreferenceManager.getLastSave() != null)
+        if(PreferenceManager.getLastSave() != null)
             menuTable.add(continueButton).row();
         menuTable.add(newButton).row();
         menuTable.add(saveButton).row();
