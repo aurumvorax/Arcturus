@@ -21,9 +21,10 @@ public abstract class MenuPage extends Table{
     }
 
     public MenuPage show(){
-        frame.setColor(1, 1, 1, 0);
+        setColor(1, 1, 1, 0);
         build();
-        frame.addAction(Actions.fadeIn(FADETIME));
+        addAction(Actions.fadeIn(FADETIME));
+        frame.getTitleLabel().setText(this.toString());
 
         return this;
     }

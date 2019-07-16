@@ -10,11 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class Options extends MenuPage{
 
+    private TextButton keysButton = new TextButton("Keybinds", Services.MENUSKIN);
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
     private Table menuTable = new Table();
 
     public Options(MenuFramework frame){
         super(frame);
+
+        keysButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                changeMenu(MenuFramework.Page.Keybinds);
+            }
+        });
 
         backButton.addListener(new ChangeListener(){
             @Override
@@ -30,6 +38,7 @@ public class Options extends MenuPage{
         menuTable.reset();
 
         menuTable.setFillParent(true);
+        menuTable.add(keysButton).row();
         menuTable.add(backButton);
 
         add(menuTable);

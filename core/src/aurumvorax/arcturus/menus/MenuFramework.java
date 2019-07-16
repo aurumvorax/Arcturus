@@ -25,7 +25,7 @@ public class MenuFramework extends Window{
         Start, Game, Save, Load, Options, Keybinds,
         Shipyard,  // Dock, Missions, Commerce, InfoBroker, etc
         Dead,
-        Codex, Map, Log
+        Map
     }
 
 
@@ -36,43 +36,52 @@ public class MenuFramework extends Window{
         pages.put(Page.Game, new GameMenu(this));
         pages.put(Page.Save, new Save(this));
         pages.put(Page.Load, new Load(this));
-        //pages.put(Page.Options, new Options(this));
-        //pages.put(Page.Keybinds, new Keybinds(this));
+        pages.put(Page.Options, new Options(this));
+        pages.put(Page.Keybinds, new Keybinds(this));
 
-
+        setPosition(100,100);
+        setSize(200,400);
         setDebug(true);
-        setPosition(200,200);
-        setSize(600, 600);
     }
 
     public void openToPage(Page page){
         setColor(1,1,1,1);
         clear();
 
+        current = page;
         add(pages.get(page).show());
+
+        stateStack.push(Page.Dead);
+        stateStack.push(Page.Keybinds);
+        stateStack.push(Page.Map);
+        System.out.println(stateStack.peek().toString());
+        System.out.println(stateStack.peek().toString());
+
     }
 
-    public void changePage(Page newPage){
+    void changePage(Page page){
         setColor(1,1,1,1);
-        clear();
+        reset();
 
         stateStack.push(current);
-        current = newPage;
+        current = page;
 
-        addActor(pages.get(newPage).show());
+        add(pages.get(current).show());
     }
 
-    public void changeBack(){
+    void changeBack(){
         setColor(1,1,1,1);
         clear();
 
         if(stateStack.peek() == null)
             transition(Core.GameMode.Active);
-        else
-            changePage(stateStack.pop());
+        else{
+            current = stateStack.pop();
+            add(pages.get(current).show());
+        }
     }
 
-    public void transition(Core.GameMode state){
+    void transition(Core.GameMode state){
         Gdx.input.setInputProcessor(null);
         setColor(1,1,1,1);
         clear();

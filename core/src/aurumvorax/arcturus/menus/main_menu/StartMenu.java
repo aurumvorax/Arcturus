@@ -83,8 +83,6 @@ public class StartMenu extends MenuPage{
         menuTable.add(optionsButton).padBottom(30).row();
         menuTable.add(quitButton).row();
 
-        //Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
-        //menuTable.setBackground(menuBG);
         menuTable.setFillParent(true);
 
         add(menuTable);
