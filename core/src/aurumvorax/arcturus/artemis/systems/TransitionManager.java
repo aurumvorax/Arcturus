@@ -34,11 +34,21 @@ public class TransitionManager extends BaseSystem{
     public static void resumeGame(Core.GameMode mode){
         core.setGameMode(mode);
 
-        if(mode == Core.GameMode.Active){
-            PlayerShip.insert();
-        }
+        switch(mode){
+            case Active:
+                PlayerShip.insert();
 
-        core.switchScreen(Core.ScreenType.Game);
+            case New:
+                core.switchScreen(Core.ScreenType.Game);
+                break;
+
+            case Initial:
+                core.switchScreen(Core.ScreenType.Menu);
+                break;
+
+            default:
+                throw new IllegalStateException("TransitionManager should never be called with mode - " + mode);
+        }
     }
 
     @Override

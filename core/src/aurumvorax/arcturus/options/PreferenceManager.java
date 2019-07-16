@@ -10,8 +10,8 @@ public enum PreferenceManager{
     private static String lastSave = null;
 
 
-    public static String getLastSave(){ return PreferenceManager.lastSave; }
-    public static void setLastString(String lastSave){ PreferenceManager.lastSave = lastSave; }
+    public static String getLastSave(){ return lastSave; }
+    public static void setLastSave(String lastSave){ PreferenceManager.lastSave = lastSave; }
 
     public static void loadPreferences(){
         lastSave = prefs.getString("lastSave");

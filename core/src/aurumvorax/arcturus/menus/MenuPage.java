@@ -11,13 +11,16 @@ public abstract class MenuPage extends Table{
     private static final float FADETIME = 0.3f;
     private MenuFramework frame;
 
-    protected Core core;
 
+    protected MenuPage(MenuFramework frame){
+        this.frame = frame;
+    }
 
     public MenuPage show(){
-        setColor(1, 1, 1, 0);
+
+        frame.setColor(1, 1, 1, 0);
         build();
-        addAction(Actions.fadeIn(FADETIME));
+        frame.addAction(Actions.fadeIn(FADETIME));
 
         return this;
     }
@@ -32,7 +35,7 @@ public abstract class MenuPage extends Table{
         addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changePage(next))));
     }
 
-    protected void enterGame(Core.GameMode mode){
-        addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.enterGame(mode))));
+    protected void transition(Core.GameMode mode){
+        addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.transition(mode))));
     }
 }

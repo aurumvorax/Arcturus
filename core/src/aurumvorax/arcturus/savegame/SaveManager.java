@@ -13,8 +13,7 @@ import java.util.HashMap;
 
 public class SaveManager extends SaveSubject{
 
-    private static class Singleton{ static final SaveManager INSTANCE = new SaveManager(); }
-    public static SaveManager getInstance(){ return Singleton.INSTANCE; }
+    public static final SaveManager INSTANCE = new SaveManager();
 
     private HashMap<String, FileHandle> allSaves;
     private ObjectMap<String, Object> thisSave = new ObjectMap<>();

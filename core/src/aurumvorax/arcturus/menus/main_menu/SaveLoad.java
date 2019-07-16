@@ -1,15 +1,15 @@
 package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.services.Services;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.savegame.SaveManager;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -17,10 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public abstract class SaveLoad extends MenuPage{
 
-    private Mode mode;
-    public enum Mode{ SAVE, LOAD }
+    protected boolean saveMode;
 
-    private SaveManager manager = SaveManager.getInstance();
+    private SaveManager manager = SaveManager.INSTANCE;
     private TextButton saveButton = new TextButton("Save", Services.MENUSKIN);
     private TextButton loadButton = new TextButton("Load", Services.MENUSKIN);
     private TextButton deleteButton = new TextButton("Delete", Services.MENUSKIN);
@@ -39,7 +38,8 @@ public abstract class SaveLoad extends MenuPage{
 
 
     @SuppressWarnings("unchecked")
-    public SaveLoad(){
+    public SaveLoad(MenuFramework frame){
+        super(frame);
 
         cancelButton.addListener(new ChangeListener(){
             @Override
@@ -52,7 +52,7 @@ public abstract class SaveLoad extends MenuPage{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 manager.loadGame(savesList.getSelected());
-                enterGame(Core.GameMode.Active);
+                transition(Core.GameMode.Active);
             }
         });
 
@@ -83,12 +83,12 @@ public abstract class SaveLoad extends MenuPage{
             @Override
             public boolean keyUp(InputEvent event, int key){
                 if(key == Input.Keys.ENTER){
-                    if(mode == Mode.SAVE)
+                    if(saveMode)
                         save(false);
-                    else if(mode == Mode.LOAD){
+                    else{
                         if(manager.isValid(saveName.getText())){
                             manager.loadGame(saveName.getText());
-                            enterGame(Core.GameMode.Active);
+                            transition(Core.GameMode.Active);
                         }
                     }
                 }
@@ -123,23 +123,21 @@ public abstract class SaveLoad extends MenuPage{
         confirmDelete.button("No", false);
     }
 
-    public void setMode(Mode mode){ this.mode = mode; }
-
     @Override
-    public Actor build(Stage menuStage){
+    public Actor build(){
         outerTable.reset();
         innerTable.reset();
         buttonGroup.clear();
         savesList.clearItems();
-        if(mode == Mode.SAVE)
+        if(saveMode)
             buttonGroup.addActor(saveButton);
-        else if(mode == Mode.LOAD)
+        else
             buttonGroup.addActor(loadButton);
 
         buttonGroup.addActor(deleteButton);
         buttonGroup.addActor(cancelButton);
 
-        savesList.setItems(SaveManager.getInstance().getSaveList());
+        savesList.setItems(manager.getSaveList());
 
         Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
         innerTable.setBackground(menuBG);
@@ -160,13 +158,13 @@ public abstract class SaveLoad extends MenuPage{
                 changeBack();
             else{
                 confirmOverwriteLabel.setText(saveName.getText() + " already exists.\n Overwrite?");
-                confirmOverwrite.show(stage);
+                confirmOverwrite.show(getStage());
             }
         }else{
             if(manager.saveGame(saveName.getText(), true))
                 changeBack();
             else
-                Gdx.app.debug("SaveManager", "ERROR - Saving Game");
+                Gdx.app.error("SaveManager", "ERROR - Saving Game");
         }
     }
 
@@ -177,22 +175,6 @@ public abstract class SaveLoad extends MenuPage{
         }else{
             deleteButton.setDisabled(true);
             loadButton.setDisabled(true);
-        }
-    }
-
-    public class Save extends SaveLoad{
-
-        @Override
-        protected Actor build(){
-            return null;
-        }
-    }
-
-    public class Load extends SaveLoad{
-
-        @Override
-        protected Actor build(){
-            return null;
         }
     }
 }

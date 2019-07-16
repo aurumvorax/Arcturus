@@ -29,16 +29,14 @@ public class MenuFramework extends Window{
     }
 
 
-
-
     private MenuFramework(){
         super("", Services.MENUSKIN);
 
 
-        pages.put(Page.Start, new StartMenu());
-        pages.put(Page.Game, new GameMenu());
-        pages.put(Page.Save, new Save());
-        pages.put(Page.Load, new Load());
+        pages.put(Page.Start, new StartMenu(this));
+        pages.put(Page.Game, new GameMenu(this));
+        pages.put(Page.Save, new Save(this));
+        pages.put(Page.Load, new Load(this));
         pages.put(Page.Options, new Options());
         pages.put(Page.Keybinds, new Keybinds());
 
@@ -59,12 +57,12 @@ public class MenuFramework extends Window{
         clear();
 
         if(stateStack.peek() == null)
-            enterGame(Core.GameMode.Active);
+            transition(Core.GameMode.Active);
         else
             changePage(stateStack.pop());
     }
 
-    public void enterGame(Core.GameMode state){
+    public void transition(Core.GameMode state){
         Gdx.input.setInputProcessor(null);
         setColor(1,1,1,1);
         clear();
