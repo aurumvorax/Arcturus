@@ -30,7 +30,7 @@ public class SplashScreen extends ScreenAdapter{
         Services.initAssets();
         EntityData.load();
         core.initialize();
-        core.switchScreen(Core.ScreenType.Game);
+        core.switchScreen(Core.ScreenType.Menu);
     }
 
 

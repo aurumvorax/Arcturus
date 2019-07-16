@@ -33,10 +33,6 @@ public class Core extends Game{
     public GameMode getGameMode(){ return gameMode; }
     public void setGameMode(GameMode state){ gameMode = state; }
 
-    public void setMenuMode(MenuScreen.MenuType mode){
-        ((MenuScreen)screens.get(ScreenType.Menu)).setCurrent(mode);
-    }
-
     public void switchScreen(ScreenType screen){
         setScreen(screens.get(screen));
     }

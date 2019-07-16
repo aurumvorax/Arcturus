@@ -84,9 +84,11 @@ public class GameScreen extends ScreenAdapter{
         inputMUX.addProcessor(playerInput);
 
         worldSerializer = new WorldSerializer(world);
-        SaveManager.getInstance().addObserver(worldSerializer);
-        SaveManager.getInstance().addObserver(worldCam);
-        SaveManager.getInstance().addObserver(stellarManager);
+
+        SaveManager saveManager = SaveManager.INSTANCE;
+        saveManager.addObserver(worldSerializer);
+        saveManager.addObserver(worldCam);
+        saveManager.addObserver(stellarManager);
     }
 
     @Override
@@ -144,6 +146,6 @@ public class GameScreen extends ScreenAdapter{
     @Override
     public void dispose(){
         world.dispose();
-        SaveManager.getInstance().removeAllObservers();
+        SaveManager.INSTANCE.removeAllObservers();
     }
 }

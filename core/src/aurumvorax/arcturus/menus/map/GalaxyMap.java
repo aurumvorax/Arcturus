@@ -2,6 +2,8 @@ package aurumvorax.arcturus.menus.map;
 
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
+import aurumvorax.arcturus.galaxy.StellarData;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
@@ -10,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -18,7 +19,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class GalaxyMap extends MenuPage{
 
-    private Table mapTable = new Table();
     private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
     private static TextButton setCourseButton = new TextButton(null, Services.MENUSKIN);
     private HorizontalGroup buttonGroup = new HorizontalGroup();
@@ -29,13 +29,22 @@ public class GalaxyMap extends MenuPage{
     private Array<MapMarker> mapItems = new Array<>();
     private static String tempNavTarget;
 
-    public GalaxyMap(){
+
+    @SuppressWarnings("unchecked")
+    public GalaxyMap(MenuFramework frame){
+        super(frame);
+
         map = new ZoomPane(stack, Services.MENUSKIN);
 
         background = new Image(Services.getTexture("MapBackgroundSmaller"));
 
         for(String system : EntityData.getSolarSystems()){
-            MapMarker marker = new MapMarker(system, EntityData.getStellarData(system).systemCoords, Services.MENUSKIN);
+            StellarData.Base data = EntityData.getStellarData(system);
+
+            if(data == null)
+                break;
+
+            MapMarker marker = new MapMarker(system, data.systemCoords, Services.MENUSKIN);
 
             marker.addListener(new ClickListener(){
                 @Override
@@ -54,7 +63,7 @@ public class GalaxyMap extends MenuPage{
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                enterGame(Core.GameMode.Active);
+                transition(Core.GameMode.Active);
             }
         });
 
@@ -63,7 +72,7 @@ public class GalaxyMap extends MenuPage{
             public void changed(ChangeEvent event, Actor actor){
                 if(tempNavTarget != null){
                     SolarSystemManager.setNavigationTarget(tempNavTarget);
-                    enterGame(Core.GameMode.Active);
+                    transition(Core.GameMode.Active);
                 }
             }
         });
@@ -79,21 +88,21 @@ public class GalaxyMap extends MenuPage{
 
 
     @Override
-    protected Actor build(Stage menuStage){
+    protected void build(){
+        reset();
         markerGroup.clear();
         for(MapMarker m : mapItems)
             markerGroup.addActor(m);
 
-        mapTable.clear();
-        mapTable.setFillParent(true);
-        mapTable.setDebug(true);
-        mapTable.add(map).expand().fill().row();
-        mapTable.add(buttonGroup);
-        menuStage.setScrollFocus(map);
+        clear();
+        setFillParent(true);
+        setDebug(true);
+        add(map).expand().fill().row();
+        add(buttonGroup);
+        getStage().setScrollFocus(map);
 
         Gdx.app.log("", "image" + background.getPrefHeight());
 
-        return mapTable;
     }
 
     private static class MapMarker extends ImageButton{

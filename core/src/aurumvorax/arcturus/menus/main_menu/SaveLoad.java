@@ -124,11 +124,12 @@ public abstract class SaveLoad extends MenuPage{
     }
 
     @Override
-    public Actor build(){
-        outerTable.reset();
+    public void build(){
+        reset();
         innerTable.reset();
         buttonGroup.clear();
         savesList.clearItems();
+
         if(saveMode)
             buttonGroup.addActor(saveButton);
         else
@@ -147,9 +148,8 @@ public abstract class SaveLoad extends MenuPage{
         innerTable.add(saveName);
         innerTable.add(buttonGroup);
 
-        outerTable.setFillParent(true);
-        outerTable.add(innerTable);
-        return outerTable;
+        setFillParent(true);
+        add(innerTable);
     }
 
     private void save(boolean overwrite){

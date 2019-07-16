@@ -1,9 +1,9 @@
 package aurumvorax.arcturus.menus.main_menu;
 
-import aurumvorax.arcturus.services.Services;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,7 +13,9 @@ public class Options extends MenuPage{
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
     private Table menuTable = new Table();
 
-    public Options(){
+    public Options(MenuFramework frame){
+        super(frame);
+
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -23,10 +25,13 @@ public class Options extends MenuPage{
     }
 
     @Override
-    protected Actor build(Stage menuStage){
+    protected void build(){
+        reset();
         menuTable.reset();
+
         menuTable.setFillParent(true);
         menuTable.add(backButton);
-        return menuTable;
+
+        add(menuTable);
     }
 }

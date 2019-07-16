@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class GameMenu extends MenuPage{
 
@@ -21,7 +19,6 @@ public class GameMenu extends MenuPage{
     private TextButton quitToMenuButton = new TextButton("Exit to Start Menu", Services.MENUSKIN);
     private TextButton exitButton = new TextButton("Quit to Desktop", Services.MENUSKIN);
     private Table menuTable = new Table();
-    private Table outerTable = new Table();
 
     public GameMenu(MenuFramework frame){
         super(frame);
@@ -70,8 +67,8 @@ public class GameMenu extends MenuPage{
     }
 
     @Override
-    protected Actor build(){
-        outerTable.reset();
+    protected void build(){
+        reset();
         menuTable.reset();
 
         menuTable.add(resumeButton).row();
@@ -82,12 +79,7 @@ public class GameMenu extends MenuPage{
         menuTable.add(quitToMenuButton).row();
         menuTable.add(exitButton).row();
 
-        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
-        menuTable.setBackground(menuBG);
+        add(menuTable.pad(10));
 
-        outerTable.setFillParent(true);
-        outerTable.add(menuTable.pad(10));
-
-        return outerTable;
     }
 }

@@ -1,7 +1,8 @@
 package aurumvorax.arcturus.menus;
 
 import aurumvorax.arcturus.Core;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -11,13 +12,15 @@ public abstract class MenuPage extends Table{
     private static final float FADETIME = 0.3f;
     private MenuFramework frame;
 
+    private TextureRegion background;
+    private Vector2 size;
+
 
     protected MenuPage(MenuFramework frame){
         this.frame = frame;
     }
 
     public MenuPage show(){
-
         frame.setColor(1, 1, 1, 0);
         build();
         frame.addAction(Actions.fadeIn(FADETIME));
@@ -25,7 +28,7 @@ public abstract class MenuPage extends Table{
         return this;
     }
 
-    protected abstract Actor build();
+    protected abstract void build();
 
     protected void changeBack(){
         addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changeBack())));

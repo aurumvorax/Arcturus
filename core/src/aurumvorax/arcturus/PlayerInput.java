@@ -5,8 +5,8 @@ import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.options.Keys;
-import aurumvorax.arcturus.screens.MenuScreen;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
@@ -32,7 +32,7 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case MENU:
-                TransitionManager.setTransition(MenuScreen.MenuType.MainLive);
+                TransitionManager.setTransition(MenuFramework.Page.Game);
                 break;
 
             case PAUSE:
@@ -45,11 +45,11 @@ public class PlayerInput extends InputAdapter{
             case DOCK:
                 int dock = Selection.getDock();
                 if(dock > -1)
-                    TransitionManager.setTransition(MenuScreen.MenuType.Shipyard);
+                    TransitionManager.setTransition(MenuFramework.Page.Shipyard);
                 break;
 
             case MAP:
-                TransitionManager.setTransition(MenuScreen.MenuType.Map);
+                TransitionManager.setTransition(MenuFramework.Page.Map);
                 break;
 
             case JUMP:

@@ -14,7 +14,6 @@ public class Codex extends Table{
 
 
     public Codex(Skin skin){
-        super("", skin);
         this.skin = skin;
 
         Button exitButton = new TextButton("X", skin);
@@ -24,21 +23,21 @@ public class Codex extends Table{
                 close();
             }
         });
-        getTitleTable().add(exitButton);
+        add(exitButton);
 
         horizontalGroup = new HorizontalGroup();
         add(horizontalGroup).row();
 
         buttonGroup = new ButtonGroup<>();
 
-        addPage("Main Menu", new MenuPage());
+        //addPage("Main Menu", new MenuPage());
     }
 
     public void open(CodexPage page){
         currentPage = page;
         currentPage.show();
         addActor(currentPage);
-        getTitleLabel().setText(currentPage.getTitle());
+        //getTitleLabel().setText(currentPage.getTitle());
         buttonGroup.setChecked(currentPage.getName());
         setVisible(true);
     }

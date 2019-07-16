@@ -1,10 +1,9 @@
 package aurumvorax.arcturus.menus.death;
 
-import aurumvorax.arcturus.services.Services;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
-import aurumvorax.arcturus.screens.MenuScreen;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,20 +12,25 @@ public class GameOver extends MenuPage{
     private TextButton deadButton = new TextButton("You are dead.\nWalk it off.", Services.MENUSKIN);
     private Table menuTable = new Table();
 
-    public GameOver(){
+    public GameOver(MenuFramework frame){
+        super(frame);
+
         deadButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                changeMenu(MenuScreen.MenuType.Main);
+                changeMenu(MenuFramework.Page.Start);
             }
         });
     }
 
     @Override
-    protected Actor build(Stage menuStage){
+    protected void build(){
+        reset();
         menuTable.reset();
+
         menuTable.setFillParent(true);
         menuTable.add(deadButton);
-        return menuTable;
+
+        add(menuTable);
     }
 }

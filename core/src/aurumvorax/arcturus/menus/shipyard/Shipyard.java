@@ -5,13 +5,13 @@ import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
+import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,19 +34,20 @@ public class Shipyard extends MenuPage{
     private int displayWidth, displayHeight;
 
 
-    public Shipyard(){
+    public Shipyard(MenuFramework frame){
+        super(frame);
 
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 shipDisplay.saveToPlayerShip();
-                enterGame(Core.GameMode.Active);
+                transition(Core.GameMode.Active);
             }
         });
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                enterGame(Core.GameMode.Active);
+                transition(Core.GameMode.Active);
             }
         });
         shipList.addListener(new ChangeListener(){
@@ -74,7 +75,7 @@ public class Shipyard extends MenuPage{
     }
 
     @Override
-    protected Actor build(Stage menuStage){
+    protected void build(){
 
         displayWidth = Gdx.graphics.getWidth();
         displayHeight = Gdx.graphics.getHeight();
@@ -89,7 +90,7 @@ public class Shipyard extends MenuPage{
 
         refresh();
 
-        return menuTable;
+        add(menuTable);
     }
 
     private void refresh(){
@@ -103,12 +104,5 @@ public class Shipyard extends MenuPage{
         menuTable.add(inventory).row();
         menuTable.add(buttonGroup).space(20).left();
         menuTable.add(shipList).right().row();
-    }
-
-    @Override
-    public void resize(int width, int height){
-        displayWidth = width - 400;
-        displayHeight = height - 200;
-        refresh();
     }
 }

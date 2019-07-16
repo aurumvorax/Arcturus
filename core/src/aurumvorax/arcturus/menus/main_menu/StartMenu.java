@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class StartMenu extends MenuPage{
 
@@ -23,7 +21,6 @@ public class StartMenu extends MenuPage{
     private TextButton optionsButton = new TextButton("Preferences", Services.MENUSKIN);
     private TextButton quitButton = new TextButton("Exit", Services.MENUSKIN);
     private Table menuTable = new Table();
-    private Table outerTable = new Table();
 
 
     public StartMenu(MenuFramework frame){
@@ -74,8 +71,8 @@ public class StartMenu extends MenuPage{
     }
 
     @Override
-    protected Actor build(){
-        outerTable.reset();
+    protected void build(){
+        reset();
         menuTable.reset();
 
         if(PreferenceManager.getLastSave() != null)
@@ -83,16 +80,13 @@ public class StartMenu extends MenuPage{
         menuTable.add(newButton).row();
         menuTable.add(saveButton).row();
         menuTable.add(loadButton).row();
-        menuTable.add(optionsButton).row();
-        menuTable.row();
+        menuTable.add(optionsButton).padBottom(30).row();
         menuTable.add(quitButton).row();
 
-        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
-        menuTable.setBackground(menuBG);
+        //Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
+        //menuTable.setBackground(menuBG);
+        menuTable.setFillParent(true);
 
-        outerTable.setFillParent(true);
-        outerTable.add(menuTable.pad(10));
-
-        return outerTable;
+        add(menuTable);
     }
 }

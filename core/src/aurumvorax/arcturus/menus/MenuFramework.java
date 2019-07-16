@@ -15,7 +15,7 @@ import java.util.EnumMap;
 
 public class MenuFramework extends Window{
 
-    private static final MenuFramework INSTANCE = new MenuFramework();
+    public static final MenuFramework INSTANCE = new MenuFramework();
 
     private Deque<Page> stateStack = new ArrayDeque<>();
     private Page current;
@@ -32,14 +32,24 @@ public class MenuFramework extends Window{
     private MenuFramework(){
         super("", Services.MENUSKIN);
 
-
         pages.put(Page.Start, new StartMenu(this));
         pages.put(Page.Game, new GameMenu(this));
         pages.put(Page.Save, new Save(this));
         pages.put(Page.Load, new Load(this));
-        pages.put(Page.Options, new Options());
-        pages.put(Page.Keybinds, new Keybinds());
+        //pages.put(Page.Options, new Options(this));
+        //pages.put(Page.Keybinds, new Keybinds(this));
 
+
+        setDebug(true);
+        setPosition(200,200);
+        setSize(600, 600);
+    }
+
+    public void openToPage(Page page){
+        setColor(1,1,1,1);
+        clear();
+
+        add(pages.get(page).show());
     }
 
     public void changePage(Page newPage){
