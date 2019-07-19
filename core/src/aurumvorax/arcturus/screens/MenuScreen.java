@@ -8,18 +8,26 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MenuScreen extends ScreenAdapter{
 
     private Core core;
     private Stage stage;
-    private TextureRegion background;
-
+    private Table rootTable;
+    private TextureRegion background = Services.getTexture("MainMenuBackground");
 
     public MenuScreen(Core core){
         this.core = core;
         this.stage = new Stage(new ScreenViewport(), Services.batch);
+
+        rootTable = new Table();
+        rootTable.setFillParent(true);
+
+        rootTable.setBackground(new TextureRegionDrawable(background));
+        stage.addActor(rootTable);
     }
 
 
@@ -36,6 +44,7 @@ public class MenuScreen extends ScreenAdapter{
 
         stage.clear();
         stage.addActor(frame);
+        frame.setupFrame(stage);
     }
 
     @Override
@@ -45,9 +54,9 @@ public class MenuScreen extends ScreenAdapter{
         Services.batch.setColor(1,1,1,1);
 
         if(background != null){
-            Services.batch.begin();
-            Services.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            Services.batch.end();
+           // Services.batch.begin();
+          //  Services.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+           // Services.batch.end();
         }
 
         stage.act(delta);

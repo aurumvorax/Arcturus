@@ -8,17 +8,20 @@ import com.badlogic.gdx.utils.IntMap;
 
 public class Keys{
 
-    public Keys(){
+    private static IntMap<Command> keybinds = new IntMap<>();
+
+
+    public Keys(){}
+
+    public void initKeys(){
         if(!loadKeybinds()) {
             setDefaults();
             saveKeybinds();
         }
     }
 
-    private static IntMap<Command> keybinds = new IntMap<>();
-
     public Command getCommand(int key){ return keybinds.get(key); }
-    public IntMap getAllCommands(){ return keybinds; }
+    public IntMap<Command> getAllCommands(){ return keybinds; }
     public void setCommand(int key, Command command){ keybinds.put(key, command); }
 
     public void setDefaults(){

@@ -27,6 +27,7 @@ public class SplashScreen extends ScreenAdapter{
 
     private void finalLoad(){
         Services.initJson();
+        Services.keys.initKeys();
         Services.initAssets();
         EntityData.load();
         core.initialize();

@@ -6,15 +6,10 @@
         - dock menu needs a variable to hold which dock it is - decide background, services, etc
             - assign in transition manager.  Store full data in json that is loaded by what?
 
-    - in flight data
-        - implement pages
-            - skeleton for inflight page browser
-                - hotkeys + exit
-            - mission logs
-            - starmap
-            - system map
-            - cargo manifest
-            - ship systems
+    - MenuScreen InputProcessor for menu hotkeys
+    - Menu Pages requesting size/position/background
+    - Menu Access through HUDrenderer
+    - Finish Keybind Menu
 
     - basic HUD layout
 

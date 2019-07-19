@@ -24,7 +24,6 @@ public abstract class MenuPage extends Table{
         setColor(1, 1, 1, 0);
         build();
         addAction(Actions.fadeIn(FADETIME));
-        frame.getTitleLabel().setText(this.toString());
 
         return this;
     }

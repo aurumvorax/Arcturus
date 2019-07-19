@@ -18,7 +18,7 @@ public class StartMenu extends MenuPage{
     private TextButton newButton = new TextButton("New Game", Services.MENUSKIN);
     private TextButton loadButton = new TextButton("Load Game", Services.MENUSKIN);
     private TextButton saveButton = new TextButton("Save Game", Services.MENUSKIN);
-    private TextButton optionsButton = new TextButton("Preferences", Services.MENUSKIN);
+    private TextButton optionsButton = new TextButton("Options", Services.MENUSKIN);
     private TextButton quitButton = new TextButton("Exit", Services.MENUSKIN);
     private Table menuTable = new Table();
 

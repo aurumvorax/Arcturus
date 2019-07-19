@@ -5,7 +5,9 @@ import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.main_menu.*;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -25,7 +27,7 @@ public class MenuFramework extends Window{
         Start, Game, Save, Load, Options, Keybinds,
         Shipyard,  // Dock, Missions, Commerce, InfoBroker, etc
         Dead,
-        Map
+        Map // Codex
     }
 
 
@@ -39,9 +41,17 @@ public class MenuFramework extends Window{
         pages.put(Page.Options, new Options(this));
         pages.put(Page.Keybinds, new Keybinds(this));
 
-        setPosition(100,100);
-        setSize(200,400);
+        setMovable(true);
+        setResizable(true);
+        setModal(true);
         setDebug(true);
+        layout();
+        this.align(Align.center);
+    }
+
+    public void setupFrame(Stage stage){
+
+
     }
 
     public void openToPage(Page page){
@@ -50,13 +60,6 @@ public class MenuFramework extends Window{
 
         current = page;
         add(pages.get(page).show());
-
-        stateStack.push(Page.Dead);
-        stateStack.push(Page.Keybinds);
-        stateStack.push(Page.Map);
-        System.out.println(stateStack.peek().toString());
-        System.out.println(stateStack.peek().toString());
-
     }
 
     void changePage(Page page){
