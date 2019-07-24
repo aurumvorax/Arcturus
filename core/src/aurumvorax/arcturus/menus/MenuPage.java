@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public abstract class MenuPage extends Table{
 
 
-    private static final float FADETIME = 0.3f;
+    private static final float FADETIME = 0.2f;
     private MenuFramework frame;
 
     private TextureRegion background;
@@ -21,9 +21,10 @@ public abstract class MenuPage extends Table{
     }
 
     public MenuPage show(){
-        setColor(1, 1, 1, 0);
+        setColor(1,1,1,1);
+        frame.setColor(1, 1, 1, 0);
         build();
-        addAction(Actions.fadeIn(FADETIME));
+        frame.addAction(Actions.fadeIn(FADETIME));
 
         return this;
     }
@@ -31,14 +32,14 @@ public abstract class MenuPage extends Table{
     protected abstract void build();
 
     protected void changeBack(){
-        addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changeBack())));
+        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changeBack())));
     }
 
     protected void changeMenu(MenuFramework.Page next){
-        addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changePage(next))));
+        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changePage(next))));
     }
 
     protected void transition(Core.GameMode mode){
-        addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.transition(mode))));
+        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.transition(mode))));
     }
 }

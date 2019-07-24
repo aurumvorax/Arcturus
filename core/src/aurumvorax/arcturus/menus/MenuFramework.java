@@ -17,11 +17,9 @@ import java.util.EnumMap;
 
 public class MenuFramework extends Window{
 
-    public static final MenuFramework INSTANCE = new MenuFramework();
-
     private Deque<Page> stateStack = new ArrayDeque<>();
     private Page current;
-    private EnumMap<Page, MenuPage> pages = new EnumMap<>(Page.class);
+    private static EnumMap<Page, MenuPage> pages;
 
     public enum Page{
         Start, Game, Save, Load, Options, Keybinds,
@@ -31,21 +29,24 @@ public class MenuFramework extends Window{
     }
 
 
-    private MenuFramework(){
+    public MenuFramework(){
         super("", Services.MENUSKIN);
 
-        pages.put(Page.Start, new StartMenu(this));
-        pages.put(Page.Game, new GameMenu(this));
-        pages.put(Page.Save, new Save(this));
-        pages.put(Page.Load, new Load(this));
-        pages.put(Page.Options, new Options(this));
-        pages.put(Page.Keybinds, new Keybinds(this));
+        if(pages == null){
+            pages = new EnumMap<>(Page.class);
 
+            pages.put(Page.Start, new StartMenu(this));
+            pages.put(Page.Game, new GameMenu(this));
+            pages.put(Page.Save, new Save(this));
+            pages.put(Page.Load, new Load(this));
+            pages.put(Page.Options, new Options(this));
+            pages.put(Page.Keybinds, new Keybinds(this));
+        }
         setMovable(true);
         setResizable(true);
-        setModal(true);
         setDebug(true);
         layout();
+        setSize(400,400);
         this.align(Align.center);
     }
 
@@ -55,15 +56,13 @@ public class MenuFramework extends Window{
     }
 
     public void openToPage(Page page){
-        setColor(1,1,1,1);
-        clear();
+        reset();
 
         current = page;
         add(pages.get(page).show());
     }
 
     void changePage(Page page){
-        setColor(1,1,1,1);
         reset();
 
         stateStack.push(current);
@@ -73,7 +72,6 @@ public class MenuFramework extends Window{
     }
 
     void changeBack(){
-        setColor(1,1,1,1);
         clear();
 
         if(stateStack.peek() == null)
@@ -86,7 +84,6 @@ public class MenuFramework extends Window{
 
     void transition(Core.GameMode state){
         Gdx.input.setInputProcessor(null);
-        setColor(1,1,1,1);
         clear();
         stateStack.clear();
         TransitionManager.resumeGame(state);
