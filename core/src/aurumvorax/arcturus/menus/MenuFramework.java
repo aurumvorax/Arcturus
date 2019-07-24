@@ -4,7 +4,6 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.main_menu.*;
 import aurumvorax.arcturus.services.Services;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
@@ -83,7 +82,7 @@ public class MenuFramework extends Window{
     }
 
     void transition(Core.GameMode state){
-        Gdx.input.setInputProcessor(null);
+        setColor(1,1,1,1);
         clear();
         stateStack.clear();
         TransitionManager.resumeGame(state);
