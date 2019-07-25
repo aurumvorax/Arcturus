@@ -23,21 +23,20 @@ public class StartMenu extends MenuPage{
     private Table menuTable = new Table();
 
 
-    public StartMenu(MenuFramework frame){
-        super(frame);
+    public StartMenu(){
 
         continueButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 SaveManager.INSTANCE.loadGame(PreferenceManager.getLastSave());
-                transition(Core.GameMode.Active);
+                enterGame(Core.GameMode.Active);
             }
         });
 
         newButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                transition(Core.GameMode.New);
+                enterGame(Core.GameMode.New);
             }
         });
 

@@ -3,7 +3,6 @@ package aurumvorax.arcturus.menus.map;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.galaxy.StellarData;
-import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
@@ -31,8 +30,7 @@ public class GalaxyMap extends MenuPage{
 
 
     @SuppressWarnings("unchecked")
-    public GalaxyMap(MenuFramework frame){
-        super(frame);
+    public GalaxyMap(){
 
         map = new ZoomPane(stack, Services.MENUSKIN);
 
@@ -63,7 +61,7 @@ public class GalaxyMap extends MenuPage{
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                transition(Core.GameMode.Active);
+                enterGame(Core.GameMode.Active);
             }
         });
 
@@ -72,7 +70,7 @@ public class GalaxyMap extends MenuPage{
             public void changed(ChangeEvent event, Actor actor){
                 if(tempNavTarget != null){
                     SolarSystemManager.setNavigationTarget(tempNavTarget);
-                    transition(Core.GameMode.Active);
+                    enterGame(Core.GameMode.Active);
                 }
             }
         });

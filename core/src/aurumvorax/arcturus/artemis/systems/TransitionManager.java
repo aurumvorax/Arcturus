@@ -20,9 +20,12 @@ public class TransitionManager extends BaseSystem{
         TransitionManager.core = core;
     }
 
-    // Queues a transition out of the Game world into a menu.  Called from within the Artemis world by
-    // Destructor(Death), Menu(Exit) or TODO Docking
+    public static void pause(){ core.setGameMode(Core.GameMode.Paused); }
+    public static void unpause(){ core.setGameMode(Core.GameMode.Active); }
+    public static void togglePause(){ core.setGameMode((core.getGameMode() == Core.GameMode.Paused ? Core.GameMode.Active : Core.GameMode.Paused)); }
 
+    // Queues a enterGame out of the Game world into a menu.  Called from within the Artemis world by
+    // Destructor(Death), TODO Docking, or MenuFramework via enter
     public static void setTransition(MenuFramework.Page menu){
         if(timer == 0){
             transition = true;
@@ -31,23 +34,25 @@ public class TransitionManager extends BaseSystem{
     }
 
     // Transitions into the Game world.  Called by MenuFramework.
-    public static void resumeGame(Core.GameMode mode){
+    public static void enterGame(Core.GameMode mode){
         core.setGameMode(mode);
 
         switch(mode){
             case Active:
                 PlayerShip.insert();
+                core.switchScreen(Core.ScreenType.Game);
+                break;
 
             case New:
                 core.switchScreen(Core.ScreenType.Game);
                 break;
 
-            case Initial:
-                core.switchScreen(Core.ScreenType.Menu);
+            case Start:
+                setTransition(MenuFramework.Page.Start);
                 break;
 
             default:
-                throw new IllegalStateException("TransitionManager should never be called with mode - " + mode);
+                throw new IllegalStateException("Invalid mode - " + mode);
         }
     }
 

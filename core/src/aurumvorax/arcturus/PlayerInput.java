@@ -3,6 +3,7 @@ package aurumvorax.arcturus;
 import aurumvorax.arcturus.artemis.systems.PlayerControl;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.artemis.systems.collision.Selection;
+import aurumvorax.arcturus.artemis.systems.render.HUDRenderer;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.menus.MenuFramework;
@@ -16,13 +17,16 @@ public class PlayerInput extends InputAdapter{
     private Core core;
     private PlayerControl player;
     private WorldCam cam;
+    private HUDRenderer hud;
 
     private static final float SCROLLRATE = 0.1f;
 
-    public PlayerInput(Core core, PlayerControl player, WorldCam cam){
+
+    public PlayerInput(Core core, PlayerControl player, WorldCam cam, HUDRenderer hud){
         this.core = core;
         this.player = player;
         this.cam = cam;
+        this.hud = hud;
     }
 
     @Override
@@ -32,14 +36,12 @@ public class PlayerInput extends InputAdapter{
             return false;
         switch(key){
             case MENU:
-                TransitionManager.setTransition(MenuFramework.Page.Game);
+                TransitionManager.pause();
+                hud.showMenu(MenuFramework.Page.Game);
                 break;
 
             case PAUSE:
-                if(core.getGameMode() == Core.GameMode.Paused)
-                    core.setGameMode(Core.GameMode.Active);
-                else
-                    core.setGameMode(Core.GameMode.Paused);
+                TransitionManager.togglePause();
                 break;
 
             case DOCK:

@@ -34,7 +34,6 @@ public class MenuScreen extends ScreenAdapter{
 
         stage.clear();
         stage.addActor(frame);
-        frame.setupFrame(stage);
     }
 
     @Override

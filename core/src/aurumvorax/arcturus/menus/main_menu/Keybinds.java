@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.menus.main_menu;
 
-import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.options.Keys;
 import aurumvorax.arcturus.services.Services;
@@ -20,8 +19,7 @@ public class Keybinds extends MenuPage{
     private Table buttonGroup;
     private Table menuTable;
 
-    public Keybinds(MenuFramework frame){
-        super(frame);
+    public Keybinds(){
 
         buttonGroup = new Table();
         paneContent = new Table();

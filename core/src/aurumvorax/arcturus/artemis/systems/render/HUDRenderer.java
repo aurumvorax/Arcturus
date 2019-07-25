@@ -4,6 +4,8 @@ import aurumvorax.arcturus.artemis.components.Health;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
+import aurumvorax.arcturus.menus.MenuFramework;
+import aurumvorax.arcturus.menus.codex.CodexPage;
 import aurumvorax.arcturus.services.Services;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
 
     private Stage stage;
+    private MenuFramework frame;
     private Label fps, health;
     private Image reticle;
     private static int targetID = -1;
@@ -34,6 +37,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
     public HUDRenderer(){
         super(Aspect.all(Player.class));
         stage = new Stage(new ScreenViewport(), Services.batch);
+        frame = new MenuFramework();
         fps = new Label(String.format("%3d FPS", 0), Services.MENUSKIN);
         health = new Label(String.format("Health : %3.2f", 0f), Services.MENUSKIN);
         reticle = new Image(Services.getTexture("selector1"));
@@ -44,6 +48,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         stage.addActor(table);
         stage.addActor(reticle);
         stage.addActor(health);
+        stage.addActor(frame);
     }
 
     public InputProcessor getInputProcessor(){ return stage; }
@@ -52,9 +57,22 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         stage.getViewport().update(width, height, true);
     }
 
+    public void showMenu(MenuFramework.Page page){
+        frame.openToPage(page);
+    }
+
+    public void showCodex(CodexPage page){
+        //frame.setCodex(page);
+        //frame.openToPage(Codex);
+    }
+
+
+
     @Override
     protected void processSystem(){
         targetID = PlayerShip.getTargetID();
+
+        stage.act(world.getDelta());
         // calculate stuff (every frame, not tick)
 
     }
@@ -73,6 +91,7 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         fps.setText(String.format("%3d FPS", Gdx.graphics.getFramesPerSecond()));
         if(mHealth.has(PlayerShip.getID()))
             health.setText(String.format("Health : %3.2f", mHealth.get(PlayerShip.getID()).hull));
+
         stage.draw();
     }
 }

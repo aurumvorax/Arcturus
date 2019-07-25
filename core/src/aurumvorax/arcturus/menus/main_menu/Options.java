@@ -14,8 +14,7 @@ public class Options extends MenuPage{
     private TextButton backButton = new TextButton("Back", Services.MENUSKIN);
     private Table menuTable = new Table();
 
-    public Options(MenuFramework frame){
-        super(frame);
+    public Options(){
 
         keysButton.addListener(new ChangeListener(){
             @Override

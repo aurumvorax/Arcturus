@@ -12,9 +12,9 @@ public class Core extends Game{
 
     private static PlayerData playerData = new PlayerData();
 
-    private GameMode gameMode = GameMode.Initial;
+    private GameMode gameMode = GameMode.Start;
     public enum GameMode{
-        Initial,
+        Start,
         New,
         Active,
         Paused,

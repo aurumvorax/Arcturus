@@ -12,8 +12,7 @@ public class GameOver extends MenuPage{
     private TextButton deadButton = new TextButton("You are dead.\nWalk it off.", Services.MENUSKIN);
     private Table menuTable = new Table();
 
-    public GameOver(MenuFramework frame){
-        super(frame);
+    public GameOver(){
 
         deadButton.addListener(new ChangeListener(){
             @Override

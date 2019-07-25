@@ -20,13 +20,12 @@ public class GameMenu extends MenuPage{
     private TextButton exitButton = new TextButton("Quit to Desktop", Services.MENUSKIN);
     private Table menuTable = new Table();
 
-    public GameMenu(MenuFramework frame){
-        super(frame);
+    public GameMenu(){
 
         resumeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                transition(Core.GameMode.Active);
+                closeMenu();
             }
         });
 
@@ -54,7 +53,7 @@ public class GameMenu extends MenuPage{
         quitToMenuButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                transition(Core.GameMode.Initial);
+                enterGame(Core.GameMode.Start);
             }
         });
 

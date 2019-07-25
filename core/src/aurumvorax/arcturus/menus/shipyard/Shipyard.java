@@ -5,7 +5,6 @@ import aurumvorax.arcturus.PlayerData;
 import aurumvorax.arcturus.artemis.factories.ShipData;
 import aurumvorax.arcturus.inventory.Inventory;
 import aurumvorax.arcturus.inventory.ShipDisplay;
-import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.services.EntityData;
 import aurumvorax.arcturus.services.Services;
@@ -34,20 +33,19 @@ public class Shipyard extends MenuPage{
     private int displayWidth, displayHeight;
 
 
-    public Shipyard(MenuFramework frame){
-        super(frame);
+    public Shipyard(){
 
         confirmButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 shipDisplay.saveToPlayerShip();
-                transition(Core.GameMode.Active);
+                enterGame(Core.GameMode.Active);
             }
         });
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                transition(Core.GameMode.Active);
+                enterGame(Core.GameMode.Active);
             }
         });
         shipList.addListener(new ChangeListener(){

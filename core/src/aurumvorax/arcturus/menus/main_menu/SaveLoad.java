@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.menus.main_menu;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.services.Services;
@@ -38,8 +37,7 @@ public abstract class SaveLoad extends MenuPage{
 
 
     @SuppressWarnings("unchecked")
-    public SaveLoad(MenuFramework frame){
-        super(frame);
+    public SaveLoad(){
 
         cancelButton.addListener(new ChangeListener(){
             @Override
@@ -52,7 +50,7 @@ public abstract class SaveLoad extends MenuPage{
             @Override
             public void changed(ChangeEvent event, Actor actor){
                 manager.loadGame(savesList.getSelected());
-                transition(Core.GameMode.Active);
+                enterGame(Core.GameMode.Active);
             }
         });
 
@@ -88,7 +86,7 @@ public abstract class SaveLoad extends MenuPage{
                     else{
                         if(manager.isValid(saveName.getText())){
                             manager.loadGame(saveName.getText());
-                            transition(Core.GameMode.Active);
+                            enterGame(Core.GameMode.Active);
                         }
                     }
                 }

@@ -41,7 +41,7 @@ public class GameScreen extends ScreenAdapter{
         playerControl = new PlayerControl();
         hud = new HUDRenderer();
         stellarManager = new SolarSystemManager();
-        PlayerInput playerInput = new PlayerInput(core, playerControl, worldCam);
+        PlayerInput playerInput = new PlayerInput(core, playerControl, worldCam, hud);
         RenderBatcher batcher = new RenderBatcher(worldCam, hud);
 
         WorldConfiguration config = new WorldConfigurationBuilder()

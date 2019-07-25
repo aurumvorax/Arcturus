@@ -4,7 +4,6 @@ import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.artemis.systems.TransitionManager;
 import aurumvorax.arcturus.menus.main_menu.*;
 import aurumvorax.arcturus.services.Services;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
 
@@ -34,12 +33,12 @@ public class MenuFramework extends Window{
         if(pages == null){
             pages = new EnumMap<>(Page.class);
 
-            pages.put(Page.Start, new StartMenu(this));
-            pages.put(Page.Game, new GameMenu(this));
-            pages.put(Page.Save, new Save(this));
-            pages.put(Page.Load, new Load(this));
-            pages.put(Page.Options, new Options(this));
-            pages.put(Page.Keybinds, new Keybinds(this));
+            pages.put(Page.Start, new StartMenu());
+            pages.put(Page.Game, new GameMenu());
+            pages.put(Page.Save, new Save());
+            pages.put(Page.Load, new Load());
+            pages.put(Page.Options, new Options());
+            pages.put(Page.Keybinds, new Keybinds());
         }
         setMovable(true);
         setResizable(true);
@@ -47,18 +46,14 @@ public class MenuFramework extends Window{
         layout();
         setSize(400,400);
         this.align(Align.center);
-    }
-
-    public void setupFrame(Stage stage){
-
-
+        setVisible(false);
     }
 
     public void openToPage(Page page){
         reset();
-
+        setVisible(true);
         current = page;
-        add(pages.get(page).show());
+        add(pages.get(page).show(this));
     }
 
     void changePage(Page page){
@@ -67,25 +62,36 @@ public class MenuFramework extends Window{
         stateStack.push(current);
         current = page;
 
-        add(pages.get(current).show());
+        add(pages.get(current).show(this));
     }
 
     void changeBack(){
-        clear();
+        reset();
 
         if(stateStack.peek() == null)
-            transition(Core.GameMode.Active);
+            closeMenu();
         else{
             current = stateStack.pop();
-            add(pages.get(current).show());
+            add(pages.get(current).show(this));
         }
     }
 
-    void transition(Core.GameMode state){
+    void enterGame(Core.GameMode state){
+        setVisible(false);
         setColor(1,1,1,1);
-        clear();
+        reset();
         stateStack.clear();
-        TransitionManager.resumeGame(state);
+        TransitionManager.enterGame(state);
+    }
+
+    void closeMenu(){
+        setVisible(false);
+        setColor(1,1,1,1);
+        reset();
+        stateStack.clear();
+        TransitionManager.unpause();
+
+      // batch alpha ends up being 0 here, not sure how/why
     }
 
 

@@ -16,15 +16,12 @@ public abstract class MenuPage extends Table{
     private Vector2 size;
 
 
-    protected MenuPage(MenuFramework frame){
+    public MenuPage show(MenuFramework frame){
         this.frame = frame;
-    }
-
-    public MenuPage show(){
         setColor(1,1,1,1);
-        frame.setColor(1, 1, 1, 0);
+        frame.setColor(1, 1, 1, 1);
         build();
-        frame.addAction(Actions.fadeIn(FADETIME));
+        //frame.addAction(Actions.fadeIn(FADETIME));
 
         return this;
     }
@@ -39,7 +36,11 @@ public abstract class MenuPage extends Table{
         frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.changePage(next))));
     }
 
-    protected void transition(Core.GameMode mode){
-        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.transition(mode))));
+    protected void enterGame(Core.GameMode mode){
+        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.enterGame(mode))));
+    }
+
+    protected void closeMenu(){
+        frame.addAction(Actions.sequence(Actions.fadeOut(FADETIME), Actions.run(() -> frame.closeMenu())));
     }
 }
