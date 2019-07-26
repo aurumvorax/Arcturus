@@ -16,7 +16,7 @@ import java.util.EnumMap;
 public class MenuFramework extends Window{
 
     private Deque<Page> stateStack = new ArrayDeque<>();
-    private Page current;
+    public Page current;
     private static EnumMap<Page, MenuPage> pages;
 
     public enum Page{
@@ -90,8 +90,12 @@ public class MenuFramework extends Window{
         reset();
         stateStack.clear();
         TransitionManager.unpause();
+    }
 
-      // batch alpha ends up being 0 here, not sure how/why
+    @Override
+    public void act(float delta){
+        getStage().setKeyboardFocus(pages.get(current));
+        super.act(delta);
     }
 
 

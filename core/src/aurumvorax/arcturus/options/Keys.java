@@ -22,7 +22,9 @@ public class Keys{
 
     public Command getCommand(int key){ return keybinds.get(key); }
     public IntMap<Command> getAllCommands(){ return keybinds; }
+    public int getKey(Command c){ return keybinds.findKey(c, false, -1); }
     public void setCommand(int key, Command command){ keybinds.put(key, command); }
+
 
     public void setDefaults(){
         keybinds.put(Input.Keys.ESCAPE, Command.MENU);

@@ -19,9 +19,9 @@ public abstract class MenuPage extends Table{
     public MenuPage show(MenuFramework frame){
         this.frame = frame;
         setColor(1,1,1,1);
-        frame.setColor(1, 1, 1, 1);
+        frame.setColor(1, 1, 1, 0);
         build();
-        //frame.addAction(Actions.fadeIn(FADETIME));
+        frame.addAction(Actions.fadeIn(FADETIME));
 
         return this;
     }
