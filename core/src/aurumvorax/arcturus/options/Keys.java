@@ -27,6 +27,7 @@ public class Keys{
 
 
     public void setDefaults(){
+        keybinds.clear();
         keybinds.put(Input.Keys.ESCAPE, Command.MENU);
         keybinds.put(Input.Keys.W, Command.FORWARD);
         keybinds.put(Input.Keys.A, Command.TURN_LEFT);
