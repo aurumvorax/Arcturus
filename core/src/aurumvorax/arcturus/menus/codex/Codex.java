@@ -1,75 +1,121 @@
 package aurumvorax.arcturus.menus.codex;
 
+import aurumvorax.arcturus.menus.MenuPage;
+import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class Codex extends Table{
+import java.util.EnumMap;
 
-    private CodexPage currentPage;
+public class Codex extends MenuPage{
 
-    private Skin skin;
-    private HorizontalGroup horizontalGroup;
+    private EnumMap<Page, CodexPage> codexPages= new EnumMap<>(Page.class);
+
+    public enum Page{
+        GalaxyMap // TODO SystemMap, Mission Log, Cargo Manifest, Intel
+    }
+
+    private CodexPage current;
     private ButtonGroup<Button> buttonGroup;
+    private VerticalGroup tabGroup = new VerticalGroup();
 
 
-    public Codex(Skin skin){
-        this.skin = skin;
+    public Codex(){
+        codexPages.put(Page.GalaxyMap, new GalaxyMap());
+        //codexPages.put(Page.SystemMap, new SystemMap());
+        //codexPages.put(Page.Missions, new Missions());
+        //codexPages.put(Page.Manifest, new Manifest());
+        //codexPages.put(Page.Intel, new Intel());
 
-        Button exitButton = new TextButton("X", skin);
-        exitButton.addListener(new ChangeListener(){
+
+
+        ImageButton menuButton = new ImageButton(Services.MENUSKIN);
+        menuButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                close();
+
             }
         });
-        add(exitButton);
+        tabGroup.addActor(menuButton);
 
-        horizontalGroup = new HorizontalGroup();
-        add(horizontalGroup).row();
-
-        buttonGroup = new ButtonGroup<>();
-
-        //addPage("Main Menu", new MenuPage());
-    }
-
-    public void open(CodexPage page){
-        currentPage = page;
-        currentPage.show();
-        addActor(currentPage);
-        //getTitleLabel().setText(currentPage.getTitle());
-        buttonGroup.setChecked(currentPage.getName());
-        setVisible(true);
-    }
-
-    void change(CodexPage page){
-        if(currentPage != null)
-            currentPage.hide();
-
-        removeActor(currentPage);
-        open(page);
-    }
-
-    void close(){
-        this.setVisible(false);
-        currentPage.hide();
-    }
-
-    void addPage(String name, CodexPage page){
-        Button pageButton = new TextButton(name, skin);
-
-        pageButton.addListener(new ChangeListener(){
+        ImageButton galaxyButton = new ImageButton(Services.MENUSKIN);
+        galaxyButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
-                change(page);
+                changePage(Page.GalaxyMap);
             }
         });
+        tabGroup.addActor(galaxyButton);
 
-        horizontalGroup.addActor(pageButton);
-        buttonGroup.add(pageButton);
+        ImageButton systemButton = new ImageButton(Services.MENUSKIN);
+        systemButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+
+            }
+        });
+        tabGroup.addActor(systemButton);
+
+        ImageButton missionButton = new ImageButton(Services.MENUSKIN);
+        missionButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+
+            }
+        });
+        tabGroup.addActor(missionButton);
+
+        ImageButton manifestButton = new ImageButton(Services.MENUSKIN);
+        manifestButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+
+            }
+        });
+        tabGroup.addActor(manifestButton);
+
+        ImageButton intelButton = new ImageButton(Services.MENUSKIN);
+        intelButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+
+            }
+        });
+        tabGroup.addActor(intelButton);
+
+        ImageButton closeButton = new ImageButton(Services.MENUSKIN);
+        closeButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor){
+                closeMenu();
+            }
+        });
+        tabGroup.addActor(closeButton);
+
+        buttonGroup = new ButtonGroup<>(galaxyButton, systemButton, missionButton, manifestButton, intelButton);
+        buttonGroup.setMaxCheckCount(1);
+        buttonGroup.setMinCheckCount(1);
+        buttonGroup.setUncheckLast(true);
     }
 
-    public enum Pages{
-        Menu, Inventory, Log
+
+    @Override
+    protected void build(){
+        reset();
+
+    }
+
+    public void changePage(Page page){
+        current.addAction(Actions.fadeOut(FADETIME));
+        current = codexPages.get(page);
+        current.setColor(1,1,1,0);
+        current.show();
+        current.addAction(Actions.fadeIn(FADETIME));
+        buttonGroup.getButtons().get(page.ordinal()).setChecked(true);
     }
 }

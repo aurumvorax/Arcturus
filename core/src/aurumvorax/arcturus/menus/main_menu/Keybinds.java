@@ -84,7 +84,6 @@ public class Keybinds extends MenuPage{
         menuTable.add(scrollPane).colspan(120);
         menuTable.add(buttonGroup);
         add(menuTable);
-
     }
 
     private void refresh(){
@@ -115,7 +114,7 @@ public class Keybinds extends MenuPage{
             addListener(new ChangeListener(){
                 @Override
                 public void changed(ChangeEvent event, Actor actor){
-                    map();
+                    requestMapKey();
                 }
             });
         }
@@ -127,7 +126,7 @@ public class Keybinds extends MenuPage{
             refresh();
         }
 
-        private void map(){
+        private void requestMapKey(){
             currentlyMapping = this;
         }
 

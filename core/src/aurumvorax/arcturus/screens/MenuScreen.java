@@ -27,13 +27,13 @@ public class MenuScreen extends ScreenAdapter{
     public void show(){
         Gdx.input.setInputProcessor(stage);
 
+        stage.clear();
+        stage.addActor(frame);
+
         if(core.getGameMode() == Core.GameMode.Docked)
             frame.openToPage(MenuFramework.Page.Shipyard);
         else
             frame.openToPage(MenuFramework.Page.Start);
-
-        stage.clear();
-        stage.addActor(frame);
     }
 
     @Override
@@ -55,7 +55,6 @@ public class MenuScreen extends ScreenAdapter{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-
     }
 
     @Override

@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public abstract class CodexPage extends Table{
 
 
-    abstract void show();
+    public abstract void show();
 
-    abstract void hide();
+    public abstract void refresh();
 
-    abstract String getTitle();
+
 }

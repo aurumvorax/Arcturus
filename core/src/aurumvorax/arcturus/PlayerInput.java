@@ -7,6 +7,7 @@ import aurumvorax.arcturus.artemis.systems.render.HUDRenderer;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import aurumvorax.arcturus.galaxy.SolarSystemManager;
 import aurumvorax.arcturus.menus.MenuFramework;
+import aurumvorax.arcturus.menus.codex.Codex;
 import aurumvorax.arcturus.options.Keys;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Input;
@@ -51,7 +52,7 @@ public class PlayerInput extends InputAdapter{
                 break;
 
             case MAP:
-                TransitionManager.setTransition(MenuFramework.Page.Map);
+                hud.showCodex(Codex.Page.GalaxyMap);
                 break;
 
             case JUMP:

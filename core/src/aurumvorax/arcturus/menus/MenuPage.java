@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public abstract class MenuPage extends Table{
 
 
-    private static final float FADETIME = 0.2f;
+    public static final float FADETIME = 0.2f;
     private MenuFramework frame;
 
     private TextureRegion background;

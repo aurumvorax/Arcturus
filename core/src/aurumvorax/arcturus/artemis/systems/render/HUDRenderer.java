@@ -5,7 +5,7 @@ import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.menus.MenuFramework;
-import aurumvorax.arcturus.menus.codex.CodexPage;
+import aurumvorax.arcturus.menus.codex.Codex;
 import aurumvorax.arcturus.services.Services;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
@@ -61,20 +61,16 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         frame.openToPage(page);
     }
 
-    public void showCodex(CodexPage page){
-        //frame.setCodex(page);
-        //frame.openToPage(Codex);
+    public void showCodex(Codex.Page page){
+        frame.setCodex(page);
+        frame.openToPage(MenuFramework.Page.Codex);
     }
-
-
 
     @Override
     protected void processSystem(){
         targetID = PlayerShip.getTargetID();
 
         stage.act(world.getDelta());
-        // calculate stuff (every frame, not tick)
-
     }
 
     void render(float alpha){

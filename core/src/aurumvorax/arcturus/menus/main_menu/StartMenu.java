@@ -3,7 +3,6 @@ package aurumvorax.arcturus.menus.main_menu;
 import aurumvorax.arcturus.Core;
 import aurumvorax.arcturus.menus.MenuFramework;
 import aurumvorax.arcturus.menus.MenuPage;
-import aurumvorax.arcturus.options.PreferenceManager;
 import aurumvorax.arcturus.savegame.SaveManager;
 import aurumvorax.arcturus.services.Services;
 import com.badlogic.gdx.Gdx;
@@ -28,7 +27,7 @@ public class StartMenu extends MenuPage{
         continueButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                SaveManager.INSTANCE.loadGame(PreferenceManager.getLastSave());
+                SaveManager.INSTANCE.loadGame(Services.prefs.getLastSave());
                 enterGame(Core.GameMode.Active);
             }
         });
@@ -74,7 +73,7 @@ public class StartMenu extends MenuPage{
         reset();
         menuTable.reset();
 
-        if(PreferenceManager.getLastSave() != null)
+        if(Services.prefs.getLastSave() != null)
             menuTable.add(continueButton).row();
         menuTable.add(newButton).row();
         menuTable.add(saveButton).row();

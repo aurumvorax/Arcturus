@@ -3,24 +3,31 @@ package aurumvorax.arcturus.options;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
-public enum PreferenceManager{
-    INSTANCE;
+public class PreferenceManager{
 
-    private static Preferences prefs = Gdx.app.getPreferences("options.cfg");
-    private static String lastSave = null;
+    private Preferences prefs = Gdx.app.getPreferences("options.cfg");
+
+    private String lastSave;
+    private float uiScale;
 
 
-    public static String getLastSave(){ return lastSave; }
-    public static void setLastSave(String lastSave){ PreferenceManager.lastSave = lastSave; }
+    public String getLastSave(){ return lastSave; }
+    public float getUiScale(){ return uiScale; }
 
-    public static void loadPreferences(){
-        lastSave = prefs.getString("lastSave");
+    public void setLastSave(String lastSave){ lastSave = lastSave; }
+    public void setUiScale(float scale){ uiScale = scale; }
 
+    public void loadPreferences(){
+        lastSave = prefs.getString("lastSave", null);
+        uiScale = prefs.getFloat("ui_scale", 1f);
     }
 
-    public static void savePrefereces(){
+    public void savePrefereces(){
+        if(lastSave != null)
+            prefs.putString("lastSave", lastSave);
 
-        prefs.putString("lastSave", lastSave);
+        prefs.putFloat("ui_scale", uiScale);
+
         prefs.flush();
     }
 }

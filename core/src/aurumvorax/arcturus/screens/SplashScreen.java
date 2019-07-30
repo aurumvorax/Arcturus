@@ -28,11 +28,11 @@ public class SplashScreen extends ScreenAdapter{
     private void finalLoad(){
         Services.initJson();
         Services.keys.initKeys();
+        Services.prefs.loadPreferences();
         Services.initAssets();
         EntityData.load();
+
         core.initialize();
         core.switchScreen(Core.ScreenType.Menu);
     }
-
-
 }

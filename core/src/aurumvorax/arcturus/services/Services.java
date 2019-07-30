@@ -2,6 +2,7 @@ package aurumvorax.arcturus.services;
 
 import aurumvorax.arcturus.options.IntMapSerializer;
 import aurumvorax.arcturus.options.Keys;
+import aurumvorax.arcturus.options.PreferenceManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -39,10 +40,10 @@ public enum Services{
     public static final Skin MENUSKIN = new Skin(Gdx.files.internal(MENU_SKIN_PATH));
 
     private static final AssetManager assetManager = new AssetManager();
-
     public static final SpriteBatch batch = new SpriteBatch();
     public static final Json json = new Json();
     public static final Keys keys = new Keys();
+    public static final PreferenceManager prefs = new PreferenceManager();
 
     
     public static void initJson(){

@@ -2,14 +2,24 @@
 0.25 Interface
 
     - menu/save overhaul
-        - load/save in menuscreen
+        - load/save in startmenu/dock?
+            - store savemode - active/docked
+            -if docked, store dockname, extracted playership
+
         - dock menu needs a variable to hold which dock it is - decide background, services, etc
             - assign in transition manager?  Store full data in json that is loaded by what?
+            - dockmanager in galaxy package - accessed by dock menupage
 
     - Menu Pages requesting size/position/background
-    - Menu Page hotkeys - per menu basis
-    - Codex frame
+    - Menu Page hotkeys - each menupage should have it's own Inputlistener, keyboard focus is already set in frame.
+    - death menu
     - Codex pages
+        - migrate map
+    - Options menu
+        - uiScaling
+            - use to determine set menu sizes
+        - most recent save update
+
 
     - basic HUD layout
 
@@ -69,6 +79,7 @@ BUGS/Tweaks
     - NPE crash on game load when there are missile trails
 
 ASSETS NEEDED
+    Starmap icons for special skin
     WeaponSlot icons(valid/invalid)
     rocket/missile
     rocket/missile/ship engine flame animation
