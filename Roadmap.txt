@@ -14,7 +14,6 @@
     - Menu Page hotkeys - each menupage should have it's own Inputlistener, keyboard focus is already set in frame.
     - death menu
     - Codex pages
-        - migrate map
     - Options menu
         - uiScaling
             - use to determine set menu sizes

@@ -107,11 +107,15 @@ public class Codex extends MenuPage{
     @Override
     protected void build(){
         reset();
-
+        add(tabGroup).left();
+        current.show();
+        add(current);
     }
 
     public void changePage(Page page){
-        current.addAction(Actions.fadeOut(FADETIME));
+        if(current != null)
+            current.addAction(Actions.fadeOut(FADETIME));
+
         current = codexPages.get(page);
         current.setColor(1,1,1,0);
         current.show();

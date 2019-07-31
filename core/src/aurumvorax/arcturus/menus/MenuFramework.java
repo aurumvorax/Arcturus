@@ -60,6 +60,7 @@ public class MenuFramework extends Window{
         setVisible(true);
         current = page;
         getStage().setKeyboardFocus(pages.get(current));
+        getStage().setScrollFocus(pages.get(current));
         add(pages.get(page).show(this));
     }
 
@@ -72,6 +73,7 @@ public class MenuFramework extends Window{
         stateStack.push(current);
         current = page;
         getStage().setKeyboardFocus(pages.get(current));
+        getStage().setScrollFocus(pages.get(current));
         add(pages.get(current).show(this));
     }
 
@@ -83,6 +85,7 @@ public class MenuFramework extends Window{
         else{
             current = stateStack.pop();
             getStage().setKeyboardFocus(pages.get(current));
+            getStage().setScrollFocus(pages.get(current));
             add(pages.get(current).show(this));
         }
     }

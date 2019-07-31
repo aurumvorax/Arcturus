@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems.render.HUD;
+package aurumvorax.arcturus.artemis.systems.render.hudElements;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 

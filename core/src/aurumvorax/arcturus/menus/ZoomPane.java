@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.menus.map;
+package aurumvorax.arcturus.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
