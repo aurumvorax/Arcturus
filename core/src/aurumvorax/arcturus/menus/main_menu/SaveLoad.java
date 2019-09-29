@@ -19,21 +19,21 @@ public abstract class SaveLoad extends MenuPage{
     protected boolean saveMode;
 
     private SaveManager manager = SaveManager.INSTANCE;
-    private TextButton saveButton = new TextButton("Save", Services.MENUSKIN);
-    private TextButton loadButton = new TextButton("Load", Services.MENUSKIN);
-    private TextButton deleteButton = new TextButton("Delete", Services.MENUSKIN);
-    private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
+    private TextButton saveButton = new TextButton("Save", Services.getSkin());
+    private TextButton loadButton = new TextButton("Load", Services.getSkin());
+    private TextButton deleteButton = new TextButton("Delete", Services.getSkin());
+    private TextButton cancelButton = new TextButton("Cancel", Services.getSkin());
     private Table outerTable = new Table();
     private Table innerTable = new Table();
     private HorizontalGroup buttonGroup = new HorizontalGroup();
-    private List<String> savesList = new List<>(Services.MENUSKIN);
+    private List<String> savesList = new List<>(Services.getSkin());
     private ScrollPane savesPane = new ScrollPane(savesList);
-    private TextArea saveInfo = new TextArea("This is where the save file metadata will be displayed", Services.MENUSKIN);
-    private TextField saveName = new TextField("", Services.MENUSKIN);
+    private TextArea saveInfo = new TextArea("This is where the save file metadata will be displayed", Services.getSkin());
+    private TextField saveName = new TextField("", Services.getSkin());
     private Dialog confirmOverwrite;
     private Dialog confirmDelete;
-    private Label confirmOverwriteLabel = new Label("", Services.MENUSKIN);
-    private Label confirmDeleteLabel = new Label("", Services.MENUSKIN);
+    private Label confirmOverwriteLabel = new Label("", Services.getSkin());
+    private Label confirmDeleteLabel = new Label("", Services.getSkin());
 
 
     @SuppressWarnings("unchecked")
@@ -95,7 +95,7 @@ public abstract class SaveLoad extends MenuPage{
             }
         });
 
-        confirmOverwrite = new Dialog("Overwrite Save", Services.MENUSKIN){
+        confirmOverwrite = new Dialog("Overwrite Save", Services.getSkin()){
             @Override
             protected void result(Object object){
                 if(object.equals(true))
@@ -106,7 +106,7 @@ public abstract class SaveLoad extends MenuPage{
         confirmOverwrite.button("Yes", true);
         confirmOverwrite.button("No", false);
 
-        confirmDelete = new Dialog("Delete Save", Services.MENUSKIN){
+        confirmDelete = new Dialog("Delete Save", Services.getSkin()){
             @Override
             protected void result(Object object){
                 if(object.equals(true)){
@@ -138,7 +138,7 @@ public abstract class SaveLoad extends MenuPage{
 
         savesList.setItems(manager.getSaveList());
 
-        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
+        Drawable menuBG = new NinePatchDrawable(Services.getSkin().getPatch("list"));
         innerTable.setBackground(menuBG);
 
         innerTable.add(savesPane);

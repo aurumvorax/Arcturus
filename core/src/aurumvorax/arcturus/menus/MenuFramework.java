@@ -30,7 +30,7 @@ public class MenuFramework extends Window{
 
 
     public MenuFramework(){
-        super("", Services.MENUSKIN);
+        super("", Services.getSkin());
 
         if(pages == null){
             pages = new EnumMap<>(Page.class);

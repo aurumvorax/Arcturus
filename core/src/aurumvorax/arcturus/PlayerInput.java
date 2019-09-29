@@ -140,7 +140,12 @@ public class PlayerInput extends InputAdapter{
             case Input.Buttons.LEFT:
                 player.controlFire(true);
                 break;
+
+            case Input.Buttons.RIGHT:
+                player.selectTarget(x, y);
+                break;
         }
+
         return true;
     }
 
@@ -150,10 +155,8 @@ public class PlayerInput extends InputAdapter{
             case Input.Buttons.LEFT:
                 player.controlFire(false);
                 break;
-
-            case Input.Buttons.RIGHT:
-                player.selectTarget(x, y);
         }
+
         return true;
     }
 

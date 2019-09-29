@@ -1,15 +1,9 @@
 package aurumvorax.arcturus.artemis.factories;
 
 import aurumvorax.arcturus.artemis.components.*;
-import aurumvorax.arcturus.artemis.components.PoweredMotion;
-import aurumvorax.arcturus.artemis.components.Weapons;
-import aurumvorax.arcturus.artemis.systems.PlayerShip;
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
 import aurumvorax.arcturus.services.EntityData;
-import com.artemis.Archetype;
-import com.artemis.ArchetypeBuilder;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
+import com.artemis.*;
 
 
 public enum ProjectileFactory{
@@ -48,23 +42,31 @@ public enum ProjectileFactory{
                 .build(world);
     }
 
-    public static int create(String name, float x, float y, float t, int firedFrom){
+    public static int createBullet(String name, float x, float y, float t, int firedFrom){
         ProjectileData data = EntityData.getProjectileData(name);
-        switch(data.type){
-            case BULLET:
-                int bullet = world.create(protoBullet);
-                buildProjectile(bullet, data, x, y, t, firedFrom);
-                return bullet;
 
-            case MISSILE:
-                int missile = world.create(protoMissile);
-                buildProjectile(missile, data, x, y, t, firedFrom);
-                EffectFactory.createTrail(data.trailName, missile, data.trailOffset);
-                return missile;
+        int bullet = world.create(protoBullet);
+        buildProjectile(bullet, data, x, y, t, firedFrom);
 
-            default:
-                throw new IllegalArgumentException(data.type + " is not a known type");
-        }
+        return bullet;
+    }
+
+    public static int createMissile(String name, float x, float y, float t, int firedFrom, int target){
+        ProjectileData data = EntityData.getProjectileData(name);
+
+        int missile = world.create(protoMissile);
+        buildProjectile(missile, data, x, y, t, firedFrom);
+
+        Missile m = mMissile.get(missile);
+        m.engineDuration = data.engineDuration;
+        m.target = target;
+
+        PoweredMotion pm = mPowered.get(missile);
+        pm.thrust = data.thrust;
+        pm.maxV = data.maxV;
+
+        EffectFactory.createTrail(data.trailName, missile, data.trailOffset);
+        return missile;
     }
 
     static void setWeaponData(Cannon c, String type){
@@ -91,15 +93,5 @@ public enum ProjectileFactory{
 
         mEphemeral.get(projectile).lifespan = data.duration;
         mRadius.get(projectile).radius = data.collisionRadius;
-
-        if(mMissile.has(projectile)){
-            Missile m = mMissile.get(projectile);
-            m.engineDuration = data.engineDuration;
-            PoweredMotion pm = mPowered.get(projectile);
-            pm.thrust = data.thrust;
-            pm.maxV = data.maxV;
-                // TODO - set target for realsies here
-            m.target = PlayerShip.getTargetID();
-        }
     }
 }

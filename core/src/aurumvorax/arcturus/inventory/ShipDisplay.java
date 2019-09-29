@@ -54,7 +54,7 @@ public class ShipDisplay extends Stack{
 
         for(int i = 0; i < data.weaponMounts.size; i++){
             Mount.Weapon mount = data.weaponMounts.get(i);
-            Slot weaponSlot = new Slot(null, Item.ItemType.Weapon, Services.MENUSKIN, 1);
+            Slot weaponSlot = new Slot(null, Item.ItemType.Weapon, Services.getSkin(), 1);
             weaponSlot.setPosition((mount.location.x  * scale + origin.x), (mount.location.y * scale + origin.y), Align.center);
             weaponSlot.setRotation(mount.angle);
             weaponSlots.add(weaponSlot);

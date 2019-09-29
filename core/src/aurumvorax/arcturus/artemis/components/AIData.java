@@ -1,9 +1,10 @@
 package aurumvorax.arcturus.artemis.components;
 
 import com.artemis.Component;
+import com.artemis.annotations.EntityId;
 
 public class AIData extends Component{
 
-    public int selfID;
-    public int targetID;
+    @EntityId public int selfID;
+    @EntityId public int targetID;
 }

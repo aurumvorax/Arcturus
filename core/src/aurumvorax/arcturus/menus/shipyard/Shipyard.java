@@ -24,9 +24,9 @@ public class Shipyard extends MenuPage{
     private ShipDisplay shipDisplay = null;
     private Inventory inventory;
     private Array<String> shipListData = new Array<>();
-    private TextButton confirmButton = new TextButton("Confirm", Services.MENUSKIN);
-    private TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
-    private SelectBox<String> shipList = new SelectBox<>(Services.MENUSKIN);
+    private TextButton confirmButton = new TextButton("Confirm", Services.getSkin());
+    private TextButton cancelButton = new TextButton("Cancel", Services.getSkin());
+    private SelectBox<String> shipList = new SelectBox<>(Services.getSkin());
     private Table menuTable = new Table();
     private Group buttonGroup = new HorizontalGroup();
 
@@ -67,7 +67,7 @@ public class Shipyard extends MenuPage{
 
         DragAndDrop dragAndDrop = new DragAndDrop();
         shipDisplay = new ShipDisplay(dragAndDrop);
-        inventory = new Inventory(dragAndDrop, Services.MENUSKIN);
+        inventory = new Inventory(dragAndDrop, Services.getSkin());
         buttonGroup.addActor(confirmButton);
         buttonGroup.addActor(cancelButton);
     }

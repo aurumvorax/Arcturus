@@ -11,15 +11,19 @@ public class Turret extends Component{
     public float arcMax;
     public float arcMid;
     public float omegaMax;
-    public Vector2 target = new Vector2();
-    public boolean fire;
-    public boolean onTarget;
+    public float sweepMin;
+    public float sweepMax;
+
+    public int target = -1;
+    public float firingFuzz = 10f;
+    public boolean fire = true;
+    public Vector2 targetVector;
 
     public void setArcs(float angle, float arc){
         arcMid = angle;
         if(arc == 0){       // Fixed hardpoint
-            arcMin = angle - FIXED_ARC;
-            arcMax = angle + FIXED_ARC;
+            arcMin = angle - (FIXED_ARC * 0.5f);
+            arcMax = angle + (FIXED_ARC * 0.5f);
         }else{              // Turret mount
             arcMin = angle - (arc * 0.5f);
             arcMax = angle + (arc * 0.5f);

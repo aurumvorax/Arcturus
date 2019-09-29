@@ -63,14 +63,16 @@ public class PlayerControl extends BaseSystem{
             pm.alpha = -Utils.sign(physics2D.omega) * pm.rotation;
             pm.accel.set(physics2D.v).scl(-1).setLength(pm.thrust);
         }
+
         updateWeapons(WorldCam.unproject(mouse));
     }
 
     private void updateWeapons(Vector2 target){
         Weapons w = mWeapons.get(player);
-        for(int i = 0; i < w.manual.size(); i++){
-            Turret t = mTurret.get(w.manual.get(i));
-            t.target = (target);
+
+        for(int i = 0; i < w.main.size(); i++){
+            Turret t = mTurret.get(w.main.get(i));
+            t.targetVector = target;
             t.fire = fire;
         }
     }

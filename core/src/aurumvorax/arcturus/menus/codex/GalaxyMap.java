@@ -20,7 +20,7 @@ public class GalaxyMap extends CodexPage{
 
 
     GalaxyMap(){
-        map = new ZoomPane(stack, Services.MENUSKIN);
+        map = new ZoomPane(stack, Services.getSkin());
         background = new Image(Services.getTexture("MapBackgroundSmaller"));
     }
 
@@ -44,7 +44,7 @@ public class GalaxyMap extends CodexPage{
             if(data == null)
                 break;
 
-            MapMarker marker = new MapMarker(system, data.systemCoords, Services.MENUSKIN);
+            MapMarker marker = new MapMarker(system, data.systemCoords, Services.getSkin());
             markerGroup.addActor(marker);
         }
 

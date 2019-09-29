@@ -38,8 +38,8 @@ public class HUDRenderer extends BaseEntitySystem implements RenderMarker{
         super(Aspect.all(Player.class));
         stage = new Stage(new ScreenViewport(), Services.batch);
         frame = new MenuFramework();
-        fps = new Label(String.format("%3d FPS", 0), Services.MENUSKIN);
-        health = new Label(String.format("Health : %3.2f", 0f), Services.MENUSKIN);
+        fps = new Label(String.format("%3d FPS", 0), Services.getSkin());
+        health = new Label(String.format("Health : %3.2f", 0f), Services.getSkin());
         reticle = new Image(Services.getTexture("selector1"));
         Table table = new Table();
         table.setFillParent(true);

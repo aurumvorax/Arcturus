@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.Health;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.factories.EffectFactory;

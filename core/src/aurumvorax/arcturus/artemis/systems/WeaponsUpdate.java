@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class WeaponsUpdate extends IteratingSystem{
 
     private static final float DAMPING = 10f;
-    private static final float AIM_FUZZ = 2.5f;
+
     private static transient float targetAngle;
     private static transient Vector2 targetVector = new Vector2();
     private static transient Vector2 origin = new Vector2();
@@ -33,79 +33,94 @@ public class WeaponsUpdate extends IteratingSystem{
 
     @Override
     protected void process(int entityID){
-        Weapons w = mWeapons.get(entityID);
+        Weapons weapons = mWeapons.get(entityID);
 
-        for(int i = 0; i < w.all.size(); i++){
-            int weapon = w.all.get(i);
+        for(int i = 0; i < weapons.all.size(); i++){
+            int weapon = weapons.all.get(i);
+
+            Mounted m = mMounted.get(weapon);
             Turret t = mTurret.get(weapon);
 
-            if(t.target == null)
-                targetAngle = t.arcMid;
-            else
-                updateActive(weapon, t);
-            updateTurret(weapon);
+            updateTurret(m, t);
+
+            if(mBeam.has(weapon)){
+                Beam b = mBeam.get(weapon);
+                updateBeam(b, m, t);
+            }
+
+            else if(mCannon.has(weapon)){
+                Cannon c = mCannon.get(weapon);
+                updateCannon(c, m, t);
+            }
+
+            else if(mLauncher.has(weapon)){
+                Launcher l = mLauncher.get(weapon);
+                updateCannon(l, m, t);
+            }
         }
     }
 
-    private void updateActive(int weapon, Turret t){
-        Mounted m = mMounted.get(weapon);
-        targetVector.set(t.target).sub(m.position);
-        targetAngle = Utils.normalize(targetVector.angle());
-
-        if(mCannon.has(weapon))
-            updateCannon(mCannon.get(weapon), m, t.fire);
-        if(mLauncher.has(weapon))
-            updateCannon(mLauncher.get(weapon), m, t.fire);
-        if(mBeam.has(weapon))
-            updateBeam(mBeam.get(weapon), m, t.fire);
-    }
-
-    private void updateTurret(int weapon){
-        Mounted m = mMounted.get(weapon);
-        Turret t = mTurret.get(weapon);
+    private void updateTurret(Mounted m, Turret t){
         Physics2D parent = mPhysics.get(m.parent);
 
         m.position.set(m.location).rotate(parent.theta).add(parent.p);
+
+        if(t.targetVector != null){
+            targetVector.set(t.targetVector).sub(m.position);
+            targetAngle = Utils.normalize(targetVector.angle());
+
+        }else{
+            targetAngle = parent.theta + t.arcMid;
+        }
 
         float zeroAngle = parent.theta + t.arcMid;
         float targetRelative = Utils.normalize(targetAngle - zeroAngle);
         float thetaRelative = Utils.normalize(m.theta - zeroAngle);
         float omega = MathUtils.clamp((targetRelative - thetaRelative) * DAMPING, -t.omegaMax, t.omegaMax) + parent.omega;
+
         thetaRelative += omega * world.delta;
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;
-        t.onTarget = ((targetRelative - thetaRelative) < AIM_FUZZ);
+
+        t.sweepMin = parent.theta + t.arcMin;
+        t.sweepMax = parent.theta + t.arcMax;
     }
 
-    private void updateCannon(Cannon cannon, Mounted m, boolean fire){
-        cannon.timer -= world.delta;
+    private void updateBeam(Beam b, Mounted m, Turret t){
+        if(t.fire){
+            b.length = b.maxRange;
+            b.unitBeam.setAngle(m.theta);
+            b.origin.set(b.barrels.get(0)).rotate(m.theta).add(m.position);
+            b.active = true;
+            return;
+        }
 
-        if(fire && cannon.timer <= 0){
-            origin.set(cannon.barrels.get(cannon.barrel)).rotate(m.theta).add(m.position);
+        b.active = false;
+    }
 
-            if(cannon.launches != null)
-                ProjectileFactory.create(cannon.launches, origin.x, origin.y, m.theta, m.parent);
+    private void updateCannon(Cannon c, Mounted m, Turret t){
 
-            if(cannon.barrel == cannon.barrels.size - 1){  //last barrel in sequence
-                cannon.timer = cannon.reloadTime;
-                cannon.barrel = 0;
-            }else{
-                cannon.timer = cannon.burstTime;
-                cannon.barrel++;
+
+        c.timer -= world.delta;
+
+        if((c.timer < 0) && ((t.fire) || (c.barrel != 0))){
+            origin.set(c.barrels.get(c.barrel)).rotate(m.theta).add(m.position);
+
+            if(c.launches != null){
+                if(c instanceof Launcher)
+                    ProjectileFactory.createMissile(c.launches, origin.x, origin.y, m.theta, m.parent, t.target);
+                else
+                    ProjectileFactory.createBullet(c.launches, origin.x, origin.y, m.theta, m.parent);
+
+                if(c.barrel == c.barrels.size - 1){  //last barrel in sequence
+                    c.timer = c.reloadTime;
+                    c.barrel = 0;
+
+                }else{
+                    c.timer = c.burstTime;
+                    c.barrel++;
+                }
             }
         }
-        if(cannon.timer <= -cannon.reloadTime){
-            cannon.barrel = 0;
-            cannon.timer = 0;
-        }
-    }
-
-    private void updateBeam(Beam beam, Mounted m, boolean fire){
-        if(fire){
-            beam.length = beam.maxRange;
-            beam.unitBeam.setAngle(m.theta);
-            beam.origin.set(beam.barrels.get(0)).rotate(m.theta).add(m.position);
-        }
-        beam.active = fire;
     }
 }

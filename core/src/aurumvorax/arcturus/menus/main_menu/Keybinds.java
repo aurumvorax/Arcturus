@@ -27,7 +27,7 @@ public class Keybinds extends MenuPage{
     public Keybinds(){
         buttonGroup = new Table();
         paneContent = new Table();
-        scrollPane = new ScrollPane(paneContent, Services.MENUSKIN);
+        scrollPane = new ScrollPane(paneContent, Services.getSkin());
         menuTable = new Table();
 
         addCaptureListener(new InputListener(){
@@ -41,7 +41,7 @@ public class Keybinds extends MenuPage{
             }
         });
 
-        TextButton defaultsButton = new TextButton("Reset to Default", Services.MENUSKIN);
+        TextButton defaultsButton = new TextButton("Reset to Default", Services.getSkin());
         defaultsButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -50,7 +50,7 @@ public class Keybinds extends MenuPage{
             }
         });
 
-        TextButton acceptButton = new TextButton("Accept", Services.MENUSKIN);
+        TextButton acceptButton = new TextButton("Accept", Services.getSkin());
         acceptButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -59,7 +59,7 @@ public class Keybinds extends MenuPage{
             }
         });
 
-        TextButton cancelButton = new TextButton("Cancel", Services.MENUSKIN);
+        TextButton cancelButton = new TextButton("Cancel", Services.getSkin());
         cancelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -103,13 +103,13 @@ public class Keybinds extends MenuPage{
 
 
         public EntryRow(Keys.Command command){
-            super(Services.MENUSKIN);
+            super(Services.getSkin());
 
             this.command = command;
 
-            add(new Label(command.name(), Services.MENUSKIN)).colspan(80).align(Align.left);
+            add(new Label(command.name(), Services.getSkin())).colspan(80).align(Align.left);
             keycode = Services.keys.getKey(command);
-            add(new Label((keycode == -1) ? "-" : Input.Keys.toString(keycode), Services.MENUSKIN));
+            add(new Label((keycode == -1) ? "-" : Input.Keys.toString(keycode), Services.getSkin()));
 
             addListener(new ChangeListener(){
                 @Override

@@ -12,12 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class GameMenu extends MenuPage{
 
-    private TextButton resumeButton = new TextButton("Resume Game", Services.MENUSKIN);
-    private TextButton saveButton = new TextButton("Save Game", Services.MENUSKIN);
-    private TextButton loadButton = new TextButton("Load Game", Services.MENUSKIN);
-    private TextButton optionsButton = new TextButton("Options", Services.MENUSKIN);
-    private TextButton quitToMenuButton = new TextButton("Exit to Start Menu", Services.MENUSKIN);
-    private TextButton exitButton = new TextButton("Quit to Desktop", Services.MENUSKIN);
+    private TextButton resumeButton = new TextButton("Resume Game", Services.getSkin());
+    private TextButton saveButton = new TextButton("Save Game", Services.getSkin());
+    private TextButton loadButton = new TextButton("Load Game", Services.getSkin());
+    private TextButton optionsButton = new TextButton("Options", Services.getSkin());
+    private TextButton quitToMenuButton = new TextButton("Exit to Start Menu", Services.getSkin());
+    private TextButton exitButton = new TextButton("Quit to Desktop", Services.getSkin());
     private Table menuTable = new Table();
 
     public GameMenu(){

@@ -97,7 +97,7 @@ public class Inventory extends Table implements Draggable.Target{
         loadLists();
         sortEntries();
         add(entryGroup).pad(10);
-        Drawable menuBG = new NinePatchDrawable(Services.MENUSKIN.getPatch("list"));
+        Drawable menuBG = new NinePatchDrawable(Services.getSkin().getPatch("list"));
         setBackground(menuBG);
 
         draganddrop.addTarget(new DragTarget(this));

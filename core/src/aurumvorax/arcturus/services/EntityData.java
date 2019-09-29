@@ -42,7 +42,7 @@ public class EntityData{
                     throw new SerializationException("Invalid or incomplete data file");
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to register effect - " + fileName, e);
+                Gdx.app.error("EntityData", "Unable to contact effect - " + fileName, e);
             }
         }
 
@@ -58,7 +58,7 @@ public class EntityData{
                     throw new SerializationException("Invalid or incomplete data file");
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to register ship - " + fileName);
+                Gdx.app.error("EntityData", "Unable to contact ship - " + fileName);
             }
         }
 
@@ -74,7 +74,7 @@ public class EntityData{
                     throw new SerializationException("Invalid or incomplete data file");
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to register weapon - " + fileName);
+                Gdx.app.error("EntityData", "Unable to contact weapon - " + fileName);
             }
         }
 
@@ -89,7 +89,7 @@ public class EntityData{
                     throw new SerializationException("Invalid or incomplete data file");
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to register projectile - " + fileName);
+                Gdx.app.error("EntityData", "Unable to contact projectile - " + fileName);
             }
         }
 
@@ -104,7 +104,7 @@ public class EntityData{
                     throw new SerializationException("Invalid of incomplete data file");
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to register system - " + fileName);
+                Gdx.app.error("EntityData", "Unable to contact system - " + fileName);
             }
         }
     }

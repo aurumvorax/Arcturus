@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis;
+package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.artemis.components.Weapons;
 import com.artemis.BaseSystem;

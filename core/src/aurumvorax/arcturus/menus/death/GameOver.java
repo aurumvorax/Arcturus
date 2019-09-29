@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class GameOver extends MenuPage{
-    private TextButton deadButton = new TextButton("You are dead.\nWalk it off.", Services.MENUSKIN);
+    private TextButton deadButton = new TextButton("You are dead.\nWalk it off.", Services.getSkin());
     private Table menuTable = new Table();
 
     public GameOver(){

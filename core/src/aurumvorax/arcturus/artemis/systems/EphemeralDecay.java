@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.artemis.systems;
 
-import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.Ephemeral;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;

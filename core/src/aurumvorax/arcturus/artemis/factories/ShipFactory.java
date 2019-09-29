@@ -96,15 +96,14 @@ public enum ShipFactory{
 
     private static void equip(int ship, ShipData.Stock data, ShipData.Loadout loadout){
         IntBag weaponList = mWeapons.get(ship).all;
-        IntBag activeList = mWeapons.get(ship).auto;
-        IntBag manualList = mWeapons.get(ship).manual;
+        IntBag mainList = mWeapons.get(ship).main;
+        IntBag pdList = mWeapons.get(ship).pd;
         if(loadout.weapons != null){
             for(int i = 0; i < loadout.weapons.size; i++){
                 if(loadout.weapons.get(i) != null){
                     int w = WeaponFactory.create(loadout.weapons.get(i), ship, data.weaponMounts.get(i), i);
                     weaponList.add(w);
-                    activeList.add(w);
-                    manualList.add(w);
+                    mainList.add(w);
                 }
             }
         }

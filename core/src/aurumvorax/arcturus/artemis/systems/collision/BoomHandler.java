@@ -3,14 +3,11 @@ package aurumvorax.arcturus.artemis.systems.collision;
 // This is the collision handler for actor/projectile collisions.  The projectile is destroyed, and the actor
 // takes damage as appropriate.
 
-import aurumvorax.arcturus.artemis.Destructor;
-import aurumvorax.arcturus.artemis.components.Ephemeral;
+import aurumvorax.arcturus.artemis.systems.Destructor;
 import aurumvorax.arcturus.artemis.components.Projectile;
 import aurumvorax.arcturus.artemis.systems.Damage;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Vector;
 
 public class BoomHandler implements CollisionHandler{
 

@@ -1,50 +1,66 @@
 package aurumvorax.arcturus.artemis.systems;
 
 
-import aurumvorax.arcturus.artemis.components.CollisionRadius;
-import aurumvorax.arcturus.artemis.components.Physics2D;
+import aurumvorax.arcturus.artemis.components.*;
 import com.artemis.Aspect;
-import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
+import com.artemis.EntitySubscription;
+import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
-public class Proximity extends BaseEntitySystem{
+import com.badlogic.gdx.math.Vector2;
 
-    private static IntBag agents = new IntBag();
+public class Proximity extends IteratingSystem{
 
+    private static EntitySubscription shipSub;
+    private static EntitySubscription missileSub;
+    private static EntitySubscription celestialSub;
+
+    private static ComponentMapper<Sensors> mSensors;
     private static ComponentMapper<Physics2D> mPhysics;
-    private static ComponentMapper<CollisionRadius> mRadius;
+    private static ComponentMapper<Ship> mShip;
+    private static ComponentMapper<Missile> mMissile;
+    private static ComponentMapper<Celestial> mCelestial;
+
 
     public Proximity(){
-        super(Aspect.all(CollisionRadius.class, Physics2D.class));
+        super(Aspect.all(Physics2D.class, Ship.class, Sensors.class));
     }
 
-    @Override protected void processSystem(){}
-    @Override protected void inserted(int entityID){ agents.add(entityID); }
-    @Override protected void removed(int entityID){ agents.removeValue(entityID); }
+    public void initialize(){
+        shipSub = world.getAspectSubscriptionManager().get(Aspect.all(Ship.class, Sensors.class));
+        missileSub = world.getAspectSubscriptionManager().get(Aspect.all(Missile.class));
+        celestialSub = world.getAspectSubscriptionManager().get(Aspect.all(Celestial.class));
+    }
 
-    public static int findContacts(int subject, float range, Callback callback){
-        int neighbours = 0;
-        if(range <= 0){
-            for(int i = 0; i < agents.size(); i++){
-                int agent = agents.get(i);
-                if((agent != subject) && (callback.reportContact(agent)))
-                    neighbours++;
+    @Override
+    protected void process(int entityId){
+        if(!mSensors.has(entityId) || !mPhysics.has(entityId))
+            return;
+
+        Sensors s = mSensors.get(entityId);
+        s.ships.clear();
+        s.missiles.clear();
+
+        Vector2 position = mPhysics.get(entityId).p;
+        float range2 = s.range * s.range;
+
+        IntBag ships = shipSub.getEntities();
+        for(int ship : ships.getData()){
+            if(mSensors.has(ship) && mSensors.get(ship).beacon){
+                s.ships.add(ship);
+                continue;
             }
-            return neighbours;
-        }else{
-            for(int i = 0; i < agents.size(); i++){
-                int agent = agents.get(i);
-                if(agent != subject){
-                    float distance2 = mPhysics.get(subject).p.dst2(mPhysics.get(agent).p);
-                    if((distance2 <= range * range) && (callback.reportContact(agent)))
-                        neighbours++;
-                }
-            }
-            return neighbours;
+            if((mPhysics.has(ship)) && (position.dst2(mPhysics.get(ship).p) > range2))
+                ships.add(ship);
         }
-    }
 
-    public interface Callback{
-        boolean reportContact(int contact);
+        if(!s.scanForMissiles)
+            return;
+
+        IntBag missiles = missileSub.getEntities();
+        for(int missile : missiles.getData()){
+            if((mPhysics.has(missile) && (position.dst2(mPhysics.get(missile).p) > range2)))
+                missiles.add(missile);
+        }
     }
 }

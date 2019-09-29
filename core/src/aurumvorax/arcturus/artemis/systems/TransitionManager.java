@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Core;
-import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.menus.MenuFramework;
 import com.artemis.BaseSystem;
 

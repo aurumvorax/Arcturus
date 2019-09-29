@@ -13,7 +13,7 @@ public class SplashScreen extends ScreenAdapter{
 
     public SplashScreen(Core core){
         this.core = core;
-        Services.queueTextureAssets();
+        Services.queueAssets();
     }
 
     @Override

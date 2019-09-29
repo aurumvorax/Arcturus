@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
-import aurumvorax.arcturus.artemis.Destructor;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Trail;
 import com.artemis.Aspect;

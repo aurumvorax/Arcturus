@@ -8,17 +8,17 @@
 
         - dock menu needs a variable to hold which dock it is - decide background, services, etc
             - assign in transition manager?  Store full data in json that is loaded by what?
-            - dockmanager in galaxy package - accessed by dock menupage
+            - dockmanager in galaxy package - accessed by dock menupage?
 
     - Menu Pages requesting size/position/background
+        - use uiscaling
+        - multiple font sizes
+
     - Menu Page hotkeys - each menupage should have it's own Inputlistener, keyboard focus is already set in frame.
-    - death menu
+    - test death menu
     - Codex pages
     - Options menu
-        - uiScaling
-            - use to determine set menu sizes
         - most recent save update
-
 
     - basic HUD layout
 
@@ -30,9 +30,25 @@
     - save/load error handling
 
     - look into fonts and text rendering
+        - define fonts
+        - font changer/sizer
 
 
 0.3 - Adventure
+
+    - sort contact list to id friendlies/threats
+    - threat rating based on damage/range2 for missiles
+
+
+    - SensorsAI does target discrimintation, list sorting, threat analysis
+    - TargetingAI handles aiming and fire control, including occultation checks
+    - WeaponsUpdate will handle the actual moveing and firing of weapons, based on targetingAI's instructions
+
+    - target discrimination pass needed, make 4 lists - enemy ships, neutral ships, ally ships, enemy missiles
+
+
+    - ship stat recalculator system
+
 
     - strategic AI
     - tactical AI
@@ -42,6 +58,7 @@
      - pd weapons
             - target prioritization ai
             - weapon fire groups
+            - proximity fused weapons
     - minimap
     - animated engines
     - new inventory items - engines, armour, missiles, etc

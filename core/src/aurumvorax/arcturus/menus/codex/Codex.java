@@ -34,7 +34,7 @@ public class Codex extends MenuPage{
 
 
 
-        ImageButton menuButton = new ImageButton(Services.MENUSKIN);
+        ImageButton menuButton = new ImageButton(Services.getSkin());
         menuButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -43,7 +43,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(menuButton);
 
-        ImageButton galaxyButton = new ImageButton(Services.MENUSKIN);
+        ImageButton galaxyButton = new ImageButton(Services.getSkin());
         galaxyButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -52,7 +52,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(galaxyButton);
 
-        ImageButton systemButton = new ImageButton(Services.MENUSKIN);
+        ImageButton systemButton = new ImageButton(Services.getSkin());
         systemButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -61,7 +61,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(systemButton);
 
-        ImageButton missionButton = new ImageButton(Services.MENUSKIN);
+        ImageButton missionButton = new ImageButton(Services.getSkin());
         missionButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -70,7 +70,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(missionButton);
 
-        ImageButton manifestButton = new ImageButton(Services.MENUSKIN);
+        ImageButton manifestButton = new ImageButton(Services.getSkin());
         manifestButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -79,7 +79,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(manifestButton);
 
-        ImageButton intelButton = new ImageButton(Services.MENUSKIN);
+        ImageButton intelButton = new ImageButton(Services.getSkin());
         intelButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
@@ -88,7 +88,7 @@ public class Codex extends MenuPage{
         });
         tabGroup.addActor(intelButton);
 
-        ImageButton closeButton = new ImageButton(Services.MENUSKIN);
+        ImageButton closeButton = new ImageButton(Services.getSkin());
         closeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor){
