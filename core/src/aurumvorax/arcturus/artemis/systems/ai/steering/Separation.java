@@ -1,12 +1,8 @@
 package aurumvorax.arcturus.artemis.systems.ai.steering;
 
-import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.systems.Proximity;
-import com.artemis.ComponentMapper;
-import com.artemis.World;
-import com.badlogic.gdx.math.Vector2;
+public class Separation{
 
-public class Separation implements Proximity.Callback{
+    /*
     private static Separation INSTANCE = new Separation();
     private Separation(){} // Single static class with DI/callback
 
@@ -41,4 +37,5 @@ public class Separation implements Proximity.Callback{
         separation.mulAdd(contactRelative.nor(), force);
         return true;
     }
+    */
 }

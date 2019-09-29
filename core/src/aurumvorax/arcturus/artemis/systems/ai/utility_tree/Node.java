@@ -16,7 +16,7 @@ public abstract class Node{
 
     protected abstract void action(AIData bb);
 
-    void tick(AIData bb){
+    public void tick(AIData bb){
         action(bb);
 
         if((children != null) && (children.size > 0)){

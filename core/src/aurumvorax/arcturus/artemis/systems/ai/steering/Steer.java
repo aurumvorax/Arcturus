@@ -16,11 +16,11 @@ public class Steer{
     public static void initialize(World world){
         world.inject(INSTANCE);
         Arrive.initialize(world);
-        AvoidCollision.initialize(world);
+//        AvoidCollision.initialize(world);
         Face.initialize(world);
         MaintainDistance.initialize(world);
         Seek.initialize(world);
-        Separation.initialize(world);
+ //       Separation.initialize(world);
         Stop.initialize(world);
 
     }

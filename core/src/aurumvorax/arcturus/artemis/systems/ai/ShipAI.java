@@ -1,8 +1,9 @@
-package aurumvorax.arcturus.artemis.systems.ai.utility_tree;
+package aurumvorax.arcturus.artemis.systems.ai;
 
 import aurumvorax.arcturus.artemis.components.AIData;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.PoweredMotion;
+import aurumvorax.arcturus.artemis.systems.ai.utility_tree.UtilityTree;
 import aurumvorax.arcturus.artemis.systems.ai.utility_tree.inputs.IsPlayer;
 import aurumvorax.arcturus.artemis.systems.ai.utility_tree.inputs.MyHealth;
 import aurumvorax.arcturus.artemis.systems.ai.utility_tree.nodes.Attack;
@@ -25,13 +26,13 @@ public class ShipAI extends IteratingSystem{
 
     @Override
     public void initialize(){
-        tree = buildTree();
+       // tree = buildTree();
     }
 
     @Override
     protected void process(int entityID){
-        mAI.get(entityID).selfID = entityID;
-        tree.tick(mAI.get(entityID));
+       // mAI.get(entityID).selfID = entityID;
+       // tree.tick(mAI.get(entityID));
     }
 
     private UtilityTree buildTree(){
