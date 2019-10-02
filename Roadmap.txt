@@ -36,16 +36,14 @@
 
 0.3 - Adventure
 
-    - sort contact list to id friendlies/threats
-    - threat rating based on damage/range2 for missiles
-
-
-    - SensorsAI does target discrimintation, list sorting, threat analysis
+    - GunneryAI coordinates SensorsAI, TargetingAI.
+    - SensorsAI does target discrimination, list sorting, threat analysis
     - TargetingAI handles aiming and fire control, including occultation checks
     - WeaponsUpdate will handle the actual moveing and firing of weapons, based on targetingAI's instructions
 
     - target discrimination pass needed, make 4 lists - enemy ships, neutral ships, ally ships, enemy missiles
 
+************** USE Vector2.crs to find fuzz, both for aiming, and occulting
 
     - ship stat recalculator system
 
@@ -66,7 +64,7 @@
     - hyperdrive refinements - go/nogo line, jump effect
 
     - assets
-            - ship with PD turrets
+            - ship with PD mounts
             - texture for jump line
             - jump animation
             - minimap stuff
@@ -79,6 +77,8 @@
 
 
 0.4 - Quests and Conversations
+
+0.5 - Living Galaxy
 
 0.6 - Economy
 

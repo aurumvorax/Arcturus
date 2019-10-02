@@ -41,17 +41,21 @@ class TestBeam{
                 return;
 
             float dot = line.dot(b.unitBeam);
-            if(dot <= 0)                            // Ignore targets behind turret
+            if(dot <= 0)                          // Ignore targets behind turret
                 return;
 
             m.penetration[0] = (float) Math.sqrt((radius * radius) - (cross * cross));
             if((dot - m.penetration[0]) > b.maxRange)     // Beam falls short
                 return;
 
-            b.length = dot - m.penetration[0];
-            contact.set(b.unitBeam).scl(b.length).add(b.origin);
-            m.contactPoints.add(contact);
-            m.contacts = 1;
+            if(b.length > dot - m.penetration[0]){
+                b.length = dot - m.penetration[0];
+                contact.set(b.unitBeam).scl(b.length).add(b.origin);
+                m.contactPoints.add(contact);
+                m.contacts = 1;
+
+            }else
+                m.reset();
 
         }else{       // Polygon - Segment
             beam.set(b.unitBeam).scl(b.maxRange);
@@ -86,10 +90,14 @@ class TestBeam{
             if(m.contacts == 0)         // no intersect found
                 return;
 
-            b.length = (b.maxRange * bestT);
-            m.penetration[0] = b.maxRange - b.length;
-            contact.set(beam).scl(bestT).add(b.origin);
-            m.contactPoints.add(contact);
+            if(b.length > b.maxRange * bestT){
+                b.length = (b.maxRange * bestT);
+                m.penetration[0] = b.maxRange - b.length;
+                contact.set(beam).scl(bestT).add(b.origin);
+                m.contactPoints.add(contact);
+
+            }else
+                m.reset();
         }
     }
 }

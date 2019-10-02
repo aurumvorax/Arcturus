@@ -8,7 +8,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class Collision extends BaseEntitySystem{
+public class Collision extends BaseSystem{
 
     private static Bag<CollisionPair> collisionPairs = new Bag<>();
     private static Manifold manifold = new Manifold();
@@ -21,9 +21,6 @@ public class Collision extends BaseEntitySystem{
     private static ComponentMapper<CollisionPolygon> mPolygon;
     private static ComponentMapper<Beam> mBeam;
 
-    public Collision(){
-        super(Aspect.all(CollisionRadius.class, Physics2D.class));
-    }
 
     @Override
     public void initialize(){
@@ -59,10 +56,12 @@ public class Collision extends BaseEntitySystem{
 
     @Override
     protected void processSystem(){
-        ((BeamHandler)pewpew).setDelta(world.getDelta());   // need world.delta for dps calculations
+        ((BeamHandler)pewpew).reset();
 
         for(CollisionPair collisionPair : collisionPairs)
             collisionPair.runPair();
+
+        ((BeamHandler)pewpew).end(world.getDelta());        // need world.delta for dps calculations
     }
 
     private class CollisionPair{
@@ -127,7 +126,7 @@ public class Collision extends BaseEntitySystem{
         }
     }
 
-    static class Manifold{
+    public static class Manifold{
         Array<Vector2> contactPoints = new Array<>();
         Vector2 normal = new Vector2();
         int contacts;
@@ -139,17 +138,3 @@ public class Collision extends BaseEntitySystem{
         }
     }
 }
-
-// Shield check for actors
-
-// Actor - Actor - Newtonian + Damage(impact)
-// Actor - Missile - Detonation + Damage(projectile)
-// Actor - Projectile - Detonation + Damage(projectile)
-// Actor - Beam - Beam terminus + Damage(beam)
-// Missile - Projectile - detonation + damage(projectile)
-// Missile - Beam - beam terminus + damage(beam)
-
-//Resolvers needed
-// Newtonian + impact damage = Crash(actor, actor)
-// projectile detonation + damage = Boom(actor/missile, missile/bullet)
-// beam impact - damage = PewPew(actor/missile, beam)

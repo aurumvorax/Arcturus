@@ -1,7 +1,6 @@
 package aurumvorax.arcturus.artemis.components;
 
 import aurumvorax.arcturus.artemis.systems.render.Renderer;
-import com.artemis.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -19,4 +18,6 @@ public class Beam extends Weapon{
     public Array<Vector2> barrels;
     public float dps;
 
+    public Vector2 contactPoint = new Vector2();
+    public int contact;
 }
