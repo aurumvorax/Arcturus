@@ -124,7 +124,7 @@ public class GameScreen extends ScreenAdapter{
         world.getMapper(Faction.class).get(ship).faction = "Player";
 
         ShipFactory.create("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
-        ShipFactory.create("Bob", "OtherShip", "Standard", 550, -800, 165);
+        ShipFactory.create("Bob", "OtherShip", "Standard", 650, -800, 165);
 
         PlayerShip.setTargetID(-1);
         SolarSystemManager.resetWorlds();

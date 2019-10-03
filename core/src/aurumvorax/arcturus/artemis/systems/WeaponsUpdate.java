@@ -14,7 +14,6 @@ public class WeaponsUpdate extends IteratingSystem{
 
     private static final float DAMPING = 10f;
 
-    private static transient float targetAngle;
     private static transient Vector2 targetVector = new Vector2();
     private static transient Vector2 origin = new Vector2();
 
@@ -46,14 +45,12 @@ public class WeaponsUpdate extends IteratingSystem{
             if(mBeam.has(weapon)){
                 Beam b = mBeam.get(weapon);
                 updateBeam(b, m, t);
-            }
 
-            else if(mCannon.has(weapon)){
+            }else if(mCannon.has(weapon)){
                 Cannon c = mCannon.get(weapon);
                 updateCannon(c, m, t);
-            }
 
-            else if(mLauncher.has(weapon)){
+            }else if(mLauncher.has(weapon)){
                 Launcher l = mLauncher.get(weapon);
                 updateCannon(l, m, t);
             }
@@ -65,13 +62,14 @@ public class WeaponsUpdate extends IteratingSystem{
 
         m.position.set(m.location).rotate(parent.theta).add(parent.p);
 
-        if(t.targetVector != null){
-            targetVector.set(t.targetVector).sub(m.position);
+        float targetAngle;
+
+        if(t.targetPosition != null){
+            targetVector.set(t.targetPosition).sub(m.position);
             targetAngle = Utils.normalize(targetVector.angle());
 
-        }else{
+        }else
             targetAngle = parent.theta + t.arcMid;
-        }
 
         float zeroAngle = parent.theta + t.arcMid;
         float targetRelative = Utils.normalize(targetAngle - zeroAngle);
@@ -87,9 +85,10 @@ public class WeaponsUpdate extends IteratingSystem{
     }
 
     private void updateBeam(Beam b, Mounted m, Turret t){
+        b.unitBeam.setAngle(m.theta);
+
         if(t.fire){
             b.length = b.maxRange;
-            b.unitBeam.setAngle(m.theta);
             b.origin.set(b.barrels.get(0)).rotate(m.theta).add(m.position);
             b.active = true;
             return;
@@ -99,8 +98,6 @@ public class WeaponsUpdate extends IteratingSystem{
     }
 
     private void updateCannon(Cannon c, Mounted m, Turret t){
-
-
         c.timer -= world.delta;
 
         if((c.timer < 0) && ((t.fire) || (c.barrel != 0))){

@@ -72,7 +72,7 @@ public class PlayerControl extends BaseSystem{
 
         for(int i = 0; i < w.main.size(); i++){
             Turret t = mTurret.get(w.main.get(i));
-            t.targetVector = target;
+            t.targetPosition = target;
             t.fire = fire;
         }
     }

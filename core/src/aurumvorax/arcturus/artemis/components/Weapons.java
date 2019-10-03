@@ -11,6 +11,4 @@ public class Weapons extends Component{
     @EntityId public IntBag main = new IntBag();
     @EntityId public IntBag auto = new IntBag();
     @EntityId public IntBag pd = new IntBag();
-
-    public boolean mainFree, autoFree, pdFree;
 }

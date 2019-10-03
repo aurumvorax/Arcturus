@@ -15,9 +15,8 @@ public class Turret extends Component{
     public float sweepMax;
 
     public int target = -1;
-    public float firingFuzz = 10f;
     public boolean fire = true;
-    public Vector2 targetVector;
+    public Vector2 targetPosition;
 
     public void setArcs(float angle, float arc){
         arcMid = angle;

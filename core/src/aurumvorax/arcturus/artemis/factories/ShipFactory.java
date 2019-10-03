@@ -44,7 +44,7 @@ public enum ShipFactory{
                 .add(Weapons.class)
                 .add(Health.class)
                 .add(PoweredMotion.class)
-                .add(AIData.class)
+                .add(Sensors.class)
                 .add(Faction.class)
                 .build(world);
     }

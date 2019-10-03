@@ -45,11 +45,17 @@ public class Proximity extends IteratingSystem{
         float range2 = s.range * s.range;
 
         IntBag ships = shipSub.getEntities();
-        for(int ship : ships.getData()){
+        for(int i = 0; i < ships.size(); i++){
+            int ship = ships.get(i);
+
+            if(ship == entityId)
+                continue;
+
             if(mSensors.has(ship) && mSensors.get(ship).beacon){
                 s.ships.add(ship);
                 continue;
             }
+
             if((mPhysics.has(ship)) && (position.dst2(mPhysics.get(ship).p) > range2))
                 ships.add(ship);
         }
@@ -58,7 +64,9 @@ public class Proximity extends IteratingSystem{
             return;
 
         IntBag missiles = missileSub.getEntities();
-        for(int missile : missiles.getData()){
+        for(int i = 0; i < missiles.size(); i++){
+            int missile = missiles.get(i);
+
             if((mPhysics.has(missile) && (position.dst2(mPhysics.get(missile).p) > range2)))
                 missiles.add(missile);
         }
