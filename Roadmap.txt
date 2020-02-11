@@ -3,6 +3,7 @@
 
     - menu/save overhaul
         - load/save in startmenu/dock?
+            - version number - update save?
             - store savemode - active/docked
             -if docked, store dockname, extracted playership
 
@@ -33,19 +34,45 @@
         - define fonts
         - font changer/sizer
 
+    - command interface - reference minecraft brigadier
+
 
 0.3 - Adventure
 
-    - GunneryAI coordinates SensorsAI, TargetingAI.
-    - SensorsAI does target discrimination, list sorting, threat analysis
-    - TargetingAI handles aiming and fire control, including occultation checks
-
     - ship stat recalculator system
 
+    - AI Full Build
+        - Behaviours
+            - steering
+            - gunnery
+            - shield (future expansion)
+
+        - Combat modes
+            - Withdraw
+            - Engage
+            - Charge
+            - N combatant modes (future expansion)
+
+        - Tactical modes
+            - Threat assessor
+            - Intercept
+            - Evade
+                - Flee
+                - Surrender
+
+        - Strategic Planner
+            - Goal queue
+            - reassesment conditions
+            - planning system
 
 
     - strategic AI
-    - tactical AI
+        - overall goal(patrol, defend, attack, travel)
+            - Plan Journey
+            - Plan Patrol
+            - Retreat conditions
+            - Attack/Invade success evaluator
+            - Combat Failure Tree
 
     - in depth faction system
     - armour system / shields
@@ -53,6 +80,7 @@
             - target prioritization ai
             - weapon fire groups
             - proximity fused weapons
+
     - minimap
     - animated engines
     - new inventory items - engines, armour, missiles, etc

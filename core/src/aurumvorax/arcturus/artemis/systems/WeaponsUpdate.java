@@ -80,8 +80,8 @@ public class WeaponsUpdate extends IteratingSystem{
         thetaRelative = MathUtils.clamp(thetaRelative, t.arcMin, t.arcMax);
         m.theta = thetaRelative + zeroAngle;
 
-        t.sweepMin = parent.theta + t.arcMin;
-        t.sweepMax = parent.theta + t.arcMax;
+        t.sweepMin = Utils.normalize(parent.theta + t.arcMin);
+        t.sweepMax = Utils.normalize(parent.theta + t.arcMax);
     }
 
     private void updateBeam(Beam b, Mounted m, Turret t){

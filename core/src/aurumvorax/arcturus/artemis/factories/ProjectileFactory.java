@@ -73,6 +73,10 @@ public enum ProjectileFactory{
         ProjectileData data = EntityData.getProjectileData(type);
         c.speed = data.speed;
         c.duration = data.duration;
+
+        if(c instanceof Launcher){
+            ((Launcher) c).missileTurnRate = data.turnRate;
+        }
     }
 
     private static void buildProjectile(int projectile, ProjectileData data, float x, float y, float t, int firedFrom){

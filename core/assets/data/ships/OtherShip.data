@@ -32,8 +32,8 @@ data: {
 		loadouts: {
 			"Standard": {
 			    weapons: {
-			        0: "TestBeam",
-			        1: "TestBeam"
+			        0: "MultiBarrel",
+			        1: "MultiBarrel"
                 }
 			}
 		}

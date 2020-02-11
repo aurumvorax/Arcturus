@@ -104,6 +104,8 @@ public enum ShipFactory{
                     int w = WeaponFactory.create(loadout.weapons.get(i), ship, data.weaponMounts.get(i), i);
                     weaponList.add(w);
                     mainList.add(w);
+                    // TODO - this is a hack for testing, make it work good later
+                    pdList.add(w);
                 }
             }
         }

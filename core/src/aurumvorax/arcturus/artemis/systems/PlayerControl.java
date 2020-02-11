@@ -1,11 +1,7 @@
 package aurumvorax.arcturus.artemis.systems;
 
 import aurumvorax.arcturus.Utils;
-import aurumvorax.arcturus.artemis.components.Physics2D;
-import aurumvorax.arcturus.artemis.components.Turret;
-import aurumvorax.arcturus.artemis.components.Player;
-import aurumvorax.arcturus.artemis.components.PoweredMotion;
-import aurumvorax.arcturus.artemis.components.Weapons;
+import aurumvorax.arcturus.artemis.components.*;
 import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.WorldCam;
 import com.artemis.BaseSystem;
@@ -29,6 +25,7 @@ public class PlayerControl extends BaseSystem{
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<PoweredMotion> mPowered;
     private static ComponentMapper<Weapons> mWeapons;
+    private static ComponentMapper<Weapon> mWeapon;
     private static ComponentMapper<Turret> mTurret;
 
 
@@ -73,7 +70,7 @@ public class PlayerControl extends BaseSystem{
         for(int i = 0; i < w.main.size(); i++){
             Turret t = mTurret.get(w.main.get(i));
             t.target = PlayerShip.getTargetID();
-            t.targetPosition = target;
+            mTurret.get(w.main.get(i)).targetPosition = target;
             t.fire = fire;
         }
     }
