@@ -39,8 +39,6 @@
 
 0.3 - Adventure
 
-    - ship stat recalculator system
-
     - AI Full Build
         - Behaviours
             - steering

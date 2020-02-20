@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems.ai;
+package aurumvorax.arcturus.artemis.systems.ai.missile;
 
 import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.Missile;

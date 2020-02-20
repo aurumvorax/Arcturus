@@ -10,7 +10,7 @@ import aurumvorax.arcturus.artemis.components.Weapons;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
 import aurumvorax.arcturus.artemis.systems.ai.MasterAI;
-import aurumvorax.arcturus.artemis.systems.ai.MissileAI;
+import aurumvorax.arcturus.artemis.systems.ai.missile.MissileAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.collision.Selection;
 import aurumvorax.arcturus.artemis.systems.render.*;

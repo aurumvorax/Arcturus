@@ -1,6 +1,11 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
+import aurumvorax.arcturus.aiUtree.UtilityTree;
 import aurumvorax.arcturus.artemis.components.Ship;
+import aurumvorax.arcturus.artemis.systems.ai.utree.Combat;
+import aurumvorax.arcturus.artemis.systems.ai.utree.First;
+import aurumvorax.arcturus.artemis.systems.ai.utree.Goals;
+import aurumvorax.arcturus.artemis.systems.ai.utree.Threat;
 import com.artemis.Aspect;
 import com.artemis.systems.IteratingSystem;
 
@@ -27,5 +32,14 @@ public class MasterAI extends IteratingSystem{
         sensorsAI.process(entityId);
         targetingAI.process(entityId);
         gunneryAI.process(entityId);
+    }
+
+    private UtilityTree buildUTree(){
+        return new UtilityTree.Builder()
+                .addGroup(new Combat())
+                .addGroup(new First())
+                .addGroup(new Threat())
+                .addGroup(new Goals())
+                .build();
     }
 }
