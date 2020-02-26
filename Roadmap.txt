@@ -63,15 +63,6 @@
             - reassesment conditions
             - planning system
 
-
-    - strategic AI
-        - overall goal(patrol, defend, attack, travel)
-            - Plan Journey
-            - Plan Patrol
-            - Retreat conditions
-            - Attack/Invade success evaluator
-            - Combat Failure Tree
-
     - in depth faction system
     - armour system / shields
      - pd weapons

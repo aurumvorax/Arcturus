@@ -8,6 +8,21 @@ Goal setter -> uses planning tools to set goal queue
 
 almost all utility - use utility tree
 
+.addGroup(new Combat<>())
+                    .addGroup(new Fight<>())
+                        .addGroup(new Attack<>())
+                            .addNode(new Harass<>())
+                            .buildGroup()
+                        .addNode(new Breakthrough<>())
+                        .addNode(new Fallback<>())
+                        .buildGroup()
+                    .addNode(new Escape<>())
+                    .addGroup(new Defeat<>())
+                        .addNode(new Jettison<>())
+                        .addNode(new Surrender<>())
+                        .addNode(new SuicideCharge<>())
+                    .buildGroup()
+
 if(first)
     goal plan
 
@@ -20,21 +35,34 @@ if(danger)
         *attack
             *circle
             *charge
+            *allies subgroup
+                *protect
+                *assist
+                *shelter
             *etc
-        *recharge
+        *fallback
         *harass
+        *breakthrough
 
-
-    *surrender
+    *defeat
         *dump cargo
         *full surrender
         *suicide charge
 
+    *victory
+        *order
+        *kill
+
 if(threat)
     *evade
-        #local
-        #repath
     *intercept
+
+if(item of interest)
+    *salvage
+    *tow
+
+if(comms)
+    *replan
 
 work towards next goal in queue
 
@@ -47,3 +75,12 @@ ShipAI is coordinator, scheduler and initializer
 utree package contains all tree nodes
 steering contains steering behaviours
 gunnery contains all gunnery behaviours, tageting routines and threat assesment
+
+
+TO ADD TO BLACKBOARD
+
+Hostiles close?(combat)
+Hostiles detected?(threat)
+Goal queue
+Sensors
+threat assessments

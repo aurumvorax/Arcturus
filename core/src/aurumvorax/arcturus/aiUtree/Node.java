@@ -1,7 +1,14 @@
 package aurumvorax.arcturus.aiUtree;
 
-public abstract class Node<Blackboard>{
+import aurumvorax.arcturus.artemis.components.AIData;
 
-    protected abstract float evaluate(Blackboard bb);
-    protected abstract void execute(Blackboard bb);
+public abstract class Node{
+
+    protected abstract float evaluate(AIData bb);
+    public abstract void execute(AIData bb);
+
+    protected void select(AIData bb){
+        bb.setCurrent(this);
+    }
+
 }

@@ -1,12 +1,17 @@
 package aurumvorax.arcturus.artemis.systems.ai.utree;
 
-import aurumvorax.arcturus.aiUtree.Blackboard;
-import aurumvorax.arcturus.aiUtree.Group;
+import aurumvorax.arcturus.aiUtree.Node;
+import aurumvorax.arcturus.artemis.components.AIData;
 
-public class Goals extends Group{
+public class Goals extends Node{
 
     @Override
-    protected float evaluate(Blackboard bb){
-        return 0;
+    protected float evaluate(AIData bb){
+        return 1;
+    }
+
+    @Override
+    public void execute(AIData bb){
+        System.out.println("Normal");
     }
 }

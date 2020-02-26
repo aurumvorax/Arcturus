@@ -1,20 +1,24 @@
 package aurumvorax.arcturus.aiUtree;
 
+import aurumvorax.arcturus.artemis.components.AIData;
 import com.badlogic.gdx.utils.Array;
 
-public abstract class Group extends Node<Blackboard>{
+public abstract class Group extends Node{
 
-    private Array<Node<Blackboard>> children = new Array<>(4);
+    private Array<Node> children = new Array<>(4);
 
 
-    void addChild(Node<Blackboard> node){ children.add(node); }
+    void addChild(Node node){ children.add(node); }
 
     @Override
-    protected void execute(Blackboard bb){
-        float bestScore = 0;
-        Node<Blackboard> bestChild = null;
+    public void execute(AIData bb){}  // Not used by Groups
 
-        for(Node<Blackboard> child : children){
+    @Override
+    protected void select(AIData bb){
+        float bestScore = 0;
+        Node bestChild = null;
+
+        for(Node child : children){
             float score = child.evaluate(bb);
             if(score > bestScore){
                 bestScore = score;
@@ -23,6 +27,6 @@ public abstract class Group extends Node<Blackboard>{
         }
 
         if(bestScore != 0)
-            bestChild.execute(bb);
+            bestChild.select(bb);
     }
 }

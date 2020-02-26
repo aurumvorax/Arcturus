@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
-import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.*;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
@@ -31,9 +30,9 @@ public class GunneryAI{
 
 
 
-    public void process(int ship){
+    public void process(int ship){/*
         Weapons w = mWeapons.get(ship);
-        Sensors s = mSensors.get(ship);
+        Detection s = mSensors.get(ship);
 
         if(!mPlayer.has(ship)){
             for(int i = 0; i < w.main.size(); i++){
@@ -50,7 +49,7 @@ public class GunneryAI{
         }
     }
 
-    private void processWeapon(int weapon, Sensors s){
+    private void processWeapon(int weapon, Detection s){
         Turret t = mTurret.get(weapon);
 
         t.fire = false;
@@ -150,6 +149,6 @@ public class GunneryAI{
         float angle = m.position.angle(blockerP);
         float arc = getArc(m.position.dst2(blockerP), mRadius.get(blocker).radius);
 
-        return Utils.withinAngle(m.theta, angle - arc, angle + arc);
+        return Utils.withinAngle(m.theta, angle - arc, angle + arc);  */
     }
 }

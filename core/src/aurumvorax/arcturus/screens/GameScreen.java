@@ -55,7 +55,6 @@ public class GameScreen extends ScreenAdapter{
                 hud,
                 new PlayerShip(),
                 playerControl,
-                new Proximity(),
                 new MasterAI(),
                 new Movement(),
                 new Orbital(),
@@ -126,9 +125,9 @@ public class GameScreen extends ScreenAdapter{
         world.getMapper(Weapons.class).get(ship).pd.clear();
 
         int shippy = ShipFactory.create("Shippy McShipface", "OtherShip", "Standard", 400, -800, 0);
-        int bob = ShipFactory.create("Bob", "OtherShip", "Standard", 650, -800, 165);
+        //int bob = ShipFactory.create("Bob", "OtherShip", "Standard", 650, -800, 165);
         world.getMapper(Weapons.class).get(shippy).main.clear();
-        world.getMapper(Weapons.class).get(bob).main.clear();
+        //world.getMapper(Weapons.class).get(bob).main.clear();
 
         PlayerShip.setTargetID(-1);
         SolarSystemManager.resetWorlds();

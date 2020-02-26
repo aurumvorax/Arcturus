@@ -1,4 +1,4 @@
-package aurumvorax.arcturus.artemis.systems.ai.steering;
+package aurumvorax.arcturus.artemis.systems.ai.pilot;
 
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.PoweredMotion;

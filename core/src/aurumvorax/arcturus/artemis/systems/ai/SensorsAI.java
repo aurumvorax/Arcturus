@@ -5,7 +5,6 @@ import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.Projectile;
 import aurumvorax.arcturus.artemis.components.Sensors;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.math.Vector2;
 
 public class SensorsAI{
 
@@ -15,7 +14,7 @@ public class SensorsAI{
     private static ComponentMapper<Projectile> mProjectile;
 
 
-    public void process(int ship){
+    public void process(int ship){/*
         Sensors s = mSensors.get(ship);
         Faction f = mFaction.get(ship);
 
@@ -42,6 +41,6 @@ public class SensorsAI{
                 if(!f.faction.equals(mFaction.get(mProjectile.get(missile).firedFrom).faction))
                     s.hostileMissiles.add(missile);
             }
-        }
+        }*/
     }
 }

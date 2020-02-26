@@ -1,9 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
-import aurumvorax.arcturus.Utils;
 import aurumvorax.arcturus.artemis.components.*;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.math.Vector2;
 
 
 public class TargetingAI{
@@ -17,7 +15,7 @@ public class TargetingAI{
     private static ComponentMapper<CollisionRadius> mRadius;
 
 
-    public void process(int ship){
+    public void process(int ship){ /*
         Sensors sensors = mSensors.get(ship);
         Weapons weapons = mWeapons.get(ship);
         Vector2 position = mPhysics.get(ship).p;
@@ -99,6 +97,6 @@ public class TargetingAI{
     }
 
     private float evaluateMissile(int target, Vector2 position){
-        return position.dst2(mPhysics.get(target).p);
+        return position.dst2(mPhysics.get(target).p);  */
     }
 }

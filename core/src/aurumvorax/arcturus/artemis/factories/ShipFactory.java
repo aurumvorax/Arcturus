@@ -29,6 +29,7 @@ public enum ShipFactory{
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<Health> mHealth;
     private static ComponentMapper<Faction> mFaction;
+    private static ComponentMapper<AIData> mAI;
 
 
     public static void init(World world){
@@ -46,6 +47,7 @@ public enum ShipFactory{
                 .add(PoweredMotion.class)
                 .add(Sensors.class)
                 .add(Faction.class)
+                .add(AIData.class)
                 .build(world);
     }
 
@@ -87,6 +89,7 @@ public enum ShipFactory{
         h.maxHull = data.hull;
 
         mFaction.get(shipID).faction = "Pirate";
+        mAI.get(shipID).selfID = shipID;
 
 
         equip(shipID, data, loadout);
