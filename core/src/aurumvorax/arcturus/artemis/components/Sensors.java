@@ -9,6 +9,7 @@ public class Sensors extends Component{
     public float visibility = 1.0f;
     public boolean beacon = false;
     public boolean scanForMissiles;
+    public boolean dangerClose;
 
     public IntBag friendlyShips = new IntBag();
     public IntBag neutralShips = new IntBag();
@@ -21,5 +22,7 @@ public class Sensors extends Component{
         neutralShips.clear();
         hostileShips.clear();
         nonfriendlyMissiles.clear();
+
+        dangerClose = false;
     }
 }

@@ -39,36 +39,20 @@
 
 0.3 - Adventure
 
-    - AI Full Build
-        - Behaviours
-            - steering
-            - gunnery
-            - shield (future expansion)
+    - AI
+        - Goal Planner
+        - Threat assessor
+        - Combat tree
+        - Steering behaviours
+        - Gunnery behaviours
 
-        - Combat modes
-            - Withdraw
-            - Engage
-            - Charge
-            - N combatant modes (future expansion)
-
-        - Tactical modes
-            - Threat assessor
-            - Intercept
-            - Evade
-                - Flee
-                - Surrender
-
-        - Strategic Planner
-            - Goal queue
-            - reassesment conditions
-            - planning system
 
     - in depth faction system
     - armour system / shields
-     - pd weapons
-            - target prioritization ai
-            - weapon fire groups
-            - proximity fused weapons
+    - pd weapons
+        - target prioritization ai
+        - weapon fire groups
+        - proximity fused weapons
 
     - minimap
     - animated engines

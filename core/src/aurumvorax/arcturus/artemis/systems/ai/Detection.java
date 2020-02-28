@@ -24,7 +24,6 @@ class Detection{
 
         shipSub = world.getAspectSubscriptionManager().get(Aspect.all(Ship.class, Sensors.class, Physics2D.class));
         missileSub = world.getAspectSubscriptionManager().get(Aspect.all(Missile.class, Physics2D.class));
-
     }
 
     void process(int ship){
@@ -38,7 +37,7 @@ class Detection{
         for(int i = 0; i < shipSub.getEntities().size(); i++){
             int target = shipSub.getEntities().get(i);
 
-            if(!mSensors.has(ship))
+            if(!mSensors.has(ship) || ship == target)
                 return;
 
             if(mSensors.get(target).beacon || isDetectable(pos, s, target))

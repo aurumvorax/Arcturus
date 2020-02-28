@@ -1,14 +1,8 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
 import aurumvorax.arcturus.aiUtree.UtilityTree;
-import aurumvorax.arcturus.artemis.components.AIData;
-import aurumvorax.arcturus.artemis.components.Player;
-import aurumvorax.arcturus.artemis.components.Sensors;
-import aurumvorax.arcturus.artemis.components.Ship;
-import aurumvorax.arcturus.artemis.systems.ai.utree.Evade;
-import aurumvorax.arcturus.artemis.systems.ai.utree.First;
-import aurumvorax.arcturus.artemis.systems.ai.utree.Goals;
-import aurumvorax.arcturus.artemis.systems.ai.utree.Threat;
+import aurumvorax.arcturus.artemis.components.*;
+import aurumvorax.arcturus.artemis.systems.ai.utree.*;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
@@ -21,6 +15,7 @@ public class MasterAI extends IteratingSystem{
     private static ComponentMapper<AIData> mAIData;
 
 
+    @SuppressWarnings("unchecked")
     public MasterAI(){
         super(Aspect.all(Ship.class, AIData.class, Sensors.class).exclude(Player.class));
 
@@ -50,6 +45,9 @@ public class MasterAI extends IteratingSystem{
 
     private UtilityTree buildUTree(){
         return new UtilityTree.Builder(getWorld())
+                .addGroup(new Danger())
+                    .addNode(new Fight())
+                    .buildGroup()
                 .addGroup(new Threat())
                     .addNode(new Evade())
                     .buildGroup()
