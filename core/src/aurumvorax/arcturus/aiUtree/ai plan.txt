@@ -1,63 +1,52 @@
 
-.addGroup(new Combat<>())
-   .addGroup(new Fight<>())
-   .addGroup(new Attack<>())
-       .addNode(new Harass<>())
-       .buildGroup()
-       .addNode(new Breakthrough<>())
-       .addNode(new Fallback<>())
-       .buildGroup()
-   .addNode(new Escape<>())
-   .addGroup(new Defeat<>())
-       .addNode(new Jettison<>())
-       .addNode(new Surrender<>())
-       .addNode(new SuicideCharge<>())
-   .buildGroup()
+* are prioritized options
 
-if(first)
-    goal plan
-
-if(danger)
-    *escape
-        *allies
-        *away
-
-    *fight
-        *attack
-            *circle
-            *charge
-            *allies subgroup
-                *protect
-                *assist
-                *shelter
-            *etc
-        *fallback
-        *harass
-        *breakthrough
-
-    *defeat
-        *dump cargo
-        *full surrender
-        *suicide charge
-
-    *victory
-        *order
-        *kill
-
-if(threat)
-    *evade
-    *intercept
-
-if(item of interest)
-    *salvage
-    *tow
-
-if(comms)
-    *replan
-
-work towards next goal in queue
+*Danger - hostiles close or taking damage
+    Escape - odds of victory * cautiousness of captain * feasible(relative speeds)
+        *Help - nearby allies?
+        Away - get distance, try for goal direction
+    Fight - odds of victory * cautiousness of captain
+        *Pursuit - distance and relative speed
+            - give chase, parting shot(missiles?) before they leave range
+        Attack
+            Circle
+            Charge
+        Fallback - energy low?
+            - maintain distance and recharge(hysteresis)
+        Harass - range disparity?
+            - maintain distance and fire
+        Breakthrough - do we have a desired goal and odds of victory * captain aggressiveness
+            - maintain course, defend self
+    Defeat - odds of victory, can't escape
+        Dump cargo - cargo value, enemy nature
+        Full surrender - cargo value, enemy nature
+        Suicide charge - enemy nature, self nature
+    Victory - odds of victory, enemy slower
+        Order surrender - self nature, potential reward
+        Kill - self nature, potential reward
+*Threat - hostile detected or unknown detected and captain cautious
+    Evade - cautious, estimated odds of victory
+    Intercept - aggressive, estimated odds of victory
+    Ignore - captain personality(aggressive or desperate) and odds of victory
+*Item of Interest - something interesting?
+    Ship - tow, salvage or ignore
+    Lifepods - recover, call for help or ignore
+    Salvage - recover or ignore
+*Comms
+    surrender offers/demands
+    help offers/requests
+Goals - nothing higher priority
+    - work on goal queue
 
 System - on ai tick, update data(sensors, health, etc) in blackboard, then run utree to set behaviours in blackboard
         - on regular tick, run behaviours in blackboard
 
         ie - ai tick detects threat, sets target, sets behaviour to approach with collision avoidance, fire when in range
+
+
+****Odds of victory calculator
+
+pick primary target
+our offence - their defence vs their offence - their defence          weighted by relative range of primary weapons
++ allies threat rating, scaled by distance(closing speeed?)
++ enemies threat rating, scaled by distance(closing speed?)

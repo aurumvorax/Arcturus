@@ -8,7 +8,7 @@ import com.artemis.EntitySubscription;
 import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-class Detection{
+class Detection implements Scheduled{
 
     private static EntitySubscription shipSub;
     private static EntitySubscription missileSub;
@@ -19,14 +19,15 @@ class Detection{
     private static ComponentMapper<Faction> mFaction;
 
 
-    void init(World world){
+    public void init(World world){
         world.inject(this);
 
         shipSub = world.getAspectSubscriptionManager().get(Aspect.all(Ship.class, Sensors.class, Physics2D.class));
         missileSub = world.getAspectSubscriptionManager().get(Aspect.all(Missile.class, Physics2D.class));
     }
 
-    void process(int ship){
+    @Override
+    public void runTask(int ship){
         if(!mSensors.has(ship) || (!mPhysics.has(ship)))
             return;
 

@@ -16,6 +16,7 @@ public class Danger extends Group{
     private static ComponentMapper<Physics2D> mPhysics;
 
 
+    // detected hostiles near/within weapons range or damage taken from another ship
     @Override
     protected float evaluate(AIData bb){
         IntBag hostiles = mSensors.get(bb.selfID).hostileShips;

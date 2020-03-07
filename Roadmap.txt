@@ -34,7 +34,7 @@
         - define fonts
         - font changer/sizer
 
-    - command interface - reference minecraft brigadier
+    - command interface
 
 
 0.3 - Adventure

@@ -10,6 +10,7 @@ public class Threat extends Group{
     private static ComponentMapper<Sensors> mSensors;
 
 
+    // detected hostiles or (detected unknown and captain is cautious)
     @Override
     protected float evaluate(AIData bb){
         if(mSensors.get(bb.selfID).hostileShips.size() > 0) // hostiles detected?
