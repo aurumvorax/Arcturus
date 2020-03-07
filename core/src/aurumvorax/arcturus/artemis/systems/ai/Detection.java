@@ -1,6 +1,5 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
-
 import aurumvorax.arcturus.artemis.components.*;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -8,7 +7,7 @@ import com.artemis.EntitySubscription;
 import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
-class Detection{
+class Detection implements Scheduled{
 
     private static EntitySubscription shipSub;
     private static EntitySubscription missileSub;
@@ -19,14 +18,15 @@ class Detection{
     private static ComponentMapper<Faction> mFaction;
 
 
-    void init(World world){
+    public void init(World world){
         world.inject(this);
 
         shipSub = world.getAspectSubscriptionManager().get(Aspect.all(Ship.class, Sensors.class, Physics2D.class));
         missileSub = world.getAspectSubscriptionManager().get(Aspect.all(Missile.class, Physics2D.class));
     }
 
-    void process(int ship){
+    @Override
+    public void runTask(int ship){
         if(!mSensors.has(ship) || (!mPhysics.has(ship)))
             return;
 
@@ -40,8 +40,10 @@ class Detection{
             if(!mSensors.has(ship) || ship == target)
                 return;
 
-            if(mSensors.get(target).beacon || isDetectable(pos, s, target))
+            if(mSensors.get(target).beacon || isDetectable(pos, s, target)){
                 sortShip(ship, s, target);
+            }
+
         }
 
         for(int i = 0; i < missileSub.getEntities().size(); i++){
@@ -52,6 +54,7 @@ class Detection{
 
             float dst2 = pos.dst2(mPhysics.get(target).p);
             if((s.sensorPower * s.sensorPower) > dst2)
+                // check for missile owner
                 s.nonfriendlyMissiles.add(target);
         }
     }

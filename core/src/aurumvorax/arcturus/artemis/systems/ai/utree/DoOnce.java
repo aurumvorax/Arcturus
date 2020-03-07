@@ -3,10 +3,9 @@ package aurumvorax.arcturus.artemis.systems.ai.utree;
 import aurumvorax.arcturus.aiUtree.Node;
 import aurumvorax.arcturus.artemis.components.AIData;
 
-public class First extends Node{
+public class DoOnce extends Node{
 
     private boolean first = true;
-
 
     @Override
     protected float evaluate(AIData bb){
@@ -22,6 +21,6 @@ public class First extends Node{
     public void execute(AIData bb){
         System.out.println("FIRST");
     }
-
+        // run the long term planner
 
 }

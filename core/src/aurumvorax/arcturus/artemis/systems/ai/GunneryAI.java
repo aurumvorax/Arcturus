@@ -72,7 +72,7 @@ public class GunneryAI{
         if(mBeam.has(weapon)){
             t.targetPosition.set(targetPhysics.p);
 
-            float range = mBeam.get(weapon).maxRange;
+            float range = mBeam.get(weapon).range;
             if(dst2 > range * range){
                 t.target = -1;
                 return;

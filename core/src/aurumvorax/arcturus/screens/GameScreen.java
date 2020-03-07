@@ -9,7 +9,7 @@ import aurumvorax.arcturus.artemis.components.Player;
 import aurumvorax.arcturus.artemis.components.Weapons;
 import aurumvorax.arcturus.artemis.factories.*;
 import aurumvorax.arcturus.artemis.systems.*;
-import aurumvorax.arcturus.artemis.systems.ai.MasterAI;
+import aurumvorax.arcturus.artemis.systems.ai.AIScheduler;
 import aurumvorax.arcturus.artemis.systems.ai.missile.MissileAI;
 import aurumvorax.arcturus.artemis.systems.collision.Collision;
 import aurumvorax.arcturus.artemis.systems.collision.Selection;
@@ -55,7 +55,7 @@ public class GameScreen extends ScreenAdapter{
                 hud,
                 new PlayerShip(),
                 playerControl,
-                new MasterAI(),
+                new AIScheduler(),
                 new Movement(),
                 new Orbital(),
                 new WeaponsUpdate(),
@@ -75,7 +75,6 @@ public class GameScreen extends ScreenAdapter{
         ProjectileFactory.init(world);
         EffectFactory.init(world);
         StellarFactory.init(world);
-
 
         inputMUX = new InputMultiplexer();
         inputMUX.addProcessor(hud.getInputProcessor());
