@@ -37,7 +37,7 @@ public class Selection extends BaseSystem{
                 CollisionRadius.class));
 
         missiles = world.getAspectSubscriptionManager().get(Aspect.all(
-                Missile.class,
+                MissileTargeting.class,
                 Physics2D.class,
                 CollisionRadius.class));
 

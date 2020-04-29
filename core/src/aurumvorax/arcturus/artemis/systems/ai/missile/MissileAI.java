@@ -1,7 +1,7 @@
 package aurumvorax.arcturus.artemis.systems.ai.missile;
 
 import aurumvorax.arcturus.Utils;
-import aurumvorax.arcturus.artemis.components.Missile;
+import aurumvorax.arcturus.artemis.components.MissileTargeting;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import com.artemis.Aspect;
@@ -14,20 +14,20 @@ public class MissileAI extends IteratingSystem{
     private static Vector2 deltaP = new Vector2();
     private static Vector2 deltaV = new Vector2();
 
-    private static ComponentMapper<Missile> mMissile;
+    private static ComponentMapper<MissileTargeting> mMissile;
     private static ComponentMapper<PoweredMotion> mPowered;
     private static ComponentMapper<Physics2D> mPhysics;
 
 
     public MissileAI(){
-        super(Aspect.all(Missile.class, PoweredMotion.class, Physics2D.class));
+        super(Aspect.all(MissileTargeting.class, PoweredMotion.class, Physics2D.class));
     }
 
     @Override
     protected void process(int entityId){
         PoweredMotion pm = mPowered.get(entityId);
         Physics2D pMissile = mPhysics.get(entityId);
-        Missile m = mMissile.get(entityId);
+        MissileTargeting m = mMissile.get(entityId);
 
         pm.accel.set(pm.thrust, 0).rotate(pMissile.theta);
 

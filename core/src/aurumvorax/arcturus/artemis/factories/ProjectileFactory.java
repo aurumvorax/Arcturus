@@ -19,7 +19,7 @@ public enum ProjectileFactory{
     private static ComponentMapper<SimpleSprite> mSprite;
     private static ComponentMapper<Ephemeral> mEphemeral;
     private static ComponentMapper<CollisionRadius> mRadius;
-    private static ComponentMapper<Missile> mMissile;
+    private static ComponentMapper<MissileTargeting> mMissile;
     private static ComponentMapper<Weapons> mWeapons;
     private static ComponentMapper<PoweredMotion> mPowered;
     private static ComponentMapper<Trail> mTrail;
@@ -38,7 +38,7 @@ public enum ProjectileFactory{
                 .build(world);
         protoMissile = new ArchetypeBuilder(protoBullet)
                 .add(PoweredMotion.class)
-                .add(Missile.class)
+                .add(MissileTargeting.class)
                 .build(world);
     }
 
@@ -57,7 +57,7 @@ public enum ProjectileFactory{
         int missile = world.create(protoMissile);
         buildProjectile(missile, data, x, y, t, firedFrom);
 
-        Missile m = mMissile.get(missile);
+        MissileTargeting m = mMissile.get(missile);
         m.engineDuration = data.engineDuration;
         m.target = target;
 
@@ -67,16 +67,6 @@ public enum ProjectileFactory{
 
         EffectFactory.createTrail(data.trailName, missile, data.trailOffset);
         return missile;
-    }
-
-    static void setWeaponData(Cannon c, String type){
-        ProjectileData data = EntityData.getProjectileData(type);
-        c.speed = data.speed;
-        c.duration = data.duration;
-
-        if(c instanceof Launcher){
-            ((Launcher) c).missileTurnRate = data.turnRate;
-        }
     }
 
     private static void buildProjectile(int projectile, ProjectileData data, float x, float y, float t, int firedFrom){

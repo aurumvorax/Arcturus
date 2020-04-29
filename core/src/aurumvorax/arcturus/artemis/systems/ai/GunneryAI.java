@@ -22,7 +22,7 @@ public class GunneryAI{
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<CollisionRadius> mRadius;
     private static ComponentMapper<Ship> mShip;
-    private static ComponentMapper<Missile> mMissile;
+    private static ComponentMapper<MissileTargeting> mMissile;
 
     private static ComponentMapper<Beam> mBeam;
     private static ComponentMapper<Cannon> mCannon;

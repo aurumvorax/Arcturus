@@ -14,7 +14,7 @@ public class Turret extends Component{
     public float sweepMin;
     public float sweepMax;
 
-    public boolean fire = true;
+    public boolean fire = false;
     public int target = -1;
 
     public transient Vector2 targetPosition = new Vector2();
