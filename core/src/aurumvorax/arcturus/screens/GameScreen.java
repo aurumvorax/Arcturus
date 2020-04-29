@@ -51,6 +51,7 @@ public class GameScreen extends ScreenAdapter{
                 new AnimatedRenderer(batcher),
                 new BeamRenderer(batcher),
                 new TrailRenderer(batcher),
+                new DebugRenderer(batcher),
                 worldCam,
                 hud,
                 new PlayerShip(),

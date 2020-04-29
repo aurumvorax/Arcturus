@@ -39,6 +39,23 @@
 
 0.3 - Adventure
 
+    - DebugRenderer - able to render little dots at specified positions
+
+    - Threat Calculator
+        - store offence, defence, speed, range
+        - give weapons threat ratings (effective combat DPS) in JSON
+
+        - match estimator
+            compare offence to defence to get TTK, compare TTKs
+            speed difference and range difference factored as scalar
+
+    - Strat with combat tree - ignore all the other stuff for now.
+    - make basic attack mode -  maintain distance + gunnery(kill tha thing) + collision avoidance
+    -  then add circle strafing
+    - facing
+    - 3 state lists(chosen by tree node) gunnery, facing & piloting
+    set up combat nodes to call behaviours with self, target data from aidata
+
     - AI
         - Goal Planner
         - Threat assessor
@@ -86,6 +103,7 @@ LONG TERM
     - add start icon for game
 
 BUGS/Tweaks
+    - Move EntityData into factory package
     - sometimes ship position stutters if shiptype is othership. - Not observed since 0.1
     - launched projectiles do not appear in the right place when the ship is moving - lerp their start position?
     - hull damage is not extracted/inserted

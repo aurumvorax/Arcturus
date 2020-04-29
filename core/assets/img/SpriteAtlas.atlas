@@ -4,107 +4,114 @@ size: 512,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+MapIcon
+  rotate: false
+  xy: 0, 9
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 NoTexture
   rotate: false
-  xy: 262, 281
+  xy: 262, 306
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Contrail
   rotate: false
-  xy: 132, 231
+  xy: 132, 256
   size: 128, 16
   orig: 128, 16
   offset: 0, 0
   index: -1
 TestSmoke
   rotate: false
-  xy: 0, 399
+  xy: 0, 424
   size: 400, 50
   orig: 400, 50
   offset: 0, 0
   index: -1
 TestSmoke2
   rotate: false
-  xy: 0, 347
+  xy: 0, 372
   size: 400, 50
   orig: 400, 50
   offset: 0, 0
   index: -1
 Missile1
   rotate: false
-  xy: 468, 442
+  xy: 262, 297
   size: 15, 7
   orig: 15, 7
   offset: 0, 0
   index: -1
 TestBeam
   rotate: false
-  xy: 328, 338
+  xy: 0, 0
   size: 6, 7
   orig: 6, 7
   offset: 0, 0
   index: -1
 TestBullet
   rotate: false
-  xy: 262, 271
+  xy: 328, 362
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 ConcaveTest
   rotate: false
-  xy: 132, 249
+  xy: 132, 274
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 TestShip
   rotate: false
-  xy: 0, 18
+  xy: 0, 43
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 Moon1
   rotate: false
-  xy: 402, 385
+  xy: 402, 410
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Planet1
   rotate: false
-  xy: 0, 214
+  xy: 0, 239
   size: 130, 131
   orig: 130, 131
   offset: 0, 0
   index: -1
 Star1
   rotate: false
-  xy: 0, 84
+  xy: 0, 109
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 Launcher1
   rotate: false
-  xy: 132, 220
+  xy: 132, 245
   size: 16, 9
   orig: 16, 9
   offset: 0, 0
   index: -1
 MultiBarrel
   rotate: false
-  xy: 0, 0
+  xy: 402, 392
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 TestTurret
   rotate: false
-  xy: 402, 367
+  xy: 468, 458
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
