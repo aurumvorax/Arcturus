@@ -1,9 +1,9 @@
 package aurumvorax.arcturus.artemis.systems.ai;
 
 import aurumvorax.arcturus.aiUtree.ScheduledUTree;
-import aurumvorax.arcturus.aiUtree.UtilityTree;
 import aurumvorax.arcturus.artemis.components.AIData;
 import aurumvorax.arcturus.artemis.components.Player;
+import aurumvorax.arcturus.artemis.systems.ai.pilot.Steer;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
@@ -20,7 +20,6 @@ public class AIScheduler extends BaseEntitySystem{
     private IntBag ids = new IntBag();
     private IntBag removed = new IntBag();
     private Array<Scheduled> tasks = new Array<>();
-    private UtilityTree utree;
     private int frame;
     private int groupSize;
 
@@ -35,10 +34,10 @@ public class AIScheduler extends BaseEntitySystem{
 
     @Override
     public void initialize(){
+        new Steer(world);   // Artemis DI for all steering behaviours
 
-        // tasks.add(new Detection());
-        // etc
         tasks.add(new Detection());
+        tasks.add(new ThreatCalculator());
         tasks.add(new ScheduledUTree());
 
         for(Scheduled t : tasks)
@@ -48,9 +47,9 @@ public class AIScheduler extends BaseEntitySystem{
     @Override
     protected void processSystem(){
         if(frame == 0){
-            for(int i = 0; i < removed.size(); i++){
+            for(int i = 0; i < removed.size(); i++)
                 ids.removeValue(removed.get(i));
-            }
+
             removed.clear();
 
             groupSize = Math.max(1, ids.size() / (SPREAD - 1));

@@ -4,7 +4,9 @@ import com.artemis.World;
 
 public interface Scheduled{
 
-    void init(World world);
+    default void init(World world){
+        world.inject(this);
+    }
 
     void runTask(int entityId);
 }

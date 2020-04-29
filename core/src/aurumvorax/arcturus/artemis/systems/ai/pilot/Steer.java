@@ -6,23 +6,18 @@ import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
 public class Steer{
-    private static Steer INSTANCE =  new Steer();
-    private Steer(){} // Single static class with DI/callback
 
     private static Vector2 steer = new Vector2();
 
     private static ComponentMapper<PoweredMotion> mPowered;
 
-    public static void initialize(World world){
-        world.inject(INSTANCE);
-        Arrive.initialize(world);
-//        AvoidCollision.initialize(world);
-        Face.initialize(world);
-        MaintainDistance.initialize(world);
-        Seek.initialize(world);
- //       Separation.initialize(world);
-        Stop.initialize(world);
 
+    public Steer(World world){
+        world.inject(this);
+        world.inject(new Face());
+        world.inject(new Stop());
+        world.inject(new Arrive());
+        world.inject(new MaintainDistance());
     }
 
     public static void execute(int owner, Vector2 course, float helm){

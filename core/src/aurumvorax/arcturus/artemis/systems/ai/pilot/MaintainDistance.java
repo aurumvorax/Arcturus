@@ -3,12 +3,9 @@ package aurumvorax.arcturus.artemis.systems.ai.pilot;
 import aurumvorax.arcturus.artemis.components.Physics2D;
 import aurumvorax.arcturus.artemis.components.PoweredMotion;
 import com.artemis.ComponentMapper;
-import com.artemis.World;
 import com.badlogic.gdx.math.Vector2;
 
 public class MaintainDistance{
-    private static MaintainDistance INSTANCE = new MaintainDistance();
-    private MaintainDistance(){} // Single static class with DI/callback
 
     private static final float MARGIN = 10f;
     private static Vector2 destination = new Vector2();
@@ -17,7 +14,6 @@ public class MaintainDistance{
     private static ComponentMapper<Physics2D> mPhysics;
     private static ComponentMapper<PoweredMotion> mPowered;
 
-    public static void initialize(World world){ world.inject(INSTANCE); }
 
     public static Vector2 calc(int owner, int target, float distance){
         if(!mPhysics.has(target))
@@ -26,9 +22,9 @@ public class MaintainDistance{
         Physics2D ownerP = mPhysics.get(owner);
         Physics2D targetP = mPhysics.get(target);
 
-
-        destination.set(0,distance);
-        destination.setAngle(targetP.p.angle(ownerP.p)).add(targetP.p);
+        destination.set(ownerP.p).sub(targetP.p);
+        destination.setLength(distance);
+        destination.add(targetP.p);
         float difference = ownerP.p.dst(destination);
 
         if(difference <= MARGIN)
