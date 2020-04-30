@@ -8,6 +8,7 @@
 		barrels: [{x: 3, y: 0}],
 		launches: "TestMissile",
 		delay: 0,
-		reload: 0.8
+		reload: 0.8,
+		threat: 12
 	}
 }

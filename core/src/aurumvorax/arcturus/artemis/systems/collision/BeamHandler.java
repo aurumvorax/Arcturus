@@ -18,7 +18,7 @@ public class BeamHandler implements CollisionHandler{
         for(int i = 0; i < beams.size(); i++){
             if(mBeam.has(i)){
                 Beam b = mBeam.get(beams.get(i));
-                b.length = b.maxRange;
+                b.length = b.range;
             }
         }
 

@@ -60,7 +60,8 @@ public enum WeaponFactory{
                 c.burstTime = data.delay;
                 c.reloadTime = data.reload;
                 c.barrels = data.barrels;
-                ProjectileFactory.setWeaponData(c, data.launches);
+                setCannonData(c, data.launches);
+                c.threat = data.threat;
                 return cannon;
 
             case BEAM:
@@ -71,9 +72,10 @@ public enum WeaponFactory{
                 b.slot = slot;
                 b.imgName = data.beamImgName;
                 b.offsetY = data.beamImgCenter.y;
-                b.maxRange = data.range;
+                b.range = data.maxRange;
                 b.barrels = data.barrels;
                 b.dps = data.dps;
+                b.threat = data.threat;
                 return beam;
 
             case LAUNCHER:
@@ -86,7 +88,8 @@ public enum WeaponFactory{
                 l.burstTime = data.delay;
                 l.reloadTime = data.reload;
                 l.barrels = data.barrels;
-                ProjectileFactory.setWeaponData(l, data.launches);
+                l.threat = data.threat;
+                setCannonData(l, data.launches);
                 return launcher;
 
             default:
@@ -122,5 +125,15 @@ public enum WeaponFactory{
         Turret t = mTurret.get(entityID);
         t.omegaMax = data.rotationSpeed;
         t.setArcs(mount.angle, mount.arc);
+    }
+
+    private static void setCannonData(Cannon c, String type){
+        ProjectileData data = EntityData.getProjectileData(type);
+        c.speed = data.speed;
+        c.range = data.speed * data.duration;
+
+        if(c instanceof Launcher){
+            ((Launcher) c).missileTurnRate = data.turnRate;
+        }
     }
 }

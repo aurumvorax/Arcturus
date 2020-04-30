@@ -26,7 +26,7 @@ class TestBeam{
             return false;
 
         float distance2 = mPhysics.get(entityID).p.dst2(mMounted.get(beamID).position);  // Range check
-        float maxRange = mBeam.get(beamID).maxRange + mRadius.get(entityID).radius;
+        float maxRange = mBeam.get(beamID).range + mRadius.get(entityID).radius;
         return (distance2 <= (maxRange * maxRange));
     }
 
@@ -45,7 +45,7 @@ class TestBeam{
                 return;
 
             m.penetration[0] = (float) Math.sqrt((radius * radius) - (cross * cross));
-            if((dot - m.penetration[0]) > b.maxRange)     // Beam falls short
+            if((dot - m.penetration[0]) > b.range)     // Beam falls short
                 return;
 
             if(b.length > dot - m.penetration[0]){
@@ -58,7 +58,7 @@ class TestBeam{
                 m.reset();
 
         }else{       // Polygon - Segment
-            beam.set(b.unitBeam).scl(b.maxRange);
+            beam.set(b.unitBeam).scl(b.range);
             m.contacts = 0;
             float bestT = Float.MAX_VALUE;
             Vector2 bestOffset = new Vector2(0, 0);
@@ -90,9 +90,9 @@ class TestBeam{
             if(m.contacts == 0)         // no intersect found
                 return;
 
-            if(b.length > b.maxRange * bestT){
-                b.length = (b.maxRange * bestT);
-                m.penetration[0] = b.maxRange - b.length;
+            if(b.length > b.range * bestT){
+                b.length = (b.range * bestT);
+                m.penetration[0] = b.range - b.length;
                 contact.set(beam).scl(bestT).add(b.origin);
                 m.contactPoints.add(contact);
 

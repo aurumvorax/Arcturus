@@ -8,6 +8,7 @@
  		barrels: [{x: 8, y: 0}],
  		launches: "TestBullet",
  		delay: 0,
- 		reload: 0.1
+ 		reload: 0.1,
+ 		threat: 10
  	}
  }

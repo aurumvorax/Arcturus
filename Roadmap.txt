@@ -39,8 +39,6 @@
 
 0.3 - Adventure
 
-    - DebugRenderer - able to render little dots at specified positions
-
     - Threat Calculator
         - store offence, defence, speed, range
         - give weapons threat ratings (effective combat DPS) in JSON
@@ -49,9 +47,9 @@
             compare offence to defence to get TTK, compare TTKs
             speed difference and range difference factored as scalar
 
-    - Strat with combat tree - ignore all the other stuff for now.
+    - Start with combat tree - ignore all the other stuff for now.
     - make basic attack mode -  maintain distance + gunnery(kill tha thing) + collision avoidance
-    -  then add circle strafing
+    - then add circle strafing
     - facing
     - 3 state lists(chosen by tree node) gunnery, facing & piloting
     set up combat nodes to call behaviours with self, target data from aidata
@@ -72,6 +70,7 @@
         - proximity fused weapons
 
     - minimap
+    - refactor beams to allow for pulsed operation, tachyon lance, etc
     - animated engines
     - new inventory items - engines, armour, missiles, etc
     - add money to inventory system
@@ -87,6 +86,7 @@
     - graphics and effects overhaul
          - graphics improvements to beam, explosions on hit, etc
          - 3d planets
+
     - sound
 
 

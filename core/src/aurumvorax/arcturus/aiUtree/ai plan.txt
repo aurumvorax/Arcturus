@@ -47,6 +47,8 @@ System - on ai tick, update data(sensors, health, etc) in blackboard, then run u
 ****Odds of victory calculator
 
 pick primary target
-our offence - their defence vs their offence - their defence          weighted by relative range of primary weapons
-+ allies threat rating, scaled by distance(closing speeed?)
+our offence - their defence vs their offence - their defence          weighted by relative range of primary weapons and relative manouverability
++ allies threat rating, scaled by distance(closing speed?)
 + enemies threat rating, scaled by distance(closing speed?)
+
+(aSum(offence) + sum(defence)) * weapon range scalar * manouverability scalar

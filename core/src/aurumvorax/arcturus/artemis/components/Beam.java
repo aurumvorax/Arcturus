@@ -11,12 +11,11 @@ public class Beam extends Weapon{
     public Renderer.Layer layer = Renderer.Layer.EFFECT;
 
     public float length;
-    public float maxRange;
+    public float dps;
     public boolean active = false;
     public Vector2 origin = new Vector2();
     public Vector2 unitBeam = new Vector2(1, 0);
     public Array<Vector2> barrels;
-    public float dps;
 
     public Vector2 contactPoint = new Vector2();
     public int contact;

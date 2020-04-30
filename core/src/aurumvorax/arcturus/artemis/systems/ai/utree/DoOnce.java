@@ -19,7 +19,8 @@ public class DoOnce extends Node{
 
     @Override
     public void execute(AIData bb){
-        System.out.println("FIRST");
+        if(first)
+            System.out.println("FIRST");
     }
         // run the long term planner
 

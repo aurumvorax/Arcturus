@@ -39,10 +39,10 @@ public class EntityData{
                     effects.put(effectWrapper.name, effectWrapper.data);
                     Gdx.app.debug("INIT", "Registered effect - " + effectWrapper.name);
                 }else
-                    throw new SerializationException("Invalid or incomplete data file");
+                    throw new SerializationException();
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to contact effect - " + fileName, e);
+                Gdx.app.error("EntityData", "Error registering ship - " + fileName, e);
             }
         }
 
@@ -55,10 +55,10 @@ public class EntityData{
                     ships.put(shipWrapper.name, shipWrapper.data);
                     Gdx.app.debug("INIT", "Registered ship - " + shipWrapper.name);
                 }else
-                    throw new SerializationException("Invalid or incomplete data file");
+                    throw new SerializationException();
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to contact ship - " + fileName);
+                Gdx.app.error("EntityData", "Error registering ship - " + fileName);
             }
         }
 
@@ -71,10 +71,10 @@ public class EntityData{
                     weapons.put(weaponWrapper.name, weaponWrapper.data);
                     Gdx.app.debug("INIT", "Registered Weapon - " + weaponWrapper.name);
                 }else
-                    throw new SerializationException("Invalid or incomplete data file");
+                    throw new SerializationException();
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to contact weapon - " + fileName);
+                Gdx.app.error("EntityData", "Error registering weapon - " + fileName);
             }
         }
 
@@ -86,10 +86,10 @@ public class EntityData{
                     projectiles.put(projectileWrapper.name, projectileWrapper.data);
                     Gdx.app.debug("INIT", "Registered Projectile - " + projectileWrapper.name);
                 }else
-                    throw new SerializationException("Invalid or incomplete data file");
+                    throw new SerializationException();
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to contact projectile - " + fileName);
+                Gdx.app.error("EntityData", "Error registering projectile - " + fileName);
             }
         }
 
@@ -101,10 +101,10 @@ public class EntityData{
                     systems.put(systemWrapper.name, systemWrapper.data);
                     Gdx.app.debug("INIT", "Registered Celestial Body - " + systemWrapper.name);
                 }else
-                    throw new SerializationException("Invalid of incomplete data file");
+                    throw new SerializationException();
 
             }catch(SerializationException e){
-                Gdx.app.error("EntityData", "Unable to contact system - " + fileName);
+                Gdx.app.error("EntityData", "Error registering system - " + fileName);
             }
         }
     }

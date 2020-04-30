@@ -12,6 +12,6 @@ public class Evade extends Node{
 
     @Override
     public void execute(AIData bb){
-        System.out.println("Threat!");
+    //    System.out.println("Threat!");
     }
 }

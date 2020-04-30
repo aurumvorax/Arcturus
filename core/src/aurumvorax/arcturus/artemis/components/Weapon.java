@@ -7,4 +7,6 @@ public abstract class Weapon extends Component{
 
     public String name;
     public int slot;
+    public float range;
+    public float threat;
 }

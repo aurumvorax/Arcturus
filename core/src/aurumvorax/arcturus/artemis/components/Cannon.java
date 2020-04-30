@@ -11,6 +11,5 @@ public class Cannon extends Weapon{
     public float reloadTime;
     public int barrel = 0;
     public Array<Vector2> barrels;
-    public float duration;
     public float speed;
 }

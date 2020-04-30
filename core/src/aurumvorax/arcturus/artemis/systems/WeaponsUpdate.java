@@ -88,7 +88,7 @@ public class WeaponsUpdate extends IteratingSystem{
         b.unitBeam.setAngle(m.theta);
 
         if(t.fire){
-            b.length = b.maxRange;
+            b.length = b.range;
             b.origin.set(b.barrels.get(0)).rotate(m.theta).add(m.position);
             b.active = true;
             return;

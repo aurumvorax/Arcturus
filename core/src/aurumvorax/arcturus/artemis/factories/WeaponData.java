@@ -11,6 +11,7 @@ public class WeaponData{
     public Vector2 imgCenter;
     float rotationSpeed;
     Array<Vector2> barrels;
+    float threat;
 
     // Specific to Cannons and Launchers
     String launches;
@@ -20,7 +21,7 @@ public class WeaponData{
     // Specific to Beams
     String beamImgName;
     Vector2 beamImgCenter;
-    float range;
+    float maxRange;
     float dps;
 
     public enum Type{
@@ -45,7 +46,7 @@ public class WeaponData{
         if(data.type == Type.BEAM){
             return (data.beamImgName != null &&
                     data.beamImgCenter != null &&
-                    data.range > 0);
+                    data.maxRange > 0);
         }
 
         return false;

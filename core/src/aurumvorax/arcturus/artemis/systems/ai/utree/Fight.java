@@ -2,6 +2,9 @@ package aurumvorax.arcturus.artemis.systems.ai.utree;
 
 import aurumvorax.arcturus.aiUtree.Node;
 import aurumvorax.arcturus.artemis.components.AIData;
+import aurumvorax.arcturus.artemis.systems.ai.pilot.Face;
+import aurumvorax.arcturus.artemis.systems.ai.pilot.MaintainDistance;
+import aurumvorax.arcturus.artemis.systems.ai.pilot.Steer;
 
 public class Fight extends Node{
 
@@ -12,6 +15,6 @@ public class Fight extends Node{
 
     @Override
     public void execute(AIData bb){
-        System.out.println("Danger!");
+        Steer.execute(bb.selfID, MaintainDistance.calc(bb.selfID, bb.targetID, 200f), Face.target(bb.selfID, bb.targetID));
     }
 }
