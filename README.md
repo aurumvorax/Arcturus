@@ -1,6 +1,6 @@
 # Arcturus
 
-I'm learning how to write a game by writing a game. This is that game.
+I'm learning how to write a game by writing a game. This was that game.  The branches in active development are now private, but this repository will remain for archival and educational purposes.
 
 Copyright aurumvorax 2017
 
